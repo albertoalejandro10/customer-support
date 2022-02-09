@@ -1,0 +1,31 @@
+{
+  "name": "customer-support",
+  "version": "1.0.0",
+  "description": "form for custom-support ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "prebuild": "npx rimraf build",
+    "build": "parcel build --public-url ./ ./src/index.html --experimental-scope-hoisting --out-dir build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertoalejandro10/customer-support.git"
+  },
+  "keywords": [
+    "support",
+    "customer"
+  ],
+  "author": "softsystems.com.ar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albertoalejandro10/customer-support/issues"
+  },
+  "homepage": "https://github.com/albertoalejandro10/customer-support#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  },
+  "devDependencies": {
+    "sass": "^1.49.7"
+  }
+}
