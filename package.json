@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/albertoalejandro10/customer-support#readme",
   "dependencies": {
-    "bootstrap": "^5.1.3"
+    "bootstrap": "^4.6.1",
+    "bootstrap-select": "^1.13.18"
   },
   "devDependencies": {
     "sass": "^1.49.7"

@@ -3,37 +3,95 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../scss/main.scss">
     <link rel="shortcut icon" href="../assets/images/logo-full-title.png" type="image/x-icon">
+    <link rel="stylesheet" href="../scss/main.scss">
+    <link rel="stylesheet" href="../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
     <title>Atención al cliente</title>
   </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-light bg-light p-3">
-        <div class="container justify-content-between">
-          <h1 class="fs-4 fw-bold text-primary">Servicios del cliente</h1>
-          <img src="../assets/images/logo-full-title.png" alt="logo-compañia" width="120" height="60">
-        </div>
-      </nav>
-    </header>
-    <main>
-      <div class="container-fluid">
-        <div class="container">
-          <div class="row g-3">
-            <div class="col-sm-7">
-              <input type="text" class="form-control" placeholder="City" aria-label="City">
-            </div>
-            <div class="col-sm">
-              <input type="text" class="form-control" placeholder="State" aria-label="State">
-            </div>
-            <div class="col-sm">
-              <input type="text" class="form-control" placeholder="Zip" aria-label="Zip">
-            </div>
+  <header>
+    <nav class="navbar navbar-light bg-light p-3">
+      <div class="container justify-content-between">
+        <h1 class="h4 fw-bold text-primary">Servicios del cliente</h1>
+        <img src="../assets/images/logo-full-title.png" alt="logo-compañia" width="120" height="60">
+      </div>
+    </nav>
+  </header>
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="container w-auto h-100 bg-dark mt-4 p-4 shadow-lg rounded">
+        <div class="row">
+          <div class="col-6 d-flex font-weight-bold align-items-center justify-content-end">
+            <label for="clientes" class="text-light ">Cliente: &nbsp;</label>
+            <select id="clientes" class="selectpicker" title="Seleccionar un cliente" data-live-search="true" data-style="btn-light">
+              <option value="1">Carlos Chaves</option>
+              <option value="2">Alberto Nunez</option>
+              <option value="3">Carles Puyol</option>
+              <option value="4">Gerard Pique</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-primary">Actualizar</button>
+            <button type="button" class="btn btn-success">Nuevo</button>
           </div>
         </div>
+        <div class="row mt-2">
+          <div class="col">
+            <h5 class="font-weight-lighter text-primary">Actividades</h5>
+            <table class="table table-sm table-striped table-borderless table-hover table-dark">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Detalle</th>
+                  <th class="text-right">Vencimiento</th>
+                  <th class="text-right">Cantidad</th>
+                  <th class="text-right">Importe neto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>0028</th>
+                  <td>BASE HISTORICA</td>
+                  <td class="text-right">31/12/2025</td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">1.114,42</td>
+                </tr>
+                <tr>
+                  <th>0004</th>
+                  <td>EQUIPOS PUNTO DE VENTA</td>
+                  <td class="text-right">31/12/2025</td>
+                  <td class="text-right">56</td>
+                  <td class="text-right">28.366,97</td>
+                </tr>
+                <tr>
+                  <th>0008</th>
+                  <td>MODULO FACTURACION ELECTRONICA</td>
+                  <td class="text-right">31/12/2025</td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">4.052,42</td>
+                </tr>
+                <tr>
+                  <th>0007</th>
+                  <td>MODULO INVENTARIO</td>
+                  <td class="text-right">31/12/2025</td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">2.836,70</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>&nbsp</td>
+                  <td class="font-weight-bolder text-success bg-light rounded" colspan="3">TOTAL</td>
+                  <td class="text-right bg-success rounded">1.000.000,50</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <!-- Code for form footer -->
+        </div>
       </div>
-    </main>
-
+    </div>
+    </div>
     <script src="./index.js"></script>
-  </body>
 </html>
