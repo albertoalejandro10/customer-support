@@ -2,11 +2,10 @@
   "name": "customer-support",
   "version": "1.0.0",
   "description": "form for custom-support ",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./ ./src/index.html --experimental-scope-hoisting --out-dir build"
+    "build": "parcel build --public-url ./ ./src/index.html --out-dir build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,7 @@
     "bootstrap-select": "^1.13.18"
   },
   "devDependencies": {
+    "cssnano": "^4.1.11",
     "sass": "^1.49.7"
   }
 }
