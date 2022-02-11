@@ -1,12 +1,16 @@
 // $body-bg: rgb(255, 255, 255);
 // $body-color: white;
 // $primary: green;
-$font-family-sans-serif: 'Poppins', sans-serif;
+@import "custom-variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 * {
-    box-sizing: content-box;
+    font-size: 14px;
 }
 
 h1,
@@ -14,18 +18,79 @@ label {
     margin-bottom: 0px;
 }
 
-.selectpicker,
-.selectpicker option {
-    border: none;
-    background-color: white;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance : none;
-    color: #14B1B2;
-    font-weight: bold;
-    font-size: 30px;
-    margin: 0;
-    padding-left: 0;
-    margin-top: -20px;
-    background: none;
+.wrapper {
+    margin-top: 100px;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.fas {
+    margin-right: 6px;
+}
+
+.row {
+    &.form-top {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+    &.form-middle {
+        background-color: #e1e1e1;
+        border: 0.5px solid #b7b7b7;
+    }
+    &.form-bottom {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+}
+
+.bootstrap-select {
+    margin-right: 24px;
+}
+
+.table-sm th, .table-sm td {
+    padding: 0.2rem;
+}
+
+.table-sm th {
+    &:first-child {
+        width: 8%;
+        border: 0.4px solid #D5D5D5;
+    }
+    &:nth-child(2) {
+        width: 56%;
+        border: 0.4px solid #D5D5D5;
+    }
+    &:nth-child(3) {
+        text-align: right;
+        width: 10%;
+        border: 0.4px solid #D5D5D5;
+    }
+    &:nth-child(4) {
+        text-align: right;
+        width: 10%;
+        border: 0.4px solid #D5D5D5;
+    }
+    &:last-child {
+        text-align: right;
+        width: 16%;
+        border: 0.4px solid #D5D5D5;
+    }
+}
+
+.table-sm td {
+    &:first-child {
+        text-align: center;
+    }
+    &:nth-child(3) {
+        text-align: right;
+    }
+    &:nth-child(4) {
+        text-align: right;
+    }
+    &:last-child {
+        text-align: right;
+    }
 }

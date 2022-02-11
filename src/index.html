@@ -6,92 +6,98 @@
     <link rel="shortcut icon" href="../assets/images/logo-full-title.png" type="image/x-icon">
     <link rel="stylesheet" href="../scss/main.scss">
     <link rel="stylesheet" href="../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <title>Atención al cliente</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <title>Servicios del cliente</title>
   </head>
-  <header>
-    <nav class="navbar navbar-light bg-light p-3">
-      <div class="container justify-content-between">
-        <h1 class="h4 fw-bold text-primary">Servicios del cliente</h1>
-        <img src="../assets/images/logo-full-title.png" alt="logo-compañia" width="120" height="60">
-      </div>
-    </nav>
-  </header>
-  <div class="wrapper">
-    <div class="container-fluid">
-      <div class="container w-auto h-100 bg-dark mt-4 p-4 shadow-lg rounded">
-        <div class="row">
-          <div class="col-6 d-flex font-weight-bold align-items-center justify-content-end">
-            <label for="clientes" class="text-light ">Cliente: &nbsp;</label>
-            <select id="clientes" class="selectpicker" title="Seleccionar un cliente" data-live-search="true" data-style="btn-light">
-              <option value="1">Carlos Chaves</option>
-              <option value="2">Alberto Nunez</option>
-              <option value="3">Carles Puyol</option>
-              <option value="4">Gerard Pique</option>
-            </select>
+  <body class="bg-dark">
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container bg-light mt-2 p-4 shadow-lg rounded">
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col d-flex align-items-center">
+              <h1 class="h6 mb-0 font-weight-bolder"><i class="fas fa-headset"></i>Servicios del cliente</h1>
+            </div>
+            <div class="col-8 text-right">
+              <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
+              <div class="d-inline">
+                <select id="clientes" class="selectpicker" title="Seleccionar cliente" data-live-search="true">
+                  <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+                  <option data-tokens="mustard">Burger, Shake and a Smile</option>
+                  <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-primary text-white"><i class="fas fa-recycle"></i>  Actualizar</button>
+              <button type="button" class="btn btn-success text-white"><i class="fas fa-check"></i>  Nuevo</button>
+            </div>
           </div>
-          <div class="col-4">
-            <button type="button" class="btn btn-primary">Actualizar</button>
-            <button type="button" class="btn btn-success">Nuevo</button>
+          <div class="row p-2 mt-2 rounded form-middle">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder">Actividades</h6>
+              <table class="table table-sm table-striped table-borderless table-hover table-light rounded">
+                <thead>
+                  <tr>
+                    <th><i class="fas fa-barcode"></i>Código</th>
+                    <th><i class="fas fa-file-invoice"></i>Detalle</th>
+                    <th><i class="fas fa-calendar-day"></i>Vencimiento</th>
+                    <th><i class="fas fa-shopping-bag"></i>Cantidad</th>
+                    <th><i class="fas fa-dollar-sign"></i>Importe neto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0028</td>
+                    <td>BASE HISTORICA</td>
+                    <td>31/12/2025</td>
+                    <td>1</td>
+                    <td>1.114,42</td>
+                  </tr>
+                  <tr>
+                    <td>0004</td>
+                    <td>EQUIPOS PUNTO DE VENTA</td>
+                    <td>31/12/2025</td>
+                    <td>56</td>
+                    <td>28.366,97</td>
+                  </tr>
+                  <tr>
+                    <td>0008</td>
+                    <td>MODULO FACTURACION ELECTRONICA</td>
+                    <td>31/12/2025</td>
+                    <td>1</td>
+                    <td>4.052,42</td>
+                  </tr>
+                  <tr>
+                    <td>0007</td>
+                    <td>MODULO INVENTARIO</td>
+                    <td>31/12/2025</td>
+                    <td>1</td>
+                    <td>2.836,70</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>&nbsp</td>
+                    <td class="font-weight-bolder text-success bg-dark rounded-left" colspan="3">TOTAL</td>
+                    <td class="text-right text-light bg-success rounded-right">1.000.000,50</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col">
-            <h5 class="font-weight-lighter text-primary">Actividades</h5>
-            <table class="table table-sm table-striped table-borderless table-hover table-dark">
-              <thead>
-                <tr>
-                  <th>Código</th>
-                  <th>Detalle</th>
-                  <th class="text-right">Vencimiento</th>
-                  <th class="text-right">Cantidad</th>
-                  <th class="text-right">Importe neto</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>0028</th>
-                  <td>BASE HISTORICA</td>
-                  <td class="text-right">31/12/2025</td>
-                  <td class="text-right">1</td>
-                  <td class="text-right">1.114,42</td>
-                </tr>
-                <tr>
-                  <th>0004</th>
-                  <td>EQUIPOS PUNTO DE VENTA</td>
-                  <td class="text-right">31/12/2025</td>
-                  <td class="text-right">56</td>
-                  <td class="text-right">28.366,97</td>
-                </tr>
-                <tr>
-                  <th>0008</th>
-                  <td>MODULO FACTURACION ELECTRONICA</td>
-                  <td class="text-right">31/12/2025</td>
-                  <td class="text-right">1</td>
-                  <td class="text-right">4.052,42</td>
-                </tr>
-                <tr>
-                  <th>0007</th>
-                  <td>MODULO INVENTARIO</td>
-                  <td class="text-right">31/12/2025</td>
-                  <td class="text-right">1</td>
-                  <td class="text-right">2.836,70</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td>&nbsp</td>
-                  <td class="font-weight-bolder text-success bg-light rounded" colspan="3">TOTAL</td>
-                  <td class="text-right bg-success rounded">1.000.000,50</td>
-                </tr>
-              </tfoot>
-            </table>
+          <div class="row p-2 mt-2 rounded form-bottom">
+            <div class="col-12">
+              <h6 class="font-weight-bolder text-center mt-2">Ejercicio 2021-2022</h6>
+            </div>
+            <div class="col-12">
+              <div class="row w-100 mx-auto justify-content-between align-items-end">
+                <p class="mb-0 text-left">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
+                <p class="mb-0 text-right right">Carlos H. Chaves <br>
+                01/04/2021 - 31/03/2022 </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row mt-2">
-          <!-- Code for form footer -->
         </div>
       </div>
     </div>
-    </div>
+  </body>
     <script src="./index.js"></script>
 </html>
