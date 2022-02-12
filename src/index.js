@@ -8,15 +8,19 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
         customers.forEach(element => {
             const { nombre, id } = element
             // console.log(nombre, Number(id))
-            let select = document.getElementById("clientes")
+            // let select = document.getElementById("clientes")
+            let select = document.querySelector('.selectpicker')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
+            option.setAttribute("data-content", nombre)
             option.value = id
-            option.text = nombre
+            option.textContent = nombre
 
             select.appendChild(option)
         })
     })
+
+
 
 fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
     .then( resp => resp.json() )
