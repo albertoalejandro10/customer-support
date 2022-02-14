@@ -56,34 +56,31 @@ label {
 
 .table-sm th {
     &:first-child {
-        width: 8%;
+        width: 12%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(2) {
-        width: 56%;
+        width: 50%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(3) {
         text-align: right;
-        width: 10%;
+        width: 12%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(4) {
         text-align: right;
-        width: 10%;
+        width: 13%;
         border: 0.4px solid #D5D5D5;
     }
     &:last-child {
         text-align: right;
-        width: 16%;
+        width: 13%;
         border: 0.4px solid #D5D5D5;
     }
 }
 
 .table-sm td {
-    &:first-child {
-        text-align: center;
-    }
     &:nth-child(3) {
         text-align: right;
     }
