@@ -69,7 +69,7 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
 
             // Imprimir importe total
             let importe = document.querySelector('#importeTotal')
-            importe.textContent = importeTotal
+            importe.textContent = importeTotal.toFixed(2)
             
         }
     })
