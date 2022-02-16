@@ -57,9 +57,10 @@
 
             <div class="col-10 mt-2 right-inner-addon input-container">
               <i class="fas fa-search"></i>
-              <select class="selectpicker" title="Seleccionar una producto" data-live-search="true" data-width="100%">
-                <!-- Options -->
+              <select class="form-control" name="product" id="product">
+                <option value="">Selecciona un producto</option>
               </select>
+              <!-- <select class="selectpicker" title="Seleccionar una producto" data-live-search="true" data-width="100%"> </select> -->
             </div>
 
             <!-- Descripción -->
@@ -86,13 +87,32 @@
             </div>
 
             <div class="col-10 mt-2">
-              <select name="" id="type" class="form-control w-35" placeholder="Selecciona una opción">
-                <option value="" disabled selected>Selecciona una opción</option>
+              <select name="type" id="type" class="form-control w-35">
+                <option value="">Selecciona una opción</option>
                 <option value="1">Precio lista</option>
                 <option value="2">Precio fijo</option>
                 <option value="3">% Descuento</option>
               </select>
             </div>
+
+            <!-- Precio Neto -->
+            <div class="col-2 mt-2 priceNet d-none">
+              <label for="netPrice">Precio neto:</label>
+            </div>
+
+            <div class="col-10 mt-2 priceNet d-none">
+              <input type="number" name="netPrice" id="netPrice" class="form-control w-35" placeholder="0.00" step=".01">
+            </div>
+
+            <!-- % Descuento -->
+            <div id="rateDiscount" class="col-2 mt-2 rateDiscount d-none">
+              <label for="discountRate">% Descuento</label>
+            </div>
+
+            <div class="col-10 mt-2 rateDiscount d-none">
+              <input type="number" name="discountRate" id="discountRate" class="form-control w-35" min="0" max="100">
+            </div>
+
 
             <!-- Fecha de vencimiento -->
             <div class="col-2 mt-2">
@@ -135,5 +155,5 @@
       </div>
     </div>
   </body>
-    <script src="./service.js"></script>
+    <script src="./js/service.js"></script>
 </html>

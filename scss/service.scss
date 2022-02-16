@@ -26,6 +26,13 @@ label {
     }
 }
 
+#product {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
 .dropdown-toggle::after {
     content: none;
 }
