@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel ./src/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./ ./src/index.html --out-dir build"
+    "build": "parcel build --public-url ./ ./src/*.html --out-dir build"
   },
   "repository": {
     "type": "git",
