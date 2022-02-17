@@ -19,7 +19,6 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
             option.setAttribute("name", nombre)
             option.value = id
             option.textContent = nombre
-
             
             select.appendChild( option )
         }
@@ -31,8 +30,14 @@ const getParameter = parameterName => {
     return parameters.get( parameterName )
 }
 
-let customerName = document.getElementById('customerName')
-customerName.textContent = (getParameter('name')).replace('-', ' ')
+if ( window.location.search ) {
+    let customerName = document.getElementsByClassName('customerName')
+    let i = 0
+    do {
+        customerName[i].textContent = (getParameter('name')).replace('-', ' ')
+        i++
+    } while ( i < customerName.length)
+}
 
 // Cuando el usuario selecciona una opcion del combo clientes, se ejecuta esta funcion.
 // Filtrar el id y nombre del cliente seleccionado ser enviado por method GET a service.html
@@ -42,8 +47,10 @@ selectedInput.addEventListener('change', event => {
     if ( event.currentTarget.options[selectedInput.selectedIndex].value === '') return
     // Si existe valueSelected, obtengo el valor.
     let selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
+    
     let customerSelected = document.getElementById('customer')
     customerSelected.value = (selectedOption.text).replace(' ', '-')
+    console.log(customerSelected.value)
 })
 
 // Fetch para traer e imprimir datos de los servicios del cliente. 
