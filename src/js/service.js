@@ -24,6 +24,27 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
         }
     })
 
+// Conseguir parametros del URL
+const getParameter = parameterName => {
+    let parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
+// console.log(Number(getParameter('id')))
+// console.log(getParameter('name'))
+
+let customerName = document.getElementsByClassName('customerName')
+let i = 0
+do {
+    customerName[i].textContent = (getParameter('name')).replace('-', ' ')
+    i++
+} while ( i < customerName.length)
+
+const hiddenInputId = document.getElementById('customerId')
+hiddenInputId.value = getParameter('id')
+
+const hiddenInputName = document.getElementById('customerName')
+hiddenInputName.value = getParameter('name')
+
 // Cuando el usuario selecciona una opcion del combo productos, se ejecuta esta funcion.
 let select = document.getElementById('product')
 select.addEventListener('change', event => {
@@ -32,8 +53,8 @@ select.addEventListener('change', event => {
 
     // Si existe valueSelected, obtengo el valor.
     let selectedOption = event.currentTarget.options[select.selectedIndex]
-
     // console.log(selectedOption.value + ': ' + selectedOption.text)
+
     const selectedText = selectedOption.text
     printDescription(selectedText)
 })
@@ -44,6 +65,7 @@ const printDescription = text => {
     if (descriptionValue.value === '') return descriptionValue.value = text    
 }
 
+// Obtener el valor de la opcion seleccionada por el usuario
 let selectType = document.getElementById('type')
 selectType.addEventListener('change', event => {
     if ( event.currentTarget.options[selectType.selectedIndex].value === "1" ) return
@@ -62,7 +84,7 @@ const visibleInput = type => {
             netPrice[i].classList.remove('d-none')
             discountRate[i].classList.add('d-none')
             i++
-        } while ( i < 2 )
+        } while ( i < netPrice.length )
     }
 
     if ( type === 'discountRate' ) {
@@ -71,7 +93,7 @@ const visibleInput = type => {
             discountRate[i].classList.remove('d-none')
             netPrice[i].classList.add('d-none')
             i++
-        } while ( i < 2 )
+        } while ( i < discountRate.length )
     }
 }
 

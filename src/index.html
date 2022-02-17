@@ -19,14 +19,19 @@
               <h1 class="h6 mb-0 font-weight-bolder"><i class="fas fa-headset"></i>Servicios del cliente</h1>
             </div>
             <div class="col-8 text-right">
-              <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
-              <div class="d-inline">
-                <select id="clientes" class="selectpicker show-tick" title="Seleccionar cliente" data-live-search="true">
-                  <!-- Options -->
-                </select>
-              </div>
-              <button type="button" class="btn btn-primary text-white"><i class="fas fa-recycle"></i>  Actualizar</button>
-              <button type="button" class="btn btn-success text-white"><i class="fas fa-check"></i>  Nuevo</button>
+
+              <form action="./service.html" method="GET" id="form">
+                <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
+                <div class="d-inline">
+                  <select id="clientes" class="picker" name="id">
+                    <!-- Options -->
+                  </select>
+                  <input type="text" id="customer" class="d-none" name="name">
+                </div>
+                <button type="button" class="btn btn-primary text-white"><i class="fas fa-recycle"></i>  Actualizar</button>
+                <button type="submit" class="btn btn-success text-white"><i class="fas fa-check"></i>  Nuevo</button>
+              </form>
+
             </div>
           </div>
           <!-- Form - Middle -->
@@ -62,10 +67,14 @@
               <h6 class="font-weight-bolder text-center mt-2">Ejercicio 2021-2022</h6>
             </div>
             <div class="col-12">
-              <div class="row w-100 mx-auto justify-content-between align-items-end">
-                <p class="mb-0 text-left">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
-                <p class="mb-0 text-right right">Carlos H. Chaves <br>
-                01/04/2021 - 31/03/2022 </p>
+              <div class="row align-items-end">
+                <div class="col-6 text-left">
+                  <p class="mb-0">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
+                </div>
+                <div class="col-6 text-right">
+                  <p id="customerName" class="mb-0">Carlos H. Chaves</p>
+                  <p class="mb-0">01/04/2021 - 31/03/2022</p>
+                </div>
               </div>
             </div>
           </div>

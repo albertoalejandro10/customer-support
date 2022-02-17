@@ -22,7 +22,13 @@
             </div>
             <div class="col-8 text-right">
               <button type="button" class="btn btn-primary text-white"><i class="fas fa-cloud-upload-alt"></i> Grabar</button>
-              <button type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> Lista</button>
+
+              <form action="./index.html" method="GET" class="d-inline">
+                <input type="text" name="id" id="customerId" class="d-none">
+                <input type="text" name="name" id="customerName" class="d-none">
+                <button type="submit" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> Lista</button>
+              </form>
+              
               <button type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
             </div>
           </div>
@@ -35,7 +41,7 @@
             </div>
   
             <div class="col-10">
-              <p class="mb-0">ALUMETAL S.A - 30567363372</p>
+              <p class="mb-0 customerName"></p>
             </div>
   
             <div class="col-2">
@@ -110,7 +116,7 @@
             </div>
 
             <div class="col-10 mt-2 rateDiscount d-none">
-              <input type="number" name="discountRate" id="discountRate" class="form-control w-35" min="0" max="100">
+              <input type="number" name="discountRate" id="discountRate" class="form-control w-35" placeholder="%" min="0" max="100">
             </div>
 
 
@@ -144,10 +150,14 @@
               <h6 class="font-weight-bolder text-center mt-2">Ejercicio 2021-2022</h6>
             </div>
             <div class="col-12">
-              <div class="row w-100 mx-auto justify-content-between align-items-end">
-                <p class="mb-0 text-left">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
-                <p class="mb-0 text-right right">Carlos H. Chaves <br>
-                01/04/2021 - 31/03/2022 </p>
+              <div class="row align-items-end">
+                <div class="col-6 text-left">
+                  <p class="mb-0">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
+                </div>
+                <div class="col-6 text-right">
+                  <p class="mb-0 customerName"></p>
+                  <p class="mb-0">01/04/2021 - 31/03/2022</p>
+                </div>
               </div>
             </div>
           </div>

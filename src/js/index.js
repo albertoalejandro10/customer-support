@@ -12,16 +12,39 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
             const { nombre, id } = element
             // console.log(nombre, Number(id))
 
-            let select = document.querySelector('.selectpicker')
+            let select = document.querySelector('.picker')
             let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.setAttribute("data-content", nombre)
+            // option.setAttribute("data-tokens", nombre)
+            // option.setAttribute("data-content", nombre)
+            option.setAttribute("name", nombre)
             option.value = id
             option.textContent = nombre
 
+            
             select.appendChild( option )
         }
     })
+
+// Conseguir parametros del URL
+const getParameter = parameterName => {
+    let parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
+
+let customerName = document.getElementById('customerName')
+customerName.textContent = (getParameter('name')).replace('-', ' ')
+
+// Cuando el usuario selecciona una opcion del combo clientes, se ejecuta esta funcion.
+// Filtrar el id y nombre del cliente seleccionado ser enviado por method GET a service.html
+let selectedInput = document.getElementById('clientes')
+selectedInput.addEventListener('change', event => {
+    // Si el valueSelected esta vacio, retorno.
+    if ( event.currentTarget.options[selectedInput.selectedIndex].value === '') return
+    // Si existe valueSelected, obtengo el valor.
+    let selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
+    let customerSelected = document.getElementById('customer')
+    customerSelected.value = (selectedOption.text).replace(' ', '-')
+})
 
 // Fetch para traer e imprimir datos de los servicios del cliente. 
 fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
