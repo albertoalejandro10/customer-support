@@ -3,26 +3,26 @@ import * as bootstrapSelect from 'bootstrap-select'
 
 // Fetch para traer datos de clientes (nombre y id)
 fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for ( let element of customers ) {
+.then( resp => resp.json() )
+.then( resp => {
+    const customers = resp
+    for ( let element of customers ) {
 
-            // Desestructuracion del objeto element
-            const { nombre, id } = element
-            // console.log(nombre, Number(id))
+        // Desestructuracion del objeto element
+        const { nombre, id } = element
+        // console.log(nombre, Number(id))
 
-            let select = document.querySelector('.picker')
-            let option = document.createElement("option")
-            // option.setAttribute("data-tokens", nombre)
-            // option.setAttribute("data-content", nombre)
-            option.setAttribute("name", nombre)
-            option.value = id
-            option.textContent = nombre
-            
-            select.appendChild( option )
-        }
-    })
+        let select = document.querySelector('.picker')
+        let option = document.createElement("option")
+        // option.setAttribute("data-tokens", nombre)
+        // option.setAttribute("data-content", nombre)
+        option.setAttribute("name", nombre)
+        option.value = id
+        option.textContent = nombre
+        
+        select.appendChild( option )
+    }
+})
 
 // Conseguir parametros del URL
 const getParameter = parameterName => {
@@ -30,35 +30,33 @@ const getParameter = parameterName => {
     return parameters.get( parameterName )
 }
 
-if ( window.location.search ) {
-    let customerName = document.getElementsByClassName('customerName')
-    let i = 0
-    do {
-        customerName[i].textContent = (getParameter('name')).replace('-', ' ')
-        i++
-    } while ( i < customerName.length)
-}
-
-// Cuando el usuario selecciona una opcion del combo clientes, se ejecuta esta funcion.
-// Filtrar el id y nombre del cliente seleccionado ser enviado por method GET a service.html
+// El usuario selecciona una opcion del combo clientes. Filtrar el id y nombre para enviarlo a service.html
 let selectedInput = document.getElementById('clientes')
 selectedInput.addEventListener('change', event => {
     // Si el valueSelected esta vacio, retorno.
     if ( event.currentTarget.options[selectedInput.selectedIndex].value === '') return
     // Si existe valueSelected, obtengo el valor.
     let selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
+    customerPromise(selectedOption.value)
     
     let customerSelected = document.getElementById('customer')
     customerSelected.value = (selectedOption.text).replace(' ', '-')
-    console.log(customerSelected.value)
 })
 
+
 // Fetch para traer e imprimir datos de los servicios del cliente. 
-fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
+const customerPromise = id => {
+    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`)
     .then( resp => resp.json() )
     .then( resp => {
         const services = resp
         for ( let element of services) {
+            
+            let tbody = document.getElementById('tbody')
+            if ( tbody.children.length === 1) {
+                let item = document.getElementById('delete-row')
+                tbody.removeChild(item)
+            }
 
             // Desestructuracion del objeto element
             const {codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid} = element
@@ -66,16 +64,19 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
 
             // Formatear - Fecha de vencimiento
             let vencimientoServ = vencimiento.slice(0, 10)
-
+            
             // Calcular - Importe total
             calcularImporteTotal( precioServ )
-
+            
             // Imprimir datos en la tabla
-            let tbody = document.getElementById('tbody')
             let row = document.createElement('tr')
+            row.id = 'delete-row'
 
             let row_data_1 = document.createElement('td')
-            row_data_1.textContent = `${ codigoServ }`
+            let row_data_1_anchor = document.createElement('a')
+            row_data_1_anchor.href = `/service.html`
+            row_data_1_anchor.textContent = `${ codigoServ }`
+            row_data_1.appendChild(row_data_1_anchor)
 
             let row_data_2 = document.createElement('td')
             row_data_2.textContent = `${ nombreServ }`
@@ -100,13 +101,30 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/1/Services`)
             // Imprimir importe total
             let importe = document.querySelector('#importeTotal')
             importe.textContent = importeTotal.toFixed(2)
+            importeTotal = 0
             
         }
     })
-
+}
 
 let importeTotal = 0
-const calcularImporteTotal = ( precioServ ) => {
+const calcularImporteTotal = precioServ => {
     importeTotal += precioServ
     return importeTotal
 }
+
+// Si viene id en la URL, se ejecuta.
+if ( window.location.search ) {
+    const id = getParameter('id')
+    customerPromise(id)
+}
+
+// Imprimir nombre del cliente 
+// if ( window.location.search ) {
+//     let customerName = document.getElementsByClassName('customerName')
+//     let i = 0
+//     do {
+//         customerName[i].textContent = (getParameter('name')).replace('-', ' ')
+//         i++
+//     } while ( i < customerName.length)
+// }

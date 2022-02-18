@@ -49,7 +49,7 @@
             </div>
   
             <div class="col-10">
-              <input type="text" name="" id="observation" class="form-control">
+              <input type="text" name="observation" id="observation" class="form-control inputToPost">
             </div>
           </div>
 
@@ -75,7 +75,7 @@
             </div>
 
             <div class="col-10 mt-2">
-              <input type="text" name="" id="description" class="form-control">
+              <input type="text" name="description" id="description" class="form-control inputToPost">
             </div>
 
             <!-- Cantidad de productos -->
@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-10 mt-2">
-              <input type="number" name="" id="quantity" class="form-control w-35">
+              <input type="number" name="quantity" id="quantity" class="form-control w-35 inputToPost" value="1">
             </div>
 
             <!-- Tipo de pago -->
@@ -93,8 +93,7 @@
             </div>
 
             <div class="col-10 mt-2">
-              <select name="type" id="type" class="form-control w-35">
-                <option value="">Selecciona una opción</option>
+              <select name="type" id="type" class="form-control w-35 inputToPost">
                 <option value="1">Precio lista</option>
                 <option value="2">Precio fijo</option>
                 <option value="3">% Descuento</option>
@@ -107,7 +106,7 @@
             </div>
 
             <div class="col-10 mt-2 priceNet d-none">
-              <input type="number" name="netPrice" id="netPrice" class="form-control w-35" placeholder="0.00" step=".01">
+              <input type="number" name="netPrice" id="netPrice" class="form-control w-35 inputToPost" placeholder="0.00" step=".01">
             </div>
 
             <!-- % Descuento -->
@@ -116,7 +115,7 @@
             </div>
 
             <div class="col-10 mt-2 rateDiscount d-none">
-              <input type="number" name="discountRate" id="discountRate" class="form-control w-35" placeholder="%" min="0" max="100">
+              <input type="number" name="discountRate" id="discountRate" class="form-control w-35 inputToPost" placeholder="%" min="0" max="100">
             </div>
 
 
@@ -126,7 +125,7 @@
             </div>
 
             <div class="col-10 mt-2">
-              <input type="date" name="" id="expiration" class="form-control w-35">
+              <input type="date" name="" id="expiration" class="form-control w-35 inputToPost">
             </div>
 
             <!-- Tipo de abono -->
@@ -134,20 +133,30 @@
               <label for="abonoChoice">Abono:</label>
             </div>
             <div class="col-10 mt-2">
-              <input type="checkbox" name="" id="abonoChoice">
+              <input type="checkbox" name="" id="abonoChoice" class="inputToPost">
             </div>
             <div class="col-2 mt-2">
               <label for="activoChoice">Activo:</label>
             </div>
             <div class="col-10 mt-2">
-              <input type="checkbox" name="" id="activoChoice">
+              <input type="checkbox" name="" id="activoChoice" class="inputToPost">
             </div>
           </div>
 
           <!-- Footer form -->
           <div class="row p-2 mt-2 rounded form-bottom">
             <div class="col-12">
-              <h6 class="font-weight-bolder text-center mt-2">Ejercicio 2021-2022</h6>
+              <div class="row align-items-center">
+                <div class="col-sm">
+                  &nbsp;
+                </div>
+                <div class="col-sm">
+                  <h6 class="font-weight-bolder text-center mt-2">Ejercicio 2021-2022</h6>
+                </div>
+                <div class="col-sm text-right">
+                  <p class="mb-0">Carlos H. Chaves</p>
+                </div>
+              </div>
             </div>
             <div class="col-12">
               <div class="row align-items-end">
@@ -155,7 +164,6 @@
                   <p class="mb-0">Softsystems SRL - 07/02/2022 09:19:27 a.m</p>
                 </div>
                 <div class="col-6 text-right">
-                  <p class="mb-0 customerName"></p>
                   <p class="mb-0">01/04/2021 - 31/03/2022</p>
                 </div>
               </div>

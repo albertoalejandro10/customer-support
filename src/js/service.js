@@ -1,13 +1,12 @@
 import * as bootstrap from 'bootstrap'
 import * as selectpicker from 'bootstrap-select'
 
-// Fetch para traer datos de clientes (detalle y id)
+// Fetch para traer datos de productos (detalle y id)
 fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
     .then( resp => resp.json() )
     .then( resp => {
         const products = resp
         for ( let element of products ) {
-
             // Desestructuracion del objeto element
             const { detalle, id } = element
             // console.log(detalle, Number(id))
@@ -20,7 +19,6 @@ fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
             option.textContent = detalle
 
             select.appendChild( option )
-
         }
     })
 
@@ -59,16 +57,67 @@ select.addEventListener('change', event => {
     printDescription(selectedText)
 })
 
-// Funcion para insertar texto a la descripcion
+// Funcion para insertar texto en descripcion
 const printDescription = text => {
     let descriptionValue = document.getElementById('description')
     if (descriptionValue.value === '') return descriptionValue.value = text    
 }
 
+// Formatear input cantidad - Es copiado.
+class CampoNumerico {
+
+    constructor(selector) {
+        this.nodo = document.querySelector(selector);
+        this.valor = '';
+        
+        this.empezarAEscucharEventos();
+    }
+
+    empezarAEscucharEventos() {
+        this.nodo.addEventListener('keydown', function(evento) {
+        const teclaPresionada = evento.key;
+        const teclaPresionadaEsUnNumero =
+            Number.isInteger(parseInt(teclaPresionada));
+
+        const sePresionoUnaTeclaNoAdmitida = 
+            teclaPresionada != 'ArrowDown' &&
+            teclaPresionada != 'ArrowUp' &&
+            teclaPresionada != 'ArrowLeft' &&
+            teclaPresionada != 'ArrowRight' &&
+            teclaPresionada != 'Backspace' &&
+            teclaPresionada != 'Delete' &&
+            teclaPresionada != 'Enter' &&
+            !teclaPresionadaEsUnNumero;
+        const comienzaPorCero = 
+            this.nodo.value.length === 0 &&
+            teclaPresionada == 0;
+
+        if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+            evento.preventDefault(); 
+        } else if (teclaPresionadaEsUnNumero) {
+            this.valor += String(teclaPresionada);
+        }
+
+        }.bind(this));
+
+        this.nodo.addEventListener('input', function(evento) {
+        const cumpleFormatoEsperado = new RegExp(/^[1-9]+/).test(this.nodo.value);
+
+        if (!cumpleFormatoEsperado) {
+            this.nodo.value = this.valor;
+        } else {
+            this.valor = this.nodo.value;
+        }
+        }.bind(this));
+    }
+}
+
+new CampoNumerico('#quantity');
+
 // Obtener el valor de la opcion seleccionada por el usuario
 let selectType = document.getElementById('type')
 selectType.addEventListener('change', event => {
-    if ( event.currentTarget.options[selectType.selectedIndex].value === "1" ) return
+    if ( event.currentTarget.options[selectType.selectedIndex].value === "1" ) return visibleInput('listPrice')
     if ( event.currentTarget.options[selectType.selectedIndex].value === "2" ) return visibleInput('netPrice')
     if ( event.currentTarget.options[selectType.selectedIndex].value === "3" ) return visibleInput('discountRate')
 })
@@ -77,6 +126,16 @@ selectType.addEventListener('change', event => {
 let netPrice = document.getElementsByClassName('priceNet')
 let discountRate = document.getElementsByClassName('rateDiscount')
 const visibleInput = type => {
+
+    if ( type === 'listPrice') {
+        for ( const element of netPrice ) {
+            element.classList.add('d-none')
+        }
+
+        for ( const element of discountRate ) {
+            element.classList.add('d-none')
+        }
+    }
 
     if ( type === 'netPrice') {
         let i = 0
@@ -106,3 +165,22 @@ netPriceInput.addEventListener('blur', () => {
 // discountRateInput.addEventListener('blur', () => {
 //     console.log('Ok')
 // })
+
+
+// const codigoServ = 'codigoServ 1'
+// const nombreSer = 'nombreServ 1'
+// const precioServ = document.getElementById('netPrice')
+// const cantidad = document.getElementById('quantity')
+// const vencimiento = document.getElementById('expiration')
+// const tipo = 'Tipo 1'
+// const activo = false
+// const observacion = document.getElementById('observation')
+// const clientId = getParameter('id')
+// const clientName = getParameter('name')
+
+// let inputs = document.getElementsByClassName('inputToPost').value
+// console.log(inputs)
+
+
+// // FormData POST to API
+// let formData = new FormData()
