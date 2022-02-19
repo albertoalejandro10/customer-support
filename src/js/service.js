@@ -219,15 +219,15 @@ if ( getParameter('id') && ! getParameter('name') ) {
 //     fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
 //         method: 'POST',
 //         body:JSON.stringify({
-//             codigoServ,
-//             nombreServ,
-//             precioServ,
-//             cantidad,
-//             vencimiento,
-//             tipo,
-//             observacion,
-//             id,
-//             clienteid
+            // codigoServ,
+            // nombreServ,
+            // precioServ,
+            // cantidad,
+            // vencimiento,
+            // tipo,
+            // observacion,
+            // id,
+            // clienteid
 //         }),
 //         headers: {
 //             "Content-Type": "application/json; charset=UTF-8"
@@ -267,10 +267,26 @@ const $form = document.querySelector('#form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
+
     const id = getParameter('id')
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
+    const clienteid = getParameter('id')
+    const codigoServ = `nombre ${id}`
+    const nombreServ = formData.get('description')
+    const precioServ = Number(formData.get('netPrice'))
+    const cantidad = Number(formData.get('quantity'))
+    const vencimiento = formData.get('expiration')
+    const tipo = false
+    const activo = false
+    const observacion = formData.get('observation')
+
+    const data = { codigoServ, observacion, nombreServ, cantidad, tipo, precioServ, vencimiento, activo, id, clienteid }
+
+    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`, {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
     .then( resp => resp.json() )
     .then( resp => {
@@ -281,5 +297,6 @@ $form.addEventListener('submit', event => {
     .catch( err => {
         console.log( err )
     })
-    
 })
+
+
