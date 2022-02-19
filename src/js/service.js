@@ -1,67 +1,15 @@
 import * as bootstrap from 'bootstrap'
 import * as selectpicker from 'bootstrap-select'
 
-// Fetch para traer datos de productos (detalle y id)
-fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
-    .then( resp => resp.json() )
-    .then( resp => {
-        const products = resp
-        for ( let element of products ) {
-            // Desestructuracion del objeto element
-            const { detalle, id } = element
-            // console.log(detalle, Number(id))
-
-            let select = document.querySelector('#product')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", detalle)
-            option.setAttribute("data-content", detalle)
-            option.value = id
-            option.textContent = detalle
-
-            select.appendChild( option )
-        }
-    })
+// console.log(Number(getParameter('id')))
+// console.log(getParameter('name'))
 
 // Conseguir parametros del URL
 const getParameter = parameterName => {
     let parameters = new URLSearchParams( window.location.search )
     return parameters.get( parameterName )
 }
-// console.log(Number(getParameter('id')))
-// console.log(getParameter('name'))
 
-let customerName = document.getElementsByClassName('customerName')
-let i = 0
-do {
-    customerName[i].textContent = (getParameter('name')).replace('-', ' ')
-    i++
-} while ( i < customerName.length)
-
-const hiddenInputId = document.getElementById('customerId')
-hiddenInputId.value = getParameter('id')
-
-const hiddenInputName = document.getElementById('customerName')
-hiddenInputName.value = getParameter('name')
-
-// Cuando el usuario selecciona una opcion del combo productos, se ejecuta esta funcion.
-let select = document.getElementById('product')
-select.addEventListener('change', event => {
-    // Si el valueSelected esta vacio, retorno.
-    if ( event.currentTarget.options[select.selectedIndex].value === '') return
-
-    // Si existe valueSelected, obtengo el valor.
-    let selectedOption = event.currentTarget.options[select.selectedIndex]
-    // console.log(selectedOption.value + ': ' + selectedOption.text)
-
-    const selectedText = selectedOption.text
-    printDescription(selectedText)
-})
-
-// Funcion para insertar texto en descripcion
-const printDescription = text => {
-    let descriptionValue = document.getElementById('description')
-    if (descriptionValue.value === '') return descriptionValue.value = text    
-}
 
 // Formatear input cantidad - Es copiado.
 class CampoNumerico {
@@ -114,6 +62,96 @@ class CampoNumerico {
 
 new CampoNumerico('#quantity');
 
+
+// Fetch para traer datos de productos (detalle y id)
+fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
+    .then( resp => resp.json() )
+    .then( resp => {
+        const products = resp
+        for ( let element of products ) {
+            // Desestructuracion del objeto element
+            const { detalle, id } = element
+            // console.log(detalle, Number(id))
+
+            let select = document.querySelector('#product')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", detalle)
+            option.setAttribute("data-content", detalle)
+            option.value = id
+            option.textContent = detalle
+
+            select.appendChild( option )
+        }
+    })
+
+const servicePromise = id => {
+    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`)
+        .then( resp => resp.json( ))
+        .then( resp => {
+            const services = resp
+            for ( let element of services ) {
+                
+
+                const { observacion, nombreServ, cantidad, tipo, precioServ, vencimiento, activo, id } = element
+                // console.log( observacion, nombreServ, cantidad, tipo, precioServ, vencimiento, activo )
+
+                let customer = document.getElementById('customer')
+                customer.textContent = `nombre ${id}`
+
+                let observation = document.getElementById('observation')
+                observation.value = observacion
+
+                let description = document.getElementById('description')
+                description.value = nombreServ
+                
+                let quantity = document.getElementById('quantity')
+                quantity.value = cantidad
+
+                let expiration = document.getElementById('expiration')
+                expiration.value = vencimiento.slice(0, 10)
+
+                let selectType = document.getElementById('type')
+                if ( tipo === 'tipo 2' ) {
+                    selectType.value = 2
+                    let price = document.getElementById('netPrice')
+                    price.value = precioServ
+                    return visibleInput('netPrice')
+                }
+
+                if ( tipo === 'tipo 3' ) {
+                    selectType.value = 3
+                    let discountRate = document.getElementById('discountRate')
+                    discountRate.value = precioServ
+                    return visibleInput('discountRate')
+                }
+
+            }
+        })
+}
+
+const redirectToIndex = document.getElementById('redirectToIndex')
+redirectToIndex.href = `/index.html?id=${getParameter('id')}&name=nombre-${getParameter('id')}`
+
+// Cuando el usuario selecciona una opcion del combo productos, se ejecuta esta funcion.
+let select = document.getElementById('product')
+select.addEventListener('change', event => {
+    // Si el valueSelected esta vacio, retorno.
+    if ( event.currentTarget.options[select.selectedIndex].value === '') return
+
+    // Si existe valueSelected, obtengo el valor.
+    let selectedOption = event.currentTarget.options[select.selectedIndex]
+    // console.log(selectedOption.value + ': ' + selectedOption.text)
+
+    const selectedText = selectedOption.text
+    printDescription(selectedText)
+})
+
+// Funcion para insertar texto en descripcion
+const printDescription = text => {
+    let descriptionValue = document.getElementById('description')
+    if (descriptionValue.value === '') return descriptionValue.value = text    
+}
+
 // Obtener el valor de la opcion seleccionada por el usuario
 let selectType = document.getElementById('type')
 selectType.addEventListener('change', event => {
@@ -161,26 +199,87 @@ netPriceInput.addEventListener('blur', () => {
     netPriceInput.value = parseFloat(netPriceInput.value).toFixed(2)
 })
 
-// let discountRateInput = document.getElementById('discountRate')
-// discountRateInput.addEventListener('blur', () => {
-//     console.log('Ok')
-// })
+if ( getParameter('id') && getParameter('name') ) {
+    const deleteButton = document.getElementById('deleteService')
+    deleteButton.disabled = true
+    const customer = document.getElementById('customer')
+    customer.textContent = (getParameter('name')).replace('-', ' ')
+}
 
+if ( getParameter('id') && ! getParameter('name') ) {
+    const addButton = document.getElementById('addService')
+    addButton.disabled = true
+    servicePromise(getParameter('id'))
+}
 
-// const codigoServ = 'codigoServ 1'
-// const nombreSer = 'nombreServ 1'
-// const precioServ = document.getElementById('netPrice')
-// const cantidad = document.getElementById('quantity')
-// const vencimiento = document.getElementById('expiration')
-// const tipo = 'Tipo 1'
-// const activo = false
-// const observacion = document.getElementById('observation')
-// const clientId = getParameter('id')
-// const clientName = getParameter('name')
+// const addService = document.getElementById('addService')
+// addService.onclick = () => {
 
-// let inputs = document.getElementsByClassName('inputToPost').value
-// console.log(inputs)
+//     // Fetch
+//     fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
+//         method: 'POST',
+//         body:JSON.stringify({
+//             codigoServ,
+//             nombreServ,
+//             precioServ,
+//             cantidad,
+//             vencimiento,
+//             tipo,
+//             observacion,
+//             id,
+//             clienteid
+//         }),
+//         headers: {
+//             "Content-Type": "application/json; charset=UTF-8"
+//         }
+//     })
+//     .then( resp => resp.json() )
+//     .then( resp => {
+//         console.log(resp)
+//         alert('Información cargada exitosamente')
+//         location.reload()
+//     })
+//     .catch( err => {
+//         console.log( err )
+//     })
+// }
 
+const deleteService = document.getElementById('deleteService')
+deleteService.onclick = () => {
+    const id = getParameter('id')
+    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
+        method: 'DELETE',
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        console.log(resp)
+        alert('Información eliminada exitosamente')
+        location.reload()
+    })
+    .catch( err => {
+        console.log( err )
+    })
 
-// // FormData POST to API
-// let formData = new FormData()
+    deleteService.disabled = 'true'
+}
+
+const $form = document.querySelector('#form')
+$form.addEventListener('submit', event => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const id = getParameter('id')
+    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        console.log(resp)
+        alert('Información cargada exitosamente')
+        location.reload()
+    })
+    .catch( err => {
+        console.log( err )
+    })
+    
+})
