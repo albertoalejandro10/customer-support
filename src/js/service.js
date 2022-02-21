@@ -1,14 +1,14 @@
 import * as bootstrap from 'bootstrap'
 import * as selectpicker from 'bootstrap-select'
 
-// console.log(Number(getParameter('id')))
-// console.log(getParameter('name'))
 
 // Conseguir parametros del URL
-const getParameter = parameterName => {
+export const getParameter = parameterName => {
     let parameters = new URLSearchParams( window.location.search )
     return parameters.get( parameterName )
 }
+// console.log(Number(getParameter('id')))
+// console.log(getParameter('name'))
 
 
 // Formatear input cantidad - Es copiado.
@@ -129,6 +129,7 @@ const servicePromise = id => {
         })
 }
 
+// Insertar href dentro de tag anchor.
 const redirectToIndex = document.getElementById('redirectToIndex')
 redirectToIndex.href = `/index.html?id=${getParameter('id')}&name=nombre-${getParameter('id')}`
 
@@ -194,11 +195,13 @@ const visibleInput = type => {
     }
 }
 
+// Formatear input precio neto
 let netPriceInput = document.getElementById('netPrice')
 netPriceInput.addEventListener('blur', () => {
     netPriceInput.value = parseFloat(netPriceInput.value).toFixed(2)
 })
 
+// Si en la URL viene id y nombre, ejecuto esto.
 if ( getParameter('id') && getParameter('name') ) {
     const deleteButton = document.getElementById('deleteService')
     deleteButton.disabled = true
@@ -206,97 +209,9 @@ if ( getParameter('id') && getParameter('name') ) {
     customer.textContent = (getParameter('name')).replace('-', ' ')
 }
 
+// Si en la URL viene solo id, ejecuto esto.
 if ( getParameter('id') && ! getParameter('name') ) {
     const addButton = document.getElementById('addService')
     addButton.disabled = true
     servicePromise(getParameter('id'))
 }
-
-// const addService = document.getElementById('addService')
-// addService.onclick = () => {
-
-//     // Fetch
-//     fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
-//         method: 'POST',
-//         body:JSON.stringify({
-            // codigoServ,
-            // nombreServ,
-            // precioServ,
-            // cantidad,
-            // vencimiento,
-            // tipo,
-            // observacion,
-            // id,
-            // clienteid
-//         }),
-//         headers: {
-//             "Content-Type": "application/json; charset=UTF-8"
-//         }
-//     })
-//     .then( resp => resp.json() )
-//     .then( resp => {
-//         console.log(resp)
-//         alert('Información cargada exitosamente')
-//         location.reload()
-//     })
-//     .catch( err => {
-//         console.log( err )
-//     })
-// }
-
-const deleteService = document.getElementById('deleteService')
-deleteService.onclick = () => {
-    const id = getParameter('id')
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
-        method: 'DELETE',
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        console.log(resp)
-        alert('Información eliminada exitosamente')
-        location.reload()
-    })
-    .catch( err => {
-        console.log( err )
-    })
-
-    deleteService.disabled = 'true'
-}
-
-const $form = document.querySelector('#form')
-$form.addEventListener('submit', event => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-
-    const id = getParameter('id')
-    const clienteid = getParameter('id')
-    const codigoServ = `nombre ${id}`
-    const nombreServ = formData.get('description')
-    const precioServ = Number(formData.get('netPrice'))
-    const cantidad = Number(formData.get('quantity'))
-    const vencimiento = formData.get('expiration')
-    const tipo = false
-    const activo = false
-    const observacion = formData.get('observation')
-
-    const data = { codigoServ, observacion, nombreServ, cantidad, tipo, precioServ, vencimiento, activo, id, clienteid }
-
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        console.log(resp)
-        alert('Información cargada exitosamente')
-        location.reload()
-    })
-    .catch( err => {
-        console.log( err )
-    })
-})
-
-
