@@ -1,28 +1,4 @@
 import * as bootstrap from 'bootstrap'
-import * as bootstrapSelect from 'bootstrap-select'
-
-// Fetch para traer datos de clientes (nombre y id)
-fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
-.then( resp => resp.json() )
-.then( resp => {
-    const customers = resp
-    for ( let element of customers ) {
-
-        // Desestructuracion del objeto element
-        const { nombre, id } = element
-        // console.log(nombre, Number(id))
-
-        let select = document.querySelector('.picker')
-        let option = document.createElement("option")
-        // option.setAttribute("data-tokens", nombre)
-        // option.setAttribute("data-content", nombre)
-        option.setAttribute("name", nombre)
-        option.value = id
-        option.textContent = nombre
-        
-        select.appendChild( option )
-    }
-})
 
 // Conseguir parametros del URL
 const getParameter = parameterName => {

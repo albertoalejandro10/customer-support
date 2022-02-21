@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../assets/images/logo-full-title.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    
     <link rel="stylesheet" href="../scss/main.scss">
-    <link rel="stylesheet" href="../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../node_modules/bootstrap-select/sass/bootstrap-select.scss">
+
     <title>Servicios del cliente</title>
   </head>
   <body>
@@ -23,8 +25,8 @@
               <form action="./service.html" method="GET" id="form">
                 <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
                 <div class="d-inline">
-                  <select id="clientes" class="picker" name="id">
-                    <option value="">Selecciona un cliente</option>
+                  <select id="clientes" class="selectpicker" title="Seleccionar cliente" data-live-search="true">
+                    <!-- Options -->
                   </select>
                   <input type="text" id="customer" class="d-none" name="name">
                 </div>
@@ -91,5 +93,38 @@
       </div>
     </div>
   </body>
-    <script src="./js/index.js"></script>
+  <script src="./js/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+  <script>
+  $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+
+    // Fetch para traer datos de clientes (nombre y id)
+  fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
+    .then( resp => resp.json() )
+    .then( resp => {
+      const customers = resp
+      for ( let element of customers ) {
+        
+          // Desestructuracion del objeto element
+          const { nombre, id } = element
+          console.log(nombre, Number(id))
+          
+          let select = document.querySelector('.selectpicker')
+          let option = document.createElement("option")
+          option.setAttribute("data-tokens", nombre)
+          option.setAttribute("data-content", nombre)
+          option.setAttribute("name", nombre)
+          option.value = id
+          option.textContent = nombre
+          
+          select.appendChild( option )
+
+          $('.selectpicker').selectpicker('refresh');
+
+
+        }
+  })
+  </script>
 </html>
