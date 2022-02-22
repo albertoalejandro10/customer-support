@@ -26,27 +26,25 @@ const customerPromise = id => {
     .then( resp => resp.json() )
     .then( resp => {
         const services = resp
+
+        // Delete old rows
+        const tbody = document.getElementById('tbody')
+        const elements = document.getElementsByClassName('delete-row')
+        if ( tbody.children.length >= 1) {
+            while (elements.length > 0) elements[0].remove()
+            let importe = document.getElementById('importeTotal')
+            importe.textContent = ''
+        }
+
         for ( let element of services) {
-            
-            let tbody = document.getElementById('tbody')
-            if ( tbody.children.length === 1) {
-                let item = document.getElementById('delete-row')
-                tbody.removeChild(item)
-            }
 
             // Desestructuracion del objeto element
-            const {codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid} = element
+            const { codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid } = element
             // console.log( codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid )
-
-            // Formatear - Fecha de vencimiento
-            let vencimientoServ = vencimiento.slice(0, 10)
-            
-            // Calcular - Importe total
-            calcularImporteTotal( precioServ )
             
             // Imprimir datos en la tabla
             let row = document.createElement('tr')
-            row.id = 'delete-row'
+            row.className = 'delete-row'
 
             let row_data_1 = document.createElement('td')
             let row_data_1_anchor = document.createElement('a')
@@ -58,13 +56,13 @@ const customerPromise = id => {
             row_data_2.textContent = `${ nombreServ }`
 
             let row_data_3 = document.createElement('td')
-            row_data_3.textContent = `${ vencimientoServ }`
+            row_data_3.textContent = `${ formatDate(vencimiento) }`
 
             let row_data_4 = document.createElement('td')
             row_data_4.textContent = `${ cantidad }`
 
             let row_data_5 = document.createElement('td')
-            row_data_5.textContent = `${ precioServ }`
+            row_data_5.textContent = `${ precioServ.toFixed(2) }`
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -74,19 +72,33 @@ const customerPromise = id => {
             
             tbody.appendChild(row)
 
-            // Imprimir importe total
+            // Calcular e imprimir importeTotal
+            calcularImporteTotal( precioServ )
             let importe = document.querySelector('#importeTotal')
             importe.textContent = importeTotal.toFixed(2)
-            importeTotal = 0
-            
         }
+        importeTotal = 0
     })
+    .catch(error => console.error(error))
 }
 
+// Calcular importe total
 let importeTotal = 0
 const calcularImporteTotal = precioServ => {
     importeTotal += precioServ
     return importeTotal
+}
+
+// Formatear vencimiento
+const formatDate = vencimiento => {
+    vencimiento.slice(0, 10)
+
+    const datePart = vencimiento.match(/\d+/g),
+    year = datePart[0].substring(0),
+    month = datePart[1],
+    day = datePart[2]
+
+    return day+'/'+month+'/'+year
 }
 
 // Si viene id en la URL, se ejecuta.
@@ -94,13 +106,3 @@ if ( window.location.search ) {
     const id = getParameter('id')
     customerPromise(id)
 }
-
-// Imprimir nombre del cliente 
-// if ( window.location.search ) {
-//     let customerName = document.getElementsByClassName('customerName')
-//     let i = 0
-//     do {
-//         customerName[i].textContent = (getParameter('name')).replace('-', ' ')
-//         i++
-//     } while ( i < customerName.length)
-// }

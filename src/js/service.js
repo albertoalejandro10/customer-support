@@ -188,11 +188,8 @@ if ( getParameter('id') && getParameter('name') ) {
 // Si en la URL viene solo id, ejecuto esto.
 if ( getParameter('id') && ! getParameter('name') ) {
     const addButton = document.getElementById('addService')
-    addButton.disabled = true
     servicePromise(getParameter('id'))
 }
-
-
 
 // Method DELETE
 const deleteService = document.getElementById('deleteService')
