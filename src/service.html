@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../assets/images/logo-full-title.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
     <link rel="stylesheet" href="../scss/main.scss">
     <link rel="stylesheet" href="../scss/service.scss">
-    <link rel="stylesheet" href="../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../node_modules/bootstrap-select/sass/bootstrap-select.scss">
+
     <title>Servicios del cliente</title>
   </head>
   <body class="bg-dark">
@@ -53,7 +57,6 @@
 
             <!-- Form - Middle lower -->
             <div class="row p-2 mt-2 rounded align-items-center form-middle">
-
               <!-- Producto -->
               <div class="col-2 mt-2">
                 <label for="product">Producto:</label>
@@ -61,10 +64,9 @@
 
               <div class="col-10 mt-2 right-inner-addon input-container">
                 <i class="fas fa-search"></i>
-                <select class="form-control" id="product">
-                  <option value="">Selecciona un producto</option>
+                <select id="product" class="selectpicker" title="Seleccionar producto" data-live-search="true" data-width="100%">
+                  <!-- Options -->
                 </select>
-                <!-- <select class="selectpicker" title="Seleccionar una producto" data-live-search="true" data-width="100%"> </select> -->
               </div>
 
               <!-- Descripción -->
@@ -115,7 +117,6 @@
               <div class="col-10 mt-2 rateDiscount d-none">
                 <input type="number" name="discountRate" id="discountRate" class="form-control w-35" placeholder="%" min="0" max="100">
               </div>
-
 
               <!-- Fecha de vencimiento -->
               <div class="col-2 mt-2">
@@ -173,6 +174,36 @@
       </div>
     </div>
   </body>
-    <script src="./js/service.js"></script>
-    <script src="./js/api.js"></script>
+  <script src="./js/service.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+  <script>
+  $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+
+  // Fetch para traer datos de productos (detalle y id)
+  fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
+    .then( resp => resp.json() )
+    .then( resp => {
+        const products = resp
+        for ( let element of products ) {
+            // Desestructuracion del objeto element
+            const { detalle, id } = element
+            // console.log(detalle, Number(id))
+
+            let select = document.querySelector('.selectpicker')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", detalle)
+            option.setAttribute("data-content", detalle)
+            option.value = id
+            option.textContent = detalle
+
+            select.appendChild( option )
+
+            $('.selectpicker').selectpicker('refresh')
+
+        }
+    })
+  </script>
 </html>

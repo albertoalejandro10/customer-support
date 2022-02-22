@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../assets/images/logo-full-title.png" type="image/x-icon">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     
     <link rel="stylesheet" href="../scss/main.scss">
+
     <link rel="stylesheet" href="../node_modules/bootstrap-select/sass/bootstrap-select.scss">
 
     <title>Servicios del cliente</title>
@@ -25,7 +27,7 @@
               <form action="./service.html" method="GET" id="form">
                 <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
                 <div class="d-inline">
-                  <select id="clientes" class="selectpicker" title="Seleccionar cliente" data-live-search="true">
+                  <select id="clientes" class="selectpicker" title="Seleccionar cliente" data-live-search="true" name="id">
                     <!-- Options -->
                   </select>
                   <input type="text" id="customer" class="d-none" name="name">
@@ -109,7 +111,7 @@
         
           // Desestructuracion del objeto element
           const { nombre, id } = element
-          console.log(nombre, Number(id))
+          // console.log(nombre, Number(id))
           
           let select = document.querySelector('.selectpicker')
           let option = document.createElement("option")
@@ -121,9 +123,7 @@
           
           select.appendChild( option )
 
-          $('.selectpicker').selectpicker('refresh');
-
-
+          $('.selectpicker').selectpicker('refresh')
         }
   })
   </script>
