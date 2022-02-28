@@ -132,80 +132,110 @@ netPriceInput.addEventListener('blur', () => {
 })
 
 const id = getParameter('id')
-const idService = getParameter('idcliente')
+const idCustomer = getParameter('idcliente')
 const name = getParameter('name')
 const parameterName = (name).replaceAll(' ', '+')
 const tkn = getParameter('tkn')
 
 // Insertar href dentro de tag anchor.
 const redirectToIndex = document.getElementById('redirectToIndex')
-redirectToIndex.href = `/index.html?id=${id}&name=${parameterName}&tkn=${tkn}`
+redirectToIndex.href = `/index.html?id=${idCustomer}&name=${parameterName}&tkn=${tkn}`
 
 // Imprimir nombre
 const customer = document.getElementById('customer')
 customer.textContent = (name).replace('+', ' ')
 
 // Si en la URL viene id y nombre, ejecuto esto.
-if ( id && ! idService && name && tkn ) {
+if ( id && ! idCustomer && name && tkn ) {
     const deleteButton = document.getElementById('deleteService')
     deleteButton.disabled = true
 }
 
 // Si en la URL viene cuatro parametros, ejecuto esto.
-if ( id && idService && name && tkn ) {
+if ( id && idCustomer && name && tkn ) {
     servicePromise( id, tkn )
 }
 
-// Method DELETE
+// Method post - Delete servicioid
 const deleteService = document.getElementById('deleteService')
 deleteService.onclick = () => {
     const id = getParameter('id')
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services/${id}`, {
-        method: 'DELETE',
+    fetch( `http://200.10.111.185:8182/maestros/servicios_clientes/delete_servicioid`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify({
+            "idServicio": id
+        })
     })
     .then( resp => resp.json() )
-    .then( resp => {
-        console.log(resp)
-        alert('Información eliminada exitosamente')
+    .then( ({ resultado, mensaje}) => {
+        // console.log(resultado)
+        // console.log(mensaje)
+        alert(`${mensaje}`)
         location.reload()
     })
     .catch( err => {
         console.log( err )
     })
-
     deleteService.disabled = 'true'
 }
 
-// Metod POST
+// Method post - grabar servicioid
 const $form = document.querySelector('#form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
     const id = getParameter('id')
-    const clienteid = getParameter('id')
-    const codigoServ = `nombre ${id}`
-    const nombreServ = formData.get('description')
-    const precioServ = Number(formData.get('netPrice'))
+    const codigo = getParameter('codigo')
+    const detalle = formData.get('description')
     const cantidad = Number(formData.get('quantity'))
-    const vencimiento = formData.get('expiration')
-    const tipo = false
-    const activo = false
+    const fechaVencimiento = formData.get('expiration')
+    const idCliente = getParameter('idcliente')
     const observacion = formData.get('observation')
 
-    const data = { codigoServ, observacion, nombreServ, cantidad, tipo, precioServ, vencimiento, activo, id, clienteid }
+    let activo = formData.get('activo')
+    if ( activo === 'on' ) {
+        activo = true
+    } else {
+        activo = false
+    }
 
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`, {
+    let abono = formData.get('abono')
+    if ( abono === 'on') {
+        abono = true
+    } else {
+        abono = false
+    }
+
+    let precioFijo = Number(formData.get('discountRate'))
+    if ( ! precioFijo ) {
+        precioFijo = 0
+    }
+    let precioNeto = Number(formData.get('netPrice'))
+    if ( ! precioNeto ) {
+        precioNeto = 0
+    }
+
+    const data = { id, codigo, detalle, cantidad, fechaVencimiento, idCliente, observacion, activo, abono, precioFijo, precioNeto }
+    // console.table( data )
+
+    fetch(`http://200.10.111.185:8182/maestros/servicios_clientes/grabar_servicioid`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
         }
     })
     .then( resp => resp.json() )
-    .then( resp => {
-        console.log(resp)
-        alert('Información cargada exitosamente')
+    .then( ({ resultado, mensaje}) => {
+        // console.log(resultado)
+        // console.log(mensaje)
+        alert(`${mensaje}`)
         location.reload()
     })
     .catch( err => {
