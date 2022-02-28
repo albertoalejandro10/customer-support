@@ -1,4 +1,4 @@
-let formLower = document.getElementById('form-lower')
+const formLower = document.getElementById('form-lower')
 formLower.innerHTML = 
 `    
 <div class="col-12">
