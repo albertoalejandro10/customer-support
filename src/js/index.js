@@ -7,27 +7,39 @@ const getParameter = parameterName => {
 }
 
 // El usuario selecciona una opcion del combo clientes. Filtrar el id y nombre para enviarlo a service.html
-let selectedInput = document.getElementById('clientes')
+const newServiceButton = document.getElementById('newServiceButton')
+const selectedInput = document.getElementById('clientes')
 selectedInput.addEventListener('change', event => {
     // Si el valueSelected esta vacio, retorno.
     if ( event.currentTarget.options[selectedInput.selectedIndex].value === '') return
     // Si existe valueSelected, obtengo el valor.
-    let selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
-    customerPromise(selectedOption.value)
+    const selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
+    const selectedName = (selectedOption.textContent).replaceAll(' ', '+')
+    // console.log( selectedOption.value, getParameter('tkn'), selectedName )
+    customerPromise(selectedOption.value, getParameter('tkn'), selectedName)
     
-    let customerSelected = document.getElementById('customer')
+    const customerSelected = document.getElementById('customer')
     customerSelected.value = (selectedOption.text).replace(' ', '-')
+
+    newServiceButton.disabled = false
 })
 
-
-// Fetch para traer e imprimir datos de los servicios del cliente. 
-const customerPromise = id => {
-    fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers/${id}/Services`)
+// Fetch para imprimir datos del servicio
+const customerPromise = (id, tkn, name) => {
+    fetch( `http://200.10.111.185:8182/maestros/servicios_clientes/get_servicios`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify({
+            "clienteId": id
+        })
+    })
     .then( resp => resp.json() )
-    .then( resp => {
-        const services = resp
+    .then( ({ Linea }) => {
 
-        // Delete old rows
+        // Eliminar filas viejas
         const tbody = document.getElementById('tbody')
         const elements = document.getElementsByClassName('delete-row')
         if ( tbody.children.length >= 1) {
@@ -36,11 +48,10 @@ const customerPromise = id => {
             importe.textContent = ''
         }
 
-        for ( let element of services) {
-
+        for (const element of Linea) {
             // Desestructuracion del objeto element
-            const { codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid } = element
-            // console.log( codigoServ, nombreServ, precioServ, cantidad, vencimiento, id, clienteid )
+            const { Id, ClienteID, Codigo, Detalle, Cantidad, Importe, Vencimiento, Observacion, Comptipo, Lista, Abono } = element
+            // console.log( Id, ClienteID, Codigo, Detalle, Cantidad, Importe, Vencimiento, Observacion, Comptipo, Lista, Abono )
             
             // Imprimir datos en la tabla
             let row = document.createElement('tr')
@@ -48,21 +59,21 @@ const customerPromise = id => {
 
             let row_data_1 = document.createElement('td')
             let row_data_1_anchor = document.createElement('a')
-            row_data_1_anchor.href = `/service.html?id=${id}`
-            row_data_1_anchor.textContent = `${ codigoServ }`
+            row_data_1_anchor.href = `/service.html?id=${Id}&idcliente=${ClienteID}&name=${name}&tkn=${tkn}`
+            row_data_1_anchor.textContent = `${ Codigo }`
             row_data_1.appendChild(row_data_1_anchor)
 
             let row_data_2 = document.createElement('td')
-            row_data_2.textContent = `${ nombreServ }`
+            row_data_2.textContent = `${ Detalle }`
 
             let row_data_3 = document.createElement('td')
-            row_data_3.textContent = `${ formatDate(vencimiento) }`
+            row_data_3.textContent = `${ Vencimiento }`
 
             let row_data_4 = document.createElement('td')
-            row_data_4.textContent = `${ cantidad }`
+            row_data_4.textContent = `${ Cantidad }`
 
             let row_data_5 = document.createElement('td')
-            row_data_5.textContent = `${ precioServ.toFixed(2) }`
+            row_data_5.textContent = `${ Importe.toFixed(2) }`
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -73,13 +84,13 @@ const customerPromise = id => {
             tbody.appendChild(row)
 
             // Calcular e imprimir importeTotal
-            calcularImporteTotal( precioServ )
+            calcularImporteTotal( Importe )
             let importe = document.querySelector('#importeTotal')
             importe.textContent = importeTotal.toFixed(2)
         }
         importeTotal = 0
     })
-    .catch(error => console.error(error))
+    .catch( err => console.log( err ))
 }
 
 // Calcular importe total
@@ -89,20 +100,12 @@ const calcularImporteTotal = precioServ => {
     return importeTotal
 }
 
-// Formatear vencimiento
-const formatDate = vencimiento => {
-    vencimiento.slice(0, 10)
+const id = getParameter('id')
+const tkn = getParameter('tkn')
+const name = getParameter('name')
 
-    const datePart = vencimiento.match(/\d+/g),
-    year = datePart[0].substring(0),
-    month = datePart[1],
-    day = datePart[2]
-
-    return day+'/'+month+'/'+year
-}
-
-// Si viene id en la URL, se ejecuta.
-if ( window.location.search ) {
-    const id = getParameter('id')
-    customerPromise(id)
+// Si viene id, name y tkn en la URL, se ejecuta.
+if ( id && name && tkn) {
+    const parameterName = (name).replaceAll(' ', '+')
+    customerPromise(id, tkn, parameterName)
 }

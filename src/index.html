@@ -19,11 +19,11 @@
         <div class="container mt-2 p-4 rounded">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col d-flex align-items-center">
+            <div class="col-12 mb-2 d-flex align-items-center justify-content-between">
               <h1 class="h6 mb-0 font-weight-bolder"><i class="fas fa-headset"></i>Servicios del cliente</h1>
+              <p id="topCompanyName" class="h6 mb-0 font-weight-bolder text-right">Company Name</p>
             </div>
-            <div class="col-8 text-right">
-
+            <div class="col-12 text-right">
               <form action="./service.html" method="GET" id="form">
                 <label for="clientes" role="button" class="font-weight-bolder">Clientes: </label>
                 <div class="d-inline">
@@ -31,9 +31,10 @@
                     <!-- Options -->
                   </select>
                   <input type="text" id="customer" class="d-none" name="name">
+                  <input type="text" id="tokenBearer" class="d-none" name="tkn">
                 </div>
                 <button type="button" class="btn btn-primary text-white"><i class="fas fa-recycle"></i>  Actualizar</button>
-                <button type="submit" class="btn btn-success text-white"><i class="fas fa-check"></i>  Nuevo</button>
+                <button id="newServiceButton" type="submit" class="btn btn-success text-white" disabled><i class="fas fa-check"></i>  Nuevo</button>
               </form>
 
             </div>
@@ -66,13 +67,13 @@
             </div>
           </div>
           <!-- Form - Lower -->
-          <div class="row p-2 mt-2 rounded form-bottom">
-            <iframe name="iframe_footer-form" class="iframe" src="./footer-form.html"></iframe>
+          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom">
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="js/footer-form.js" type="text/javascript"></script>
   <script src="./js/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
@@ -80,16 +81,28 @@
   <script>
   $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
+  // Conseguir parametros del URL
+  const getParameter = parameterName => {
+      let parameters = new URLSearchParams( window.location.search )
+      return parameters.get( parameterName )
+  }
+
     // Fetch para traer datos de clientes (nombre y id)
-  fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/customers`)
+  fetch(`http://200.10.111.185:8182/maestros/servicios_clientes/get_clientes`, {
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${getParameter('tkn')}`
+      }
+
+  })
     .then( resp => resp.json() )
     .then( resp => {
       const customers = resp
       for ( let element of customers ) {
         
           // Desestructuracion del objeto element
-          const { nombre, id } = element
-          // console.log(nombre, Number(id))
+          const { nombre, id, cuit, codCliente } = element
+          // console.log(nombre, Number(id), cuit, codCliente)
           
           let select = document.querySelector('.selectpicker')
           let option = document.createElement("option")
