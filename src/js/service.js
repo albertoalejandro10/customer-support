@@ -8,7 +8,8 @@ const getParameter = parameterName => {
 
 // Fetch para traer servicios, si viene id en la URL
 const servicePromise = ( id, tkn ) => {
-    fetch( `http://200.10.111.185:8182/maestros/servicios_clientes/get_servicioid`, {
+    const url_getService = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_servicioid'
+    fetch( url_getService , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ redirectToIndex.href = `/index.html?id=${idCustomer}&name=${parameterName}&tkn=$
 const customer = document.getElementById('customer')
 customer.textContent = (name).replace('+', ' ')
 
-// Si en la URL viene id y nombre, ejecuto esto.
+// Si en la URL viene id, nombre y tkn, ejecuto esto.
 if ( id && ! idCustomer && name && tkn ) {
     const deleteButton = document.getElementById('deleteService')
     deleteButton.disabled = true
@@ -160,7 +161,8 @@ if ( id && idCustomer && name && tkn ) {
 const deleteService = document.getElementById('deleteService')
 deleteService.onclick = () => {
     const id = getParameter('id')
-    fetch( `http://200.10.111.185:8182/maestros/servicios_clientes/delete_servicioid`, {
+    const url_deleteService = 'https://www.solucioneserp.net/maestros/servicios_clientes/delete_servicioid'
+    fetch( url_deleteService, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -172,8 +174,7 @@ deleteService.onclick = () => {
     })
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
-        // console.log(resultado)
-        // console.log(mensaje)
+        // console.log(resultado, mensaje)
         alert(`${mensaje}`)
         location.reload()
     })
@@ -223,7 +224,8 @@ $form.addEventListener('submit', event => {
     const data = { id, codigo, detalle, cantidad, fechaVencimiento, idCliente, observacion, activo, abono, precioFijo, precioNeto }
     // console.table( data )
 
-    fetch(`http://200.10.111.185:8182/maestros/servicios_clientes/grabar_servicioid`, {
+    const url_recordService = 'https://www.solucioneserp.net/servicios_clientes/grabar_servicioid'
+    fetch( url_recordService , {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -233,8 +235,7 @@ $form.addEventListener('submit', event => {
     })
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
-        // console.log(resultado)
-        // console.log(mensaje)
+        // console.log(resultado, mensaje)
         alert(`${mensaje}`)
         location.reload()
     })
@@ -245,14 +246,12 @@ $form.addEventListener('submit', event => {
 
 // Formatear input cantidad - Es copiado.
 class CampoNumerico {
-
     constructor(selector) {
         this.nodo = document.querySelector(selector);
         this.valor = '';
         
         this.empezarAEscucharEventos();
     }
-
     empezarAEscucharEventos() {
         this.nodo.addEventListener('keydown', function(evento) {
         const teclaPresionada = evento.key;

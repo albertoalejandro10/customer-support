@@ -26,17 +26,12 @@ formLower.innerHTML =
 </div>
 `
 
-// Conseguir parametros del URL
-const getParameter = parameterName => {
-    let parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
-}
-
-const tknUserPromise = tknBearer => {
-    fetch(`http://200.10.111.185:8182/session/login_sid`, {
+const tknUserPromise = tkn => {
+    const url_getUser = 'https://www.solucioneserp.net/session/login_sid'
+    fetch( url_getUser , {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${tknBearer}`
+            'Authorization': `Bearer ${tkn}`
         }
     })
     .then( resp => resp.json() )
@@ -87,21 +82,25 @@ const getFullTime = hours => {
     } else {
         timeValue = 12
     }
-
     return timeValue
 }
 
+// Conseguir parametros del URL
+const getParameter = parameterName => {
+    let parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
+
+const tkn = getParameter('tkn')
 // Si viene tkn en la URL, se ejecuta
-if ( getParameter('tkn') ) {
-    if ( window.location.pathname === '/service.html') {
-        const tkn = getParameter('tkn')
+if ( tkn ) {
+    if ( window.location.pathname === '/index.html' ) {
+        const tokenBearer = document.getElementById('tokenBearer')
+        tokenBearer.value = tkn
         tknUserPromise(tkn)
     }
 
-    if ( window.location.pathname === '/index.html' ) {
-        const tokenBearer = document.getElementById('tokenBearer')
-        tokenBearer.value = getParameter('tkn')
-        const tkn = getParameter('tkn')
+    if ( window.location.pathname === '/service.html') {
         tknUserPromise(tkn)
     }
 }

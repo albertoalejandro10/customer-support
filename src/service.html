@@ -156,32 +156,5 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-
-  <script>
-  $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-
-  // Fetch para traer datos de productos (detalle y id)
-  fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
-    .then( resp => resp.json() )
-    .then( resp => {
-        const products = resp
-        for ( let element of products ) {
-            // Desestructuracion del objeto element
-            const { detalle, id } = element
-            // console.log(detalle, Number(id))
-
-            let select = document.querySelector('.selectpicker')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", detalle)
-            option.setAttribute("data-content", detalle)
-            option.value = id
-            option.textContent = detalle
-
-            select.appendChild( option )
-
-            $('.selectpicker').selectpicker('refresh')
-
-        }
-    })
-  </script>
+  <script src="./js/own-bootstrap-select.js"></script>
 </html>
