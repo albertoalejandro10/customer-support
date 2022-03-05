@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "form for custom-support ",
   "scripts": {
-    "dev": "parcel ./src/ServiciosClientes/*.html",
+    "dev": "parcel ./src/*.html, ./src/ServiciosClientes/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./src/ServiciosClientes/*.html --out-dir build"
+    "build": "parcel build --public-url ./ ./src/*.html, ./src/ServiciosClientes/*.html --out-dir build"
   },
   "repository": {
     "type": "git",
