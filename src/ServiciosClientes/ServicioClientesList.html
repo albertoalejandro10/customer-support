@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="./main.scss">
+    
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    <title>Servicios del cliente</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-12 mb-2 d-flex align-items-center justify-content-between">
+              <h4 class="mb-0" style="color:#777777 !important;font-weight: 400;">Servicios por cliente</h4>
+              
+              <form class="pt-2" action="./ServicioClientesEdit.html" method="GET" id="form">
+                <label for="clientes" role="button" class="">Clientes: </label>
+                <div class="d-inline">
+                  <select id="clientes" class="selectpicker" title="Seleccionar cliente" data-live-search="true" width="auto" name="id">
+                    <!-- Options -->
+                  </select>
+                  <input type="text" id="customer" class="d-none" name="name">
+                  <input type="text" id="tokenBearer" class="d-none" name="tkn">
+                </div>
+                <button type="button" class="btn btn-primary text-white"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                <button id="newServiceButton" type="submit" class="btn btn-success text-white" disabled><i class="fas fa-check"></i> Nuevo</button>
+              </form>
+
+            </div>
+          </div>
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder">Actividades</h6>
+              <table class="table table-sm table-striped table-borderless table-hover table-light rounded">
+                <thead>
+                  <tr>
+                    <th><i class="fas fa-barcode"></i>Código</th>
+                    <th><i class="fas fa-file-invoice"></i>Detalle</th>
+                    <th><i class="fas fa-calendar-day"></i>Vencimiento</th>
+                    <th><i class="fas fa-shopping-bag"></i>Cantidad</th>
+                    <th><i class="fas fa-dollar-sign"></i>Importe neto</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td class="font-weight-bolder" colspan="3">TOTAL</td>
+                    <td id="importeTotal" class="font-weight-bolder text-right"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/ServicioClienteList.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../../node_modules/bootstrap-select/js/bootstrap-select.js"></script>
+  <script src="./js/own-bootstrap-select.js"></script>
+</html>

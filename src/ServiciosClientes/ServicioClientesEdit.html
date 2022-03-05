@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="./main.scss">
+    <link rel="stylesheet" href="./service.scss">
+
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    <title>Servicios del cliente</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="mt-2 pt-1 pr-5 pl-5 rounded col-12">
+
+          <form id="form">
+
+            <!-- Form - Top -->
+            <div class="row p-2 mb-2 rounded form-top">
+              <div class="col-12 mb-2 d-flex align-items-center justify-content-between">
+                <h4 class="mb-0" style="color:#777777 !important;font-weight: 400;" >AMB Servicio</h4>
+                
+                <div class="text-right pt-2">
+                  <button id="addService" type="submit" class="btn btn-primary text-white"><i class="fas fa-save"></i> Grabar</button>
+  
+                  <button type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> <a id="redirectToIndex">Lista</a></button>
+                  
+                  <button id="deleteService" type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                </div>
+                <input type="text" id="tokenBearer" class="d-none" name="tkn">
+              </div>              
+            </div>          
+
+            <!-- Form - Middle higher -->
+            <div class="row p-2 mt-2 rounded align-items-center form-middle">
+
+              <div class="col-2">
+                <label for="">Cliente:</label>
+              </div>
+    
+              <div class="col-10">
+                <p id="customer" class="mb-0"></p>
+              </div>
+    
+              <div class="col-2">
+                <label for="observation">Observación:</label>
+              </div>
+    
+              <div class="col-10">
+                <input type="text" name="observation" id="observation" class="form-control">
+              </div>
+            </div>
+
+            <!-- Form - Middle lower -->
+            <div class="row p-2 mt-2 rounded align-items-center form-middle">
+              <!-- Producto -->
+              <div class="col-2 mt-2">
+                <label for="product">Producto:</label>
+              </div>
+
+              <div class="col-10 mt-2 right-inner-addon input-container">
+                <i class="fas fa-search"></i>
+                <select id="product" class="selectpicker" title="Seleccionar producto" data-live-search="true" data-width="100%">
+                  <!-- Options -->
+                </select>
+              </div>
+
+              <!-- Descripción -->
+              <div class="col-2 mt-2">
+                <label for="description">Descripción:</label>
+              </div>
+
+              <div class="col-10 mt-2">
+                <input type="text" name="description" id="description" class="form-control">
+              </div>
+
+              <!-- Cantidad de productos -->
+              <div class="col-2 mt-2">
+                <label for="quantity">Cantidad:</label>
+              </div>
+
+              <div class="col-10 mt-2">
+                <input type="number" name="quantity" id="quantity" class="form-control w-35" value="1">
+              </div>
+
+              <!-- Tipo de pago -->
+              <div class="col-2 mt-2">
+                <label for="type">Tipo:</label>
+              </div>
+
+              <div class="col-10 mt-2">
+                <select name="type" id="type" class="form-control w-35">
+                  <option value="1">Precio lista</option>
+                  <option value="2">Precio fijo</option>
+                  <option value="3">% Descuento</option>
+                </select>
+              </div>
+
+              <!-- Precio Neto -->
+              <div class="col-2 mt-2 priceNet d-none">
+                <label for="netPrice">Precio neto:</label>
+              </div>
+
+              <div class="col-10 mt-2 priceNet d-none">
+                <input type="number" name="netPrice" id="netPrice" class="form-control w-35" placeholder="0.00" step=".01">
+              </div>
+
+              <!-- % Descuento -->
+              <div id="rateDiscount" class="col-2 mt-2 rateDiscount d-none">
+                <label for="discountRate">% Descuento</label>
+              </div>
+
+              <div class="col-10 mt-2 rateDiscount d-none">
+                <input type="number" name="discountRate" id="discountRate" class="form-control w-35" placeholder="%" min="0" max="100">
+              </div>
+
+              <!-- Fecha de vencimiento -->
+              <div class="col-2 mt-2">
+                <label for="expiration">Vencimiento:</label>
+              </div>
+
+              <div class="col-10 mt-2">
+                <input type="date" name="expiration" id="expiration" class="form-control w-35">
+              </div>
+
+              <!-- Tipo de abono -->
+              <div class="col-2 mt-2">
+                <label for="abonoChoice">Abono:</label>
+              </div>
+              <div class="col-10 mt-2">
+                <input type="checkbox" name="abono" id="abonoChoice">
+              </div>
+              <div class="col-2 mt-2">
+                <label for="activoChoice">Activo:</label>
+              </div>
+              <div class="col-10 mt-2">
+                <input type="checkbox" name="activo" id="activoChoice">
+              </div>
+            </div>
+
+          </form>
+
+          <!-- Footer form -->
+          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../jsgen/footer-form.js" type="text/javascript"></script>
+  <script src="./js/ServicioClienteEdit.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="../../node_modules/bootstrap-select/js/bootstrap-select.js"></script>
+  <script src="./js/own-bootstrap-select.js"></script>
+</html>
