@@ -9,7 +9,7 @@ const tkn = getParameter('tkn')
 const url_getCustomers = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_clientes'
 
 // Index Page
-if ( window.location.pathname === '/ServicioClientesList.html' ) {
+if ( window.location.pathname === '/servicioclienteslist.html' ) {
   // Fetch para traer datos de clientes ()
   fetch( url_getCustomers , {
       method: 'GET',
@@ -39,7 +39,7 @@ if ( window.location.pathname === '/ServicioClientesList.html' ) {
 }
 
 // Service Page
-if ( window.location.pathname === '/ServicioClientesEdit.html') {
+if ( window.location.pathname === '/servicioclientesedit.html') {
   // Fetch para traer datos de productos (detalle y id)
   fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
     .then( resp => resp.json() )
