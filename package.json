@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel ./src/*.html, ./src/ServiciosClientes/*.html, ./src/PendientesClientes/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./ ./src/*.html, ./src/ServiciosClientes/*.html ./src/PendientesClientes/*.html --out-dir build"
+    "build": "parcel build --public-url ./ ./src/PendientesClientes/*.html --out-dir build"
   },
   "repository": {
     "type": "git",
