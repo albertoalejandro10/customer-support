@@ -26,7 +26,7 @@ formLower.innerHTML =
 </div>
 `
 
-const tknUserPromise = tkn => {
+const get_UserFooter = tkn => {
     const url_getUser = 'https://www.solucioneserp.net/session/login_sid'
     fetch( url_getUser , {
         method: 'GET',
@@ -37,7 +37,6 @@ const tknUserPromise = tkn => {
     .then( resp => resp.json() )
     .then( resp => {
         const users = resp
-
         const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre } = users
         // console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
 
@@ -47,37 +46,17 @@ const tknUserPromise = tkn => {
         const userName = document.getElementById('userName')
         userName.textContent = usuarioNombre
 
+        // Get day and full time
         const today = new Date()
-        const day = today.getDate()
-        const month = today.getMonth()
-        const year = today.getFullYear()
-        const fullDate = `${day}/${month+1}/${year}`
-
-        const hours = today.getHours()
-        const minutes = today.getMinutes()
-        const seconds = today.getSeconds()
-
-        const fullTime = `${getFullTime(hours)}:${minutes}:${seconds}`
+        const day = today.toLocaleDateString('en-GB')
+        const fullTime = today.toLocaleTimeString()
 
         const companyName = document.getElementById('companyName')
-        companyName.textContent = `${empresaNombre} - ${fullDate} ${fullTime}`
+        companyName.textContent = `${empresaNombre} - ${day} ${fullTime}`
 
         const timeExercise = document.getElementById('timeExercise')
         timeExercise.textContent = `${ejercicioInicio} - ${ejercicioCierre}`
     })
-}
-
-// Get Full Date
-const getFullTime = hours => {
-    let timeValue= 0
-    if ( hours > 0 && hours <= 12 ) {
-        timeValue = hours
-    } else if ( hours > 12 ) {
-        timeValue = (hours - 12)
-    } else {
-        timeValue = 12
-    }
-    return timeValue
 }
 
 // Conseguir parametros del URL
@@ -91,5 +70,5 @@ const tkn = getParameter('tkn')
 if ( tkn ) {
     const tokenBearer = document.getElementById('tokenBearer')
     tokenBearer.value = tkn
-    tknUserPromise(tkn)
+    get_UserFooter( tkn )
 }
