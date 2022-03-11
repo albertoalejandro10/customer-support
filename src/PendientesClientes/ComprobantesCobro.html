@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" href="./main.scss">
+    <link rel="stylesheet" href="./comprobantescobro.scss">
     
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -16,93 +16,96 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2 d-flex align-items-center justify-content-between">
+            <div class="col-12 mb-2">
               <h4 class="mb-0">Comprobantes pendientes de cobro</h4>
-              <!-- Inputs ocultos para enviar nombre y token por GET -->
-              <input type="text" id="customer" class="d-none" name="name">
-              <input type="text" id="tokenBearer" class="d-none" name="tkn">
-              <div>
-                <button id="update" type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                <button id="print" type="button" class="btn btn-success text-white"><i class="fa-solid fa-check"></i> Imprimir</button>
-              </div>
             </div>
             
             <div class="col-12">
-              <div class="row">
-
-                <div class="col-sm">
-
-                  <div class="d-flex">
-                    <label for="business">U. de Negocio:</label>
-                    <select id="business" name="business" class="selectpicker" title="Seleccionar negocio" data-width="290px">
-                      <!-- U. de Negocio -->
-                    </select>
-                  </div>
-
-                  <div class="d-flex">
-                    <label for="status">Estado:&nbsp;&nbsp;</label>
-                    <select id="status" name="status" class="selectpicker" title="Seleccionar estado" data-width="290px">
-                      <!-- Options Status -->
-                    </select>
-                  </div>
-
-                  <div class="">
-                    <label for="platform">Incluir Proformas:</label>
-                    <input type="checkbox" name="platform" id="platform">
-                  </div>                
-                </div>
-
-                <div class="col-sm">
-                  <div class="d-flex">
-                    <label for="periodStart">Periodo:</label>
-                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
-                  </div>
-
-                  <div class="d-flex">
-                    <label for="customers">Cliente:</label>
-                    <select id="customers" name="customer" class="selectpicker" title="Seleccionar cliente" data-live-search="true" data-width="345px">
-                      <!-- Options Customers -->
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-sm">
-                  <div class="d-flex">
-                    <div>
-                      <input type="checkbox" name="expiration" id="checkboxExpiration">
-                      <label for="expiration">Hasta vencimiento:</label>
-                    </div>
-                    <input class="form-control" type="date" name="expiration" id="expiration" disabled>
-                  </div>
-
-                  <div class="d-flex">
-                    <label for="coins">Moneda:</label>
-                    <select id="coins" name="coin" class="selectpicker" title="Seleccionar moneda" data-width="240px">
-                      <!-- Options Coins -->
-                    </select>
-                  </div>
-                </div>   
+              <form id="form">
+                <div class="row">
   
-              </div>
-              
+                  <div class="col-sm">
+  
+                    <div class="d-flex">
+                      <label for="business">U. de Negocio:</label>
+                      <select id="business" name="business" class="selectpicker" data-width="74%">
+                        <!-- U. de Negocio -->
+                      </select>
+                    </div>
+  
+                    <div class="d-flex">
+                      <label for="status">Estado:</label>
+                      <select id="status" name="status" class="selectpicker" data-width="74%">
+                        <!-- Options Status -->
+                        <option value="0">Todos</option>
+                      </select>
+                    </div>
+  
+                    <div class="d-flex align-items-center">
+                      <label for="platform">Incluir Proformas:</label>
+                      <input class="checkbox" type="checkbox" name="platform" id="platform">
+                    </div>                
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex">
+                      <label for="periodStart">Periodo:</label>
+                      <div class="d-flex justify-content-start">
+                        <input class="form-control" type="text" name="periodStart" id="periodStart">-<input class="form-control" type="text" name="periodEnd" id="periodEnd">
+                      </div>
+                    </div>
+  
+                    <div class="d-flex">
+                      <label for="customers">Cliente:</label>
+                      <select id="customers" name="customer" class="selectpicker" title="Seleccionar cliente" data-live-search="true" data-width="60%" required>
+                        <!-- Options Customers -->
+                      </select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex">
+                      <div>
+                        <input class="checkbox" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
+                        <label for="expiration">Hasta vencimiento:</label>
+                      </div>
+                      <input class="form-control" type="date" name="expiration" id="expiration" disabled>
+                    </div>
+  
+                    <div class="d-flex">
+                      <label for="coins">Moneda:</label>
+                      <select id="coins" name="coin" class="selectpicker" data-width="64%">
+                        <!-- Options Coins -->
+                      </select>
+                    </div>
+  
+                    <div class="d-flex justify-content-end buttons">
+                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="print" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Imprimir</button>
+                    </div>
+  
+                  </div>   
+    
+                </div>
+              </form>
             </div>
           </div>
           
           <!-- Form - Middle -->
-          <div class="row p-2 mt-2 rounded form-middle">
+          <div class="row p-2 mt-2 rounded form-middle text-secondary">
             <div class="col">
               <h6 class="mt-2 font-weight-bolder">Actividades</h6>
-              <table class="table table-sm table-striped table-borderless table-hover table-light rounded">
+              <table class="table table-sm table-striped table-borderless table-hover table-light rounded text-secondary">
                 <thead>
                   <tr>
-                    <th><i class="fa-solid fa-calendar-day"></i>Vencimiento</th>
-                    <th><i class="fa-solid fa-calendar-days"></i>Fecha</th>
-                    <th><i class="fa-solid fa-file-invoice"></i>Comprobante</th>
-                    <th><i class="fa-solid fa-user"></i>Cliente</th>
-                    <th><i class="fa-solid fa-magnifying-glass"></i>Observaciones</th>
+                    <th>Vencimiento</th>
+                    <th>Fecha</th>
+                    <th>Comprobante</th>
+                    <th>Cliente</th>
+                    <th>Observaciones</th>
                     <th>&nbsp;</th>
-                    <th><i class="fa-solid fa-dollar-sign"></i>Importe</th>
-                    <th><i class="fa-solid fa-money-check-dollar"></i>Pendiente</th>
+                    <th>Importe</th>
+                    <th></i>Pendiente</th>
                   </tr>
                 </thead>
                 <tbody id="tbody">
@@ -124,7 +127,7 @@
             </div>
           </div>
           <!-- Form - Lower -->
-          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom">
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
           </div>
         </div>
       </div>
@@ -132,7 +135,7 @@
   </body>
   <script src="./js/ComprobantesCobro.js"></script>
   <script src="../jsgen/footer-form.js"></script>
-
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="../../node_modules/bootstrap-select/js/bootstrap-select.js"></script>
   <script src="./js/ComprobantesGetApi.js"></script>

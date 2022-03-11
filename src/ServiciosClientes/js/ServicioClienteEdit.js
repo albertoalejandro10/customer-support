@@ -138,6 +138,9 @@ const name = getParameter('name')
 const parameterName = (name).replaceAll(' ', '+')
 const tkn = getParameter('tkn')
 
+const tokenBearer = document.getElementById('tokenBearer')
+tokenBearer.value = tkn
+
 // Insertar href dentro de tag anchor.
 const redirectToIndex = document.getElementById('redirectToIndex') 
 redirectToIndex.href = `/ServicioClientesList.html?id=${idCustomer}&name=${parameterName}&tkn=${tkn}`

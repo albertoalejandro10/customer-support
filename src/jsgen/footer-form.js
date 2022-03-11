@@ -7,7 +7,7 @@ formLower.innerHTML =
         &nbsp;
         </div>
         <div class="col-sm">
-            <h6 id="nameExercise" class="font-weight-bolder text-center mt-2"></h6>
+            <h6 id="nameExercise" class="font-weight-bolder text-center mt-2 text-secondary"></h6>
         </div>
         <div class="col-sm text-right">
             <p id="userName" class="mb-0"></p>
@@ -68,7 +68,5 @@ const getParameter = parameterName => {
 const tkn = getParameter('tkn')
 // Si viene tkn en la URL, se ejecuta
 if ( tkn ) {
-    const tokenBearer = document.getElementById('tokenBearer')
-    tokenBearer.value = tkn
     get_UserFooter( tkn )
 }

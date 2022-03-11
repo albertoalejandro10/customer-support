@@ -92,6 +92,9 @@ const id = getParameter('id')
 const tkn = getParameter('tkn')
 const name = getParameter('name')
 
+const tokenBearer = document.getElementById('tokenBearer')
+tokenBearer.value = tkn
+
 // Si viene id, name y tkn en la URL, se ejecuta.
 if ( id && tkn && name ) {
     const parameterName = (name).replaceAll(' ', '+')

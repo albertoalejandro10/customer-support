@@ -4,6 +4,7 @@
     --font-family-sans-serif: "Poppins", sans-serif;
 }
 
+$breakpoint-extralarge: 1300px;
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 * {
@@ -19,6 +20,10 @@
     padding-left: 0px;
 }
 
+i {
+    margin-right: 6px;
+}
+
 h4 {
     color: #777777;
     font-weight: 400;
@@ -29,28 +34,44 @@ label {
     margin-right: 10px;
 }
 
-input[type="checkbox"] {
-    margin-top: 4px;
-    accent-color: #60C1DD;
+label[for="status"] {
+    margin-right: 56px;
 }
 
+label[for="coins"] {
+    margin-right: 88px;
+}
 
-i {
-    margin-right: 6px;
+label[for="customers"] {
+    margin-right: 16px;
+}
+
+input[type="checkbox"] {
+    accent-color: #60C1DD;
+    cursor: pointer;
 }
 
 .form-control {
-    width: 170px;
-}
-
-#expiration {
-    width: 240px;
+    width: 28%;
 }
 
 .col-sm .d-flex {
     align-items: center;
     margin-bottom: 5px;
-    justify-content: space-between;
+}
+
+#expiration {
+    width: 64%;
+}
+
+@media (min-width: $breakpoint-extralarge) {
+    .buttons {
+        margin-right: 3%;
+    }
+}
+
+table {
+    color: #777777;
 }
 
 .row {
@@ -86,11 +107,14 @@ i {
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(4) {
-        width: 10%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 12%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(5) {
-        width: 28%;
+        width: 26%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(6) {

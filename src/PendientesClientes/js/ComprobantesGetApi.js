@@ -81,12 +81,12 @@ const get_customers = tkn => {
         const coins = resp
         for ( const element of coins ) {
             const { codCliente, cuit, nombre, id } = element  
-            // console.log( codCliente, cuit, nombre, id )
+            // console.log( codCliente, cuit, id )
             
             const select = document.querySelector('#customers')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
-            option.value = id
+            option.value = codCliente
             option.textContent = nombre
             
             select.appendChild( option )
@@ -113,17 +113,17 @@ const get_startPeriod = tkn => {
     .then( ([resp]) => {
         // Start Period
         const { fecha } = resp
-        const startDate = fecha.split('/').reverse().join('-')
+        const startDate = fecha.split('/').join('/')
         const periodStart = document.getElementById('periodStart')
         periodStart.value = startDate
-        periodStart.disabled = true
+        // periodStart.disabled = true
 
         // End Period
         const today = new Date().toLocaleDateString('en-GB')
-        const endDate = today.split('/').reverse().join('-')
+        const endDate = today.split('/').join('/')
         const periodEnd = document.getElementById('periodEnd')
         periodEnd.value = endDate
-        periodEnd.disabled = true
+        // periodEnd.disabled = true
     })
     .catch( err => {
         console.log( err )

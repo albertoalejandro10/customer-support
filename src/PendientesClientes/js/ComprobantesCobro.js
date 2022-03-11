@@ -4,9 +4,11 @@ const checkboxExpiration = document.getElementById('checkboxExpiration')
 checkboxExpiration.addEventListener('change', event => {
     const expiration = document.getElementById('expiration')
     if ( event.currentTarget.checked ) {
+        expiration.required = true
         expiration.disabled = false
     } else {
         expiration.disabled = true
+        expiration.required = false
     }
 })
 
@@ -22,19 +24,7 @@ document.querySelectorAll('select').forEach(element => {
     })
 })
 
-const get_pendingCharges = tkn => {
-    const data = {
-        "idUnidadNegocio": 0,
-        "fechaDesde": "01/07/2017",
-        "fechaHasta": "28/02/2022",
-        "hastaFechaVencimiento": 1,
-        "fechaVencimiento": "10/03/2022",
-        "cuentaEstado": "0",
-        "codigoCliente": "0",
-        "idMoneda": 1,
-        "incluirProformas": 1,
-        "incluirRemitos": 1
-    }
+const get_pendingCharges = (tkn, data) => {
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
     fetch( url_getPendingCharges , {
         method: 'POST',
@@ -89,10 +79,10 @@ const get_pendingCharges = tkn => {
             row_data_6.appendChild(row_data_6_anchor)
 
             let row_data_7 = document.createElement('td')
-            row_data_7.textContent = `${importeNeto}`
+            row_data_7.textContent = `${importeNeto.toFixed(2)}`
 
             let row_data_8 = document.createElement('td')
-            row_data_8.textContent = `${pendiente}`
+            row_data_8.textContent = `${pendiente.toFixed(2)}`
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -106,10 +96,9 @@ const get_pendingCharges = tkn => {
             tbody.appendChild(row)
 
             // Calcular e imprimir importeTotal
-            calcularImporteTotal( importeNeto )
+            calcularImporteTotal( pendiente )
             let importe = document.querySelector('#importeTotal')
             importe.textContent = importeTotal.toFixed(2) 
-
         }
         importeTotal = 0
     })
@@ -130,11 +119,48 @@ export const getParameter = parameterName => {
     const parameters = new URLSearchParams( window.location.search )
     return parameters.get( parameterName )
 }
-
+    
 const tkn = getParameter('tkn')
 const update = document.getElementById('update')
-update.onclick = event => {
+
+const $form = document.getElementById('form')
+$form.addEventListener('submit', event => {
     event.preventDefault()
-    get_pendingCharges( tkn )
+    const formData = new FormData(event.currentTarget)
+
+    const business = Number(formData.get('business'))
+    const periodStart = formData.get('periodStart')
+    const periodEnd = formData.get('periodEnd')
+    const expirationCheckbox = formData.get('expirationCheckbox')
+    const expiration = get_expirationDate(formData.get('expiration'))
+    const status = formData.get('status')
+    const customer = formData.get('customer')
+    const coin = formData.get('coin')
+    const platform = formData.get('platform')
+
+    const data = {
+        "idUnidadNegocio": business,
+        "fechaDesde": periodStart,
+        "fechaHasta": periodEnd,
+        "hastaFechaVencimiento": 0,
+        "fechaVencimiento": expiration,
+        "cuentaEstado": status,
+        "codigoCliente": customer,
+        "idMoneda": coin,
+        "incluirProformas": 0,
+        "incluirRemitos": 0
+    }
+
+    get_pendingCharges( tkn, data )
     update.disabled = true
+})
+
+const get_expirationDate = expirationValue => {
+    let expiration
+    if ( expirationValue ) {
+        expiration = expirationValue.split('-').reverse().join('/')
+    } else {
+        expiration = ""
+    }
+    return expiration
 }
