@@ -52,7 +52,12 @@ input[type="checkbox"] {
 }
 
 .form-control {
-    width: 46%;
+    width: 48%;
+    padding: 0.1875rem 0.375rem;
+}
+
+.btn.dropdown-toggle.btn-light {
+    padding: 0.1875rem 0.375rem;
 }
 
 .col-sm .d-flex {
@@ -61,11 +66,7 @@ input[type="checkbox"] {
 }
 
 #expiration {
-    width: 49%;
-}
-
-#print {
-    margin-right: 40px;
+    width: 61%;
 }
 
 @media (min-width: $breakpoint-extralarge) {
@@ -94,7 +95,7 @@ table {
 }
 
 .table-sm th {
-    padding: 0;
+    padding: 0.1875rem 0.375rem;
 }
 
 .table-sm td {

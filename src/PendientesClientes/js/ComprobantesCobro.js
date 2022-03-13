@@ -6,9 +6,11 @@ checkboxExpiration.addEventListener('change', event => {
     if ( event.currentTarget.checked ) {
         expiration.required = true
         expiration.disabled = false
+        expiration.value = (new Date().toLocaleDateString('en-GB')).split('/').reverse().join('-')
     } else {
         expiration.disabled = true
         expiration.required = false
+        expiration.value = ''
     }
 })
 
@@ -97,8 +99,14 @@ const get_pendingCharges = (tkn, data) => {
 
             // Calcular e imprimir importeTotal
             calcularImporteTotal( pendiente )
-            let importe = document.querySelector('#importeTotal')
-            importe.textContent = importeTotal.toFixed(2) 
+            const  style = {
+                minimumFractionDigits: 2,
+                useGrouping: true
+            }
+            const formatter = new Intl.NumberFormat("de-DE", style)
+
+            let importe = document.getElementById('importeTotal')
+            importe.textContent = formatter.format( importeTotal )
         }
         importeTotal = 0
     })
@@ -108,16 +116,12 @@ const get_pendingCharges = (tkn, data) => {
 }
 
 const format_number = importeNeto => {
-    const localeCurrency = Intl.NumberFormat('en-US')
-    let importe = localeCurrency.format(importeNeto)
-    const char = '.'
-    if ( ! importe.includes(char) ) {
-        importe = importe + '.00'
+    const  style = {
+        minimumFractionDigits: 2,
+        useGrouping: true
     }
-    const onlyOneDecimal = importe.slice('-2')
-    if ( onlyOneDecimal.includes(char) ) {
-        importe = importe + '0'
-    }
+    const formatter = new Intl.NumberFormat("de-DE", style)
+    const importe = formatter.format(importeNeto)
     return importe
 }
 
