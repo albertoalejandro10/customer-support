@@ -39,7 +39,7 @@ label[for="status"] {
 }
 
 label[for="coins"] {
-    margin-right: 88px;
+    margin-right: 94px;
 }
 
 label[for="customers"] {
@@ -52,7 +52,7 @@ input[type="checkbox"] {
 }
 
 .form-control {
-    width: 28%;
+    width: 46%;
 }
 
 .col-sm .d-flex {
@@ -61,7 +61,11 @@ input[type="checkbox"] {
 }
 
 #expiration {
-    width: 64%;
+    width: 49%;
+}
+
+#print {
+    margin-right: 40px;
 }
 
 @media (min-width: $breakpoint-extralarge) {
@@ -89,17 +93,21 @@ table {
     }
 }
 
-.table-sm th, .table-sm td {
+.table-sm th {
+    padding: 0;
+}
+
+.table-sm td {
     padding: 0.2rem;
 }
 
 .table-sm th {
     &:first-child {
-        width: 13%;
+        width: 8%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(2) {
-        width: 10%;
+        width: 8%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(3) {
@@ -107,14 +115,11 @@ table {
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(4) {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 12%;
+        width: 20%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(5) {
-        width: 26%;
+        width: 30%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(6) {
@@ -122,13 +127,13 @@ table {
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(7) {
+        width: 8%;
         text-align: right;
-        width: 10%;
         border: 0.4px solid #D5D5D5;
     }
     &:last-child {
+        width: 8%;
         text-align: right;
-        width: 11%;
         border: 0.4px solid #D5D5D5;
     }
 }

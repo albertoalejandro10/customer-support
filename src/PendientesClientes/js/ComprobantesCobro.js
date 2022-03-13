@@ -79,10 +79,10 @@ const get_pendingCharges = (tkn, data) => {
             row_data_6.appendChild(row_data_6_anchor)
 
             let row_data_7 = document.createElement('td')
-            row_data_7.textContent = `${importeNeto.toFixed(2)}`
+            row_data_7.textContent = `${format_number(importeNeto)}`
 
             let row_data_8 = document.createElement('td')
-            row_data_8.textContent = `${pendiente.toFixed(2)}`
+            row_data_8.textContent = `${format_number(pendiente)}`
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -107,6 +107,20 @@ const get_pendingCharges = (tkn, data) => {
     })
 }
 
+const format_number = importeNeto => {
+    const localeCurrency = Intl.NumberFormat('en-US')
+    let importe = localeCurrency.format(importeNeto)
+    const char = '.'
+    if ( ! importe.includes(char) ) {
+        importe = importe + '.00'
+    }
+    const onlyOneDecimal = importe.slice('-2')
+    if ( onlyOneDecimal.includes(char) ) {
+        importe = importe + '0'
+    }
+    return importe
+}
+
 // Calcular importe total
 let importeTotal = 0
 const calcularImporteTotal = importe => {
@@ -129,8 +143,8 @@ $form.addEventListener('submit', event => {
     const formData = new FormData(event.currentTarget)
 
     const business = Number(formData.get('business'))
-    const periodStart = formData.get('periodStart')
-    const periodEnd = formData.get('periodEnd')
+    const periodStart = formData.get('periodStart').split('-').reverse().join('/')
+    const periodEnd = formData.get('periodEnd').split('-').reverse().join('/')
     const expirationCheckbox = formData.get('expirationCheckbox')
     const expiration = get_expirationDate(formData.get('expiration'))
     const status = formData.get('status')

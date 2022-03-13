@@ -113,14 +113,14 @@ const get_startPeriod = tkn => {
     .then( ([resp]) => {
         // Start Period
         const { fecha } = resp
-        const startDate = fecha.split('/').join('/')
+        const startDate = fecha.split('/').reverse().join('-')
         const periodStart = document.getElementById('periodStart')
         periodStart.value = startDate
         // periodStart.disabled = true
 
         // End Period
         const today = new Date().toLocaleDateString('en-GB')
-        const endDate = today.split('/').join('/')
+        const endDate = today.split('/').reverse().join('-')
         const periodEnd = document.getElementById('periodEnd')
         periodEnd.value = endDate
         // periodEnd.disabled = true
