@@ -63,10 +63,8 @@
   
                   <div class="col-sm">
                     <div class="d-flex mb-2">
-                      <div class="d-flex flex-nowrap">
-                        <label for="expiration" class="text-nowrap mr-2">Hasta vencimiento:</label>
-                        <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
-                      </div>
+                      <label for="expiration" class="text-nowrap">Hasta vencimiento:</label>
+                      <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
                       <input class="form-control" type="date" name="expiration" id="expiration" disabled>
                     </div>
   
@@ -93,35 +91,37 @@
           <div class="row p-2 mt-2 rounded form-middle text-secondary">
             <div class="col">
               <h6 class="mt-2 font-weight-bolder">Comprobantes</h6>
-              <table class="table table-sm table-striped table-borderless table-hover table-light rounded text-secondary">
-                <thead>
-                  <tr>
-                    <th width="80px">Vencimiento</th>
-                    <th width="80px">Fecha</th>
-                    <th width="120px">Comprobante</th>
-                    <th width="20%">Cliente</th>
-                    <th width="30%">Observaciones</th>
-                    <th width="20px">&nbsp;</th>
-                    <th width="80px">Importe</th>
-                    <th width="80px"></i>Pendiente</th>
-                  </tr>
-                </thead>
-                <tbody id="tbody">
-                  
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td class="font-weight-bolder" colspan="1">TOTAL</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td id="importeTotal" class="font-weight-bolder text-right"></td>
-                  </tr>
-                </tfoot>
-              </table>
+              <div class="container-fluid">
+                <table class="table-striped table-borderless table-hover table-light rounded text-secondary">
+                  <thead>
+                    <tr>
+                      <th>Vencimiento</th>
+                      <th>Fecha</th>
+                      <th>Comprobante</th>
+                      <th>Cliente</th>
+                      <th>Observaciones</th>
+                      <th>&nbsp;</th>
+                      <th>Importe</th>
+                      <th>Pendiente</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                    
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td class="font-weight-bolder" colspan="1">TOTAL</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td id="importeTotal" class="font-weight-bolder text-right"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
           <!-- Form - Lower -->

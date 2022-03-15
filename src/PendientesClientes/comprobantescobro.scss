@@ -46,6 +46,10 @@ label[for="customers"] {
     margin-right: 16px;
 }
 
+label[for="expiration"] {
+    margin-right: 32px;
+}
+
 input[type="checkbox"] {
     accent-color: #60C1DD;
     cursor: pointer;
@@ -68,10 +72,6 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-table {
-    color: #777777;
-}
-
 .row {
     &.form-top {
         background-color: #efefef;
@@ -87,22 +87,30 @@ table {
     }
 }
 
-.table-sm th {
+table {
+    width: 100%;
+    color: #777777;
+}
+
+table th {
     padding: 0.1875rem 0.375rem;
 }
 
-.table-sm td {
+table td {
     padding: 0.2rem;
 }
 
-.table-sm th {
+table th {
     &:first-child {
+        width: 100px;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(2) {
+        width: 100px;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(3) {
+        width: 150px;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(4) {
@@ -112,19 +120,22 @@ table {
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(6) {
+        width: 30px;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(7) {
+        width: 70px;
         text-align: right;
         border: 0.4px solid #D5D5D5;
     }
     &:last-child {
+        width: 70px;
         text-align: right;
         border: 0.4px solid #D5D5D5;
     }
 }
 
-.table-sm td {
+table td {
     &:first-child {
         text-align: center;
     }
