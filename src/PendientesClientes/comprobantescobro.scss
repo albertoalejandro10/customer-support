@@ -31,11 +31,18 @@ h4 {
 
 label {
     margin-bottom: 0px;
-    margin-right: 10px;
+}
+
+label[for="business"] {
+    margin-right: 26px;
 }
 
 label[for="status"] {
-    margin-right: 56px;
+    margin-right: 73px;
+}
+
+label[for="platform"] {
+    margin-right: 9px;
 }
 
 label[for="coins"] {
