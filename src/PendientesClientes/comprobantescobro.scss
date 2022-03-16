@@ -31,34 +31,34 @@ h4 {
 
 label {
     margin-bottom: 0px;
-}
 
-label[for="business"] {
-    margin-right: 26px;
-}
+    &[for="business"] {
+        margin-right: 26px;
+    }
 
-label[for="status"] {
-    margin-right: 73px;
-}
+    &[for="status"] {
+        margin-right: 73px;
+    }
 
-label[for="platform"] {
-    margin-right: 9px;
-}
+    &[for="platform"] {
+        margin-right: 9px;
+    }
 
-label[for="periodStart"] {
-    margin-right: 10px;
-}
+    &[for="periodStart"] {
+        margin-right: 10px;
+    }
 
-label[for="coins"] {
-    margin-right: 94px;
-}
+    &[for="coins"] {
+        margin-right: 94px;
+    }
 
-label[for="customers"] {
-    margin-right: 16px;
-}
+    &[for="customers"] {
+        margin-right: 16px;
+    }
 
-label[for="expiration"] {
-    margin-right: 32px;
+    &[for="expiration"] {
+        margin-right: 32px;
+    }
 }
 
 input[type="checkbox"] {
@@ -148,10 +148,10 @@ table th {
 
 table td {
     &:first-child {
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(2) {
-        text-align: center;
+        text-align: left;
     }
     &:nth-child(3) {
         text-align: left;
