@@ -2,15 +2,16 @@ $.fn.selectpicker.Constructor.BootstrapVersion = '4';
 
 // Conseguir parametros del URL
 const getParameter = parameterName => {
-    let parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
+  let parameters = new URLSearchParams( window.location.search )
+  return parameters.get( parameterName )
 }
+
 const tkn = getParameter('tkn')
 const url_getCustomers = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_clientes'
 const pathname = (window.location.pathname).toLowerCase()
 
 // Index Page
-if ( pathname === '/serviciosclientes/servicioclienteslist.html' ) {
+const devOrProductionListClients = () => {
   // Fetch para traer datos de clientes ()
   fetch( url_getCustomers , {
       method: 'GET',
@@ -39,8 +40,18 @@ if ( pathname === '/serviciosclientes/servicioclienteslist.html' ) {
   })
 }
 
-// Service Page
-if ( pathname === '/serviciosclientes/servicioclientesedit.html') {
+const pathnameClients_Develop = '/serviciosclientes/servicioclienteslist.html'
+const pathnameClients_Production = '/serviciosclientes/servicioclienteslist'
+if ( pathname === pathnameClients_Develop ) {
+  devOrProductionListClients()
+}
+
+if ( pathname === pathnameClients_Production) {
+  devOrProductionListClients()
+}
+
+const devOrProductionListProducts = () => {
+  // Service Page
   // Fetch para traer datos de productos (detalle y id)
   fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
     .then( resp => resp.json() )
@@ -64,4 +75,14 @@ if ( pathname === '/serviciosclientes/servicioclientesedit.html') {
   
         }
     })
+}
+
+const pathnameProducts_Develop = '/serviciosclientes/servicioclientesedit.html'
+const pathnameProducts_Production = '/serviciosclientes/servicioclientesedit'
+if ( pathname === pathnameProducts_Develop ) {
+  devOrProductionListProducts()
+}
+
+if ( pathname === pathnameProducts_Production ) {
+  devOrProductionListProducts()
 }
