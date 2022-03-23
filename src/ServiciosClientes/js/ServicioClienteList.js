@@ -36,7 +36,7 @@ const customerPromise = (id, tkn, name) => {
 
             let row_data_1 = document.createElement('td')
             let row_data_1_anchor = document.createElement('a')
-            row_data_1_anchor.href = `/ServicioClientesEdit.html?id=${Id}&idcliente=${ClienteID}&name=${name}&codigo=${(Codigo).trim()}&tkn=${tkn}`
+            row_data_1_anchor.href = `/ServiciosClientes/ServicioClientesEdit.html?id=${Id}&idcliente=${ClienteID}&name=${name}&codigo=${(Codigo).trim()}&tkn=${tkn}`
             row_data_1_anchor.textContent = `${ Codigo }`
             row_data_1.appendChild(row_data_1_anchor)
 

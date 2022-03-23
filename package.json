@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "form for custom-support ",
   "scripts": {
-    "dev": "parcel ./src/*.html, ./src/ServiciosClientes/*.html, ./src/PendientesClientes/*.html",
+    "dev": "parcel ./src/ServiciosClientes/*.html ./src/PendientesClientes/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build --public-url ./ ./src/PendientesClientes/*.html --out-dir build"
+    "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/h/customer-support#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.0.0",
+    "@fortawesome/fontawesome-free": "^6.1.1",
     "bootstrap": "^4.6.1",
     "bootstrap-select": "^1.13.18"
   },

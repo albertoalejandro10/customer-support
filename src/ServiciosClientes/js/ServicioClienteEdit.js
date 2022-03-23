@@ -143,7 +143,7 @@ tokenBearer.value = tkn
 
 // Insertar href dentro de tag anchor.
 const redirectToIndex = document.getElementById('redirectToIndex') 
-redirectToIndex.href = `/ServicioClientesList.html?id=${idCustomer}&name=${parameterName}&tkn=${tkn}`
+redirectToIndex.href = `/ServiciosClientes/ServicioClientesList.html?id=${idCustomer}&name=${parameterName}&tkn=${tkn}`
 
 // Imprimir nombre
 const customer = document.getElementById('customer')
