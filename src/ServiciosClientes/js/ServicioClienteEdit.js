@@ -133,7 +133,7 @@ netPriceInput.addEventListener('blur', () => {
 })
 
 const id = getParameter('id')
-const idCustomer = getParameter('idcliente')
+const idService = getParameter('idservice')
 const name = getParameter('name')
 const parameterName = (name).replaceAll(' ', '+')
 const tkn = getParameter('tkn')
@@ -143,21 +143,21 @@ tokenBearer.value = tkn
 
 // Insertar href dentro de tag anchor.
 const redirectToIndex = document.getElementById('redirectToIndex') 
-redirectToIndex.href = `/ServiciosClientes/ServicioClientesList.html?id=${idCustomer}&name=${parameterName}&tkn=${tkn}`
+redirectToIndex.href = `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
 
 // Imprimir nombre
 const customer = document.getElementById('customer')
 customer.textContent = (name).replace('+', ' ')
 
 // Si en la URL viene id, nombre y tkn, ejecuto esto.
-if ( id && ! idCustomer && name && tkn ) {
+if ( id && ! idService && name && tkn ) {
     const deleteButton = document.getElementById('deleteService')
     deleteButton.disabled = true
 }
 
 // Si en la URL viene cuatro parametros, ejecuto esto.
-if ( id && idCustomer && name && tkn ) {
-    servicePromise( id, tkn )
+if ( id && idService && name && tkn ) {
+    servicePromise( idService, tkn )
 }
 
 // Method post - Delete servicioid
