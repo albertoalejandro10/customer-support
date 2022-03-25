@@ -142,7 +142,7 @@ const tokenBearer = document.getElementById('tokenBearer')
 tokenBearer.value = tkn
 
 // Insertar href dentro de tag anchor.
-const redirectToIndex = document.getElementById('redirectToIndex') 
+const redirectToIndex = document.getElementById('redirectToIndex')
 redirectToIndex.href = `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
 
 // Imprimir nombre
@@ -163,7 +163,7 @@ if ( id && idService && name && tkn ) {
 // Method post - Delete servicioid
 const deleteService = document.getElementById('deleteService')
 deleteService.onclick = () => {
-    const id = getParameter('id')
+    const id = getParameter('idservice')
     const url_deleteService = 'https://www.solucioneserp.net/maestros/servicios_clientes/delete_servicioid'
     fetch( url_deleteService, {
         method: 'POST',
@@ -193,13 +193,24 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const id = getParameter('id')
-    const codigo = getParameter('codigo')
     const detalle = formData.get('description')
     const cantidad = Number(formData.get('quantity'))
-    const fechaVencimiento = formData.get('expiration')
-    const idCliente = getParameter('idcliente')
+    const fechaVencimiento = (formData.get('expiration')).split('-').reverse().join('/')
+    const idCliente = Number(getParameter('id'))
     const observacion = formData.get('observation')
+
+    let id = Number(getParameter('idservice'))
+    if ( ! id ) {
+        // console.log(' No hay id servicio, crear uno nuevo ')
+        id = Math.floor(Math.random() * (999 - 0) + 0)
+    }
+    
+    let codigo = getParameter('codigo')
+    if ( ! codigo ) {
+        // console.log( 'No hay codigo, crear uno nuevo ')
+        codigo = Math.floor(Math.random() * (9999 - 0) + 0)
+    }
+    codigo = codigo.toString()
 
     let activo = formData.get('activo')
     if ( activo === 'on' ) {
@@ -225,9 +236,9 @@ $form.addEventListener('submit', event => {
     }
 
     const data = { id, codigo, detalle, cantidad, fechaVencimiento, idCliente, observacion, activo, abono, precioFijo, precioNeto }
-    // console.table( data )
+    // console.log( data )
 
-    const url_recordService = 'https://www.solucioneserp.net/servicios_clientes/grabar_servicioid'
+    const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
     fetch( url_recordService , {
         method: 'POST',
         body: JSON.stringify(data),

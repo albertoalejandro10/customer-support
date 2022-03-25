@@ -95,13 +95,6 @@ const name = getParameter('name')
 const tokenBearer = document.getElementById('tokenBearer')
 tokenBearer.value = tkn
 
-// Si viene id, name y tkn en la URL, se ejecuta.
-if ( id && tkn && name ) {
-    const parameterName = (name).replaceAll(' ', '+')
-    customerPromise( id, tkn, parameterName )
-    previousSelectedInput( name )
-}
-
 // El usuario selecciona una opcion del combo clientes. Filtrar el id y nombre para enviarlo a service.html
 const newServiceButton = document.getElementById('newServiceButton')
 const selectedInput = document.getElementById('clientes')
@@ -119,3 +112,10 @@ selectedInput.addEventListener('change', event => {
 
     newServiceButton.disabled = false
 })
+
+// Si viene id, name y tkn en la URL, se ejecuta.
+if ( id && tkn && name ) {
+    const parameterName = (name).replaceAll(' ', '+')
+    customerPromise( id, tkn, parameterName )
+    previousSelectedInput( name )
+}
