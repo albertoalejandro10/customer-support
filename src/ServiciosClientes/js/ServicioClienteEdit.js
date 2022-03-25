@@ -202,7 +202,7 @@ $form.addEventListener('submit', event => {
     let id = Number(getParameter('idservice'))
     if ( ! id ) {
         // console.log(' No hay id servicio, crear uno nuevo ')
-        id = Math.floor(Math.random() * (999 - 0) + 0)
+        id = 0
     }
     
     let codigo = getParameter('codigo')
@@ -236,7 +236,7 @@ $form.addEventListener('submit', event => {
     }
 
     const data = { id, codigo, detalle, cantidad, fechaVencimiento, idCliente, observacion, activo, abono, precioFijo, precioNeto }
-    // console.log( data )
+    // console.table( data )
 
     const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
     fetch( url_recordService , {
