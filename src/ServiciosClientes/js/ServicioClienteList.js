@@ -77,11 +77,6 @@ const calcularImporteTotal = precioServ => {
     return importeTotal
 }
 
-const previousSelectedInput = name => {
-    const select = document.getElementById('clientes')
-    select.setAttribute('title', name)
-}
-
 // Conseguir parametros del URL
 const getParameter = parameterName => {
     let parameters = new URLSearchParams( window.location.search )
@@ -96,7 +91,6 @@ const tokenBearer = document.getElementById('tokenBearer')
 tokenBearer.value = tkn
 
 // El usuario selecciona una opcion del combo clientes. Filtrar el id y nombre para enviarlo a service.html
-const newServiceButton = document.getElementById('newServiceButton')
 const selectedInput = document.getElementById('clientes')
 selectedInput.addEventListener('change', event => {
     // Si el valueSelected esta vacio, retorno.
@@ -109,13 +103,10 @@ selectedInput.addEventListener('change', event => {
     
     const customerSelected = document.getElementById('customer')
     customerSelected.value = (selectedOption.text).replace(' ', '-')
-
-    newServiceButton.disabled = false
 })
 
 // Si viene id, name y tkn en la URL, se ejecuta.
 if ( id && tkn && name ) {
     const parameterName = (name).replaceAll(' ', '+')
     customerPromise( id, tkn, parameterName )
-    previousSelectedInput( name )
 }

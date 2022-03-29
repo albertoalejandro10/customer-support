@@ -7,12 +7,12 @@ const getParameter = parameterName => {
 }
 
 const tkn = getParameter('tkn')
-const url_getCustomers = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_clientes'
 const pathname = (window.location.pathname).toLowerCase()
 
 // Index Page
 const devOrProductionListClients = () => {
-  // Fetch para traer datos de clientes ()
+  // Fetch para traer datos de clientes
+  const url_getCustomers = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_clientes'
   fetch( url_getCustomers , {
       method: 'GET',
       headers: {
@@ -36,6 +36,15 @@ const devOrProductionListClients = () => {
           select.appendChild( option )
   
           $('.selectpicker').selectpicker('refresh')
+
+          if ( getParameter('id') && getParameter('name')) {
+            if ( id === Number(getParameter('id')) ) {
+              const customerSelected = document.getElementById('customer')
+              customerSelected.value = (nombre).replace(' ', '-')
+              $('.selectpicker').selectpicker('val', id)
+            }
+          }
+
         }
   })
 }
@@ -53,28 +62,47 @@ if ( pathname === pathnameClients_Production) {
 const devOrProductionListProducts = () => {
   // Service Page
   // Fetch para traer datos de productos (detalle y id)
-  fetch(`https://62048c21c6d8b20017dc3571.mockapi.io/api/v1/productos`)
+  const url_getProducts = 'https://www.solucioneserp.net/listados/get_productos_filtro'
+  fetch(url_getProducts, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    },
+    body: JSON.stringify({
+      "filtro": "monitor"
+    })
+  })
     .then( resp => resp.json() )
     .then( resp => {
         const products = resp
         for ( const element of products ) {
             // Desestructuracion del objeto element
-            const { detalle, id } = element
-            // console.log(detalle, Number(id))
-  
+            const { id, codigo, detalle, unidad, lineaId, iva, activo } = element
+            // console.log( id, codigo, detalle, unidad, lineaId, iva, activo )
+            const description = detalle.trim()
+
             const select = document.querySelector('.selectpicker')
             let option = document.createElement("option")
-            option.setAttribute("data-tokens", detalle)
-            option.setAttribute("data-content", detalle)
+            option.setAttribute("data-code", codigo)
+            option.setAttribute("data-lineId", lineaId)
+            option.setAttribute("data-content", description)
             option.value = id
-            option.textContent = detalle
-  
+            option.textContent = description
+
             select.appendChild( option )
-  
+
             $('.selectpicker').selectpicker('refresh')
-  
+
+            // if ( getParameter('id') && getParameter('name') && getParameter('idservice')) {
+            //   console.log( id )
+            //   console.log( Number(getParameter('idservice') ))
+            //   if ( id === Number(getParameter('idservice')) ) {
+            //     $('.selectpicker').selectpicker('val', id)
+            //   }
+            // }
         }
-    })
+    })  
 }
 
 const pathnameProducts_Develop = '/serviciosclientes/servicioclientesedit.html'

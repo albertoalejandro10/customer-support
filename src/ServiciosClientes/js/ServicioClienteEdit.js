@@ -26,10 +26,12 @@ const servicePromise = ( id, tkn ) => {
             // console.log( codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, precioFijo )
 
             const observation = document.getElementById('observation')
-            observation.value = (codigo.trim())
+            observation.value = codigo.trim()
 
             const description = document.getElementById('description')
-            description.value = (detalle.trim())
+            description.value = detalle.trim()
+
+            $('.selectpicker').selectpicker({title: `${detalle.trim()}`}).selectpicker('refresh')
 
             const quantity = document.getElementById('quantity')
             quantity.value = cantidad
@@ -73,10 +75,12 @@ select.addEventListener('change', event => {
 
     // Si existe valueSelected, obtengo el valor.
     let selectedOption = event.currentTarget.options[select.selectedIndex]
-    // console.log(selectedOption.value + ': ' + selectedOption.text)
-
     const selectedText = selectedOption.text
     printDescription(selectedText)
+
+    const codeElement = document.getElementById('codigo')
+    const code = (event.currentTarget.options[select.selectedIndex]).getAttribute('data-code')
+    codeElement.value = code
 })
 
 // Funcion para insertar texto en descripcion
@@ -195,8 +199,8 @@ $form.addEventListener('submit', event => {
 
     const detalle = formData.get('description')
     const cantidad = Number(formData.get('quantity'))
-    const fechaVencimiento = (formData.get('expiration')).split('-').reverse().join('/')
-    const idCliente = Number(getParameter('id'))
+    const fechavencimiento = (formData.get('expiration')).split('-').reverse().join('/')
+    const idcliente = Number(getParameter('id'))
     const observacion = formData.get('observation')
 
     let id = Number(getParameter('idservice'))
@@ -207,10 +211,8 @@ $form.addEventListener('submit', event => {
     
     let codigo = getParameter('codigo')
     if ( ! codigo ) {
-        // console.log( 'No hay codigo, crear uno nuevo ')
-        codigo = Math.floor(Math.random() * (9999 - 0) + 0)
+        codigo = formData.get('codigo')
     }
-    codigo = codigo.toString()
 
     let activo = formData.get('activo')
     if ( activo === 'on' ) {
@@ -226,16 +228,16 @@ $form.addEventListener('submit', event => {
         abono = false
     }
 
-    let precioFijo = Number(formData.get('discountRate'))
-    if ( ! precioFijo ) {
-        precioFijo = 0
+    let preciofijo = Number(formData.get('discountRate'))
+    if ( ! preciofijo ) {
+        preciofijo = 0
     }
-    let precioNeto = Number(formData.get('netPrice'))
-    if ( ! precioNeto ) {
-        precioNeto = 0
+    let precioneto = Number(formData.get('netPrice'))
+    if ( ! precioneto ) {
+        precioneto = 0
     }
 
-    const data = { id, codigo, detalle, cantidad, fechaVencimiento, idCliente, observacion, activo, abono, precioFijo, precioNeto }
+    const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto }
     // console.table( data )
 
     const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
