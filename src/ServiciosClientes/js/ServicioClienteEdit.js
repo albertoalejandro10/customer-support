@@ -7,7 +7,7 @@ const getParameter = parameterName => {
 }
 
 // Fetch para traer servicios, si viene id en la URL
-const servicePromise = ( id, tkn ) => {
+const servicePromise = ( id, idservice, tkn ) => {
     const url_getService = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_servicioid'
     fetch( url_getService , {
         method: 'POST',
@@ -16,54 +16,55 @@ const servicePromise = ( id, tkn ) => {
             'Authorization': `Bearer ${tkn}`
         },
         body: JSON.stringify({
-            "idServicio": id
+            "idServicio": idservice,
+            "clienteId": id
         })
     })
     .then( resp => resp.json() )
-    .then( ( [service] ) => {
+    .then( service => {
+    
+        const { codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, tipoPrecio, observacion, clienteId, clienteCodigo, cliente, lineaId, tipoComp } = service
+        // console.log( codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, tipoPrecio, observacion, clienteId, clienteCodigo, cliente, lineaId, tipoComp )
 
-            const { codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, precioFijo } = service
-            // console.log( codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, precioFijo )
+        const observation = document.getElementById('observation')
+        observation.value = observacion.trim()
 
-            const observation = document.getElementById('observation')
-            observation.value = codigo.trim()
+        const description = document.getElementById('description')
+        description.value = detalle.trim()
 
-            const description = document.getElementById('description')
-            description.value = detalle.trim()
+        $('.selectpicker').selectpicker({title: `${detalle.trim()}`}).selectpicker('refresh')
 
-            $('.selectpicker').selectpicker({title: `${detalle.trim()}`}).selectpicker('refresh')
+        const quantity = document.getElementById('quantity')
+        quantity.value = cantidad
 
-            const quantity = document.getElementById('quantity')
-            quantity.value = cantidad
+        const expiration = document.getElementById('expiration')
+        const formatExpiration = fechaVencimiento.split('/').reverse().join('-')
+        expiration.value = formatExpiration
 
-            const expiration = document.getElementById('expiration')
-            const formatExpiration = fechaVencimiento.split('/').reverse().join('-')
-            expiration.value = formatExpiration
+        const selectType = document.getElementById('type')
+        if ( tipoPrecio === 1 ) {
+            selectType.value = 1
+            let price = document.getElementById('netPrice')
+            price.value = precioNeto
+            visibleInput('netPrice')
+        }
 
-            // const selectType = document.getElementById('type')
-            // if ( Comptipo === 'tipo 2' ) {
-            //     selectType.value = 2
-            //     let price = document.getElementById('netPrice')
-            //     price.value = precioServ
-            //     return visibleInput('netPrice')
-            // }
+        if ( tipoPrecio === 2 ) {
+            selectType.value = 2
+            let discountRate = document.getElementById('discountRate')
+            discountRate.value = precioNeto
+            visibleInput('discountRate')
+        }
 
-            // if ( Comptipo === 'tipo 3' ) {
-            //     selectType.value = 3
-            //     let discountRate = document.getElementById('discountRate')
-            //     discountRate.value = precioServ
-            //     return visibleInput('discountRate')
-            // }
+        if ( abono ) {
+            const abonoElement = document.getElementById('abonoChoice')
+            abonoElement.checked = true
+        }
 
-            if ( abono ) {
-                const abonoElement = document.getElementById('abonoChoice')
-                abonoElement.checked = true
-            }
-
-            if ( activo ) {
-                const activoElement = document.getElementById('activoChoice')
-                activoElement.checked = true
-            }
+        if ( activo ) {
+            const activoElement = document.getElementById('activoChoice')
+            activoElement.checked = true
+        }
     })
 }
 
@@ -92,9 +93,9 @@ const printDescription = text => {
 // Obtener el valor de la opcion seleccionada por el usuario
 const selectType = document.getElementById('type')
 selectType.addEventListener('change', event => {
-    if ( event.currentTarget.options[selectType.selectedIndex].value === "1" ) return visibleInput('listPrice')
-    if ( event.currentTarget.options[selectType.selectedIndex].value === "2" ) return visibleInput('netPrice')
-    if ( event.currentTarget.options[selectType.selectedIndex].value === "3" ) return visibleInput('discountRate')
+    if ( event.currentTarget.options[selectType.selectedIndex].value === "0" ) return visibleInput('listPrice')
+    if ( event.currentTarget.options[selectType.selectedIndex].value === "1" ) return visibleInput('netPrice')
+    if ( event.currentTarget.options[selectType.selectedIndex].value === "2" ) return visibleInput('discountRate')
 })
 
 // Remover clase d-none de precio neto y % descuento.
@@ -161,7 +162,7 @@ if ( id && ! idService && name && tkn ) {
 
 // Si en la URL viene cuatro parametros, ejecuto esto.
 if ( id && idService && name && tkn ) {
-    servicePromise( idService, tkn )
+    servicePromise( id, idService, tkn )
 }
 
 // Method post - Delete servicioid
@@ -203,6 +204,7 @@ $form.addEventListener('submit', event => {
     const idcliente = Number(getParameter('id'))
     const observacion = formData.get('observation')
 
+
     let id = Number(getParameter('idservice'))
     if ( ! id ) {
         // console.log(' No hay id servicio, crear uno nuevo ')
@@ -228,16 +230,20 @@ $form.addEventListener('submit', event => {
         abono = false
     }
 
-    let preciofijo = Number(formData.get('discountRate'))
-    if ( ! preciofijo ) {
-        preciofijo = 0
-    }
-    let precioneto = Number(formData.get('netPrice'))
-    if ( ! precioneto ) {
-        precioneto = 0
+    const preciofijo = Number(document.getElementById('type').value)
+    const netPriceValue = Number(document.getElementById('netPrice').value)
+    const discountRateValue = Number(document.getElementById('discountRate').value)
+    let precioneto = 0
+
+    if ( preciofijo === 1 ) {
+        precioneto = netPriceValue
     }
 
-    const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto }
+    if ( preciofijo === 2 ) {
+        precioneto = discountRateValue
+    }
+
+    const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto, idlista: 0, ctipo: 1}
     // console.table( data )
 
     const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'

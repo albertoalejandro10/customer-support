@@ -70,7 +70,7 @@ const devOrProductionListProducts = () => {
       'Authorization': `Bearer ${tkn}`
     },
     body: JSON.stringify({
-      "filtro": "monitor"
+      "filtro": ""
     })
   })
     .then( resp => resp.json() )
@@ -95,8 +95,6 @@ const devOrProductionListProducts = () => {
             $('.selectpicker').selectpicker('refresh')
 
             // if ( getParameter('id') && getParameter('name') && getParameter('idservice')) {
-            //   console.log( id )
-            //   console.log( Number(getParameter('idservice') ))
             //   if ( id === Number(getParameter('idservice')) ) {
             //     $('.selectpicker').selectpicker('val', id)
             //   }
