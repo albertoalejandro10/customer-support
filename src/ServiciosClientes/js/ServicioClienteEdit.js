@@ -245,26 +245,26 @@ $form.addEventListener('submit', event => {
     }
 
     const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto, idlista: 0, ctipo: 1}
-    console.table( data )
+    // console.table( data )
 
-    // const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
-    // fetch( url_recordService , {
-    //     method: 'POST',
-    //     body: JSON.stringify(data),
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${tkn}`
-    //     }
-    // })
-    // .then( resp => resp.json() )
-    // .then( ({ resultado, mensaje}) => {
-    //     // console.log(resultado, mensaje)
-    //     alert(`${mensaje}`)
-    //     location.reload()
-    // })
-    // .catch( err => {
-    //     console.log( err )
-    // })
+    const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
+    fetch( url_recordService , {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ({ resultado, mensaje}) => {
+        // console.log(resultado, mensaje)
+        alert(`${mensaje}`)
+        location.reload()
+    })
+    .catch( err => {
+        console.log( err )
+    })
 })
 
 // Formatear input cantidad - Es copiado.
