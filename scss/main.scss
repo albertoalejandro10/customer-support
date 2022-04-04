@@ -48,7 +48,12 @@ label {
 }
 
 .bootstrap-select {
+    width: auto !important;
     margin-right: 4px;
+}
+
+.dropdown-menu.show {
+    width: 350px !important;
 }
 
 table {

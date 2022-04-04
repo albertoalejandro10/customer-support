@@ -19,33 +19,33 @@ const devOrProductionListClients = () => {
         'Authorization': `Bearer ${tkn}`
       }
   })
-    .then( resp => resp.json() )
-    .then( resp => {
-      const customers = resp
-      for ( const element of customers ) {        
-          // Desestructuracion del objeto element
-          const { nombre, id, cuit, codCliente } = element
-          // console.log(nombre, Number(id), cuit, codCliente)
-          
-          const select = document.querySelector('.selectpicker')
-          let option = document.createElement("option")
-          option.setAttribute("data-tokens", nombre)
-          option.value = id
-          option.textContent = nombre
-          
-          select.appendChild( option )
-  
-          $('.selectpicker').selectpicker('refresh')
+  .then( resp => resp.json() )
+  .then( resp => {
+    const customers = resp
+    for ( const element of customers ) {        
+        // Desestructuracion del objeto element
+        const { nombre, id, cuit, codCliente } = element
+        // console.log(nombre, Number(id), cuit, codCliente)
+        
+        const select = document.querySelector('.selectpicker')
+        let option = document.createElement("option")
+        option.setAttribute("data-tokens", nombre)
+        option.value = id
+        option.textContent = nombre
+        
+        select.appendChild( option )
 
-          if ( getParameter('id') && getParameter('name')) {
-            if ( id === Number(getParameter('id')) ) {
-              const customerSelected = document.getElementById('customer')
-              customerSelected.value = (nombre).replace(' ', '-')
-              $('.selectpicker').selectpicker('val', id)
-            }
+        $('.selectpicker').selectpicker('refresh')
+
+        if ( getParameter('id') && getParameter('name')) {
+          if ( id === Number(getParameter('id')) ) {
+            const customerSelected = document.getElementById('customer')
+            customerSelected.value = (nombre).replace(' ', '-')
+            $('.selectpicker').selectpicker('val', id)
           }
-
         }
+
+      }
   })
 }
 

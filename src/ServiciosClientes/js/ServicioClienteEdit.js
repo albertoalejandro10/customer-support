@@ -44,8 +44,8 @@ const servicePromise = ( id, idservice, tkn ) => {
         const selectType = document.getElementById('type')
         if ( tipoPrecio === 1 ) {
             selectType.value = 1
-            let price = document.getElementById('netPrice')
-            price.value = precioNeto
+            let price = document.getElementById('currency-field')
+            price.value = precioNeto.toLocaleString('de-DE')
             visibleInput('netPrice')
         }
 
@@ -132,10 +132,11 @@ const visibleInput = type => {
 }
 
 // Formatear input precio neto
-const netPriceInput = document.getElementById('netPrice')
-netPriceInput.addEventListener('blur', () => {
-    netPriceInput.value = parseFloat(netPriceInput.value).toFixed(2)
-})
+// const netPriceInput = document.getElementById('netPrice')
+// netPriceInput.addEventListener('change', () => {
+//     console.log('Ok')
+//     netPriceInput.value = parseFloat(netPriceInput.value).toFixed(2)
+// })
 
 const id = getParameter('id')
 const idService = getParameter('idservice')
@@ -231,7 +232,7 @@ $form.addEventListener('submit', event => {
     }
 
     const preciofijo = Number(document.getElementById('type').value)
-    const netPriceValue = Number(document.getElementById('netPrice').value)
+    const netPriceValue = Number(((document.getElementById('currency-field').value).replaceAll('.', '')).replace(',','.'))
     const discountRateValue = Number(document.getElementById('discountRate').value)
     let precioneto = 0
 
@@ -244,41 +245,41 @@ $form.addEventListener('submit', event => {
     }
 
     const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto, idlista: 0, ctipo: 1}
-    // console.table( data )
+    console.table( data )
 
-    const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
-    fetch( url_recordService , {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( ({ resultado, mensaje}) => {
-        // console.log(resultado, mensaje)
-        alert(`${mensaje}`)
-        location.reload()
-    })
-    .catch( err => {
-        console.log( err )
-    })
+    // const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
+    // fetch( url_recordService , {
+    //     method: 'POST',
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${tkn}`
+    //     }
+    // })
+    // .then( resp => resp.json() )
+    // .then( ({ resultado, mensaje}) => {
+    //     // console.log(resultado, mensaje)
+    //     alert(`${mensaje}`)
+    //     location.reload()
+    // })
+    // .catch( err => {
+    //     console.log( err )
+    // })
 })
 
 // Formatear input cantidad - Es copiado.
 class CampoNumerico {
     constructor(selector) {
-        this.nodo = document.querySelector(selector);
-        this.valor = '';
+        this.nodo = document.querySelector(selector)
+        this.valor = ''
         
-        this.empezarAEscucharEventos();
+        this.empezarAEscucharEventos()
     }
     empezarAEscucharEventos() {
         this.nodo.addEventListener('keydown', function(evento) {
-        const teclaPresionada = evento.key;
+        const teclaPresionada = evento.key
         const teclaPresionadaEsUnNumero =
-            Number.isInteger(parseInt(teclaPresionada));
+            Number.isInteger(parseInt(teclaPresionada))
 
         const sePresionoUnaTeclaNoAdmitida = 
             teclaPresionada != 'ArrowDown' &&
@@ -288,28 +289,105 @@ class CampoNumerico {
             teclaPresionada != 'Backspace' &&
             teclaPresionada != 'Delete' &&
             teclaPresionada != 'Enter' &&
-            !teclaPresionadaEsUnNumero;
+            !teclaPresionadaEsUnNumero
         const comienzaPorCero = 
             this.nodo.value.length === 0 &&
-            teclaPresionada == 0;
+            teclaPresionada == 0
 
         if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
-            evento.preventDefault(); 
+            evento.preventDefault() 
         } else if (teclaPresionadaEsUnNumero) {
-            this.valor += String(teclaPresionada);
+            this.valor += String(teclaPresionada)
         }
 
-        }.bind(this));
+        }.bind(this))
 
         this.nodo.addEventListener('input', function(evento) {
-        const cumpleFormatoEsperado = new RegExp(/^[1-9]+/).test(this.nodo.value);
+        const cumpleFormatoEsperado = new RegExp(/^[1-9]+/).test(this.nodo.value)
 
         if (!cumpleFormatoEsperado) {
-            this.nodo.value = this.valor;
+            this.nodo.value = this.valor
         } else {
-            this.valor = this.nodo.value;
+            this.valor = this.nodo.value
         }
-        }.bind(this));
+        }.bind(this))
     }
 }
 new CampoNumerico('#quantity')
+
+
+$("input[data-type='currency']").on({
+    keyup: function() {
+      formatCurrency($(this))
+    },
+    blur: function() { 
+      formatCurrency($(this), "blur")
+    }
+})
+
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+}
+
+function formatCurrency(input, blur) {
+  // get input value
+  let input_val = input.val()
+  
+  // don't validate empty input
+  if (input_val === "") { return }
+  
+  // original length
+  const original_len = input_val.length
+
+  // initial caret position 
+  let caret_pos = input.prop("selectionStart")
+    
+  // check for decimal
+  if (input_val.indexOf(",") >= 0) {
+
+    // get position of first decimal
+    const decimal_pos = input_val.indexOf(",")
+
+    // split number by decimal point
+    let left_side = input_val.substring(0, decimal_pos)
+    let right_side = input_val.substring(decimal_pos)
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side)
+
+    // validate right side
+    right_side = formatNumber(right_side)
+    
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00"
+    }
+    
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2)
+
+    // join number by .
+    input_val = left_side + "," + right_side
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val)
+    input_val = input_val
+    
+    // final formatting
+    if (blur === "blur") {
+      input_val += ",00"
+    }
+  }
+  
+  // send updated string to input
+  input.val(input_val)
+
+  // put caret back in the right position
+  const updated_len = input_val.length
+  caret_pos = updated_len - original_len + caret_pos
+  input[0].setSelectionRange(caret_pos, caret_pos)
+}

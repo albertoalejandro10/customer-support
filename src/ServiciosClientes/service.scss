@@ -33,6 +33,10 @@ label {
     text-overflow: '';
 }
 
+.bootstrap-select {
+    width: 100% !important;
+}
+
 .dropdown-toggle::after {
     content: none;
 }
