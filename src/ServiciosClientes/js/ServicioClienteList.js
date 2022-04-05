@@ -50,7 +50,7 @@ const customerPromise = (id, tkn, name) => {
             row_data_4.textContent = `${ Cantidad }`
 
             let row_data_5 = document.createElement('td')
-            row_data_5.textContent = `${ Importe.toFixed(2) }`
+            row_data_5.textContent = `${ format_number(Importe) }`
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -62,18 +62,34 @@ const customerPromise = (id, tkn, name) => {
 
             // Calcular e imprimir importeTotal
             calcularImporteTotal( Importe )
-            let importe = document.querySelector('#importeTotal')
-            importe.textContent = importeTotal.toFixed(2)
+            const  style = {
+                minimumFractionDigits: 2,
+                useGrouping: true
+            }
+            const formatter = new Intl.NumberFormat("de-DE", style)
+
+            let importe = document.getElementById('importeTotal')
+            importe.textContent = formatter.format( importeTotal )
         }
         importeTotal = 0
     })
     .catch( err => console.log( err ))
 }
 
+const format_number = importeNeto => {
+    const  style = {
+        minimumFractionDigits: 2,
+        useGrouping: true
+    }
+    const formatter = new Intl.NumberFormat("de-DE", style)
+    const importe = formatter.format(importeNeto)
+    return importe
+}
+
 // Calcular importe total
 let importeTotal = 0
-const calcularImporteTotal = precioServ => {
-    importeTotal += precioServ
+const calcularImporteTotal = importe => {
+    importeTotal += importe
     return importeTotal
 }
 
