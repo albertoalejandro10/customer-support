@@ -7,10 +7,6 @@ Frontend code for softsystem's customer support project made with Bootstrap, SAS
 
 Clone the project
 
-```bash
-  git clone https://github.com/albertoalejandro10/customer-support.git
-```
-
 Go to the project directory
 
 ```bash

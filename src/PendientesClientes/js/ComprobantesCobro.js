@@ -16,13 +16,13 @@ checkboxExpiration.addEventListener('change', event => {
 
 document.querySelectorAll('input').forEach(element => {
     element.addEventListener('change', () => {
-        update.disabled = false
+        //update.disabled = false
     })
 })
 
 document.querySelectorAll('select').forEach(element => {
     element.addEventListener('change', () => {
-        update.disabled = false
+        //update.disabled = false
     })
 })
 
@@ -64,8 +64,17 @@ const get_pendingCharges = (tkn, data) => {
 
             let row_data_3 = document.createElement('td')
             let row_data_3_anchor = document.createElement('a')
-            row_data_3_anchor.href = `${linkComprobante}`
+            //row_data_3_anchor.href = `${linkComprobante}`
             row_data_3_anchor.textContent = `${comprobante}`
+            if (comprobante!='Saldo Inicial')
+            {
+                row_data_3_anchor.style="color: #60C1DD; text-decoration: none; cursor:pointer;"    
+            
+                row_data_3_anchor.addEventListener('click', function handleClick(event) {
+                    window.open(linkComprobante, "comprobante", "width=600,height=700"); 
+                    return false;                
+                });
+            }
             row_data_3.appendChild(row_data_3_anchor)
 
             let row_data_4 = document.createElement('td')
@@ -76,7 +85,15 @@ const get_pendingCharges = (tkn, data) => {
 
             let row_data_6 = document.createElement('td')
             let row_data_6_anchor = document.createElement('a')
-            row_data_6_anchor.href = `${linkAdjuntos}`
+            //row_data_6_anchor.target="_blank"
+            //row_data_6_anchor.href = ""//linkAdjuntos
+            row_data_6_anchor.style="color: #60C1DD; text-decoration: none; cursor:pointer;"    
+            row_data_6_anchor.addEventListener('click', function handleClick(event) {
+                window.open(linkAdjuntos, "documentos", "width=922,height=502"); 
+                return false;                
+              });
+
+            //row_data_6_anchor.onclick = 'window.open("' + linkAdjuntos + '", "newwindow", "width=600,height=600"); return false;'
             row_data_6_anchor.innerHTML = '<i class="fa-solid fa-folder"></i>'
             row_data_6.appendChild(row_data_6_anchor)
 
@@ -139,12 +156,14 @@ export const getParameter = parameterName => {
 }
     
 const tkn = getParameter('tkn')
-const update = document.getElementById('update')
+//const update = document.getElementById('update')
 
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
+
+    //alert($(".cmb_clientes").val());
 
     const business = Number(formData.get('business'))
     const periodStart = formData.get('periodStart').split('-').reverse().join('/')
@@ -152,7 +171,7 @@ $form.addEventListener('submit', event => {
     const expirationCheckbox = formData.get('expirationCheckbox')
     const expiration = get_expirationDate(formData.get('expiration'))
     const status = formData.get('status')
-    const customer = formData.get('customer')
+    const customer = $(".cmb_clientes").val()//formData.get('customer')
     const coin = formData.get('coin')
     const platform = formData.get('platform')
 
@@ -170,7 +189,7 @@ $form.addEventListener('submit', event => {
     }
 
     get_pendingCharges( tkn, data )
-    update.disabled = true
+    //update.disabled = true
 })
 
 const get_expirationDate = expirationValue => {

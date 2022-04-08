@@ -67,6 +67,12 @@ const getParameter = parameterName => {
 
 const tkn = getParameter('tkn')
 // Si viene tkn en la URL, se ejecuta
-if ( tkn ) {
-    get_UserFooter( tkn )
+if ( tkn ) {    
+        try{
+            const tokenBearer = document.getElementById('tokenBearer')
+            tokenBearer.value = tkn
+        }
+        catch(er){}
+        get_UserFooter(tkn)
+    
 }

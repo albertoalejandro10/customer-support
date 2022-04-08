@@ -121,13 +121,15 @@ table th {
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(3) {
-        width: 150px;
+        min-width: 150px;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(4) {
+        width: 25%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(5) {
+        width: 50%;
         border: 0.4px solid #D5D5D5;
     }
     &:nth-child(6) {

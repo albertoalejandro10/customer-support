@@ -66,38 +66,84 @@ const get_coins = tkn => {
     })
 }
 
-// Listado de clientes
+//Nuevo Listado Clientes
 const get_customers = tkn => {
-    const url_customers = 'https://www.solucioneserp.net/listados/get_clientes'
-    fetch( url_customers , {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
+$(".cmb_clientes").select2({
+    language: {
+        noResults: function() {    
+          return "No hay resultado";        
+        },
+        searching: function() {    
+          return "Buscando..";
+        },
+        inputTooShort:function(){
+          return "Ingrese 3 caracteres o mas para buscar";
         }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const coins = resp
-        for ( const element of coins ) {
-            const { codCliente, cuit, nombre, id } = element  
-            // console.log( codCliente, cuit, id )
-            
-            const select = document.querySelector('#customers')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = codCliente
-            option.textContent = nombre
-            
-            select.appendChild( option )
+    },
+    placeholder: 'Buscar Cliente',            
+    minimumInputLength: 3,
+    ajax:{        
+        url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+        headers: {'Authorization' : 'Bearer ' + tkn},
+        type: 'POST',
+        dataType:'json',
+        data: function (params) {
+            var query = {
+                filtro: params.term
+            }
+
+            return query;
+        },
+        processResults: function (data) {  
+            var arr_t =[];          
+            const customers = data
+            for ( const element of customers ) {        
+                // Desestructuracion del objeto element
+                const { id, codigo, nombre } = element                
+                arr_t.push({ id: codigo, text: nombre + ' - ' + codigo });
+              }   
+
+            return {                
+              results: arr_t//data.items
+            };
+        }
+    }
     
-            $('.selectpicker').selectpicker('refresh')
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
+})
 }
+
+// Listado de clientes
+// const get_customers = tkn => {
+//     const url_customers = 'https://www.solucioneserp.net/listados/get_clientes'
+//     fetch( url_customers , {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${tkn}`
+//         }
+//     })
+//     .then( resp => resp.json() )
+//     .then( resp => {
+//         const coins = resp
+//         for ( const element of coins ) {
+//             const { codCliente, cuit, nombre, id } = element  
+//             // console.log( codCliente, cuit, id )
+            
+//             const select = document.querySelector('#customers')
+//             let option = document.createElement("option")
+//             option.setAttribute("data-tokens", nombre)
+//             option.value = codCliente
+//             option.textContent = nombre
+            
+//             select.appendChild( option )
+    
+//             $('.selectpicker').selectpicker('refresh')
+//         }
+//     })
+//     .catch( err => {
+//         console.log( err )
+//     })
+// }
 
 // Fecha de inicio de ejercicio
 const get_startPeriod = tkn => {
