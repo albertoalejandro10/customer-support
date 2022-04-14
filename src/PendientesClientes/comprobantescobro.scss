@@ -10,9 +10,43 @@
 * {
     font-size: 14px;
 }
+    
+body, html {
+    height: 100%;
+}
+
+.ag-floating-bottom{
+    overflow-y: hidden !important;
+}
+.ag-header-cell-text{
+    font-size: 12px !important;
+}
+
+.ag-header-cell{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.ag-cell{
+    font-size: 12px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.ag-cell a {
+    font-size: 12px !important;
+}
+
+.ag-cell span {        
+    font-size: 12px !important;
+}
+
+.ag-cell span b {    
+    font-size: 12px !important;
+}
 
 .wrapper {
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .container-fluid {

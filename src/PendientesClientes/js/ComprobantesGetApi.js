@@ -66,6 +66,8 @@ const get_coins = tkn => {
     })
 }
 
+let cant_character_to_search=0;
+
 //Nuevo Listado Clientes
 const get_customers = tkn => {
 $(".cmb_clientes").select2({
@@ -83,16 +85,19 @@ $(".cmb_clientes").select2({
     placeholder: 'Buscar Cliente',            
     minimumInputLength: 3,
     ajax:{        
+        delay: 500,
         url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
         headers: {'Authorization' : 'Bearer ' + tkn},
         type: 'POST',
-        dataType:'json',
-        data: function (params) {
-            var query = {
-                filtro: params.term
+        dataType:'json',        
+        data: function (params) {            
+            if (params.term == null){                
+                return JSON.stringify('{filtro:""}');
             }
-
-            return query;
+            else
+            {
+                return {filtro: params.term};
+            }
         },
         processResults: function (data) {  
             var arr_t =[];          
