@@ -50,7 +50,9 @@ const get_startPeriod = tkn => {
 
         // End Period
         const today = new Date().toLocaleDateString('en-GB')
-        const endDate = today.split('/').reverse().join('-')
+        const monthYear = today.slice(2)
+        const todayDefault = '01' + monthYear
+        const endDate = todayDefault.split('/').reverse().join('-')
         const periodEnd = document.getElementById('periodEnd')
         periodEnd.value = endDate
         // periodEnd.disabled = true
