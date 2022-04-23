@@ -127,7 +127,7 @@ const gridOptions = {
             }
         },
         {
-            width: 160, 
+            width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "neto", 
@@ -141,7 +141,7 @@ const gridOptions = {
             }
         },
         {
-            width: 160, 
+            width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "iva", 
@@ -155,7 +155,7 @@ const gridOptions = {
             }
         },
         {
-            width: 160, 
+            width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "total",
@@ -213,18 +213,18 @@ function calculatePinnedBottomData(target){
     return target;
 }
 
-const get_salesDocs = (tkn, data) => {
-    const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/consultas/get_documentos_ventas'
-    fetch( url_getPendingCharges , {
-        method: 'POST',
+const get_recurringBilling = tkn => {
+    const url_getRecurringBilling = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
+    fetch( url_getRecurringBilling , {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${tkn}`
-        },
-        body: JSON.stringify(data)
+        }
     })
     .then( resp => resp.json() )
-    .then( ({ linea }) => {
+    .then( resp => {
+        console.log(resp)
         // console.log( linea )
         //clear Filtros
         // gridOptions.api.setFilterModel(null);
@@ -253,45 +253,113 @@ selectTypeGroup.addEventListener('change', event => {
 })
 
 // Remover clase d-none de precio neto y % descuento.
-const clientCode = document.getElementsByClassName('client-code')
+const clientCode = document.getElementById('divClientCode')
 const generatedFor = document.getElementById('generated-for')
 const visibleInput = type => {
     if ( type === 'clientCode') {
-        for ( const element of clientCode ) {
-            element.classList.remove('d-none')
-            generatedFor.classList.add('d-none')
-        }
+        generatedFor.classList.add('d-none')
+        clientCode.classList.add('d-inline')
+        clientCode.classList.remove('d-none')
     }
 
     if ( type === 'generatedFor') {
+        clientCode.classList.add('d-none')
+        clientCode.classList.remove('d-inline')
         generatedFor.classList.remove('d-none')
-        let i = 0
-        do {
-            clientCode[i].classList.add('d-none')
-            i++
-        } while ( i < clientCode.length )        
     }
 }
 
-document.getElementById("search-code").onclick = () => {
-    console.log('Ok')
+// document.getElementById("search-code").onclick = () => {
+//     console.log('Ok')
+// }
+
+const post_GenerateButton = (tkn, data) => {
+    const url_GenerateButton = 'https://www.solucioneserp.net/maestros/generacion_lotes/generar_lote'
+    fetch( url_GenerateButton , {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ({ resultado, mensaje}) => {
+        // console.log(resultado, mensaje)
+        alert(`${mensaje}`)
+    })
+    .catch( err => {
+        console.log( err )
+    })
 }
 
 const $form = document.getElementById('form')
-document.getElementById("generate").addEventListener("click", event => {
+$form.addEventListener('submit', event => {
     event.preventDefault()
-    const formData = new FormData()
+    const formData = new FormData(event.currentTarget)
 
-    console.log( formData )
+    const numero = Number(formData.get('numero'))
+    const codigoCliente = formData.get('client-code')
+    const grupoClienteId = Number(formData.get('generated-for'))
+    const tipoClienteId = Number(formData.get('customer-type'))
+    const tipoComprobante = Number(formData.get('voucher-type'))
+    const tipoCalculaRecargo = Number(formData.get('calculate-charges'))
+    const tipoCargoReconexion = Number(formData.get('reconection-charges'))
+    const vencimiento1 = formData.get('expiration')
+    const vencimiento2 = formData.get('expiration')
+    const vencimiento3 = formData.get('expiration')
+    const interesVenc2 = 0.00
+    const interesVenc3 = 0.00
+    const observacion = formData.get('observation')
+
+    const data = {
+        "numero": numero,
+        "codigoCliente": codigoCliente,
+        "grupoClienteId": grupoClienteId,
+        "tipoClienteId": tipoClienteId,
+        "tipoComprobante": tipoComprobante,
+        "tipoCalculaRecargo": tipoCalculaRecargo,
+        "tipoCargoReconexion": tipoCargoReconexion,
+        "vencimiento1": vencimiento1,
+        "vencimiento2": vencimiento2,
+        "vencimiento3": vencimiento3,
+        "interesVenc2": interesVenc2,
+        "interesVenc3": interesVenc3,
+        "observacion": observacion,
+    }
+
+    console.log(data)
+
+    const tkn = getParameter('tkn')
+    get_recurringBilling( tkn )
+    post_GenerateButton( tkn, data )
 })
 
-// $form.addEventListener('submit', event => {
-//     event.preventDefault()
-//     const formData = new FormData(event.currentTarget)
+const post_ConfirmButton = (tkn, data) => {
+    const url_ConfirmButton = 'https://www.solucioneserp.net/maestros/generacion_lotes/confirmar_lote'
+    fetch( url_ConfirmButton , {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ({ resultado, mensaje}) => {
+        // console.log(resultado, mensaje)
+        alert(`${mensaje}`)
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
 
-//     const data = {
-
-//     }
-//     // console.table( data )
-//     get_salesDocs( tkn, data )
-// })
+document.getElementById("confirm").addEventListener("click", () => {
+    const numero = Number(document.getElementById('numero').value)
+    const data = {
+        "Numero": numero
+    }
+    const tkn = getParameter('tkn')
+    post_ConfirmButton( tkn, data )
+})

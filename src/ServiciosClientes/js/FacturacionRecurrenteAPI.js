@@ -67,6 +67,55 @@ const get_groupCustomers = tkn => {
     })
 }
 
+//Nuevo Listado Clientes
+const get_customers = tkn => {
+    $("#client-code").select2({
+        language: {
+            noResults: function() {    
+            return "No hay resultado";        
+            },
+            searching: function() {    
+            return "Buscando..";
+            },
+            inputTooShort:function(){
+            return "Ingrese 3 caracteres o mas para buscar";
+            }
+        },
+        placeholder: 'Buscar código cliente',         
+        minimumInputLength: 3,
+        ajax:{        
+            delay: 500,
+            url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+            headers: {'Authorization' : 'Bearer ' + tkn},
+            type: 'POST',
+            dataType:'json',        
+            data: function (params) {            
+                if (params.term == null){                
+                    return JSON.stringify('{filtro:""}');
+                }
+                else
+                {
+                    return {filtro: params.term};
+                }
+            },
+            processResults: function (data) {  
+                var arr_t =[];          
+                const customers = data
+                for ( const element of customers ) {        
+                    // Desestructuracion del objeto element
+                    const { id, codigo, nombre } = element                
+                    arr_t.push({ id: codigo, text: nombre + ' - ' + codigo });
+                }   
+
+                return {                
+                results: arr_t//data.items
+                };
+            }
+        }
+        
+    })
+}
+
 // Listado tipos de clientes
 const get_customerTypes = tkn => {
     const url_getCustomerTypes = 'https://www.solucioneserp.net/listados/get_tipos_clientes'
@@ -225,11 +274,32 @@ const get_lastSettlement = tkn => {
     .then( resp => resp.json() )
     .then( ({ liquidacion, recargo, comprobantes, reconexion }) => {
         // console.log( liquidacion, recargo, comprobantes, reconexion )
+
+        console.log(comprobantes)
+        const numberElement = document.getElementById('numero')
+        numberElement.value = liquidacion.numero
+
         const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
         reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
 
         const calculateChargesTextElement = document.getElementById('calculate-charges-text')
         calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
+
+        if ( liquidacion.confirmada === -1 ) return
+        if ( liquidacion.confirmada === 0 ) {
+            const generate = document.getElementById('generate')
+            const regenerate = document.getElementById('regenerate')
+            const confirm = document.getElementById('confirm')
+
+            generate.classList.add('d-none')
+            regenerate.classList.remove('d-none')
+            confirm.classList.remove('d-none')
+
+            const cantReceipts = document.getElementById('number-receipts')
+            const totalReceipts = document.getElementById('total-receipts')
+            cantReceipts.innerText = liquidacion.cantComprobantes
+            totalReceipts.innerText = `$${liquidacion.totalComprobantes}`
+        }
     })
     .catch( err => {
         console.log( err )
@@ -241,6 +311,7 @@ const tkn = getParameter('tkn')
 if ( tkn ) {
     get_type_generation( tkn )
     get_groupCustomers( tkn )
+    get_customers( tkn )
     get_customerTypes( tkn )
     get_VoucherTypes( tkn )
     get_ReconnectionCharges( tkn )
