@@ -287,6 +287,13 @@ const post_GenerateButton = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
+        const generate = document.getElementById('generate')
+        const regenerate = document.getElementById('regenerate')
+        const confirm = document.getElementById('confirm')
+
+        generate.classList.add('d-none')
+        regenerate.classList.remove('d-none')
+        confirm.classList.remove('d-none')
     })
     .catch( err => {
         console.log( err )
