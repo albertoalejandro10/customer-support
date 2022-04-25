@@ -1,9 +1,9 @@
-import { getParameter, format_number } from "../../jsgen/getParameters"
+import { getParameter, format_number } from "../../jsgen/Helper"
 
 // Tipo de Generacion
-const get_type_generation = tkn => {
-    const url_getTypeGeneration = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_generacion'
-    fetch( url_getTypeGeneration, {
+const get_typeGeneration = tkn => {
+    const url_gettypeGeneration = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_generacion'
+    fetch( url_gettypeGeneration, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const get_customerTypes = tkn => {
 }
 
 // Listado tipos de comprobantes
-const get_VoucherTypes = tkn => {
+const get_voucherTypes = tkn => {
     const url_getVoucherTypes = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_comprobante'
     fetch( url_getVoucherTypes, {
         method: 'GET',
@@ -189,7 +189,7 @@ const get_VoucherTypes = tkn => {
 }
 
 // Listado de cargos por reconexion
-const get_ReconnectionCharges = tkn => {
+const get_reconnectionCharges = tkn => {
     const url_getReconnectionCharges = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_cargo_reconexion'
     fetch( url_getReconnectionCharges, {
         method: 'GET',
@@ -225,7 +225,7 @@ const get_ReconnectionCharges = tkn => {
 }
 
 // Listado de tipos de cargo por reconexion
-const get_ChargesType = tkn => {
+const get_chargesType = tkn => {
     const url_getChargesType = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_cargo_reconexion'
     fetch( url_getChargesType, {
         method: 'GET',
@@ -261,62 +261,16 @@ const get_ChargesType = tkn => {
     })
 }
 
-// Listado de tipos de cargo por reconexion
-const get_lastSettlement = tkn => {
-    const url_getLastSettlement = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
-    fetch( url_getLastSettlement, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( ({ liquidacion, recargo, comprobantes, reconexion }) => {
-        // console.log( liquidacion, recargo, comprobantes, reconexion )
-
-        console.log(comprobantes)
-        const numberElement = document.getElementById('numero')
-        numberElement.value = liquidacion.numero
-
-        const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
-        reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
-
-        const calculateChargesTextElement = document.getElementById('calculate-charges-text')
-        calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
-
-        if ( liquidacion.confirmada === -1 ) return
-        if ( liquidacion.confirmada === 0 ) {
-            const generate = document.getElementById('generate')
-            const regenerate = document.getElementById('regenerate')
-            const confirm = document.getElementById('confirm')
-
-            generate.classList.add('d-none')
-            regenerate.classList.remove('d-none')
-            confirm.classList.remove('d-none')
-
-            const cantReceipts = document.getElementById('number-receipts')
-            const totalReceipts = document.getElementById('total-receipts')
-            cantReceipts.innerText = liquidacion.cantComprobantes
-            totalReceipts.innerText = `$${liquidacion.totalComprobantes}`
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
-
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
-    get_type_generation( tkn )
+    get_typeGeneration( tkn )
     get_groupCustomers( tkn )
     get_customers( tkn )
     get_customerTypes( tkn )
-    get_VoucherTypes( tkn )
-    get_ReconnectionCharges( tkn )
-    get_ChargesType( tkn )
-    get_lastSettlement( tkn )
+    get_voucherTypes( tkn )
+    get_reconnectionCharges( tkn )
+    get_chargesType( tkn )
 }
 
 const today = new Date().toLocaleDateString('en-GB')

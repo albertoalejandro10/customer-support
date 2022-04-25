@@ -30,7 +30,7 @@
   <body>
     <div class="wrapper">
       <div class="container-fluid">
-        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <div class="container mt-2  pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
             <div class="col-12 mb-2">
@@ -47,6 +47,11 @@
             <div class="col-12">
               <form id="form">
                 <input class="d-none" type="text" name="numero" id="numero">
+                <input class="d-none" type="text" name="vencimiento1" id="vencimiento1">
+                <input class="d-none" type="text" name="vencimiento2" id="vencimiento2">
+                <input class="d-none" type="text" name="vencimiento3" id="vencimiento3">
+                <input class="d-none" type="text" name="interesVenc2" id="interesVenc2">
+                <input class="d-none" type="text" name="interesVenc3" id="interesVenc3">
                 <div class="row flex-column">
                   <div class="middle-boxes">
                     <div class="d-flex justify-content-between align-items-center">
@@ -66,7 +71,7 @@
                           <!-- Options group-client -->
                         </select>
                         <select class="form-control" name="generated-for" id="generated-for">
-                          <option value="2">General</option>
+                          <option value="0">General</option>
                           <!-- Options generated-for -->
                         </select>
                         <div class="d-none" id="divClientCode">
@@ -114,7 +119,7 @@
                   <button type="submit" id="generate" class="btn btn-primary">Generar</button>
                   <div class="mx-auto">
                     <button type="submit" id="regenerate" class="btn btn-primary d-none">Re-Generar</button>
-                    <button type="button" id="confirm" class="btn btn-primary d-none">Confirmar</button>
+                    <button type="button" id="confirm" class="btn btn-success d-none">Confirmar</button>
                   </div>
                 </div>
               </form>
@@ -143,8 +148,7 @@
             </div>
           </div>
           <!-- Form - Lower -->
-          <div id="form-lower" class="row p-2 my-2 rounded form-bottom">
-          </div>
+          <div id="form-lower" class="row p-2 my-2 rounded form-bottom"></div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { getParameter, format_number, ag_grid_locale_es } from "../../jsgen/getParameters"
+import { getParameter, format_number, ag_grid_locale_es } from "../../jsgen/Helper"
 
 function comparafecha(filterLocalDateAtMidnight, cellValue) {
     const dateAsString = cellValue;
@@ -195,10 +195,10 @@ function generatePinnedBottomData(){
 }
 
 function calculatePinnedBottomData(target){
-    //console.log(target);
+    // console.log(target);
     //**list of columns fo aggregation**
 
-    let columnsWithAggregation = ['neto', 'iva', 'noGravado', 'importe']
+    let columnsWithAggregation = ['neto', 'iva', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element);
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -206,8 +206,7 @@ function calculatePinnedBottomData(target){
                 target[element] += Number(rowNode.data[element].toFixed(2));
         });
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`;                
-
+            target[element] = `${target[element].toFixed(2)}`;
     })
     //console.log(target);
     return target;
@@ -223,21 +222,30 @@ const get_recurringBilling = tkn => {
         }
     })
     .then( resp => resp.json() )
-    .then( resp => {
-        console.log(resp)
-        // console.log( linea )
-        //clear Filtros
-        // gridOptions.api.setFilterModel(null);
+    .then( ({comprobantes}) => {
 
-        //Clear Grilla
-        // gridOptions.api.setRowData([]);
+        comprobantes.map(function(element){
+            element.neto = Number(element.neto)
+            element.iva = Number(element.iva)
+            element.total = Number(element.total)
 
-        // const res = gridOptions.api.applyTransaction({
-        //     add: linea            
-        //   });
+            return element
+        })
+
+        console.log(comprobantes)
+
+        // clear Filtros
+        gridOptions.api.setFilterModel(null)
+
+        // Clear Grilla
+        gridOptions.api.setRowData([])
+
+        const res = gridOptions.api.applyTransaction({
+            add: comprobantes
+          })
         
-        // let pinnedBottomData = generatePinnedBottomData();
-        // gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);        
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])      
 
     })
     .catch( err => {
@@ -269,9 +277,68 @@ const visibleInput = type => {
     }
 }
 
-// document.getElementById("search-code").onclick = () => {
-//     console.log('Ok')
-// }
+// Listado de tipos de cargo por reconexion
+const get_lastSettlement = tkn => {
+    const url_getLastSettlement = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
+    fetch( url_getLastSettlement, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ({ liquidacion, recargo, comprobantes, reconexion }) => {
+        // console.log( liquidacion, recargo, comprobantes, reconexion )
+
+        // console.log(comprobantes)
+        const numberElement = document.getElementById('numero')
+        numberElement.value = liquidacion.numero
+
+        const vencimiento1Element = document.getElementById('vencimiento1')
+        vencimiento1Element.value = liquidacion.vencimiento1
+        const vencimiento2Element = document.getElementById('vencimiento2')
+        vencimiento2Element.value = liquidacion.vencimiento2
+        const vencimiento3Element = document.getElementById('vencimiento3')
+        vencimiento3Element.value = liquidacion.vencimiento3
+        const interesVenc2Element = document.getElementById('interesVenc2')
+        interesVenc2Element.value = liquidacion.interesVenc2
+        const interesVenc3Element = document.getElementById('interesVenc3')
+        interesVenc3Element.value = liquidacion.interesVenc3
+
+        const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
+        reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
+
+        const calculateChargesTextElement = document.getElementById('calculate-charges-text')
+        calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
+
+        if ( liquidacion.confirmada === -1 ) return
+        if ( liquidacion.confirmada === 0 ) {
+            const generate = document.getElementById('generate')
+            const regenerate = document.getElementById('regenerate')
+            const confirm = document.getElementById('confirm')
+
+            generate.classList.add('d-none')
+            regenerate.classList.remove('d-none')
+            confirm.classList.remove('d-none')
+
+            const cantReceipts = document.getElementById('number-receipts')
+            const totalReceipts = document.getElementById('total-receipts')
+            cantReceipts.innerText = liquidacion.cantComprobantes
+            totalReceipts.innerText = `$${format_number(liquidacion.totalComprobantes)}`
+
+            get_recurringBilling( tkn )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+const tkn = getParameter('tkn')
+if ( tkn ) {
+    get_lastSettlement( tkn )
+}
 
 const post_GenerateButton = (tkn, data) => {
     const url_GenerateButton = 'https://www.solucioneserp.net/maestros/generacion_lotes/generar_lote'
@@ -305,41 +372,32 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const numero = Number(formData.get('numero'))
-    const codigoCliente = formData.get('client-code')
-    const grupoClienteId = Number(formData.get('generated-for'))
-    const tipoClienteId = Number(formData.get('customer-type'))
-    const tipoComprobante = Number(formData.get('voucher-type'))
-    const tipoCalculaRecargo = Number(formData.get('calculate-charges'))
-    const tipoCargoReconexion = Number(formData.get('reconection-charges'))
-    const vencimiento1 = formData.get('expiration')
-    const vencimiento2 = formData.get('expiration')
-    const vencimiento3 = formData.get('expiration')
-    const interesVenc2 = 0.00
-    const interesVenc3 = 0.00
-    const observacion = formData.get('observation')
-
-    const data = {
-        "numero": numero,
-        "codigoCliente": codigoCliente,
-        "grupoClienteId": grupoClienteId,
-        "tipoClienteId": tipoClienteId,
-        "tipoComprobante": tipoComprobante,
-        "tipoCalculaRecargo": tipoCalculaRecargo,
-        "tipoCargoReconexion": tipoCargoReconexion,
-        "vencimiento1": vencimiento1,
-        "vencimiento2": vencimiento2,
-        "vencimiento3": vencimiento3,
-        "interesVenc2": interesVenc2,
-        "interesVenc3": interesVenc3,
-        "observacion": observacion,
+    let codigoClienteId = formData.get('client-code')
+    if ( codigoClienteId === null ) {
+        codigoClienteId = ''
     }
 
-    console.log(data)
+    const data = {
+        "numero": Number(formData.get('numero')),
+        "codigoCliente": codigoClienteId,
+        "grupoClienteId": Number(formData.get('generated-for')),
+        "tipoClienteId": Number(formData.get('customer-type')),
+        "tipoComprobante": Number(formData.get('voucher-type')),
+        "tipoCalculaRecargo": Number(formData.get('calculate-charges')),
+        "tipoCargoReconexion": Number(formData.get('reconection-charges')),
+        "vencimiento1": formData.get('vencimiento1'),
+        "vencimiento2": formData.get('vencimiento2'),
+        "vencimiento3": formData.get('vencimiento3'),
+        "interesVenc2": Number(formData.get('interesVenc2')),
+        "interesVenc3": Number(formData.get('interesVenc3')),
+        "observacion": formData.get('observation')
+    }
 
+    // console.log(data)
     const tkn = getParameter('tkn')
     get_recurringBilling( tkn )
     post_GenerateButton( tkn, data )
+
 })
 
 const post_ConfirmButton = (tkn, data) => {
