@@ -64,49 +64,51 @@ const get_businessUnits = tkn => {
 
 //Nuevo Listado Clientes
 const get_Customers = tkn => {
-    $("#customers").select2({
-        language: {
-            noResults: function() {    
-              return "No hay resultado";
-            },
-            searching: function() {
-              return "Buscando..";
-            },
-            inputTooShort:function(){
-              return "Ingrese 3 caracteres o mas para buscar";
+$(".cmb_clientes").select2({
+    language: {
+        noResults: function() {    
+            return "No hay resultado";        
+        },
+        searching: function() {    
+            return "Buscando..";
+        },
+        inputTooShort:function(){
+            return "Ingrese 3 caracteres o mas para buscar";
+        }
+    },
+    placeholder: 'Buscar Cliente',            
+    minimumInputLength: 3,
+    ajax:{        
+        delay: 500,
+        url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+        headers: {'Authorization' : 'Bearer ' + tkn},
+        type: 'POST',
+        dataType:'json',        
+        data: function (params) {            
+            if (params.term == null){                
+                return JSON.stringify('{filtro:""}');
+            }
+            else
+            {
+                return {filtro: params.term};
             }
         },
-        placeholder: 'Buscar Cliente',
-        minimumInputLength: 3,
-        ajax:{
-            delay: 500,
-            url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
-            headers: {'Authorization' : 'Bearer ' + tkn},
-            type: 'POST',
-            dataType:'json',        
-            data: function (params) {
-                if (params.term == null){
-                    return JSON.stringify('{filtro:""}');
-                }
-                else
-                {
-                    return {filtro: params.term};
-                }
-            },
-            processResults: function (data) {
-                var arr_t =[];
-                const customers = data
-                for ( const element of customers ) {
-                    // Desestructuracion del objeto element
-                    const { id, codigo, nombre } = element
-                    arr_t.push({ id: codigo, text: nombre + ' - ' + codigo });
-                  }    
-                return {
-                  results: arr_t//data.items
-                };
-            }
+        processResults: function (data) {  
+            var arr_t =[];          
+            const customers = data
+            for ( const element of customers ) {        
+                // Desestructuracion del objeto element
+                const { id, codigo, nombre } = element                
+                arr_t.push({ id: codigo, text: nombre + ' - ' + codigo });
+                }   
+
+            return {                
+                results: arr_t//data.items
+            };
         }
-    })
+    }
+    
+})
 }
 
 // Ejecutar
