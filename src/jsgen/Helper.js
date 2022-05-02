@@ -4,6 +4,19 @@ export const getParameter = parameterName => {
     return parameters.get( parameterName )
 }
 
+// Calcular total
+let importeTotal = 0
+export const calcularImporteTotal = importe => {
+    importeTotal += importe
+    return importeTotal
+}
+
+export const restarImporteTotal = importe => {
+    importeTotal -= importe
+    return importeTotal
+}
+
+// Formatear Numero 1,000.00
 export const format_number = importeNeto => {
     const  style = {
         minimumFractionDigits: 2,
@@ -14,6 +27,16 @@ export const format_number = importeNeto => {
     return importe
 }
 
+// Formatear numero 1,000.00 to 1000,00
+export const reverseFormatNumber = (val, locale) => {
+    const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
+    const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '');
+    let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '');
+    reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.');
+    return Number.isNaN(reversedVal)?0:reversedVal;
+}
+
+// Solo numeros input tipo texto.
 const numbersOnly = (string) => {
     var out = '';
     var filtro = '1234567890';//Caracteres validos
@@ -30,6 +53,7 @@ const numbersOnly = (string) => {
     return out
 }
 
+// Objeto para tabla del plugin Grid AG.
 export const ag_grid_locale_es = {
     // for filter panel
     page: 'Pagina',
