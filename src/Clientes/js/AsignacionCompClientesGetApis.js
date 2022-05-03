@@ -111,24 +111,41 @@ $(".cmb_clientes").select2({
 })
 }
 
+// Fecha de inicio de ejercicio
+const get_startPeriod = tkn => {
+    const url_getStartPeriod = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    fetch( url_getStartPeriod, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ([resp]) => {
+        // Start Period
+        const { fecha } = resp
+        const startDate = fecha.split('/').reverse().join('-')
+        const periodStart = document.getElementById('periodStart')
+        periodStart.value = startDate
+
+        // End Period
+        const today = new Date().toLocaleDateString('en-GB')
+        const endDate = today.split('/').reverse().join('-')
+        const periodEnd = document.getElementById('periodEnd')
+        periodEnd.value = endDate
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
     get_Accounts( tkn )
     get_Customers( tkn )
     get_businessUnits( tkn )
+    get_startPeriod( tkn )
 }
-
-const today = new Date().toLocaleDateString('en-GB')
-const monthYear = today.slice(2)
-const todayDefault = '01' + monthYear
-const startDate = todayDefault.split('/').reverse().join('-')
-const periodStart = document.getElementById('periodStart')
-periodStart.value = startDate
-// periodStart.disabled = true
-
-// End Period
-const endDate = today.split('/').reverse().join('-')
-const periodEnd = document.getElementById('periodEnd')
-periodEnd.value = endDate
-// periodEnd.disabled = true

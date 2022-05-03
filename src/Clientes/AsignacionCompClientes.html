@@ -100,19 +100,6 @@
                         <!-- Body table -->
                         
                       </tbody>
-                      <tfoot id="credit-tfoot" class="d-none">
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>
-                            <label for="total-credit" class="font-weight-bold">Total:</label>
-                          </td>
-                          <td>
-                            <input class="form-control" type="text" name="total-credit" id="total-credit" placeholder="0,00" disabled>
-                          </td>
-                        </tr>
-                      </tfoot>
                     </table>
                     <p id="not-credit" class="text-danger font-weight-bold d-none">No hay facturas de credito</p>
                   </div>
@@ -133,32 +120,30 @@
                         <!-- Body table -->
                         
                       </tbody>
-                      <tfoot id="debit-tfoot" class="d-none">
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>
-                            <label for="total-debit" class="font-weight-bold">Total:</label>
-                          </td>
-                          <td>
-                            <input class="form-control" type="text" name="total-debit" id="total-debit" placeholder="0,00" disabled>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td>
-                            <label for="total-difference" class="font-weight-bold">Diferencia:</label>
-                          </td>
-                          <td>
-                            <input class="form-control" type="text" name="total-difference" id="total-difference" placeholder="0,00" disabled>
-                          </td>
-                        </tr>
-                      </tfoot>
                     </table>
                     <p id="not-debit" class="text-danger font-weight-bold d-none">No hay facturas de debito</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm">
+                    <div id="credit-tfoot" class="d-none">
+                      <div class="d-flex justify-content-end">
+                        <label for="total-credit" class="font-weight-bold">Total:</label>
+                        <input class="form-control" type="text" name="total-credit" id="total-credit" placeholder="0,00" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div id="debit-tfoot" class="d-none">
+                      <div class="d-flex justify-content-end">
+                        <label for="total-debit" class="font-weight-bold">Total:</label>
+                        <input class="form-control" type="text" name="total-debit" id="total-debit" placeholder="0,00" disabled>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                        <label for="total-difference" class="font-weight-bold">Diferencia:</label>
+                        <input class="form-control" type="text" name="total-difference" id="total-difference" placeholder="0,00" disabled>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -209,6 +209,7 @@ const post_RecordButton = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
+        location.reload()
     })
     .catch( err => {
         console.log( err )

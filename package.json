@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "form for custom-support ",
   "scripts": {
-    "dev": "parcel ./src/Clientes/*.html",
+    "dev": "parcel ./src/ServiciosClientes/*.html ./src/Clientes/*.html",
     "prebuild": "npx rimraf build",
     "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html"
   },

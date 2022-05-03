@@ -262,6 +262,7 @@ selectTypeGroup.addEventListener('change', event => {
 
 // Remover clase d-none de precio neto y % descuento.
 const clientCode = document.getElementById('divClientCode')
+const customerCode = document.getElementById('client-code')
 const generatedFor = document.getElementById('generated-for')
 const visibleInput = type => {
     if ( type === 'clientCode') {
@@ -269,11 +270,12 @@ const visibleInput = type => {
         clientCode.classList.add('d-inline')
         clientCode.classList.remove('d-none')
     }
-
+    
     if ( type === 'generatedFor') {
         clientCode.classList.add('d-none')
         clientCode.classList.remove('d-inline')
         generatedFor.classList.remove('d-none')
+        customerCode.value = ''
     }
 }
 
@@ -290,10 +292,11 @@ const get_lastSettlement = tkn => {
     .then( resp => resp.json() )
     .then( ({ liquidacion, recargo, comprobantes, reconexion }) => {
         // console.log( liquidacion, recargo, comprobantes, reconexion )
-
         // console.log(comprobantes)
-        const numberElement = document.getElementById('numero')
-        numberElement.value = liquidacion.numero
+        const lotNumber = document.getElementById('numero')
+        lotNumber.value = liquidacion.numero
+        const observation = document.getElementById('observation')
+        observation.value = liquidacion.observacion
 
         const vencimiento1Element = document.getElementById('vencimiento1')
         vencimiento1Element.value = liquidacion.vencimiento1
@@ -314,6 +317,8 @@ const get_lastSettlement = tkn => {
 
         if ( liquidacion.confirmada === -1 ) return
         if ( liquidacion.confirmada === 0 ) {
+            const generateReceipts = document.getElementById('generate-receipts')
+            generateReceipts.remove('d-none')
             const generate = document.getElementById('generate')
             const regenerate = document.getElementById('regenerate')
             const confirm = document.getElementById('confirm')
@@ -355,12 +360,12 @@ const post_GenerateButton = (tkn, data) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
         const generate = document.getElementById('generate')
-        const regenerate = document.getElementById('regenerate')
-        const confirm = document.getElementById('confirm')
+        const generateReceipts = document.getElementById('generate-receipts')
+        const regenerateButtons = document.getElementById('regenerate-buttons')
 
         generate.classList.add('d-none')
-        regenerate.classList.remove('d-none')
-        confirm.classList.remove('d-none')
+        regenerateButtons.classList.remove('d-none')
+        generateReceipts.classList.remove('d-none')
     })
     .catch( err => {
         console.log( err )
@@ -393,11 +398,10 @@ $form.addEventListener('submit', event => {
         "observacion": formData.get('observation')
     }
 
-    // console.log(data)
-    const tkn = getParameter('tkn')
-    get_recurringBilling( tkn )
-    post_GenerateButton( tkn, data )
-
+    console.log(JSON.stringify(data))
+    // const tkn = getParameter('tkn')
+    // get_recurringBilling( tkn )
+    // post_GenerateButton( tkn, data )
 })
 
 const post_ConfirmButton = (tkn, data) => {

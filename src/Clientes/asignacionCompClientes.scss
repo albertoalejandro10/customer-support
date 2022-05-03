@@ -191,4 +191,22 @@ table tfoot td {
 
 input[type="text"]:disabled {
     background: white;
+    text-align: right;
+}
+
+#total-credit {
+    width: 20%;
+}
+
+#total-debit {
+    width: 20%;
+}
+
+#total-difference {
+    width: 20%;
+}
+
+#credit-tfoot label,
+#debit-tfoot label {
+    margin-right: 2px;
 }
