@@ -398,10 +398,10 @@ $form.addEventListener('submit', event => {
         "observacion": formData.get('observation')
     }
 
-    console.log(JSON.stringify(data))
-    // const tkn = getParameter('tkn')
-    // get_recurringBilling( tkn )
-    // post_GenerateButton( tkn, data )
+    // console.log(JSON.stringify(data))
+    const tkn = getParameter('tkn')
+    get_recurringBilling( tkn )
+    post_GenerateButton( tkn, data )
 })
 
 const post_ConfirmButton = (tkn, data) => {
@@ -418,6 +418,7 @@ const post_ConfirmButton = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
+        location.reload()
     })
     .catch( err => {
         console.log( err )

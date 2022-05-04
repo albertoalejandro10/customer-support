@@ -74,12 +74,14 @@
                           <select class="form-control" name="group-client" id="group-client">
                             <!-- Options group-client -->
                           </select>
-                          <select class="form-control" name="generated-for" id="generated-for">
-                            <option value="0">General</option>
+                          <select class="form-control" name="generated-for" id="generated-for" required>
+                            <option value="" disabled selected>Seleccionar grupo cliente</option>
                             <!-- Options generated-for -->
                           </select>
                           <div class="d-none" id="divClientCode">
-                            <select class="form-control client-code" name="client-code" id="client-code"></select>
+                            <select class="form-control client-code" name="client-code" id="client-code">
+                              <!-- Options client-code -->
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -87,7 +89,10 @@
                     <div class="middle-boxes">
                       <div class="d-flex justify-content-between align-items-center">
                         <label for="customer-type">Tipo de Cliente</label>
-                        <select class="form-control" name="customer-type" id="customer-type"></select>
+                        <select class="form-control" name="customer-type" id="customer-type" required>
+                          <option value="" disabled selected>Seleccionar tipo cliente</option>
+                          <!-- Options customer-type  -->
+                        </select>
                       </div>
                     </div>
                     <div class="middle-boxes">
@@ -153,7 +158,7 @@
     </form>
   </body>
 
-  <script src="./js/FacturacionRecurrenteAPI.js"></script>
+  <script src="./js/FacturacionRecurrenteApis.js"></script>
   <script src="./js/FacturacionRecurrente.js"></script>
   <script src="../jsgen/footer-form.js"></script>
   

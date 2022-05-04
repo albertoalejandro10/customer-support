@@ -24,11 +24,6 @@ const get_typeGeneration = tkn => {
             option.textContent = nombre
             
             select.appendChild( option )
-
-            const selectDefault = 2
-            if ( id === selectDefault ) {
-                select.value = 2
-            }
         }
     })
     .catch( err => {
@@ -140,11 +135,6 @@ const get_customerTypes = tkn => {
             option.textContent = detalle
             
             select.appendChild( option )
-
-            const selectDefault = 1
-            if ( id === selectDefault ) {
-                select.value = selectDefault
-            }
         }
     })
     .catch( err => {
