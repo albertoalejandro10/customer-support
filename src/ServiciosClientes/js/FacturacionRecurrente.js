@@ -224,15 +224,12 @@ const get_recurringBilling = tkn => {
     .then( resp => resp.json() )
     .then( ({comprobantes}) => {
 
-        comprobantes.map(function(element){
+        comprobantes.map( element => {
             element.neto = Number(element.neto)
             element.iva = Number(element.iva)
             element.total = Number(element.total)
-
             return element
         })
-
-        console.log(comprobantes)
 
         // clear Filtros
         gridOptions.api.setFilterModel(null)
@@ -269,6 +266,7 @@ const visibleInput = type => {
         generatedFor.classList.add('d-none')
         clientCode.classList.add('d-inline')
         clientCode.classList.remove('d-none')
+        generatedFor.required = false
     }
     
     if ( type === 'generatedFor') {
@@ -318,14 +316,13 @@ const get_lastSettlement = tkn => {
         if ( liquidacion.confirmada === -1 ) return
         if ( liquidacion.confirmada === 0 ) {
             const generateReceipts = document.getElementById('generate-receipts')
-            generateReceipts.remove('d-none')
+            generateReceipts.classList.remove('d-none')
+
             const generate = document.getElementById('generate')
-            const regenerate = document.getElementById('regenerate')
-            const confirm = document.getElementById('confirm')
+            const regenerateButtons = document.getElementById('regenerate-buttons')
 
             generate.classList.add('d-none')
-            regenerate.classList.remove('d-none')
-            confirm.classList.remove('d-none')
+            regenerateButtons.classList.remove('d-none')
 
             const cantReceipts = document.getElementById('number-receipts')
             const totalReceipts = document.getElementById('total-receipts')
@@ -360,12 +357,11 @@ const post_GenerateButton = (tkn, data) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
         const generate = document.getElementById('generate')
-        const generateReceipts = document.getElementById('generate-receipts')
         const regenerateButtons = document.getElementById('regenerate-buttons')
 
         generate.classList.add('d-none')
         regenerateButtons.classList.remove('d-none')
-        generateReceipts.classList.remove('d-none')
+        get_lastSettlement( tkn )
     })
     .catch( err => {
         console.log( err )
@@ -400,7 +396,6 @@ $form.addEventListener('submit', event => {
 
     // console.log(JSON.stringify(data))
     const tkn = getParameter('tkn')
-    get_recurringBilling( tkn )
     post_GenerateButton( tkn, data )
 })
 
