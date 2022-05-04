@@ -20,6 +20,13 @@ const post_getReceipts = (tkn, data) => {
             while (elements.length > 0) elements[0].remove()
         }
 
+        const totalCredit = document.getElementById('total-credit')
+        totalCredit.value = ''
+        const totalDebit = document.getElementById('total-debit')
+        totalDebit.value = ''
+        const totalDifference = document.getElementById('total-difference')
+        totalDifference.value = ''
+
         const receipts = resp
         const arrCredit = []
         const arrDebit = []
@@ -209,7 +216,33 @@ const post_RecordButton = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(`${mensaje}`)
-        location.reload()
+
+        const cuenta = document.getElementById('account').value
+        const codCliente = document.getElementById('customers').value
+        const unidadNegocio = Number(document.getElementById('business').value)
+        const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+        const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+        const orden = Number(document.getElementById('orden-fecha').value)
+
+        const data = {
+            cuenta,
+            codCliente,
+            unidadNegocio,
+            fechaDesde,
+            fechaHasta,
+            orden,
+        }
+
+        const totalCredit = document.getElementById('total-credit')
+        totalCredit.value = ''
+        const totalDebit = document.getElementById('total-debit')
+        totalDebit.value = ''
+        const totalDifference = document.getElementById('total-difference')
+        totalDifference.value = ''
+    
+        // console.table( data )
+        const tkn = getParameter('tkn')
+        post_getReceipts( tkn, data )        
     })
     .catch( err => {
         console.log( err )

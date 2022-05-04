@@ -71,7 +71,6 @@ label {
 }
 
 input, textarea {
-    width: 300px;
     margin-top: 2px;
 }
 
@@ -96,13 +95,8 @@ p {
 
 .form-control {
     display: inline-block;
-    width: 220px;
+    width: 260px;
     padding: 0.1875rem 0.375rem;
-}
-
-.select2-container--below,
-.select2-container--focus {
-    width: auto !important;
 }
 
 .middle-boxes {

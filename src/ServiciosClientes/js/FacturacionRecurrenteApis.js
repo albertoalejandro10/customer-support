@@ -24,6 +24,11 @@ const get_typeGeneration = tkn => {
             option.textContent = nombre
             
             select.appendChild( option )
+
+            const selectDefault = 2
+            if ( id === selectDefault ) {
+                select.value = 2
+            }
         }
     })
     .catch( err => {
