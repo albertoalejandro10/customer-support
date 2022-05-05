@@ -12,7 +12,8 @@ const post_getReceipts = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-
+        
+        
         // Eliminar filas viejas
         const tbody = document.getElementById('credit-tbody')
         const elements = document.getElementsByClassName('delete-row')
@@ -20,13 +21,19 @@ const post_getReceipts = (tkn, data) => {
             while (elements.length > 0) elements[0].remove()
         }
 
+        // Resetear inputs de totales
         const totalCredit = document.getElementById('total-credit')
         totalCredit.value = ''
         const totalDebit = document.getElementById('total-debit')
         totalDebit.value = ''
         const totalDifference = document.getElementById('total-difference')
         totalDifference.value = ''
+        sumarImporteCredit(0, true)
+        sumarImporteDebit(0, true)
+        restarImporteCredit(0, true)
+        restarImporteDebit(0, true)
 
+        // Organizar arreglos dependiendo de credito y debito
         const receipts = resp
         const arrCredit = []
         const arrDebit = []
@@ -40,6 +47,7 @@ const post_getReceipts = (tkn, data) => {
             }
         }
         
+        // Verificar longitud del arreglo credito e imprimir
         const notCredit = document.getElementById('not-credit')
         const tfootCredit = document.getElementById('credit-tfoot')
         if ( arrCredit?.length ) {
@@ -53,7 +61,8 @@ const post_getReceipts = (tkn, data) => {
             tfootCredit.classList.add('d-none')
             notCredit.classList.remove('d-none')
         }
-
+        
+        // Verificar longitud del arreglo debito e imprimir
         const notDebit = document.getElementById('not-debit')
         const tfootDebit = document.getElementById('debit-tfoot')
         if ( arrDebit?.length ) {
@@ -68,6 +77,7 @@ const post_getReceipts = (tkn, data) => {
             notDebit.classList.remove('d-none')
         }
 
+        // Click sobre checkboxes
         getCheckboxesCredit()
         getCheckboxesDebit()
     })
@@ -108,6 +118,7 @@ const printElementTables = ( tbody, tfoot, id, fecha, comprobante, total, pendie
     tfoot.classList.remove('d-none')                
 }
 
+// Boton Actualizar
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -127,10 +138,11 @@ $form.addEventListener('submit', event => {
     post_getReceipts( tkn, data )
 })
 
+// Conseguir checkboxes de Credito
 const getCheckboxesCredit = () => {
     const checkboxes = document.querySelectorAll("#credit-table input[type='checkbox']")
     const totalCredit = document.getElementById('total-credit')
-
+    
     for (let element of checkboxes) {      
         element.addEventListener("click", event => {
             const totalTarget = document.getElementById(`tr-${event.target.id}`).textContent
@@ -145,29 +157,38 @@ const getCheckboxesCredit = () => {
     }
 }
 
+// Sumar Credito
 let importeCredit = 0
-const sumarImporteCredit = importe => {
+const sumarImporteCredit = (importe, reset) => {
+    if ( reset ) {
+        importeCredit = 0
+    }
     importeCredit += importe
-    return importeCredit    
+    return importeCredit
 } 
 
-const restarImporteCredit = importe => {
+// Restar Credito
+const restarImporteCredit = (importe, reset) => {
+    if ( reset ) {
+        importeCredit = 0
+    }
     importeCredit -= importe
     return importeCredit
 }
 
+// Conseguir checkboxes de Debito
 const getCheckboxesDebit = () => {
     const checkboxes = document.querySelectorAll("#debit-table input[type='checkbox']")
     const totalDebit = document.getElementById('total-debit')
-
-    for (let element of checkboxes) {      
+    
+    for (let element of checkboxes) {
         element.addEventListener("click", event => {
             const totalTarget = document.getElementById(`tr-${event.target.id}`).textContent
             const trTotal = (Number(reverseFormatNumber(totalTarget, 'de')))
             if ( event.target.checked ) {
                 totalDebit.value = format_number(sumarImporteDebit(trTotal))
             } else {
-                totalDebit.value = format_number(restarImporteDebit(trTotal))            
+                totalDebit.value = format_number(restarImporteDebit(trTotal))
             }
             calculateDifferenceBetweenCreditAndDebit()
         })
@@ -175,17 +196,25 @@ const getCheckboxesDebit = () => {
 }
 
 let importeDebit = 0
-const sumarImporteDebit = importe => {
+// Sumar Debito
+const sumarImporteDebit = (importe, reset) => {
+    if ( reset ) {
+        importeDebit = 0
+    }
     importeDebit += importe
     return importeDebit
 } 
 
-const restarImporteDebit = importe => {
+// Restar debito
+const restarImporteDebit = (importe, reset) => {
+    if ( reset ) {
+        importeDebit = 0
+    }
     importeDebit -= importe
     return importeDebit
 }
 
-
+// Calcular diferencia entre credito y debito
 const calculateDifferenceBetweenCreditAndDebit = () => {
     const totalCredit = document.getElementById('total-credit').value
     const totalDebit  = document.getElementById('total-debit').value
@@ -202,6 +231,7 @@ const calculateDifferenceBetweenCreditAndDebit = () => {
     // console.log('difference:', difference.value)
 }
 
+// Boton para grabar
 const post_RecordButton = (tkn, data) => {
     const url_ConfirmButton = 'https://www.solucioneserp.net/clientes/formularios/asignacion_comprobantes/asignar_comprobantes_pendientes'
     fetch( url_ConfirmButton , {
@@ -242,13 +272,14 @@ const post_RecordButton = (tkn, data) => {
     
         // console.table( data )
         const tkn = getParameter('tkn')
-        post_getReceipts( tkn, data )        
+        post_getReceipts( tkn, data )       
     })
     .catch( err => {
         console.log( err )
     })
 }
 
+// Ejecutar boton grabar
 document.getElementById("record").addEventListener("click", () => {
     const checkboxesCredit = document.querySelectorAll("#credit-table input[type='checkbox']:checked")
     const comprobantesCredit = []
