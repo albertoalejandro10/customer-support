@@ -6,7 +6,7 @@ export const getParameter = parameterName => {
 
 // Fecha de inicio de ejercicio
 export const get_StartPeriod = tkn => {
-    const url_getStartPeriod = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    const url_getStartPeriod = 'https://www.solucioneserp.net/session/login_sid'
     fetch( url_getStartPeriod, {
         method: 'GET',
         headers: {
@@ -15,10 +15,11 @@ export const get_StartPeriod = tkn => {
         }
     })
     .then( resp => resp.json() )
-    .then( ([resp]) => {
+    .then( resp => {
         // Start Period
-        const { fecha } = resp
-        const startDate = fecha.split('/').reverse().join('-')
+        const { ejercicioInicio } = resp
+        console.log(ejercicioInicio)
+        const startDate = ejercicioInicio.split('/').reverse().join('-')
         const periodStart = document.getElementById('periodStart')
         periodStart.value = startDate
 
