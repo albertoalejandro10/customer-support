@@ -55,11 +55,6 @@ const get_Lines = tkn => {
             option.textContent = nombre
             
             select.appendChild( option )
-
-            // const selectDefault = 1
-            // if ( id === selectDefault ) {
-            //     select.value = 1
-            // }
         }
     })
     .catch( err => {
@@ -82,16 +77,20 @@ const get_Lists = tkn => {
         const lists = resp
         for (const element of lists) {
             const { id, nombre } = element
-            // console.log(id, nombre)
 
-            const select = document.querySelector('#list')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = id
-            option.textContent = nombre
-            
-            select.appendChild( option )
+            if ( ! (id === 0) ) {
+                console.log(id, nombre)
+                const select = document.querySelector('#list')
+                let option = document.createElement("option")
+                option.setAttribute("data-tokens", nombre)
+                option.value = id
+                option.textContent = nombre
+                
+                select.appendChild( option )
+            }
+
         }
+
     })
     .catch( err => {
         console.log( err )

@@ -51,17 +51,14 @@ const gridOptions = {
         {
             flex: 1,
             headerName: "Detalle",
-            field: "lineaProducto",
+            field: "producto",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
-                    return "<b>Totales</b>"
+                if (params.value=='Saldo Inicial')
+                    return params.value
                 else
-                    if (params.value=='Saldo Inicial')
-                        return params.value
-                    else
-                        return params.value
+                    return params.value
             }
         },
         {
@@ -151,34 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         $("#myGrid").height(parseInt($(window).height()) - 260)
 })
 
-function generatePinnedBottomData(){
-    // generate a row-data with null values
-    let result = {}
-
-    gridOptions.api.columnModel.gridColumns.forEach(item => {
-        result[item.colId] = null
-    })
-    return calculatePinnedBottomData(result)
-}
-
-function calculatePinnedBottomData(target){
-    //console.log(target)
-    //**list of columns fo aggregation**
-
-    let columnsWithAggregation = ['precio', 'noGravado', 'precioFinal']
-    columnsWithAggregation.forEach(element => {
-        //console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-            if (rowNode.data[element])
-                target[element] += Number(rowNode.data[element].toFixed(2))
-        })
-        if (target[element])
-            target[element] = `${target[element].toFixed(2)}`
-    })
-    //console.log(target)
-    return target
-}
-
 const post_getPriceList = (tkn, data) => {
     const url_getAccountsBalance = 'https://www.solucioneserp.net/inventario/reportes/get_listas_precios'
     fetch( url_getAccountsBalance , {
@@ -199,13 +168,9 @@ const post_getPriceList = (tkn, data) => {
         //Clear Grilla
         gridOptions.api.setRowData([])
 
-        const res = gridOptions.api.applyTransaction({
+        gridOptions.api.applyTransaction({
             add: resp
-          })
-        
-        let pinnedBottomData = generatePinnedBottomData()
-        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
-
+        })
     })
     .catch( err => {
         console.log( err )
@@ -232,7 +197,7 @@ $form.addEventListener('submit', event => {
         fecha
     }
 
-    console.table( data )
+    // console.table( data )
     const tkn = getParameter('tkn')
     post_getPriceList( tkn, data )
 })
