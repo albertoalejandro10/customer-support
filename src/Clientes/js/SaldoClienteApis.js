@@ -1,4 +1,4 @@
-import { getParameter } from "../../jsgen/Helper"
+import { getParameter, get_StartPeriod } from "../../jsgen/Helper"
 
 // Listado unidades de negocios
 const get_BusinessUnits = tkn => {
@@ -197,10 +197,10 @@ const get_BalanceOrder = tkn => {
     })
 }
 
-
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
+    get_StartPeriod( tkn )
     get_BusinessUnits( tkn )
     get_AllCustomersType( tkn )
     get_CustomersGroup( tkn )
@@ -208,15 +208,3 @@ if ( tkn ) {
     get_BalanceOrder( tkn )
     get_DebtStates( tkn )
 }
-
-const today = new Date().toLocaleDateString('en-GB')
-const year = today.slice(6)
-const todayDefault = '01/01/' + year
-const startDate = todayDefault.split('/').reverse().join('-')
-const periodStart = document.getElementById('periodStart')
-periodStart.value = startDate
-
-// End Period
-const endDate = today.split('/').reverse().join('-')
-const periodEnd = document.getElementById('periodEnd')
-periodEnd.value = endDate

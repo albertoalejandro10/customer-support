@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="./listaprecios.scss">
+    
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script type="text/javascript">     
+  
+      $(window).unbind("resize")
+  
+      $(window).resize(function () {
+          if ((parseInt($(window).height()) - 200) < 200)
+              $("#myGrid").height(100)
+          else
+              $("#myGrid").height(parseInt($(window).height()) - 200)
+          //$(".grid").width('100%')
+      })
+
+  </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid" style="height: 100%;">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-12 mb-2">
+              <h4 class="mb-0">Lista de Precios</h4>
+            </div>
+            
+            <div class="col-12">
+              <form id="form">
+                <div class="row">
+  
+                  <div class="col-sm-2">
+                    <div class="d-flex align-items-center">
+                      <label for="entry">Rubro:</label>
+                      <select class="form-control" name="entry" id="entry">
+                        <!-- Options Rubro -->
+                      </select>
+                    </div>                
+                  </div>
+  
+                  <div class="col-sm-2">
+                    <div class="d-flex align-items-center">
+                      <label for="line">Línea:</label>
+                      <select class="form-control" name="line" id="line">
+                        <!-- Options linea -->
+                      </select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-2">
+                    <div class="d-flex align-items-center">
+                      <label for="list">Lista:</label>
+                      <select class="form-control" name="list" id="list">
+                        <!-- Options lista -->
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="d-flex align-items-center">
+                      <input type="checkbox" name="check" id="check">
+                      <label class="text-nowrap" for="modified">Modificado desde:</label>
+                      <input class="form-control" type="date" name="modified" id="modified" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="d-flex justify-content-end buttons">
+                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle text-secondary">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder">Precios</h6>
+              <div class="container-fluid">
+                  <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/ListaPrecios.js"></script>
+  <script src="./js/ListaPreciosApis.js"></script>
+  <script src="../jsgen/footer-form.js"></script>  
+  
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+</html>

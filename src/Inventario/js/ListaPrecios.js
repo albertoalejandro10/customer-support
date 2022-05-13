@@ -1,9 +1,20 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
+// Boton checkbox
+const checkboxDate = document.getElementById('check')
+checkboxDate.addEventListener('change', event => {
+    const modified = document.getElementById('modified')
+    if ( event.currentTarget.checked ) {
+        modified.disabled = false
+    } else {
+        modified.disabled = true
+    }
+})
+
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
-btn_export.onclick = function() {
+btn_export.onclick = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
 
@@ -16,7 +27,7 @@ const gridOptions = {
         editable: false,
         resizable: true,  
         suppressNavigable: true, 
-        //minWidth: 100,
+        //minWidth: 100,                      
     },
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
@@ -26,130 +37,67 @@ const gridOptions = {
     columnDefs: [
         {
             width: 120,
-            headerName: "CUIT",
-            field: "cuit",
+            headerName: "Código",
+            field: "codigo",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
-                    return ""
+                if (params.value=='Saldo Inicial')
+                    return params.value
                 else
-                    if (params.value=='Saldo Inicial')
-                        return params.value
-                    else
-                        return '<a href="" onclick="window.open(\'' + params.data.cuit + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                    return params.value
             }
         },
         {
             flex: 1,
-            headerName: "Cliente",
-            field: "codigoCliente",
+            headerName: "Detalle",
+            field: "lineaProducto",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
-                    return "<b>Total</b>"
+                    return "<b>Totales</b>"
                 else
                     if (params.value=='Saldo Inicial')
                         return params.value
                     else
-                        return params.data.codigoCliente
+                        return params.value
             }
         },
         {
-            width: 120,
-            headerName: "Teléfono",
-            field: "telefono",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
-                else
-                    return params.data.telefono
-            }
-        },
-        {
-            width: 120,
-            headerClass: "text-center",
-            cellClass: 'ag-right-aligned-cell',
-            headerName: "Prom. Dias Cobros",
-            field: "promoDiasCobros",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
-                else
-                    return params.data.promoDiasCobros
-            }
-        },
-        {
-            width: 120,
-            headerClass: "text-center", 
-            cellClass: 'ag-right-aligned-cell',
-            headerName: "Prom. Dias Valores",
-            field: "promoDiasCobros",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
-                else
-                    return params.data.promoDiasValores
-            }
-        },
-        {
-            width: 120,
+            width: 180,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
-            headerName: "Última venta",
-            field: "fecha",
-            sortable: true,
-            filter: true,
-            filter: 'agDateColumnFilter',                    
-            comparator: dateComparator,
-            filterParams: {
-                // provide comparator function
-                comparator: comparafecha
-            }   
-        },
-        {
-            width: 120,
-            headerClass: "text-center",
-            cellClass: 'ag-center-aligned-cell',
-            headerName: "Último Credito",
-            field: "ultCredito",
-            sortable: true,
-            filter: true,
-            filter: 'agDateColumnFilter',                    
-            comparator: dateComparator,
-            filterParams: {
-                // provide comparator function
-                comparator: comparafecha
-            }   
-        },
-        {
-            width: 100,
-            headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
-            headerName: "Cred. Cheques",
-            field: "creditoCheches",
+            headerName: "Fecha Ult. Modif.",
+            field: "fechaModificacion",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)=="null")
                     return ""
                 else
-                    return format_number(params.value)
+                    return params.value
             }
         },
         {
-            width: 80,
+            width: 100,
+            headerName: "Índice",
+            field: "indice",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return params.value
+            }
+        },
+        {
+            width: 120,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Crédito",
-            field: "credito", 
+            headerName: "Precio Neto",
+            field: "precio",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -160,11 +108,11 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 120,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Saldo Vencido",
-            field: "vencido",
+            headerName: "No Gravado",
+            field: "noGravado",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -175,11 +123,11 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 120,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Saldo Final",
-            field: "pendienteTotal",
+            headerName: "Precio Final",
+            field: "precioFinal",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -200,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 340)
+        $("#myGrid").height(parseInt($(window).height()) - 260)
 })
 
 function generatePinnedBottomData(){
@@ -217,7 +165,7 @@ function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
 
-    let columnsWithAggregation = ['vencido', 'pendienteTotal']
+    let columnsWithAggregation = ['precio', 'noGravado', 'precioFinal']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -225,15 +173,14 @@ function calculatePinnedBottomData(target){
                 target[element] += Number(rowNode.data[element].toFixed(2))
         })
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`   
-
+            target[element] = `${target[element].toFixed(2)}`
     })
     //console.log(target)
     return target
 }
 
-const get_AccountsBalance = (tkn, data) => {
-    const url_getAccountsBalance = 'https://www.solucioneserp.net/reportes/clientes/get_saldo_cuentas_por_cobrar'
+const post_getPriceList = (tkn, data) => {
+    const url_getAccountsBalance = 'https://www.solucioneserp.net/inventario/reportes/get_listas_precios'
     fetch( url_getAccountsBalance , {
         method: 'POST',
         headers: {
@@ -243,8 +190,9 @@ const get_AccountsBalance = (tkn, data) => {
         body: JSON.stringify(data)
     })
     .then( resp => resp.json() )
-    .then( ({ linea }) => {
-        console.log( linea )
+    .then( resp => {
+        console.log( resp )
+
         //clear Filtros
         gridOptions.api.setFilterModel(null)
 
@@ -252,7 +200,7 @@ const get_AccountsBalance = (tkn, data) => {
         gridOptions.api.setRowData([])
 
         const res = gridOptions.api.applyTransaction({
-            add: linea            
+            add: resp
           })
         
         let pinnedBottomData = generatePinnedBottomData()
@@ -269,33 +217,22 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const unidadNegocio = Number(formData.get('business'))
-    const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
-    const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
-    const tipoCliente = Number(formData.get('customer-type'))
-    const grupoCliente = Number(formData.get('customer-groups'))
-    const estado = formData.get('state')
-    const cobrador = Number(formData.get('debt-collector'))
-    const orden = Number(formData.get('orden-by'))
-    const proformas = 0
-    const remitos = 0
-    const saldoCero = (formData.get('exclude-balances') === 'on') ? 1 : 0
+    const rubroId = Number(formData.get('entry'))
+    const lineaId = Number(formData.get('line'))
+    const listaId = Number(formData.get('list'))
+    const habilitarFecha = ! (formData.get('check') === 'on') ? 1 : 0
+    let fecha = formData.get('modified')
+    fecha = ! (fecha === null ) ? fecha.split('-').reverse().join('/') : ''
 
     const data = {
-        unidadNegocio,
-        fechaDesde,
-        fechaHasta,
-        tipoCliente,
-        grupoCliente,
-        estado, 
-        cobrador,
-        orden,
-        proformas,
-        remitos,
-        saldoCero
+        rubroId,
+        lineaId,
+        listaId,
+        habilitarFecha,
+        fecha
     }
 
-    // console.table( data )
+    console.table( data )
     const tkn = getParameter('tkn')
-    get_AccountsBalance( tkn, data )
+    post_getPriceList( tkn, data )
 })

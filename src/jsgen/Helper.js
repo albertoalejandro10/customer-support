@@ -4,6 +4,35 @@ export const getParameter = parameterName => {
     return parameters.get( parameterName )
 }
 
+// Fecha de inicio de ejercicio
+export const get_StartPeriod = tkn => {
+    const url_getStartPeriod = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    fetch( url_getStartPeriod, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( ([resp]) => {
+        // Start Period
+        const { fecha } = resp
+        const startDate = fecha.split('/').reverse().join('-')
+        const periodStart = document.getElementById('periodStart')
+        periodStart.value = startDate
+
+        // End Period
+        const today = new Date().toLocaleDateString('en-GB')
+        const endDate = today.split('/').reverse().join('-')
+        const periodEnd = document.getElementById('periodEnd')
+        periodEnd.value = endDate
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
 // Calcular total
 let importeTotal = 0
 export const calcularImporteTotal = importe => {
