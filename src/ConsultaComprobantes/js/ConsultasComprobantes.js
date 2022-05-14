@@ -1,172 +1,13 @@
-const ag_grid_locale_es = {
-    // for filter panel
-    page: 'Pagina',
-    more: 'Mas',
-    to: 'a',
-    of: 'de',
-    next: 'Siguente',
-    last: 'Último',
-    first: 'Primero',
-    previous: 'Anteror',
-    loadingOoo: 'Cargando...',
-    
-    // for set filter
-    selectAll: 'Seleccionar Todo',
-    searchOoo: 'Buscar...',
-    blanks: 'En blanco',
+import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
+import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
-    // for number filter and text filter
-    filterOoo: 'Filtrar',
-    applyFilter: 'Aplicar Filtro...',
-    equals: 'Igual',
-    notEqual: 'No Igual',
-
-    // for number filter
-    lessThan: 'Menos que',
-    greaterThan: 'Mayor que',
-    lessThanOrEqual: 'Menos o igual que',
-    greaterThanOrEqual: 'Mayor o igual que',
-    inRange: 'En rango de',
-
-    // for text filter
-    contains: 'Contiene',
-    notContains: 'No contiene',
-    startsWith: 'Empieza con',
-    endsWith: 'Termina con',
-
-    // filter conditions
-    andCondition: 'Y',
-    orCondition: 'O',
-
-    // the header of the default group column
-    group: 'Grupo',
-
-    // tool panel
-    columns: 'Columnas',
-    filters: 'Filtros',
-    valueColumns: 'Valos de las Columnas',
-    pivotMode: 'Modo Pivote',
-    groups: 'Grupos',
-    values: 'Valores',
-    pivots: 'Pivotes',
-    toolPanelButton: 'BotonDelPanelDeHerramientas',
-
-    // other
-    noRowsToShow: 'No hay filas para mostrar',
-
-    // enterprise menu
-    pinColumn: 'Columna Pin',
-    valueAggregation: 'Agregar valor',
-    autosizeThiscolumn: 'Autoajustar esta columna',
-    autosizeAllColumns: 'Ajustar todas las columnas',
-    groupBy: 'agrupar',
-    ungroupBy: 'desagrupar',
-    resetColumns: 'Reiniciar Columnas',
-    expandAll: 'Expandir todo',
-    collapseAll: 'Colapsar todo',
-    toolPanel: 'Panel de Herramientas',
-    export: 'Exportar',
-    csvExport: 'Exportar a CSV',
-    excelExport: 'Exportar a Excel (.xlsx)',
-    excelXmlExport: 'Exportar a Excel (.xml)',
-
-
-    // enterprise menu pinning
-    pinLeft: 'Pin Izquierdo',
-    pinRight: 'Pin Derecho',
-
-
-    // enterprise menu aggregation and status bar
-    sum: 'Suman',
-    min: 'Minimo',
-    max: 'Maximo',
-    none: 'nada',
-    count: 'contar',
-    average: 'promedio',
-
-    // standard menu
-    copy: 'Copiar',
-    copyWithHeaders: 'Copiar con cabeceras',
-    paste: 'Pegar',  
-    blank: 'Vacia',
-    notBlank: 'No Vacia',
+// Boton exportar grilla
+const btn_export = document.getElementById("btn_export")
+btn_export.onclick = function() {
+    gridOptions.api.exportDataAsCsv(getParams())
 }
 
-function comparafecha(filterLocalDateAtMidnight, cellValue) {
-    const dateAsString = cellValue;
-
-    if (dateAsString == null) {
-        return 0;
-    }
-
-    // In the example application, dates are stored as dd/mm/yyyy
-    // We create a Date object for comparison against the filter date
-    const dateParts = dateAsString.split('/');
-    const day = Number(dateParts[0]);
-    const month = Number(dateParts[1]) - 1;
-    const year = Number(dateParts[2]);
-    const cellDate = new Date(year, month, day);
-
-    // Now that both parameters are Date objects, we can compare
-    if (cellDate < filterLocalDateAtMidnight) {
-        return -1;
-    } else if (cellDate > filterLocalDateAtMidnight) {
-        return 1;
-    }
-    return 0;
-}
-
-// DATE COMPARATOR FOR SORTING
-function dateComparator(date1, date2) {
-    var date1Number = _monthToNum(date1);
-    var date2Number = _monthToNum(date2);
-  
-    if (date1Number === null && date2Number === null) {
-      return 0;
-    }
-    if (date1Number === null) {
-      return -1;
-    }
-    if (date2Number === null) {
-      return 1;
-    }
-  
-    return date1Number - date2Number;
-  }
-  
-  // HELPER FOR DATE COMPARISON
-  function _monthToNum(date) {
-    if (date === undefined || date === null || date.length !== 10) {
-      return null;
-    }
-  
-    var yearNumber = date.substring(6, 10);
-    var monthNumber = date.substring(3, 5);
-    var dayNumber = date.substring(0, 2);
-  
-    var result = yearNumber * 10000 + monthNumber * 100 + dayNumber;
-    // 29/08/2004 => 20040829
-    return result;
-  }
-
-  //Parametros exportacion csv
-function getParams() {
-  return {
-    skipPinnedBottom: true,
-  };
-}
-//boton exportar grilla
-var element = document.getElementById("btn_export");
-element.onclick = function() {
-    gridOptions.api.exportDataAsCsv(getParams());
-}
-
-function filterChangedd(FilterChangedEvent) {
-    let pinnedBottomData = generatePinnedBottomData();
-    gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);
-}
-
-var localeText = ag_grid_locale_es;
+const localeText = ag_grid_locale_es;
 
 const gridOptions = {
     headerHeight: 35,
@@ -220,7 +61,7 @@ const gridOptions = {
                 if (String(params.data)=="null")
                     return ''
                 else
-                    return params.data.cliente
+                    return params.value
             }
         },
         {   
@@ -263,7 +104,7 @@ const gridOptions = {
                 if (String(params.data)=="null")
                     return ''
                 else
-                    return params.data.ejercicio
+                    return params.value
             }
         },
         {
@@ -398,16 +239,6 @@ const get_salesDocs = (tkn, data) => {
     })
 }
 
-const format_number = importeNeto => {
-    const  style = {
-        minimumFractionDigits: 2,
-        useGrouping: true
-    }
-    const formatter = new Intl.NumberFormat("de-DE", style)
-    const importe = formatter.format(importeNeto)
-    return importe
-}
-
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -453,21 +284,11 @@ $form.addEventListener('submit', event => {
     get_salesDocs( tkn, data )
 })
 
-const getParameter = parameterName => {
-    const parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
-}
-
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
     // console.log(' Ok ')
 }
-
-const customerElement = document.getElementById('customers')
-customerElement.addEventListener('keyup', () => {
-    customerElement.value = numbersOnly(customerElement.value)
-})
 
 const numberDocsElement = document.getElementById('number-docs')
 numberDocsElement.addEventListener('keyup', () => {
@@ -483,19 +304,3 @@ const salePointElement = document.getElementById('sale-point')
 salePointElement.addEventListener('keyup', () => {
     salePointElement.value = numbersOnly(salePointElement.value)
 })
-
-const numbersOnly = (string) => {
-    var out = '';
-    var filtro = '1234567890';//Caracteres validos
-	
-    //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
-    for (let i = 0; i < string.length; i++) {
-        if ( filtro.indexOf(string.charAt(i)) != -1 ) {
-            //Se añaden a la salida los caracteres validos
-            out += string.charAt(i);
-        }
-    }
-
-    //Retornar valor filtrado
-    return out
-}
