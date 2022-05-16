@@ -62,9 +62,11 @@ const get_businessUnits = tkn => {
     })
 }
 
-//Nuevo Listado Clientes
-const get_customers = tkn => {
+//variable cantidad de caracteres
+let cant_character_to_search=0;
 
+//Nuevo Listado Clientes
+const get_Customers = tkn => {
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
     fetch( url_config_cli , {
@@ -141,6 +143,13 @@ const get_customers = tkn => {
         }
 
         $(".cmb_clientes").select2(combo_configs) //fin select
+
+        //se usa para que al abrir el combo coloque el foco en el text
+        //de busqueda
+        $(".cmb_clientes").on('select2:open', function (e) {
+            //alert('test');
+            $(".select2-search__field")[0].focus();
+          });
     })
 }
 

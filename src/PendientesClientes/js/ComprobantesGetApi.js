@@ -1,4 +1,4 @@
-$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+$.fn.selectpicker.Constructor.BootstrapVersion = '4'
 
 // Listado unidades de negocios
 const get_businessUnits = tkn => {
@@ -148,6 +148,12 @@ const get_customers = tkn => {
         }
 
         $(".cmb_clientes").select2(combo_configs) //fin select
+        //se usa para que al abrir el combo coloque el foco en el text
+        //de busqueda
+        $(".cmb_clientes").on('select2:open', function (e) {
+            //alert('test');
+            $(".select2-search__field")[0].focus();
+          });
     })
 }
 

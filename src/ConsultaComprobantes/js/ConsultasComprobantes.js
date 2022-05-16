@@ -53,8 +53,9 @@ const gridOptions = {
             }
         },
         { 
-            flex: 1, headerName: "Cliente",
-            field: "nombre",
+            flex: 1,
+            headerName: "Cliente",
+            field: "cliente",
             sortable: true,
             filter: true ,
             cellRenderer: function(params) {
