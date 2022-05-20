@@ -1,0 +1,143 @@
+@import "../../scss/custom-variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+
+// $breakpoint-extralarge: 1300px;
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+* {
+    font-size: 14px;
+}
+    
+body, html {
+    height: 100%;
+}
+
+.wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+h1,
+h2 {
+    font-size: 16px;
+    font-weight: bolder;
+    color: #777777;
+}
+
+span {
+    font-size: 16px;
+    color: #a0a0a0;
+}
+
+p {
+    color: #777777;
+    margin-bottom: 0px;
+}
+
+.box {
+    width: 80%;
+    margin: 0px auto;
+}
+
+.middle-box {
+    padding: 4px;
+    background-color: #ecebeb;
+    border: .5px solid #B7B7B7;
+    border-radius: 4px;
+}
+
+table th,
+table td {
+    padding: 0.1875rem 0.375rem;
+}
+
+.table-activities,
+.table-prices {
+    margin: 0 auto;
+    color: #777777;
+}
+
+.table-prices td,
+.table-activities td {
+    text-align: right;
+}
+
+.table-activities th,
+.table-activities td {
+    &:first-child {
+        text-align: left;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:nth-child(2) {
+        text-align: center;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:nth-child(3) {
+        text-align: center;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:nth-child(4) {
+        text-align: center;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:nth-child(5) {
+        text-align: right;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:nth-child(6) {
+        text-align: right;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:last-child {
+        text-align: right;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+}
+
+.table-activities tr:last-child th,
+.table-activities tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-prices th,
+.table-prices td {
+    &:first-child {
+        text-align: left;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+    &:last-child {
+        text-align: right;
+        border: 0;
+        border-bottom: .2px solid #B7B7B7;
+    }
+}
+
+.table-prices tr:last-child th,
+.table-prices tr:last-child td {
+    border-bottom: 0;
+    font-size: 16px;
+    font-weight: bold;    
+}
+
+.row {
+    &.form-middle {
+        background-color: #F9F9F9;
+        border: .5px solid #B7B7B7;
+    }
+}
