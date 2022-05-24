@@ -10,26 +10,27 @@
     <form id="form">
       <div class="wrapper">
         <div class="container-fluid">
-          <div class="container mt-2  pt-1 pr-5 pl-5 rounded col-12">
+          <div class="container rounded col-12">
             <!-- Feature -->
-            <div class="row p-2 mb-2 rounded form-middle w-75 mx-auto">
+            <div class="row shadow px-2 py-4 big-box mx-auto">
+
               <div class="col-sm-12 my-2">
-                <div class="row box">
-                  <div class="col-sm">
-                    <h2 id="invoice"></h2>
+                <div class="row box justify-content-between">
+                  <div class="p-2 text-left">
+                    <h2 id="invoice" class="h4 tracking-tight real-blue"></h2>
                     <div class="row">
-                      <div class="col-3">
+                      <div class="col-4">
                         <p>Fecha:</p>
                         <p>Vencimiento:</p>
                       </div>
-                      <div class="col-9">
-                        <strong><p id="date"></p></strong>
-                        <strong><p id="expiration"></p></strong>
+                      <div class="col-8">
+                        <strong><p id="date" class="real-blue"></p></strong>
+                        <strong><p id="expiration" class="real-blue"></p></strong>
                       </div>
                     </div>
                   </div>
     
-                  <div class="col-sm text-right">
+                  <div class="p-2 text-right">
                     <h1>Softsystems SRL</h1>
                     <p>Rivadia 451</p>
                     <p>30-7125325-5</p>
@@ -38,10 +39,9 @@
               </div>
 
               <div class="col-sm-12 my-2">
-                <div class="row box middle-box justify-content-between">
+                <div class="row box justify-content-between">
                   <div class="p-2">
-                    <p id="entrega-remito" class="d-none">Entrega con Remito<br></p>
-                    <p id="customer" class="font-weight-bolder"></p>
+                    <p id="customer" class="real-blue"></p>
                     <p id="suite"></p>
                     <p>Responsable Inscripto</p>
                     <p id="cuit"></p>
@@ -49,88 +49,89 @@
                   </div>
                   <div class="p-2">
                     <p id="type">Tipo:</p>
-                    <br>
                     <p id="subsidiary">Sucursal:</p>
                     <p id="deposit">Deposito:</p>
                     <p id="batch">Lote: </p>
                     <p id="list">Lista:</p>
-                    <p id="seller">Vendedor:</p>
                   </div>
                 </div>
               </div>
 
               <div class="col-sm-12 my-2">
+                <div class="row box justify-content-between">
+                  <div class="p-2">
+                    <p id="entrega-remito" class="d-none">Entrega con Remito<br></p>
+                  </div>
+                  <div class="p-2">
+                    <p id="seller">Vendedor:</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 my-3">
                 <div class="row box">
-                  <div class="col-12">
                   <table class="table table-activities">
                     <thead>
                       <tr>
-                        <th scope="col">Producto/Cuenta</th>
-                        <th scope="col">Unidad</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Detalle</th>
-                        <th scope="col">Precio</th>
+                        <th scope="col">DETALLE</th>
+                        <th scope="col">UNIDAD</th>
+                        <th scope="col">CANTIDAD</th>
+                        <th scope="col">PRECIO</th>
                         <th scope="col">% IVA</th>
-                        <th scope="col">Importe</th>
+                        <th scope="col">IMPORTE</th>
                       </tr>
                     </thead>
                     <tbody id="tbody-table">
                       <!-- Table options -->
                     </tbody>
                   </table>
-
-                  </div>
                 </div>
               </div>
 
-              <div class="col-sm-12 my-4">
+              <div class="col-sm-12 mt-4">
                 <div class="row box">
-                  <div class="col-12">
-                    <table class="table table-prices">
-                      <tbody>
-                        <tr>
-                          <td>Subtotal</td>
-                          <td id="subtotal"></td>
-                        </tr>
-                        <tr>
-                          <td>Descuento</td>
-                          <td id="descuento"></td>
-                        </tr>
-                        <tr>
-                          <td>Neto</td>
-                          <td id="neto"></td>
-                        </tr>
-                        <tr>
-                          <td>IVA</td>
-                          <td id="iva"></td>
-                        </tr>
-                        <tr>
-                          <td>No Gravado</td>
-                          <td id="no-gravado"></td>
-                        </tr>
-                        <tr id="tr-percepcionIIBB" class="d-none">
-                          <td>Percepción IIBB</td>
-                          <td id="percepcion-iibb"></td>
-                        </tr>
-                        <tr id="tr-impuestosInternos" class="d-none">
-                          <td>Impuestos Internos</td>
-                          <td id="impuestos-internos"></td>
-                        </tr>
-                        <tr>
-                          <td>Total</td>
-                          <td id="total"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table class="table table-prices">
+                    <tbody>
+                      <tr>
+                        <td>SUBTOTAL</td>
+                        <td id="subtotal"></td>
+                      </tr>
+                      <tr>
+                        <td>DESCUENTO</td>
+                        <td id="descuento"></td>
+                      </tr>
+                      <tr>
+                        <td>NETO</td>
+                        <td id="neto"></td>
+                      </tr>
+                      <tr>
+                        <td>IVA</td>
+                        <td id="iva"></td>
+                      </tr>
+                      <tr id="tr-noGravado" class="d-none">
+                        <td>NO GRAVADO</td>
+                        <td id="no-gravado"></td>
+                      </tr>
+                      <tr id="tr-percepcionIIBB" class="d-none">
+                        <td>PERCEPCIÓN IIBB</td>
+                        <td id="percepcion-iibb"></td>
+                      </tr>
+                      <tr id="tr-impuestosInternos" class="d-none">
+                        <td>IMPUESTOS INTERNOS</td>
+                        <td id="impuestos-internos"></td>
+                      </tr>
+                      <tr>
+                        <td>TOTAL</td>
+                        <td id="total"></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
               <div class="col-sm-12 my-2">
                 <div class="row box">
-                  <div class="col-12 ml-2">
-                    <p id="observation">Observaciones: -</p>
-                  </div>
+                  <p id="observation" class="ml-2 real-blue">Observaciones: -</p>
                 </div>
               </div>
             </div>

@@ -35,7 +35,7 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
         document.getElementById('entrega-remito').classList.remove('d-none')
     }
 
-    document.getElementById('invoice').innerHTML = `<span>${compTipo1} (${compTipo2}) </span> ${letra} ${ptoVta} - ${invoiceNumber(numero)}`
+    document.getElementById('invoice').innerHTML = `<span class="invoice-span">${compTipo1} (${compTipo2}) </span> ${letra} ${ptoVta}-${invoiceNumber(numero)}`
     document.getElementById('date').innerText = fecha
     const [ expiry ] = vencimientos
     document.getElementById('expiration').innerText = expiry.fecha
@@ -48,13 +48,13 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('email').innerText = email
     
     // console.log( adicionales )
-    document.getElementById('type').innerHTML = 'Tipo: ' + `<strong>${tipoComprobante}</strong>`
+    document.getElementById('type').innerHTML = 'Tipo: ' + `<strong class="real-blue">${tipoComprobante}</strong>`
     const { sucursal, deposito,  lote, observacion } = adicionales
     document.getElementById('subsidiary').innerText = 'Sucursal: ' + sucursal
     document.getElementById('deposit').innerText = 'Deposito: ' + deposito
     document.getElementById('batch').innerText = 'Lote: ' + lote
     document.getElementById('list').innerText = 'Lista: ' + lista
-    document.getElementById('seller').innerHTML = 'Vendedor: ' + `<strong>${vendedor}</strong>`
+    document.getElementById('seller').innerHTML = 'Vendedor: ' + `<strong class="real-blue">${vendedor}</strong>`
     document.getElementById('observation').innerText = 'Observación: ' + observacion
 
     for (const element of detalle) {
@@ -66,8 +66,12 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('descuento').innerText = format_number(discount.importe)
     document.getElementById('neto').innerText = format_number(importes.neto)
     document.getElementById('iva').innerText = format_number(importes.iva)
-    document.getElementById('no-gravado').innerText = format_number(importes.noGravado)
     document.getElementById('total').innerText = format_number(importes.total)
+
+    if ( ! importes.noGravado === 0 ) {
+        document.getElementById('tr-noGravado').classList.remove('d-none')
+        document.getElementById('no-gravado').innerText = format_number(importes.noGravado)
+    }
     
     if ( ! importes.impuesto1 === 0 ) {
         document.getElementById('tr-percepcionIIBB').classList.remove('d-none')
@@ -85,7 +89,7 @@ const printTable = ({ codigo, cantidad, unidad, detalle, precio, porcIva, noGrav
     let row = document.createElement('tr')
 
     let row_data_1 = document.createElement('td')
-    row_data_1.innerHTML = '<strong>' + codigo + '</strong>'
+    row_data_1.innerHTML = '<strong>' + detalle + '</strong>'
 
     let row_data_2 = document.createElement('td')
     row_data_2.textContent = unidad
@@ -94,24 +98,20 @@ const printTable = ({ codigo, cantidad, unidad, detalle, precio, porcIva, noGrav
     row_data_3.textContent = cantidad
 
     let row_data_4 = document.createElement('td')
-    row_data_4.textContent = detalle
+    row_data_4.textContent = format_number(precio)
 
     let row_data_5 = document.createElement('td')
-    row_data_5.textContent = format_number(precio)
+    row_data_5.textContent = porcIva
 
-    let row_data_7 = document.createElement('td')
-    row_data_7.textContent = porcIva + ' %'
-
-    let row_data_8 = document.createElement('td')
-    row_data_8.textContent = format_number(importe)
+    let row_data_6 = document.createElement('td')
+    row_data_6.textContent = format_number(importe)
     
     row.appendChild(row_data_1)
     row.appendChild(row_data_2)
     row.appendChild(row_data_3)
     row.appendChild(row_data_4)
     row.appendChild(row_data_5)
-    row.appendChild(row_data_7)
-    row.appendChild(row_data_8)
+    row.appendChild(row_data_6)
     
     document.getElementById('tbody-table').appendChild(row)
 }
