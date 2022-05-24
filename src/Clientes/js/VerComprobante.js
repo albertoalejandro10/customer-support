@@ -89,7 +89,7 @@ const printTable = ({ codigo, cantidad, unidad, detalle, precio, porcIva, noGrav
     let row = document.createElement('tr')
 
     let row_data_1 = document.createElement('td')
-    row_data_1.innerHTML = '<strong>' + detalle + '</strong>'
+    row_data_1.innerHTML = `<strong>${detalle}</strong> (${codigo})`
 
     let row_data_2 = document.createElement('td')
     row_data_2.textContent = unidad
