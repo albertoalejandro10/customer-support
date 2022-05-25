@@ -62,7 +62,7 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     }
 
     const [ discount ] = descuento
-    document.getElementById('subtotal').innerText = format_number(importes.neto)
+    document.getElementById('subtotal').innerText = format_number(importes.neto + discount.importe)
     document.getElementById('descuento').innerText = format_number(discount.importe)
     document.getElementById('neto').innerText = format_number(importes.neto)
     document.getElementById('iva').innerText = format_number(importes.iva)
