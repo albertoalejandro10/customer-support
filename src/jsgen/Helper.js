@@ -18,7 +18,7 @@ export const get_StartPeriod = tkn => {
     .then( resp => {
         // Start Period
         const { ejercicioInicio } = resp
-        console.log(ejercicioInicio)
+        // console.log(ejercicioInicio)
         const startDate = ejercicioInicio.split('/').reverse().join('-')
         const periodStart = document.getElementById('periodStart')
         periodStart.value = startDate

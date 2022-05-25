@@ -35,27 +35,27 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
         document.getElementById('entrega-remito').classList.remove('d-none')
     }
 
-    document.getElementById('invoice').innerHTML = `<span class="invoice-span">${compTipo1} (${compTipo2}) </span> ${letra} ${ptoVta}-${invoiceNumber(numero)}`
+    document.getElementById('invoice').innerHTML = `${compTipo1.toUpperCase()} (${compTipo2}) ${letra} ${ptoVta}-${invoiceNumber(numero)}`
     document.getElementById('date').innerText = fecha
     const [ expiry ] = vencimientos
     document.getElementById('expiration').innerText = expiry.fecha
     
     // console.log( cliente )
     const { nombre, domicilio, cuit, email } = cliente
-    document.getElementById('customer').innerText = nombre
+    document.getElementById('customer').innerHTML = `<strong>${nombre}</strong>`
     document.getElementById('suite').innerText = domicilio
     document.getElementById('cuit').innerText = cuit
     document.getElementById('email').innerText = email
     
     // console.log( adicionales )
-    document.getElementById('type').innerHTML = 'Tipo: ' + `<strong class="real-blue">${tipoComprobante}</strong>`
+    document.getElementById('type').innerHTML = 'Tipo: ' + tipoComprobante
     const { sucursal, deposito,  lote, observacion } = adicionales
     document.getElementById('subsidiary').innerText = 'Sucursal: ' + sucursal
     document.getElementById('deposit').innerText = 'Deposito: ' + deposito
     document.getElementById('batch').innerText = 'Lote: ' + lote
     document.getElementById('list').innerText = 'Lista: ' + lista
     document.getElementById('seller').innerHTML = 'Vendedor: ' + `<strong class="real-blue">${vendedor}</strong>`
-    document.getElementById('observation').innerText = 'Observación: ' + observacion
+    document.getElementById('observation').innerText = observacion
 
     for (const element of detalle) {
         printTable(element)
