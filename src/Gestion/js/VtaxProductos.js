@@ -172,12 +172,12 @@ else
 
 function generatePinnedBottomData(){
     // generate a row-data with null values
-        let result = {}
+    let result = {}
 
-        gridOptions.api.columnModel.gridColumns.forEach(item => {
-            result[item.colId] = null
-        })
-        return calculatePinnedBottomData(result)
+    gridOptions.api.columnModel.gridColumns.forEach(item => {
+        result[item.colId] = null
+    })
+    return calculatePinnedBottomData(result)
 }
 
 function calculatePinnedBottomData(target){
@@ -186,16 +186,21 @@ function calculatePinnedBottomData(target){
 
     let columnsWithAggregation = ['cantidad', 'precio', 'venta', 'iva', 'noGravado', 'ventaTotal']
     columnsWithAggregation.forEach(element => {
-        //console.log('element', element)
+        // console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
             if (rowNode.data[element])
                 target[element] += Number(rowNode.data[element].toFixed(2))
         })
         if (target[element])
             target[element] = `${target[element].toFixed(2)}`
-
     })
-    //console.log(target)
+
+    for (const property in target) {
+        if ( property === 'noGravado' ) {
+            if ( target[property] === null ) target[property] = "0"
+        }
+    }
+
     return target
 }
 
@@ -211,7 +216,7 @@ const get_salesMovements = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        console.log( resp )
+        // console.log( resp )
         //clear Filtros
         gridOptions.api.setFilterModel(null)
 
@@ -262,7 +267,7 @@ $form.addEventListener('submit', event => {
         incluirProforma
     }
 
-    console.table( data )
+    // console.table( data )
     const tkn = getParameter('tkn')
     get_salesMovements( tkn, data )
 })

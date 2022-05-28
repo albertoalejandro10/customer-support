@@ -55,11 +55,6 @@ const get_AllCustomersType = tkn => {
             option.textContent = detalle.replace('(', '').replace(')', '')
             
             select.appendChild( option )
-
-            const selectDefault = 1
-            if ( id === selectDefault ) {
-                select.value = 1
-            }
         }
     })
     .catch( err => {
