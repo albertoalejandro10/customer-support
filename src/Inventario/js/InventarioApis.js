@@ -31,7 +31,7 @@ const get_Entry = tkn => {
     })
 }
 
-// Listado Lineas
+// Listado lineas
 const get_Lines = tkn => {
     const url_getLines = 'https://www.solucioneserp.net/listados/productos/get_lineas'
     fetch( url_getLines, {
@@ -62,10 +62,10 @@ const get_Lines = tkn => {
     })
 }
 
-// Listado Listas
-const get_Lists = tkn => {
-    const url_getLists = 'https://www.solucioneserp.net/listados/productos/get_listas'
-    fetch( url_getLists, {
+// Listado depositos
+const get_Deposits = tkn => {
+    const url_getDeposits = 'https://www.solucioneserp.net/listados/get_depositos'
+    fetch( url_getDeposits, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -74,21 +74,17 @@ const get_Lists = tkn => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        const lists = resp
-        for (const element of lists) {
+        const deposits = resp
+        for (const element of deposits) {
             const { id, nombre } = element
 
-            if ( ! (id === 0) ) {
-                // console.log(id, nombre)
-                const select = document.querySelector('#list')
-                let option = document.createElement("option")
-                option.setAttribute("data-tokens", nombre)
-                option.value = id
-                option.textContent = nombre
-                
-                select.appendChild( option )
-            }
-
+            const select = document.querySelector('#deposit')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
         }
     })
     .catch( err => {
@@ -101,10 +97,10 @@ const tkn = getParameter('tkn')
 if ( tkn ) {
     get_Entry( tkn )
     get_Lines( tkn )
-    get_Lists( tkn )
+    get_Deposits( tkn )
 }
 
 const today = new Date().toLocaleDateString('en-GB')
 const date = today.split('/').reverse().join('-')
-const dateElement = document.getElementById('modified')
+const dateElement = document.getElementById('to-date')
 dateElement.value = date

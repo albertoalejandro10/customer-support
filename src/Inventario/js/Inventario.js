@@ -1,14 +1,14 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
-import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
+import { ag_grid_locale_es, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton checkbox
 const checkboxDate = document.getElementById('check')
 checkboxDate.addEventListener('change', event => {
-    const modified = document.getElementById('modified')
+    const toDate = document.getElementById('to-date')
     if ( event.currentTarget.checked ) {
-        modified.disabled = false
+        toDate.disabled = false
     } else {
-        modified.disabled = true
+        toDate.disabled = true
     }
 })
 
@@ -51,22 +51,25 @@ const gridOptions = {
         {
             flex: 1,
             headerName: "Detalle",
-            field: "producto",
+            field: "detalle",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
+                if (String(params.value)== "null")
+                    return "<b>Totales</b>"
                 else
-                    return params.value
+                    if (params.value=='Saldo Inicial')
+                        return params.value
+                    else
+                        return params.value
             }
         },
         {
-            width: 180,
-            headerClass: "text-center",
-            cellClass: 'ag-center-aligned-cell',
-            headerName: "Fecha Ult. Modif.",
-            field: "fechaModificacion",
+            width: 80,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'ag-right-aligned-cell',
+            headerName: "Stock",
+            field: "stock",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -78,9 +81,11 @@ const gridOptions = {
         },
         {
             width: 100,
-            headerName: "Índice",
-            field: "indice",
-            sortable: true,
+            headerClass: "ag-right-aligned-header", 
+            cellClass: 'ag-right-aligned-cell',
+            headerName: "Unidad",
+            field: "unidad",
+            sortable: true, 
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)=="null")
@@ -90,11 +95,11 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 100,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Precio Neto",
-            field: "precio",
+            headerName: "Costo Lista",
+            field: "stockValuado",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -105,33 +110,18 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 100,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "No Gravado",
-            field: "noGravado",
+            headerName: "Deposito",
+            field: "deposito",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)=="null")
                     return ""
                 else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 120,
-            headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
-            headerName: "Precio Final",
-            field: "precioFinal",
-            sortable: true, 
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
+                    return params.value
             }
         }
     ],
@@ -145,12 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 260)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
-const post_getPriceList = (tkn, data) => {
-    const url_getAccountsBalance = 'https://www.solucioneserp.net/inventario/reportes/get_listas_precios'
-    fetch( url_getAccountsBalance , {
+function generatePinnedBottomData(){
+    // generate a row-data with null values
+    let result = {}
+
+    gridOptions.api.columnModel.gridColumns.forEach(item => {
+        result[item.colId] = null
+    })
+    return calculatePinnedBottomData(result)
+}
+
+function calculatePinnedBottomData(target){
+    //console.log(target)
+    //**list of columns fo aggregation**
+
+    let columnsWithAggregation = ['stockValuado']
+    columnsWithAggregation.forEach(element => {
+        // console.log('element', element)
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
+            if (rowNode.data[element])
+                target[element] += Number(rowNode.data[element].toFixed(2))
+        })
+        if (target[element])
+            target[element] = `${target[element].toFixed(2)}`
+    })
+
+    return target
+}
+
+const post_getDeposits = (tkn, data) => {
+    const url_getDeposits = 'https://www.solucioneserp.net/inventario/reportes/get_inventario'
+    fetch( url_getDeposits , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -161,7 +179,6 @@ const post_getPriceList = (tkn, data) => {
     .then( resp => resp.json() )
     .then( resp => {
         // console.log( resp )
-
         //clear Filtros
         gridOptions.api.setFilterModel(null)
 
@@ -171,6 +188,9 @@ const post_getPriceList = (tkn, data) => {
         gridOptions.api.applyTransaction({
             add: resp
         })
+
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
     })
     .catch( err => {
         console.log( err )
@@ -184,20 +204,20 @@ $form.addEventListener('submit', event => {
 
     const rubroId = Number(formData.get('entry'))
     const lineaId = Number(formData.get('line'))
-    const listaId = Number(formData.get('list'))
+    const depositoId = Number(formData.get('list'))
     const habilitarFecha = ! (formData.get('check') === 'on') ? 1 : 0
-    let fecha = formData.get('modified')
+    let fecha = formData.get('to-date')
     fecha = ! (fecha === null ) ? fecha.split('-').reverse().join('/') : ''
 
     const data = {
         rubroId,
         lineaId,
-        listaId,
+        depositoId,
         habilitarFecha,
         fecha
     }
 
     // console.table( data )
     const tkn = getParameter('tkn')
-    post_getPriceList( tkn, data )
+    post_getDeposits( tkn, data )
 })
