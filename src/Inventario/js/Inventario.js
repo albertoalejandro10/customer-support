@@ -205,7 +205,7 @@ $form.addEventListener('submit', event => {
     const rubroId = Number(formData.get('entry'))
     const lineaId = Number(formData.get('line'))
     const depositoId = Number(formData.get('list'))
-    const habilitarFecha = ! (formData.get('check') === 'on') ? 1 : 0
+    const habilitarFecha = (formData.get('check') === 'on') ? 1 : 0
     let fecha = formData.get('to-date')
     fecha = ! (fecha === null ) ? fecha.split('-').reverse().join('/') : ''
 

@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 260)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
 const post_getPriceList = (tkn, data) => {
@@ -185,7 +185,7 @@ $form.addEventListener('submit', event => {
     const rubroId = Number(formData.get('entry'))
     const lineaId = Number(formData.get('line'))
     const listaId = Number(formData.get('list'))
-    const habilitarFecha = ! (formData.get('check') === 'on') ? 1 : 0
+    const habilitarFecha = (formData.get('check') === 'on') ? 1 : 0
     let fecha = formData.get('modified')
     fecha = ! (fecha === null ) ? fecha.split('-').reverse().join('/') : ''
 
