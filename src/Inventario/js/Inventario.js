@@ -76,7 +76,7 @@ const gridOptions = {
                 if (String(params.value)=="null")
                     return ""
                 else
-                    return params.value
+                    return format_number(params.value)
             }
         },
         {
