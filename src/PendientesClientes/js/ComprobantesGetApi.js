@@ -1,4 +1,4 @@
-$.fn.selectpicker.Constructor.BootstrapVersion = '4'
+import { getParameter } from "../../jsgen/Helper"
 
 // Listado unidades de negocios
 const get_businessUnits = tkn => {
@@ -24,8 +24,6 @@ const get_businessUnits = tkn => {
             option.textContent = nombre
             
             select.appendChild( option )
-    
-            $('.selectpicker').selectpicker('refresh')
         }
     })
     .catch( err => {
@@ -57,8 +55,6 @@ const get_coins = tkn => {
             option.textContent = nombre
             
             select.appendChild( option )
-    
-            $('.selectpicker').selectpicker('refresh')
         }
     })
     .catch( err => {
@@ -71,7 +67,6 @@ let cant_character_to_search=0;
 
 //Nuevo Listado Clientes
 const get_customers = tkn => {
-
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
     fetch( url_config_cli , {
@@ -245,19 +240,11 @@ const get_states = tkn => {
             option.textContent = estado
             
             select.appendChild( option )
-    
-            $('.selectpicker').selectpicker('refresh')
         }
     })
     .catch( err => {
         console.log( err )
     })
-}
-
-// Conseguir parametros del URL
-export const getParameter = parameterName => {
-    const parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
 }
 
 // Ejecutar

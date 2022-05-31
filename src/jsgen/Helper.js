@@ -57,6 +57,15 @@ export const format_number = importeNeto => {
     return importe
 }
 
+export const format_token = all_link => {
+    if ( all_link.includes('&tkn=tokenext') ) {
+        // console.log('Yes, we have it')
+        const token = getParameter('tkn')
+        const new_link = all_link.replace('tokenext', token)
+        return new_link
+    }
+}
+
 // Formatear numero 1,000.00 to 1000,00
 export const reverseFormatNumber = (val, locale) => {
     const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');

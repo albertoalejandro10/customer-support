@@ -1,4 +1,4 @@
-import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token, numbersOnly } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -7,7 +7,7 @@ btn_export.onclick = function() {
     gridOptions.api.exportDataAsCsv(getParams())
 }
 
-const localeText = ag_grid_locale_es;
+const localeText = ag_grid_locale_es
 
 const gridOptions = {
     headerHeight: 35,
@@ -49,7 +49,7 @@ const gridOptions = {
                     if (params.value=='Saldo Inicial')
                         return params.value
                     else
-                        return '<a href="" onclick="window.open(\'' + params.data.linkComprobante + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                        return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
             }
         },
         { 
@@ -167,45 +167,44 @@ const gridOptions = {
     ],
 
     rowData: [],
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-const gridDiv = document.querySelector('#myGrid');
-new agGrid.Grid(gridDiv, gridOptions);
+    const gridDiv = document.querySelector('#myGrid')
+    new agGrid.Grid(gridDiv, gridOptions)
 
-if ((parseInt($(window).height()) - 300) < 200)
-    $("#myGrid").height(100);
-else
-    $("#myGrid").height(parseInt($(window).height()) - 340);
-});
+    if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+    else
+        $("#myGrid").height(parseInt($(window).height()) - 320)
+})
 
 function generatePinnedBottomData(){
     // generate a row-data with null values
-        let result = {};
+    let result = {}
 
-        gridOptions.api.columnModel.gridColumns.forEach(item => {
-            result[item.colId] = null;
-        });
-        return calculatePinnedBottomData(result);
+    gridOptions.api.columnModel.gridColumns.forEach(item => {
+        result[item.colId] = null
+    })
+    return calculatePinnedBottomData(result)
 }
 
 function calculatePinnedBottomData(target){
-    //console.log(target);
+    //console.log(target)
     //**list of columns fo aggregation**
 
     let columnsWithAggregation = ['neto', 'iva', 'noGravado', 'importe']
     columnsWithAggregation.forEach(element => {
-        //console.log('element', element);
+        //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
             if (rowNode.data[element])
-                target[element] += Number(rowNode.data[element].toFixed(2));
-        });
+                target[element] += Number(rowNode.data[element].toFixed(2))
+        })
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`;                
-
+            target[element] = `${target[element].toFixed(2)}`
     })
-    //console.log(target);
-    return target;
+    //console.log(target)
+    return target
 }
 
 const get_salesDocs = (tkn, data) => {
@@ -222,18 +221,17 @@ const get_salesDocs = (tkn, data) => {
     .then( ({ linea }) => {
         // console.log( linea )
         //clear Filtros
-        gridOptions.api.setFilterModel(null);
+        gridOptions.api.setFilterModel(null)
 
         //Clear Grilla
-        gridOptions.api.setRowData([]);
+        gridOptions.api.setRowData([])
 
-        const res = gridOptions.api.applyTransaction({
-            add: linea            
-          });
+        gridOptions.api.applyTransaction({
+            add: linea
+        })
         
-        let pinnedBottomData = generatePinnedBottomData();
-        gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);        
-
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
     })
     .catch( err => {
         console.log( err )
@@ -245,51 +243,36 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const voucher = Number(formData.get('voucher'))
-    const periodStart = formData.get('periodStart').split('-').reverse().join('/')
-    const periodEnd = formData.get('periodEnd').split('-').reverse().join('/')
-    let numberDocs = Number(formData.get('number-docs'))
-    if ( ! numberDocs ) {
-        numberDocs = ''
-    }
-    let numberSeats = Number(formData.get('number-seats'))
-    if ( ! numberSeats ) {
-        numberSeats = ''
-    }
-    const cuit = Number(formData.get('cuit'))
-    let salePoint = formData.get('sale-point')
-    if ( ! salePoint ) {
-        salePoint = '0000'
-    }
-    let letter = formData.get('letter')
-    if ( ! letter ) {
-        letter = ''
-    }
-    const business = Number(formData.get('business'))
-    const clientGroup = Number(formData.get('client-group'))
+    const comprobante   = Number(formData.get('voucher'))
+    const fechaDesde    = formData.get('periodStart').split('-').reverse().join('/')
+    const fechaHasta    = formData.get('periodEnd').split('-').reverse().join('/')
+    const cliente       = formData.get('cuit')
+    const unidadNegocio = Number(formData.get('business'))
+    const grupoCliente  = Number(formData.get('client-group'))
 
-    // console.log(voucher, numberSeats, business, periodStart, periodEnd, cuit, clientGroup, numberDocs, salePoint, letter)
+    // Uso de operador ternario
+    const nroDocumento = (formData.get('number-docs')  === '') ? '' : Number(formData.get('number-docs'))
+    const nroAsiento   = (formData.get('number-seats') === '') ? '' : Number(formData.get('number-seats'))
+    const ptoVta       = (formData.get('sale-point')   === '') ? '0000' : formData.get('sale-point')
+    const letra        = (formData.get('letter')       === '') ? '' : formData.get('letter')
+
     const data = {
-        "comprobante": voucher,
-        "fechaDesde": periodStart,
-        "fechaHasta": periodEnd,
-        "nroDocumento": numberDocs,
-        "nroAsiento": numberSeats,
-        "cliente": cuit,
-        "ptoVta": salePoint,
-        "letra": letter,
-        "unidadNegocio": business,
-        "grupoCliente": clientGroup
+        comprobante,
+        fechaDesde,
+        fechaHasta,
+        nroDocumento,
+        nroAsiento,
+        cliente,
+        ptoVta,
+        letra,
+        unidadNegocio,
+        grupoCliente
     }
+
     // console.table( data )
+    const tkn = getParameter('tkn')
     get_salesDocs( tkn, data )
 })
-
-// Ejecutar
-const tkn = getParameter('tkn')
-if ( tkn ) {
-    // console.log(' Ok ')
-}
 
 const numberDocsElement = document.getElementById('number-docs')
 numberDocsElement.addEventListener('keyup', () => {

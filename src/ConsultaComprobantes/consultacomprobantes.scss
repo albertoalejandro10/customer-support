@@ -4,7 +4,6 @@
     --font-family-sans-serif: "Poppins", sans-serif;
 }
 
-// $breakpoint-extralarge: 1300px;
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 * {
@@ -46,7 +45,8 @@ body, html {
 }
 
 .wrapper {
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .container-fluid {

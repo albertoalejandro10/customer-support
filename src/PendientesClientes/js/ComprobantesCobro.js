@@ -1,97 +1,10 @@
-import * as bootstrap from 'bootstrap'
+import { getParameter, format_number, format_token } from "../../jsgen/Helper"
+import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
-const ag_grid_locale_es = {
-    // for filter panel
-    page: 'Pagina',
-    more: 'Mas',
-    to: 'a',
-    of: 'de',
-    next: 'Siguente',
-    last: 'Último',
-    first: 'Primero',
-    previous: 'Anteror',
-    loadingOoo: 'Cargando...',
-    
-    // for set filter
-    selectAll: 'Seleccionar Todo',
-    searchOoo: 'Buscar...',
-    blanks: 'En blanco',
-
-    // for number filter and text filter
-    filterOoo: 'Filtrar',
-    applyFilter: 'Aplicar Filtro...',
-    equals: 'Igual',
-    notEqual: 'No Igual',
-
-    // for number filter
-    lessThan: 'Menos que',
-    greaterThan: 'Mayor que',
-    lessThanOrEqual: 'Menos o igual que',
-    greaterThanOrEqual: 'Mayor o igual que',
-    inRange: 'En rango de',
-
-    // for text filter
-    contains: 'Contiene',
-    notContains: 'No contiene',
-    startsWith: 'Empieza con',
-    endsWith: 'Termina con',
-
-    // filter conditions
-    andCondition: 'Y',
-    orCondition: 'O',
-
-    // the header of the default group column
-    group: 'Grupo',
-
-    // tool panel
-    columns: 'Columnas',
-    filters: 'Filtros',
-    valueColumns: 'Valos de las Columnas',
-    pivotMode: 'Modo Pivote',
-    groups: 'Grupos',
-    values: 'Valores',
-    pivots: 'Pivotes',
-    toolPanelButton: 'BotonDelPanelDeHerramientas',
-
-    // other
-    noRowsToShow: 'No hay filas para mostrar',
-
-    // enterprise menu
-    pinColumn: 'Columna Pin',
-    valueAggregation: 'Agregar valor',
-    autosizeThiscolumn: 'Autoajustar esta columna',
-    autosizeAllColumns: 'Ajustar todas las columnas',
-    groupBy: 'agrupar',
-    ungroupBy: 'desagrupar',
-    resetColumns: 'Reiniciar Columnas',
-    expandAll: 'Expandir todo',
-    collapseAll: 'Colapsar todo',
-    toolPanel: 'Panel de Herramientas',
-    export: 'Exportar',
-    csvExport: 'Exportar a CSV',
-    excelExport: 'Exportar a Excel (.xlsx)',
-    excelXmlExport: 'Exportar a Excel (.xml)',
-
-
-    // enterprise menu pinning
-    pinLeft: 'Pin Izquierdo',
-    pinRight: 'Pin Derecho',
-
-
-    // enterprise menu aggregation and status bar
-    sum: 'Suman',
-    min: 'Minimo',
-    max: 'Maximo',
-    none: 'nada',
-    count: 'contar',
-    average: 'promedio',
-
-    // standard menu
-    copy: 'Copiar',
-    copyWithHeaders: 'Copiar con cabeceras',
-    paste: 'Pegar',  
-    blank: 'Vacia',
-    notBlank: 'No Vacia',
+// Boton exportar grilla
+const btn_export = document.getElementById("btn_export")
+btn_export.onclick = function() {
+    gridOptions.api.exportDataAsCsv(getParams())
 }
 
 const checkboxExpiration = document.getElementById('checkboxExpiration')
@@ -108,236 +21,163 @@ checkboxExpiration.addEventListener('change', event => {
     }
 })
 
-document.querySelectorAll('input').forEach(element => {
-    element.addEventListener('change', () => {
-        //update.disabled = false
-    })
-})
+const localeText = ag_grid_locale_es
 
-document.querySelectorAll('select').forEach(element => {
-    element.addEventListener('change', () => {
-        //update.disabled = false
-    })
-})
+const gridOptions = {
+    headerHeight: 35,
+    rowHeight: 30,
+    defaultColDef: {
+        editable: false,
+        resizable: true,  
+        suppressNavigable: true, 
+        //minWidth: 100,                      
+    },
+    onFilterChanged: event => filterChangedd(event),
+    suppressExcelExport: true,
+    popupParent: document.body,
+    localeText: localeText,
 
-function comparafecha(filterLocalDateAtMidnight, cellValue) {
-    const dateAsString = cellValue;
-
-    if (dateAsString == null) {
-        return 0;
-    }
-
-    // In the example application, dates are stored as dd/mm/yyyy
-    // We create a Date object for comparison against the filter date
-    const dateParts = dateAsString.split('/');
-    const day = Number(dateParts[0]);
-    const month = Number(dateParts[1]) - 1;
-    const year = Number(dateParts[2]);
-    const cellDate = new Date(year, month, day);
-
-    // Now that both parameters are Date objects, we can compare
-    if (cellDate < filterLocalDateAtMidnight) {
-        return -1;
-    } else if (cellDate > filterLocalDateAtMidnight) {
-        return 1;
-    }
-    return 0;
-}
-
-
-// DATE COMPARATOR FOR SORTING
-function dateComparator(date1, date2) {
-    var date1Number = _monthToNum(date1);
-    var date2Number = _monthToNum(date2);
-  
-    if (date1Number === null && date2Number === null) {
-      return 0;
-    }
-    if (date1Number === null) {
-      return -1;
-    }
-    if (date2Number === null) {
-      return 1;
-    }
-  
-    return date1Number - date2Number;
-  }
-  
-  // HELPER FOR DATE COMPARISON
-  function _monthToNum(date) {
-    if (date === undefined || date === null || date.length !== 10) {
-      return null;
-    }
-  
-    var yearNumber = date.substring(6, 10);
-    var monthNumber = date.substring(3, 5);
-    var dayNumber = date.substring(0, 2);
-  
-    var result = yearNumber * 10000 + monthNumber * 100 + dayNumber;
-    // 29/08/2004 => 20040829
-    return result;
-  }
-
-  //Parametros exportacion csv
-function getParams() {
-  return {
-    skipPinnedBottom: true,
-  };
-}
-//boton exportar grilla
-var element = document.getElementById("btn_export");
-element.onclick = function(event) {
-    gridOptions.api.exportDataAsCsv(getParams());
-}
-
-function filterChangedd(FilterChangedEvent) {
-    let pinnedBottomData = generatePinnedBottomData();
-    gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);
-}
-
-var localeText = ag_grid_locale_es;
-
-        const gridOptions = {
-            headerHeight: 35,
-            rowHeight: 30,
-            defaultColDef: {
-                editable: false,
-                resizable: true,  
-                suppressNavigable: true, 
-                //minWidth: 100,                      
-            },
-            onFilterChanged: event => filterChangedd(event),
-            suppressExcelExport: true,
-            popupParent: document.body,
-            localeText: localeText,
-        
-            columnDefs: [
-                { width: 85, headerName: "Venc.", field: "vencimiento", sortable: true, filter: true,
-                    filter: 'agDateColumnFilter',                    
-                    comparator: dateComparator,
-                    filterParams: {
-                        // provide comparator function
-                        comparator: comparafecha
-                    }   
-                },
-                { width: 85, field: "fecha", sortable: true, filter: true, 
-                    filter: 'agDateColumnFilter',
-                    comparator: dateComparator,
-                    filterParams: {
-                        // provide comparator function
-                        comparator: comparafecha
-                    }
-                },
-                {                     
-                    width: 145, 
-                    field: "comprobante", 
-                    sortable: true, 
-                    filter: true,
-                    cellRenderer: function(params) {
-                        if (String(params.value)== "null")
-                            return ""
-                        else
-                            if (params.value=='Saldo Inicial')
-                                return params.value
-                            else
-                                return '<a href="" onclick="window.open(\'' + params.data.linkComprobante + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
-                    }
-                },
-                { flex: 1, headerName: "Cliente", field: "nombre", sortable: true, filter: true ,
-                    cellRenderer: function(params) {
-                    if (String(params.value) == "null")
-                        return "<b>Total</b>"
-                    else
+    columnDefs: [
+        {
+            width: 85, headerName: "Venc.",
+            field: "vencimiento",
+            sortable: true,
+            filter: true,
+            filter: 'agDateColumnFilter',
+            comparator: dateComparator,
+            filterParams: {
+                // provide comparator function
+                comparator: comparafecha
+            }
+        },
+        {
+            width: 85,
+            field: "fecha",
+            sortable: true,
+            filter: true,
+            filter: 'agDateColumnFilter',
+            comparator: dateComparator,
+            filterParams: {
+                // provide comparator function
+                comparator: comparafecha
+            }
+        },
+        {
+            width: 145,
+            field: "comprobante",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)== "null")
+                    return ""
+                else
+                    if (params.value=='Saldo Inicial')
                         return params.value
-                    }
-                },
-
-                { flex: 2, field: "observacion", sortable: true, filter: true  },
-                {   
-                    width: 30, 
-                    headerName: "", 
-                    field: "linkAdjuntos", 
-                    cellRenderer: function(params) {
-                        if (String(params.value) == "null")
-                            return ""
-                        else
-                            return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
-                    }
-
-                },
-                {   width: 115, 
-                    headerClass: "ag-right-aligned-header", 
-                    cellClass: 'ag-right-aligned-cell',
-                    headerName: "Importe", 
-                    field: "total", 
-                    sortable: true, 
-                    filter: true,
-                    cellRenderer: function(params) {
-                        if (String(params.value)=="null")
-                            return ""
-                        else
-                            return format_number(params.value)
-                    }  
-                },
-                {   
-                    width: 115, 
-                    headerClass: "ag-right-aligned-header", 
-                    cellClass: 'ag-right-aligned-cell',
-                    field: "pendiente", 
-                    sortable: true, 
-                    filter: true,
-                    cellRenderer: function(params) {
-                        if (String(params.value)=="null")
-                            return ""
-                        else
-                            return format_number(params.value)
-                    }
-                    
-                }
-              ],
-        
-            rowData: [],
-          };
-
-          document.addEventListener('DOMContentLoaded', () => {
-            const gridDiv = document.querySelector('#myGrid');
-            new agGrid.Grid(gridDiv, gridOptions);
-
-            if ((parseInt($(window).height()) - 300) < 200)
-                $("#myGrid").height(100);
+                    else
+                        return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+            }
+        },
+        {
+            flex: 1,
+            headerName: "Cliente",
+            field: "nombre",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+            if (String(params.value) == "null")
+                return "<b>Total</b>"
             else
-                $("#myGrid").height(parseInt($(window).height()) - 340);
-          });
-
-        function generatePinnedBottomData(){
-            // generate a row-data with null values
-                let result = {};
-    
-                gridOptions.api.columnModel.gridColumns.forEach(item => {
-                result[item.colId] = null;
-            });
-                return calculatePinnedBottomData(result);
+                return params.value
+            }
+        },
+        { 
+            flex: 2,
+            field: "observacion",
+            sortable: true,
+            filter: true
+        },
+        {
+            width: 30,
+            headerName: "",
+            field: "linkAdjuntos",
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
+            }
+        },
+        {
+            width: 115,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'ag-right-aligned-cell',
+            headerName: "Importe",
+            field: "total",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 115,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'ag-right-aligned-cell',
+            field: "pendiente",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
         }
+    ],
+    rowData: [],
+}
 
-        function calculatePinnedBottomData(target){
-            //console.log(target);
-            //**list of columns fo aggregation**
-            
+document.addEventListener('DOMContentLoaded', () => {
+    const gridDiv = document.querySelector('#myGrid')
+    new agGrid.Grid(gridDiv, gridOptions)
 
-            let columnsWithAggregation = ['pendiente']
-            columnsWithAggregation.forEach(element => {
-                //console.log('element', element);
-                gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-                    if (rowNode.data[element])
-                        target[element] += Number(rowNode.data[element].toFixed(2));
-                });
-                if (target[element])
-                    target[element] = `${target[element].toFixed(2)}`;                
+    if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+    else
+        $("#myGrid").height(parseInt($(window).height()) - 320)
+})
 
-            })
-            //console.log(target);
-            return target;
-        }
+function generatePinnedBottomData(){
+    // generate a row-data with null values
+    let result = {}
+
+    gridOptions.api.columnModel.gridColumns.forEach(item => {
+        result[item.colId] = null
+    })
+    return calculatePinnedBottomData(result)
+}
+
+function calculatePinnedBottomData(target){
+    //console.log(target)
+    //**list of columns fo aggregation**
+
+    let columnsWithAggregation = ['pendiente']
+    columnsWithAggregation.forEach(element => {
+        //console.log('element', element);
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
+            if (rowNode.data[element])
+                target[element] += Number(rowNode.data[element].toFixed(2))
+        })
+        if (target[element])
+            target[element] = `${target[element].toFixed(2)}`            
+
+    })
+    //console.log(target)
+    return target
+}
 
 const get_pendingCharges = (tkn, data) => {
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
@@ -457,38 +297,10 @@ const get_pendingCharges = (tkn, data) => {
     })
 }
 
-const format_number = importeNeto => {
-    const  style = {
-        minimumFractionDigits: 2,
-        useGrouping: true
-    }
-    const formatter = new Intl.NumberFormat("de-DE", style)
-    const importe = formatter.format(importeNeto)
-    return importe
-}
-
-// Calcular importe total
-let importeTotal = 0
-const calcularImporteTotal = importe => {
-    importeTotal += importe
-    return importeTotal
-}
-
-// Conseguir parametros del URL
-export const getParameter = parameterName => {
-    const parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
-}
-    
-const tkn = getParameter('tkn')
-//const update = document.getElementById('update')
-
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-
-    //alert($(".cmb_clientes").val());
 
     const business = Number(formData.get('business'))
     const periodStart = formData.get('periodStart').split('-').reverse().join('/')
@@ -516,8 +328,8 @@ $form.addEventListener('submit', event => {
         "incluirRemitos": 0
     }
 
+    const tkn = getParameter('tkn')
     get_pendingCharges( tkn, data )
-    //update.disabled = true
 })
 
 const get_expirationDate = expirationValue => {

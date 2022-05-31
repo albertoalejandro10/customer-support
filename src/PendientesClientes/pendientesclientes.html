@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./comprobantescobro.scss">
     
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../../node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -45,20 +44,20 @@
   
                     <div class="d-flex mt-1 mb-2">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
-                      <select id="business" name="business" class="selectpicker" data-width="100%">
+                      <select id="business" name="business" class="form-control">
                         <!-- U. de Negocio -->
                       </select>
                     </div>
   
                     <div class="d-flex">
                       <label for="status">Estado:</label>
-                      <select id="status" name="status" class="selectpicker" data-width="100%">
+                      <select id="status" name="status" class="form-control">
                         <!-- Options Status -->
                         <option value="0">Todos</option>
                       </select>
                     </div>
   
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-2">
                       <label for="platform">Incluir Proformas:</label>
                       <input class="checkbox" type="checkbox" name="platform" id="platform">
                     </div>                
@@ -74,11 +73,6 @@
                       <label for="customers">Cliente:</label>
                       <select class="cmb_clientes" style="width:100%;">
                       </select>
-
-                      <!--<select id="customers" name="customer" class="selectpicker" title="Seleccionar cliente" data-live-search="true" data-width="100%" required>
-                         Options Customers 
-                      </select>
-                       -->
                     </div>
                   </div>
   
@@ -91,7 +85,7 @@
   
                     <div class="d-flex mb-2">
                       <label for="coins">Moneda:</label>
-                      <select id="coins" name="coin" class="selectpicker" data-width="100%">
+                      <select id="coins" name="coin" class="form-control">
                         <!-- Options Coins -->
                       </select>
                     </div>
@@ -99,9 +93,7 @@
                     <div class="d-flex mb-2 justify-content-end buttons">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                      <!-- <button id="print" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Imprimir</button> -->
                     </div>
-  
                   </div>   
     
                 </div>
@@ -157,13 +149,11 @@
   </body>
   <script src="./js/ComprobantesCobro.js"></script>
   <script src="../jsgen/footer-form.js"></script>  
+  <script src="./js/ComprobantesGetApi.js"></script>
   
-  <script src="../../node_modules/bootstrap-select/js/bootstrap-select.js"></script>
-
   <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
 
   
-  <script src="./js/ComprobantesGetApi.js"></script>
 </html>
