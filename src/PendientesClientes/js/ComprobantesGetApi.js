@@ -152,39 +152,6 @@ const get_customers = tkn => {
     })
 }
 
-// Listado de clientes
-// const get_customers = tkn => {
-//     const url_customers = 'https://www.solucioneserp.net/listados/get_clientes'
-//     fetch( url_customers , {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${tkn}`
-//         }
-//     })
-//     .then( resp => resp.json() )
-//     .then( resp => {
-//         const coins = resp
-//         for ( const element of coins ) {
-//             const { codCliente, cuit, nombre, id } = element  
-//             // console.log( codCliente, cuit, id )
-            
-//             const select = document.querySelector('#customers')
-//             let option = document.createElement("option")
-//             option.setAttribute("data-tokens", nombre)
-//             option.value = codCliente
-//             option.textContent = nombre
-            
-//             select.appendChild( option )
-    
-//             $('.selectpicker').selectpicker('refresh')
-//         }
-//     })
-//     .catch( err => {
-//         console.log( err )
-//     })
-// }
-
 // Fecha de inicio de ejercicio
 const get_startPeriod = tkn => {
     const url_getStartPeriod = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'

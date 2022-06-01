@@ -32,6 +32,12 @@ const gridOptions = {
         suppressNavigable: true, 
         //minWidth: 100,                      
     },
+    // No rows and grid loader
+    overlayLoadingTemplate:
+    '<div class="loadingx" style="margin: 7em"></div>',
+    overlayNoRowsTemplate:
+    '<span class="no-rows"> No hay información </span>',
+
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -39,7 +45,8 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85, headerName: "Venc.",
+            width: 85, 
+            headerName: "Venc.",
             field: "vencimiento",
             sortable: true,
             filter: true,
@@ -166,7 +173,7 @@ function calculatePinnedBottomData(target){
 
     let columnsWithAggregation = ['pendiente']
     columnsWithAggregation.forEach(element => {
-        //console.log('element', element);
+        //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
             if (rowNode.data[element])
                 target[element] += Number(rowNode.data[element].toFixed(2))
@@ -179,7 +186,9 @@ function calculatePinnedBottomData(target){
     return target
 }
 
-const get_pendingCharges = (tkn, data) => {
+const get_PendingCharges = (tkn, data) => {
+    gridOptions.api.showLoadingOverlay()
+
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
     fetch( url_getPendingCharges , {
         method: 'POST',
@@ -191,106 +200,26 @@ const get_pendingCharges = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
+
         //clear Filtros
-        gridOptions.api.setFilterModel(null);
+        gridOptions.api.setFilterModel(null)
 
         //Clear Grilla
-        gridOptions.api.setRowData([]);
+        gridOptions.api.setRowData([])
 
-        const res = gridOptions.api.applyTransaction({
-            add: linea            
-          });
+        gridOptions.api.applyTransaction({ 
+            add: linea
+        })
         
-        let pinnedBottomData = generatePinnedBottomData();
-        gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);        
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         
-        //// Eliminar filas viejas
-        // const tbody = document.getElementById('tbody')
-        // const elements = document.getElementsByClassName('delete-row')
-        // if ( tbody.children.length >= 1) {
-        //     while (elements.length > 0) elements[0].remove()
-        //     let importe = document.getElementById('importeTotal')
-        //     importe.textContent = ''
-        // }
+        gridOptions.api.hideOverlay()
 
-        // for (const element of linea) {
-        //     const { id, comprobante, fecha, codigoCliente, nombre, total, estado, debe, pendiente, cuit, vencimiento, observacion, sucursal, vencimientoOrden, cantidad, conProforma, telefono, tipoCliente, grupoCliente, moneda, importeNeto, importeIva, importeNoGravado, importePercepcion, tipoProducto, linkComprobante, linkAdjuntos } = element
-        //     // console.log( id, vencimiento, fecha, comprobante, nombre, observacion, linkComprobante, linkAdjuntos, importeNeto, pendiente )
-
-        //     // Imprimir datos en la tabla
-        //     let row = document.createElement('tr')
-        //     row.className = 'delete-row'
-
-        //     let row_data_1 = document.createElement('td')
-        //     row_data_1.textContent = `${ vencimiento }`
-
-        //     let row_data_2 = document.createElement('td')
-        //     row_data_2.textContent = `${fecha}`
-
-        //     let row_data_3 = document.createElement('td')
-        //     let row_data_3_anchor = document.createElement('a')
-        //     //row_data_3_anchor.href = `${linkComprobante}`
-        //     row_data_3_anchor.textContent = `${comprobante}`
-        //     if (comprobante!='Saldo Inicial')
-        //     {
-        //         row_data_3_anchor.style="color: #60C1DD; text-decoration: none; cursor:pointer;"    
-            
-        //         row_data_3_anchor.addEventListener('click', function handleClick(event) {
-        //             window.open(linkComprobante, "comprobante", "width=600,height=700"); 
-        //             return false;                
-        //         });
-        //     }
-        //     row_data_3.appendChild(row_data_3_anchor)
-
-        //     let row_data_4 = document.createElement('td')
-        //     row_data_4.textContent = `${nombre}`
-
-        //     let row_data_5 = document.createElement('td')
-        //     row_data_5.textContent = `${observacion}`
-
-        //     let row_data_6 = document.createElement('td')
-        //     let row_data_6_anchor = document.createElement('a')
-        //     //row_data_6_anchor.target="_blank"
-        //     //row_data_6_anchor.href = ""//linkAdjuntos
-        //     row_data_6_anchor.style="color: #60C1DD; text-decoration: none; cursor:pointer;"    
-        //     row_data_6_anchor.addEventListener('click', function handleClick(event) {
-        //         window.open(linkAdjuntos, "documentos", "width=922,height=502"); 
-        //         return false;                
-        //       });
-
-        //     //row_data_6_anchor.onclick = 'window.open("' + linkAdjuntos + '", "newwindow", "width=600,height=600"); return false;'
-        //     row_data_6_anchor.innerHTML = '<i class="fa-solid fa-folder"></i>'
-        //     row_data_6.appendChild(row_data_6_anchor)
-
-        //     let row_data_7 = document.createElement('td')
-        //     row_data_7.textContent = `${format_number(importeNeto)}`
-
-        //     let row_data_8 = document.createElement('td')
-        //     row_data_8.textContent = `${format_number(pendiente)}`
-            
-        //     row.appendChild(row_data_1)
-        //     row.appendChild(row_data_2)
-        //     row.appendChild(row_data_3)
-        //     row.appendChild(row_data_4)
-        //     row.appendChild(row_data_5)
-        //     row.appendChild(row_data_6)
-        //     row.appendChild(row_data_7)
-        //     row.appendChild(row_data_8)
-            
-        //     tbody.appendChild(row)
-
-        //     // Calcular e imprimir importeTotal
-        //     calcularImporteTotal( pendiente )
-        //     const  style = {
-        //         minimumFractionDigits: 2,
-        //         useGrouping: true
-        //     }
-        //     const formatter = new Intl.NumberFormat("de-DE", style)
-
-        //     let importe = document.getElementById('importeTotal')
-        //     importe.textContent = formatter.format( importeTotal )
-        // }
-        // importeTotal = 0
+        if ( Object.keys( linea ).length === 0 ) {
+            // console.log( 'Is empty')
+            gridOptions.api.showNoRowsOverlay()
+        }
     })
     .catch( err => {
         console.log( err )
@@ -329,7 +258,7 @@ $form.addEventListener('submit', event => {
     }
 
     const tkn = getParameter('tkn')
-    get_pendingCharges( tkn, data )
+    get_PendingCharges( tkn, data )
 })
 
 const get_expirationDate = expirationValue => {

@@ -18,6 +18,12 @@ const gridOptions = {
         suppressNavigable: true, 
         //minWidth: 100,                      
     },
+    // No rows and grid loader
+    overlayLoadingTemplate:
+    '<div class="loadingx" style="margin: 7em"></div>',
+    overlayNoRowsTemplate:
+    '<span class="no-rows"> No hay información </span>',
+
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -208,6 +214,7 @@ function calculatePinnedBottomData(target){
 }
 
 const get_salesDocs = (tkn, data) => {
+    gridOptions.api.showLoadingOverlay()
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/consultas/get_documentos_ventas'
     fetch( url_getPendingCharges , {
         method: 'POST',
@@ -220,6 +227,7 @@ const get_salesDocs = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ linea }) => {
         // console.log( linea )
+
         //clear Filtros
         gridOptions.api.setFilterModel(null)
 
@@ -232,6 +240,13 @@ const get_salesDocs = (tkn, data) => {
         
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
+        
+        gridOptions.api.hideOverlay()
+        
+        if ( Object.keys( linea ).length === 0 ) {
+            // console.log( 'Is empty')
+            gridOptions.api.showNoRowsOverlay()
+        }
     })
     .catch( err => {
         console.log( err )
