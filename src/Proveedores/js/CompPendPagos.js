@@ -238,7 +238,7 @@ const get_PendingCharges = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        console.log( resp )
+        // console.log( resp )
 
         //clear Filtros
         gridOptions.api.setFilterModel(null)
