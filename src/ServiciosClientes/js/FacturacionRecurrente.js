@@ -1,75 +1,13 @@
-import { getParameter, format_number, ag_grid_locale_es } from "../../jsgen/Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
+import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
-function comparafecha(filterLocalDateAtMidnight, cellValue) {
-    const dateAsString = cellValue;
-
-    if (dateAsString == null) {
-        return 0;
-    }
-
-    // In the example application, dates are stored as dd/mm/yyyy
-    // We create a Date object for comparison against the filter date
-    const dateParts = dateAsString.split('/');
-    const day = Number(dateParts[0]);
-    const month = Number(dateParts[1]) - 1;
-    const year = Number(dateParts[2]);
-    const cellDate = new Date(year, month, day);
-
-    // Now that both parameters are Date objects, we can compare
-    if (cellDate < filterLocalDateAtMidnight) {
-        return -1;
-    } else if (cellDate > filterLocalDateAtMidnight) {
-        return 1;
-    }
-    return 0;
+// Boton exportar grilla
+const btn_export = document.getElementById("btn_export")
+btn_export.onclick = function() {
+    gridOptions.api.exportDataAsCsv(getParams())
 }
 
-// DATE COMPARATOR FOR SORTING
-function dateComparator(date1, date2) {
-    var date1Number = _monthToNum(date1);
-    var date2Number = _monthToNum(date2);
-  
-    if (date1Number === null && date2Number === null) {
-      return 0;
-    }
-    if (date1Number === null) {
-      return -1;
-    }
-    if (date2Number === null) {
-      return 1;
-    }
-  
-    return date1Number - date2Number;
-  }
-  
-  // HELPER FOR DATE COMPARISON
-  function _monthToNum(date) {
-    if (date === undefined || date === null || date.length !== 10) {
-      return null;
-    }
-  
-    var yearNumber = date.substring(6, 10);
-    var monthNumber = date.substring(3, 5);
-    var dayNumber = date.substring(0, 2);
-  
-    var result = yearNumber * 10000 + monthNumber * 100 + dayNumber;
-    // 29/08/2004 => 20040829
-    return result;
-  }
-
-  //Parametros exportacion csv
-function getParams() {
-  return {
-    skipPinnedBottom: true,
-  };
-}
-
-function filterChangedd(FilterChangedEvent) {
-    let pinnedBottomData = generatePinnedBottomData();
-    gridOptions.api.setPinnedBottomRowData([pinnedBottomData]);
-}
-
-var localeText = ag_grid_locale_es;
+const localeText = ag_grid_locale_es
 
 const gridOptions = {
     headerHeight: 35,
@@ -169,47 +107,46 @@ const gridOptions = {
             }
         }
     ],
-
     rowData: [],
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-const gridDiv = document.querySelector('#myGrid');
-new agGrid.Grid(gridDiv, gridOptions);
+    const gridDiv = document.querySelector('#myGrid')
+    new agGrid.Grid(gridDiv, gridOptions)
 
     if ((parseInt($(window).height()) - 300) < 200) {
-        $("#myGrid").height(100);
+        $("#myGrid").height(100)
     } else {
-        $("#myGrid").height(parseInt($(window).height()) - 500);
+        $("#myGrid").height(parseInt($(window).height()) - 500)
     }
-});
+})
 
 function generatePinnedBottomData(){
     // generate a row-data with null values
-        let result = {};
+    let result = {}
 
-        gridOptions.api.columnModel.gridColumns.forEach(item => {
-            result[item.colId] = null;
-        });
-        return calculatePinnedBottomData(result);
+    gridOptions.api.columnModel.gridColumns.forEach(item => {
+        result[item.colId] = null
+    })
+    return calculatePinnedBottomData(result)
 }
 
 function calculatePinnedBottomData(target){
-    // console.log(target);
+    // console.log(target)
     //**list of columns fo aggregation**
 
     let columnsWithAggregation = ['neto', 'iva', 'total']
     columnsWithAggregation.forEach(element => {
-        //console.log('element', element);
+        //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
             if (rowNode.data[element])
-                target[element] += Number(rowNode.data[element].toFixed(2));
-        });
+                target[element] += Number(rowNode.data[element].toFixed(2))
+        })
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`;
+            target[element] = `${target[element].toFixed(2)}`
     })
-    //console.log(target);
-    return target;
+    //console.log(target)
+    return target
 }
 
 const get_recurringBilling = tkn => {
@@ -237,7 +174,7 @@ const get_recurringBilling = tkn => {
         // Clear Grilla
         gridOptions.api.setRowData([])
 
-        const res = gridOptions.api.applyTransaction({
+        gridOptions.api.applyTransaction({
             add: comprobantes
           })
         
@@ -307,11 +244,19 @@ const get_lastSettlement = tkn => {
         const interesVenc3Element = document.getElementById('interesVenc3')
         interesVenc3Element.value = liquidacion.interesVenc3
 
-        const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
-        reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
+        if ( recargo.detalle ) {
+            // console.log( 'Recargo seccion:', recargo.detalle )
+            document.getElementById('reconnection-section').classList.remove('d-none')
+            const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
+            reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
+        }
 
-        const calculateChargesTextElement = document.getElementById('calculate-charges-text')
-        calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
+        if ( reconexion.detalle ) {
+            // console.log( 'Reconexion seccion:', reconexion.detalle )
+            document.getElementById('surchage-section').classList.remove('d-none')
+            const calculateChargesTextElement = document.getElementById('calculate-charges-text')
+            calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
+        }
 
         if ( liquidacion.confirmada === -1 ) return
         if ( liquidacion.confirmada === 0 ) {
@@ -355,7 +300,7 @@ const post_GenerateButton = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
-        alert(`${mensaje}`)
+        alert(mensaje)
         const generate = document.getElementById('generate')
         const regenerateButtons = document.getElementById('regenerate-buttons')
 
@@ -373,28 +318,37 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    let codigoClienteId = formData.get('client-code')
-    if ( codigoClienteId === null ) {
-        codigoClienteId = ''
-    }
+    const numero = Number(formData.get('numero'))
+    const codigoCliente = (formData.get('client-code') === null) ? '' : formData.get('client-code')
+    const grupoClienteId = Number(formData.get('generated-for'))
+    const tipoClienteId = Number(formData.get('customer-type'))
+    const tipoComprobante = Number(formData.get('voucher-type'))
+    const tipoCalculaRecargo = Number(formData.get('calculate-charges'))
+    const tipoCargoReconexion = Number(formData.get('reconection-charges'))
+    const vencimiento1 = formData.get('vencimiento1')
+    const vencimiento2 = formData.get('vencimiento2')
+    const vencimiento3 = formData.get('vencimiento3')
+    const interesVenc2 = Number(formData.get('interesVenc2'))
+    const interesVenc3 = Number(formData.get('interesVenc3'))
+    const observacion = formData.get('observation')
 
     const data = {
-        "numero": Number(formData.get('numero')),
-        "codigoCliente": codigoClienteId,
-        "grupoClienteId": Number(formData.get('generated-for')),
-        "tipoClienteId": Number(formData.get('customer-type')),
-        "tipoComprobante": Number(formData.get('voucher-type')),
-        "tipoCalculaRecargo": Number(formData.get('calculate-charges')),
-        "tipoCargoReconexion": Number(formData.get('reconection-charges')),
-        "vencimiento1": formData.get('vencimiento1'),
-        "vencimiento2": formData.get('vencimiento2'),
-        "vencimiento3": formData.get('vencimiento3'),
-        "interesVenc2": Number(formData.get('interesVenc2')),
-        "interesVenc3": Number(formData.get('interesVenc3')),
-        "observacion": formData.get('observation')
+        numero,
+        codigoCliente,
+        grupoClienteId,
+        tipoClienteId,
+        tipoComprobante,
+        tipoCalculaRecargo,
+        tipoCargoReconexion,
+        vencimiento1,
+        vencimiento2,
+        vencimiento3,
+        interesVenc2,
+        interesVenc3,
+        observacion
     }
 
-    // console.log(JSON.stringify(data))
+    // console.table( data )
     const tkn = getParameter('tkn')
     post_GenerateButton( tkn, data )
 })
@@ -412,7 +366,7 @@ const post_ConfirmButton = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
-        alert(`${mensaje}`)
+        alert(mensaje)
         location.reload()
     })
     .catch( err => {
@@ -423,7 +377,7 @@ const post_ConfirmButton = (tkn, data) => {
 document.getElementById("confirm").addEventListener("click", () => {
     const numero = Number(document.getElementById('numero').value)
     const data = {
-        "Numero": numero
+        numero
     }
     const tkn = getParameter('tkn')
     post_ConfirmButton( tkn, data )
