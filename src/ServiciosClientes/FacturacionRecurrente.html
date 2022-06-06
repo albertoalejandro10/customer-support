@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" href="./FacturacionRecurrente.scss">
+    <link rel="stylesheet" href="./facturacionrecurrente.scss">
     
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 
@@ -12,16 +12,16 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script type="text/javascript">     
+    <script type="text/javascript">
       $(window).unbind("resize")
   
       $(window).resize(function () {
-          if ((parseInt($(window).height()) - 300) < 200)
-              $("#myGrid").height(100)
-          else
-              $("#myGrid").height(parseInt($(window).height()) - 500)
-          //$(".grid").width('100%')
-      });
+        if ((parseInt($(window).height()) - 300) < 200)
+          $("#myGrid").height(100)
+        else
+          $("#myGrid").height(parseInt($(window).height()) - 500)
+        //$(".grid").width('100%')
+      })
   </script>
   </head>
   <body>
