@@ -188,19 +188,16 @@ function calculatePinnedBottomData(target){
     columnsWithAggregation.forEach(element => {
         // console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-            if (rowNode.data[element])
+            if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
+            }
         })
-        if (target[element])
+        if (target[element]) {
             target[element] = `${target[element].toFixed(2)}`
-    })
-
-    for (const property in target) {
-        if ( property === 'noGravado' ) {
-            if ( target[property] === null ) target[property] = "0"
+        } else {
+            target[element] = "0"
         }
-    }
-
+    })
     return target
 }
 

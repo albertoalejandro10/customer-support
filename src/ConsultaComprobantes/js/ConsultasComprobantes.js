@@ -245,6 +245,7 @@ const get_salesDocs = (tkn, data) => {
         
         if ( Object.keys( linea ).length === 0 ) {
             // console.log( 'Is empty')
+            gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
         }
     })
