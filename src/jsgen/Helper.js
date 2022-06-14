@@ -70,15 +70,15 @@ export const format_token = all_link => {
 
 // Formatear numero 1,000.00 to 1000,00
 export const reverseFormatNumber = (val, locale) => {
-    const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
-    const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '');
-    let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '');
-    reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.');
-    return Number.isNaN(reversedVal)?0:reversedVal;
+    const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '')
+    const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '')
+    let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '')
+    reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.')
+    return Number.isNaN(reversedVal) ? 0 : reversedVal
 }
 
 // Solo numeros input tipo texto.
-export const numbersOnly = (string) => {
+export const numbersOnly = string => {
     let out = ''
     //Caracteres validos
     const filtro = '1234567890'

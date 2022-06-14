@@ -46,10 +46,8 @@ const todayDefault = '01' + monthYear
 const startDate = todayDefault.split('/').reverse().join('-')
 const periodStart = document.getElementById('periodStart')
 periodStart.value = startDate
-// periodStart.disabled = true
 
 // End Period
 const endDate = today.split('/').reverse().join('-')
 const periodEnd = document.getElementById('periodEnd')
 periodEnd.value = endDate
-// periodEnd.disabled = true
