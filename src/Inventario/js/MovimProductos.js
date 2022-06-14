@@ -198,6 +198,7 @@ const get_productMovements = (tkn, data) => {
         gridOptions.api.setFilterModel(null)
         //Clear Grilla
         gridOptions.api.setRowData([])
+        gridOptions.api.setPinnedBottomRowData([])
 
         gridOptions.api.applyTransaction({ 
             add: resp
