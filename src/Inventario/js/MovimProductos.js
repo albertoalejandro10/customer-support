@@ -194,9 +194,9 @@ const get_productMovements = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
         gridOptions.api.setPinnedBottomRowData([])
 
@@ -206,7 +206,6 @@ const get_productMovements = (tkn, data) => {
 
         if ( resp.length === 0 ) {
             // console.log( 'Is empty')
-            gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
         } else {
             const bothRows = []
@@ -218,7 +217,6 @@ const get_productMovements = (tkn, data) => {
                 const totalRow = calculateLastRow(entrada, salida)
                 bothRows.push(totalRow)
             }
-    
             gridOptions.api.setPinnedBottomRowData(bothRows)
             gridOptions.api.hideOverlay()
         }
