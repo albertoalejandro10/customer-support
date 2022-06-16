@@ -59,6 +59,7 @@ export const format_number = importeNeto => {
 
 export const format_token = all_link => {
     // console.log( 'Enlace sin formatear:', all_link )
+    if ( all_link === undefined ) return all_link
     if ( all_link.includes('&tkn=tokenext') ) {
         // console.log('Yes, we have it')
         const token = getParameter('tkn')
