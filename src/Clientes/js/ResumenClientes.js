@@ -204,7 +204,6 @@ const get_accountSummary = (tkn, data) => {
         
         gridOptions.api.hideOverlay()
         
-        console.log( Object.keys( resp ) )
         if ( Object.keys( resp ).length === 0 ) {
             console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
