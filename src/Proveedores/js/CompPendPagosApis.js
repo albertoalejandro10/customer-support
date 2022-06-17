@@ -48,7 +48,7 @@ const get_coins = tkn => {
             const { id, nombre, orden } = element  
             // console.log( id, nombre, orden ) 
             
-            const select = document.querySelector('#coins')
+            const select = document.querySelector('#coin')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
             option.value = id

@@ -49,7 +49,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
-                    return "<b>Subtotal</b>"
+                    return "Subtotal"
                 else
                     return params.value
             }
@@ -139,6 +139,11 @@ const gridOptions = {
         }
     ],
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -232,7 +237,7 @@ const calculateLastRow = (entrada, salida) => {
     let total = entrada - salida
     total = String(total).slice(0, -2)
     const obj = {
-        comprobante: "<b>Total</b>",
+        comprobante: "Total",
         costo: null,
         detalle: null,
         entrada: null,

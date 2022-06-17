@@ -55,8 +55,8 @@ const gridOptions = {
                 comparator: comparafecha
             },
             cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return "<b>TOTALES</b>"
+                if ( String(params.value) == "null" )
+                    return "TOTALES"
                 else
                     if (String(params.value) == 'null')
                         return ''
@@ -221,6 +221,11 @@ const gridOptions = {
         }
     ],
     rowData: [],
+        getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -258,7 +263,7 @@ function calculatePinnedBottomData(target){
         if (target[element]) {
             target[element] = `${target[element].toFixed(2)}`
         } else {
-            target[element] = "0"
+            target[element] = '0.00'
         }
     })
 
@@ -335,7 +340,7 @@ $form.addEventListener('submit', event => {
         unidadNegocio,
     }
 
-    console.log( data )
+    // console.log( data )
     const tkn = getParameter('tkn')
     get_purchaseDocuments( tkn, data )
 })

@@ -56,7 +56,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
-                    return "<b>Totales</b>"
+                    return "Totales"
                 else
                     if (params.value=='Saldo Inicial')
                         return params.value
@@ -95,10 +95,10 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 120,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Costo Lista",
+            headerName: "Stk. Valuado",
             field: "stockValuado",
             sortable: true, 
             filter: true,
@@ -118,7 +118,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if ( String(params.value) == "null" )
                     return ""
                 else
                     return params.value
@@ -126,6 +126,11 @@ const gridOptions = {
         }
     ],
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -156,11 +161,15 @@ function calculatePinnedBottomData(target){
     columnsWithAggregation.forEach(element => {
         // console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-            if (rowNode.data[element])
+            if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
+            }
         })
-        if (target[element])
+        if (target[element]) {
             target[element] = `${target[element].toFixed(2)}`
+        } else {
+            target[element] = '0.00'
+        }
     })
 
     return target

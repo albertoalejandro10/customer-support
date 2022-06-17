@@ -165,11 +165,15 @@ function calculatePinnedBottomData (target){
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-            if (rowNode.data[element])
+            if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
+            }
         })
-        if (target[element])
-            target[element] = `${target[element].toFixed(2)}`            
+        if (target[element]) {
+            target[element] = `${target[element].toFixed(2)}`
+        } else {
+            target[element] = '0.00'
+        }
 
     })
     // console.log(target)
@@ -203,20 +207,48 @@ const get_accountSummary = (tkn, data) => {
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         
         gridOptions.api.hideOverlay()
+        document.getElementById('btn_print').disabled = false
         
         if ( Object.keys( resp ).length === 0 ) {
-            console.log( 'Is empty')
+            // console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
+            document.getElementById('btn_print').disabled = true
         }
     })
     .catch( err => {
         console.log( err )
+        document.getElementById('btn_print').disabled = true
     })
 }
 
+// Boton actualizar
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
+    const data = findData( event )
+    // console.table( data )
+    const tkn = getParameter('tkn')
+    get_accountSummary( tkn, data )
+})
+
+// Boton imprimir
+const btn_print = document.getElementById("btn_print")
+btn_print.onclick = () => {
+    $form.addEventListener('click', event => {
+        const data = findData( event )
+        // console.table( data )
+        const tkn = getParameter('tkn')
+        let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
+        for (const property in data) {
+            returnURL += `${property}=${data[property]}&`
+        }
+        // console.log(returnURL + tkn)
+        setTimeout(() => window.open(returnURL + tkn), 1000)
+    })
+}
+
+// Conseguir data para Actualizar e Imprimir
+const findData = event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
@@ -250,7 +282,5 @@ $form.addEventListener('submit', event => {
         usuarioOnline,
         empresa
     }
-    // console.table( data )
-    const tkn = getParameter('tkn')
-    get_accountSummary( tkn, data )
-})
+    return data
+}
