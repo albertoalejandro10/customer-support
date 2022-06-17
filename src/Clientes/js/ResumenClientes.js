@@ -49,7 +49,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
-                    return "<b>Saldo Final</b>"
+                    return "Saldo Final"
                 else
                     return params.value
             }
@@ -122,8 +122,7 @@ const gridOptions = {
             width: 115,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
-            field: "importeNeto",
-            headerName: 'Saldo',
+            field: "saldo",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -135,6 +134,11 @@ const gridOptions = {
         },
     ],
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,11 +164,10 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData (target){
     // console.log(target)
     //**list of columns fo aggregation**
-
-    let columnsWithAggregation = ['importeDebe', 'importeHaber', 'importeNeto']
+    let columnsWithAggregation = ['importeDebe', 'importeHaber']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {   
             if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
             }
@@ -174,9 +177,22 @@ function calculatePinnedBottomData (target){
         } else {
             target[element] = '0.00'
         }
-
     })
-    // console.log(target)
+
+    let columnsWithAggregationBalance = ['saldo']
+    columnsWithAggregationBalance.forEach(element => {
+        //console.log('element', element)
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {   
+            if (rowNode.data[element]) {
+                target[element] = Number(rowNode.data[element].toFixed(2))
+            }
+        })
+        if (target[element]) {
+            target[element] = `${target[element].toFixed(2)}`
+        } else {
+            target[element] = '0.00'
+        }
+    })
     return target
 }
 
@@ -194,7 +210,15 @@ const get_accountSummary = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        // console.log( resp )
+
+        let saldo = 0
+        resp.map( resp => {
+            const { importeDebe, importeHaber } = resp
+            saldo += importeDebe - importeHaber
+            resp.saldo = saldo
+            return resp
+        })
+
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
@@ -264,9 +288,6 @@ const findData = event => {
     const incluirProformas = (formData.get('include-proformas') === 'on') ? 1 : 0
     const incluirRemitos   = (formData.get('include-notes') === 'on')     ? 1 : 0
 
-    const usuarioOnline = '801987735'
-    const empresa = 'test'
-
     const data = {
         unidadNegocio,
         fechaDesde,
@@ -278,9 +299,7 @@ const findData = event => {
         moneda,
         soloMovimientos,
         incluirProformas,
-        incluirRemitos,
-        usuarioOnline,
-        empresa
+        incluirRemitos
     }
     return data
 }
