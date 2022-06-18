@@ -174,11 +174,15 @@ function calculatePinnedBottomData (target){
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
-            if (rowNode.data[element])
+            if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
+            }
         })
-        if (target[element])
-            target[element] = `${target[element].toFixed(2)}`            
+        if (target[element]) {
+            target[element] = `${target[element].toFixed(2)}`
+        } else {
+            target[element] = '0.00'
+        }
 
     })
     // console.log(target)
@@ -217,11 +221,13 @@ const get_productMovements = (tkn, data) => {
             const subtotalRow = generatePinnedBottomData()
             bothRows.push(subtotalRow)
             const { entrada, salida } = subtotalRow
-            if ( ! ( entrada === null && salida === null ) ) {
+
+            if ( ! ( entrada === null || salida === null ) ) {
                 // console.log('Ok total')
                 const totalRow = calculateLastRow(entrada, salida)
                 bothRows.push(totalRow)
             }
+
             gridOptions.api.setPinnedBottomRowData(bothRows)
             gridOptions.api.hideOverlay()
         }
@@ -231,7 +237,7 @@ const get_productMovements = (tkn, data) => {
     })
 }
 
-const calculateLastRow = (entrada, salida) => {
+const calculateLastRow = (entrada = 0, salida = 0) => {
     entrada = Number(reverseFormatNumber(entrada, 'de'))
     salida  = Number(reverseFormatNumber(salida, 'de'))
     let total = entrada - salida
