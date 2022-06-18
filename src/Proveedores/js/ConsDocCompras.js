@@ -1,4 +1,4 @@
-import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token, numbersOnly } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -73,7 +73,7 @@ const gridOptions = {
                 if (String(params.value) == 'null')
                     return ''
                 else
-                    return '<a href="" onclick="window.open(\'' + params.data.linkComprobante + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
             }
         },
         {
@@ -96,7 +96,7 @@ const gridOptions = {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder-closed"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder-closed"></i></a>'
             }
         },
         {
@@ -154,6 +154,7 @@ const gridOptions = {
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "iva",
+            headerName: "IVA",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -327,7 +328,7 @@ $form.addEventListener('submit', event => {
     // Operador ternario
     const nroDocumento = (formData.get('doc-number') === '') ? '' : Number(formData.get('doc-number'))
     const nroAsiento = (formData.get('number-seats') === '') ? '' : Number(formData.get('number-seats'))
-    const ptoVta = (formData.get('sale-point') === '') ? '0000' : formData.get('point-sale')
+    const ptoVta = (formData.get('sale-point') === '') ? '0000' : formData.get('sale-point')
 
     const data = {
         comprobante,

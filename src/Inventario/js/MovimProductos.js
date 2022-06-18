@@ -261,7 +261,7 @@ $form.addEventListener('submit', event => {
     const formData = new FormData(event.currentTarget)
 
     const depositoId = Number(formData.get('deposit'))
-    const codProducto = formData.get('producto')
+    const codProducto = (formData.get('producto') === null) ? '' : formData.get('producto')
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
     const tipoComprobante = Number(formData.get('voucher-type'))

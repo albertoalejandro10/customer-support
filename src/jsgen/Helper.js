@@ -66,6 +66,8 @@ export const format_token = all_link => {
         const new_link = all_link.replace('tokenext', token)
         // console.log( 'Enlace formateado:', new_link )
         return new_link
+    } else {
+        return all_link
     }
 }
 

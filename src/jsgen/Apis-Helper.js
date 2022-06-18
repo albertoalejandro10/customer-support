@@ -171,6 +171,93 @@ export const get_products = tkn => {
     })
 }
 
+//Lista Proveedores
+export const get_suppliers = tkn => {
+    //get config para el combo de clientes
+    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    fetch( url_config_cli , {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+
+        // Variable cantidad de caracteres
+        let cant_character_to_search = 0
+        const configs_resp = resp
+        const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, configuracion } = configs_resp
+        //console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
+
+        const config_params = configuracion
+        //const { codigo , valor } = [config_params]
+        
+        for ( const config_ele of config_params ) {
+            // Desestructuracion del objeto element
+            const { codigo, valor } = config_ele
+            if ( codigo=='COMBOTIPOCLIENTES' ) {
+                cant_character_to_search = valor
+            }
+        }
+
+        let combo_configs = {
+            language: {
+                noResults: function() {
+                    return "No hay resultado"
+                },
+                searching: function() {
+                    return "Buscando.."
+                },
+                inputTooShort:function(){
+                    return "Ingrese 3 caracteres o mas para buscar"
+                }
+            },
+            placeholder: 'Buscar Proveedor',
+            
+            ajax:{
+                delay: 500,
+                url: 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro',
+                headers: {'Authorization' : 'Bearer ' + tkn},
+                type: 'POST',
+                dataType:'json',
+                data: function (params) {
+                    if ( params.term == null ) {
+                        return JSON.stringify('{filtro: "", soloProveedores: 0, opcionTodos: 0}')
+                    } else {
+                        return {filtro: params.term}
+                    }
+                },
+                processResults: function (data) {
+                    let arr_t = []
+                    const suppliers = data
+                    for ( const element of suppliers ) {
+                        // Desestructuracion del objeto element
+                        const { id, codigo, nombre, cuit } = element
+                        arr_t.push({ id: cuit, text: nombre + ' - ' + codigo + ' - ' + cuit })
+                    }
+                    return {
+                        //data.items
+                        results: arr_t
+                    }
+                }
+            }    
+        }
+
+        if ( cant_character_to_search > 0 ) {
+            combo_configs.minimumInputLength = cant_character_to_search
+        }
+
+        $(".cmb_proveedor").select2(combo_configs) //fin select
+        //se usa para que al abrir el combo coloque el foco en el text
+        //de busqueda
+        $(".cmb_proveedor").on('select2:open', function () {
+            //alert('test')
+            $(".select2-search__field")[0].focus()
+        })
+    })
+}
+
 // Fecha 01-Mes y Dia actual
 export const get_startMonth = () => {
     const today = new Date().toLocaleDateString('en-GB')
@@ -419,6 +506,37 @@ export const get_voucherType = tkn => {
             // console.log(id, nombre)
 
             const select = document.querySelector('#voucher-type')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+// Conseguir documentos de compra
+export const get_purchaseDocuments = tkn => {
+    const url_getPurchaseDocuments = 'https://www.solucioneserp.net/listados/get_doc_compras'
+    fetch( url_getPurchaseDocuments, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const documents = resp
+        for (const element of documents) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+
+            const select = document.querySelector('#voucher')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
             option.value = id
