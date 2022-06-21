@@ -7,12 +7,19 @@
 }
 
 body {
-    background-color: #F1F5F9;
+    background-color: #F1F5F9;    
 }
 
 .wrapper {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+#btn_print {
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    border-radius: 4px;
 }
 
 .container-fluid {
@@ -85,41 +92,27 @@ table td {
 .table-activities th,
 .table-activities td {
     color: var(--bs-blue-dark);
+    border: 0;
+    border-bottom: .4px solid #dcdee0;
     &:first-child {
-        width: 50%;
+        width: 10%;
         text-align: left;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
     }
     &:nth-child(2) {
-        width: 10%;
-        text-align: center;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
+        width: 50%;
+        text-align: left;
     }
     &:nth-child(3) {
-        width: 10%;
-        text-align: center;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
+        width: 13%;
+        text-align: right;
     }
     &:nth-child(4) {
-        width: 10%;
+        width: 13%;
         text-align: right;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
-    }
-    &:nth-child(5) {
-        width: 10%;
-        text-align: right;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
     }
     &:last-child {
-        width: 10%;
+        width: 14%;
         text-align: right;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
     }
 }
 
@@ -133,28 +126,15 @@ table td {
 
 .table-prices th,
 .table-prices td {
+    font-weight: 700;
+    border: 0;
+    border-top: .4px solid #dcdee0;
+    border-bottom: .4px solid #dcdee0;
+    color: var(--bs-blue-dark);
     &:first-child {
-        font-weight: 500;
         text-align: left;
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
     }
     &:last-child {
         text-align: right;
-        color: var(--bs-blue-dark);
-        border: 0;
-        border-bottom: .4px solid #dcdee0;
-    }
-}
-
-.table-prices tr:last-child td {
-    font-size: 16px;
-    font-weight: bold;    
-    border-bottom: 0;
-    &:first-child {
-        color: var(--bs-secondary);
-    }
-    &:last-child {
-        color: var(--bs-blue-dark);
     }
 }

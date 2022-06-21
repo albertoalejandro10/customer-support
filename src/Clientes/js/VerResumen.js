@@ -1,8 +1,43 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 
-const get_salesReceipts = ( tkn, data ) => {
-    const url_salesReceipts = 'https://www.solucioneserp.net/reportes/consultas/get_comprobante_venta_id'
-    fetch( url_salesReceipts , {
+const get_userData = tkn => {
+    const url_getUserData = 'https://www.solucioneserp.net/session/login_sid'
+    fetch( url_getUserData , {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const users = resp
+        const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, empresaCUIT, empresaDomicilio } = users
+        // console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
+        document.getElementById('name-company').textContent = empresaNombre
+        document.getElementById('cuit-company').textContent = empresaCUIT
+    })
+    .catch( err => {
+        console.log( 'Error en el llamado a la API: ', err )
+    })  
+}
+
+const tkn = getParameter('tkn')
+const get_dataFromURL = () => {
+    const query = window.location.search.substring(1)
+    const arrData = query.split('&')
+    let data = {}
+    for (const element of arrData) {
+        const pair = element.split('=')
+        const [ property, value ] = pair
+        data[`${property}`] = value
+    }
+    // console.log( data )
+    get_accountSummary( tkn, data )
+}
+
+const get_accountSummary = ( tkn, data ) => {
+    const url_accountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
+    fetch( url_accountSummary , {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -12,110 +47,80 @@ const get_salesReceipts = ( tkn, data ) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        printInvoice( resp )
+        const dataHeader = {
+            fechaDesde: data.fechaDesde,
+            fechaHasta: data.fechaHasta,
+            cuit: resp[0].cuit,
+            nombre: resp[0].nombre,
+            codigo: resp[0].codigo,
+            iva: resp[0].iva,
+            observacion: resp[0].observacion
+        }
+        printHeader( dataHeader )
+        printTable( resp )
     })
     .catch( err => {
         console.log( err )
     })
 }
 
-const id = getParameter('id')
-const tkn = getParameter('tkn')
-if ( id && tkn ) {
-    const data = {
-        id
-    }
-    get_salesReceipts( tkn, data )
-}
+get_userData( tkn )
+get_dataFromURL()
 
-const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoComprobante, vencimientos, entregaConRemito, unidadNegocio, cliente, lista, vendedor, importes, detalle, descuento, adicionales, distContable}) => {
-    // console.log( compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoComprobante, vencimientos, entregaConRemito, unidadNegocio, cliente, lista, vendedor, importes, detalle, descuento, adicionales, distContable )
+const printHeader = ({ fechaDesde, fechaHasta, cuit, nombre, codigo, iva, observacion }) => {
 
-    if ( entregaConRemito ) {
-        document.getElementById('entrega-remito').classList.remove('d-none')
-    }
+    document.getElementById('date').textContent = fechaDesde + ' - ' + fechaHasta
+    document.getElementById('cuit').textContent = cuit
 
-    document.getElementById('invoice').innerHTML = `${compTipo1.toUpperCase()} (${compTipo2}) ${letra} ${ptoVta}-${invoiceNumber(numero)}`
-    document.getElementById('date').innerText = fecha
-    const [ expiry ] = vencimientos
-    document.getElementById('expiration').innerText = expiry.fecha
-    
-    // console.log( cliente )
-    const { nombre, domicilio, cuit, email } = cliente
-    document.getElementById('customer').innerHTML = `<strong>${nombre}</strong>`
-    document.getElementById('suite').innerText = domicilio
-    document.getElementById('cuit').innerText = cuit
-    document.getElementById('email').innerText = email
-    
-    // console.log( adicionales )
-    document.getElementById('type').innerHTML = 'Tipo: ' + tipoComprobante
-    const { sucursal, deposito,  lote, observacion } = adicionales
-    document.getElementById('subsidiary').innerText = 'Sucursal: ' + sucursal
-    document.getElementById('deposit').innerText = 'Deposito: ' + deposito
-    document.getElementById('batch').innerText = 'Lote: ' + lote
-    document.getElementById('list').innerText = 'Lista: ' + lista
-    document.getElementById('seller').innerHTML = 'Vendedor: ' + `<strong class="real-blue">${vendedor}</strong>`
-    document.getElementById('observation').innerText = observacion
+    document.getElementById('code').innerHTML = `<strong class="real-blue">${codigo}</strong>`
+    document.getElementById('name').innerHTML = `<strong class="real-blue">${nombre}</strong>`
+    document.getElementById('iva').innerHTML = `<strong class="real-blue">${iva}</strong>`
+    document.getElementById('cuit').innerHTML = `<strong class="real-blue">${cuit}</strong>`
 
-    for (const element of detalle) {
-        printTable(element)
-    }
-
-    const [ discount ] = descuento
-    document.getElementById('subtotal').innerText = format_number(importes.neto + Math.abs(discount.importe))
-    document.getElementById('descuento').innerText = format_number(discount.importe)
-    document.getElementById('neto').innerText = format_number(importes.neto)
-    document.getElementById('iva').innerText = format_number(importes.iva)
-    document.getElementById('total').innerText = format_number(importes.total)
-
-    if ( ! importes.noGravado === 0 ) {
-        document.getElementById('tr-noGravado').classList.remove('d-none')
-        document.getElementById('no-gravado').innerText = format_number(importes.noGravado)
-    }
-    
-    if ( ! importes.impuesto1 === 0 ) {
-        document.getElementById('tr-percepcionIIBB').classList.remove('d-none')
-        document.getElementById('percepcion-iibb').innerText = format_number(importes.impuesto1)
-    }
-
-    if ( ! importes.impuesto2 === 0 ) {
-        document.getElementById('tr-impuestosInternos').classList.remove('d-none')
-        document.getElementById('impuestos-internos').innerText = format_number(importes.impuesto2)
+    if ( observacion ) {
+        document.getElementById('observation').innerHTML = `<strong class="real-blue">Observación:</strong> ${observacion}`
     }
 }
 
 // Imprimir datos en la tabla
-const printTable = ({ codigo, cantidad, unidad, detalle, precio, porcIva, noGravado, importe }) => {
-    let row = document.createElement('tr')
-
-    let row_data_1 = document.createElement('td')
-    row_data_1.innerHTML = `<strong>${detalle}</strong> (${codigo})`
-
-    let row_data_2 = document.createElement('td')
-    row_data_2.textContent = unidad
-
-    let row_data_3 = document.createElement('td')
-    row_data_3.textContent = cantidad
-
-    let row_data_4 = document.createElement('td')
-    row_data_4.textContent = format_number(precio)
-
-    let row_data_5 = document.createElement('td')
-    row_data_5.textContent = porcIva
-
-    let row_data_6 = document.createElement('td')
-    row_data_6.textContent = format_number(importe)
+const printTable = ( resp ) => {
+    let saldo = 0
+    for (const element of resp) {
+        const { fecha, comprobante, importeDebe, importeHaber } = element
+        let row = document.createElement('tr')
     
-    row.appendChild(row_data_1)
-    row.appendChild(row_data_2)
-    row.appendChild(row_data_3)
-    row.appendChild(row_data_4)
-    row.appendChild(row_data_5)
-    row.appendChild(row_data_6)
+        let row_data_1 = document.createElement('td')
+        row_data_1.textContent = fecha
+        
+        let row_data_2 = document.createElement('td')
+        row_data_2.textContent = comprobante
+        
+        let row_data_3 = document.createElement('td')
+        row_data_3.textContent = format_number(importeDebe)
     
-    document.getElementById('tbody-table').appendChild(row)
+        let row_data_4 = document.createElement('td')
+        row_data_4.textContent = format_number(importeHaber)
+        
+        saldo += importeDebe - importeHaber
+        let row_data_5 = document.createElement('td')
+        row_data_5.textContent = format_number(saldo)
+        
+        row.appendChild(row_data_1)
+        row.appendChild(row_data_2)
+        row.appendChild(row_data_3)
+        row.appendChild(row_data_4)
+        row.appendChild(row_data_5)
+        
+        document.getElementById('tbody-table').appendChild(row)
+    }
+    console.log( saldo )
+    document.getElementById('final-summary').textContent = format_number(saldo)
 }
 
-const invoiceNumber = number => {
-    return number.toString().padStart(8, 0)
+document.getElementById('btn_print').onclick = () => {
+    const printContents = document.getElementById('printableArea').innerHTML
+    const originalContents = document.body.innerHTML
+    document.body.innerHTML = printContents
+    window.print()
+    document.body.innerHTML = originalContents
 }

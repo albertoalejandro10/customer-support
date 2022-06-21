@@ -222,7 +222,7 @@ const gridOptions = {
         }
     ],
     rowData: [],
-        getRowStyle: (params) => {
+    getRowStyle: (params) => {
         if (params.node.rowPinned) {
           return { 'font-weight': 'bold' }
         }

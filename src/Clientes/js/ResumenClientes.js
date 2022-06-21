@@ -249,30 +249,6 @@ const get_accountSummary = (tkn, data) => {
 // Boton actualizar
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
-    const data = findData( event )
-    // console.table( data )
-    const tkn = getParameter('tkn')
-    get_accountSummary( tkn, data )
-})
-
-// Boton imprimir
-const btn_print = document.getElementById("btn_print")
-btn_print.onclick = () => {
-    $form.addEventListener('click', event => {
-        const data = findData( event )
-        // console.table( data )
-        const tkn = getParameter('tkn')
-        let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
-        for (const property in data) {
-            returnURL += `${property}=${data[property]}&`
-        }
-        // console.log(returnURL + tkn)
-        setTimeout(() => window.open(returnURL + tkn), 1000)
-    })
-}
-
-// Conseguir data para Actualizar e Imprimir
-const findData = event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
@@ -301,5 +277,44 @@ const findData = event => {
         incluirProformas,
         incluirRemitos
     }
-    return data
+    // console.table( data )
+    const tkn = getParameter('tkn')
+    get_accountSummary( tkn, data )
+})
+
+// Boton Imprimir
+document.getElementById("btn_print").onclick = () => {
+    const unidadNegocio = Number(document.getElementById('business').value)
+    const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+    const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+    const sucursal = Number(document.getElementById('subsidiary').value)
+    const cuentaEstado = document.getElementById('status').value
+    const codigoCliente = document.getElementById('customer').value
+    const cobrador = document.getElementById('debt-collector').value
+    const moneda = document.getElementById('coin').value
+    const soloMovimientos  = (document.getElementById('only-movements').value    === 'on') ? 1 : 0
+    const incluirProformas = (document.getElementById('include-proformas').value === 'on') ? 1 : 0
+    const incluirRemitos   = (document.getElementById('include-notes').value     === 'on') ? 1 : 0
+
+    const data = {
+        unidadNegocio,
+        fechaDesde,
+        fechaHasta,
+        sucursal,
+        cuentaEstado,
+        codigoCliente,
+        cobrador,
+        moneda,
+        soloMovimientos,
+        incluirProformas,
+        incluirRemitos
+    }
+    // console.table( data )
+    const tkn = getParameter('tkn')
+    let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
+    for (const property in data) {
+        returnURL += `${property}=${data[property]}&`
+    }
+    // console.log(returnURL + tkn)
+    setTimeout(() => window.open(returnURL + 'tkn=' + tkn), 1000)
 }

@@ -3,37 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" href="./VerComprobante.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">    
+    <link rel="stylesheet" href="./VerResumen.scss">
+    <style type="text/css" media="print">
+    @page {
+      size: auto;
+      margin: 0; 
+    }
+    </style>
   </head>
-  <body>
+  <body class="m-0 vh-100 row justify-content-center align-items-center">
     <form id="form">
       <div class="wrapper">
+      <button type="button" id="btn_print" class="btn btn-dark"><i class="fa-solid fa-print"></i> Imprimir</button>
         <div class="container-fluid">
-          <div class="container rounded col-12">
+          <div class="container rounded col-12" id="printableArea">
             <!-- Feature -->
             <div class="row shadow px-2 py-4 big-box mx-auto">
 
               <div class="col-sm-12 my-2">
                 <div class="row box justify-content-between">
                   <div class="p-2 text-left">
-                    <h2 id="invoice" class="h4 tracking-tight real-blue"></h2>
+                    <h2 class="h4 tracking-tight real-blue">Resumen de cuenta</h2>
                     <div class="row">
                       <div class="col-4">
-                        <p>Fecha:</p>
-                        <p>Vencimiento:</p>
+                        <p>Período:</p>
                       </div>
                       <div class="col-8">
-                        <strong><p id="date" class="real-blue"></p></strong>
-                        <strong><p id="expiration" class="real-blue"></p></strong>
+                        <strong><p id="date" class="real-blue text-nowrap"></p></strong>
                       </div>
                     </div>
                   </div>
     
                   <div class="p-2 text-right">
-                    <h1>Softsystems SRL</h1>
-                    <p>Rivadia 451</p>
-                    <p>30-7125325-5</p>
+                    <h1 id="name-company"></h1>
+                    <div class="row">
+                      <div class="col-4">
+                        <p>CUIT:</p>
+                      </div>
+                      <div class="col-8">
+                        <strong><p id="cuit-company" class="real-blue text-nowrap"></p></strong>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -41,29 +52,28 @@
               <div class="col-sm-12 my-2">
                 <div class="row box justify-content-between">
                   <div class="p-2">
-                    <p id="customer" class="real-blue"></p>
-                    <p id="suite"></p>
-                    <p>Responsable Inscripto</p>
-                    <p id="cuit"></p>
-                    <p id="email"></p>
+                    <div class="row">
+                      <div class="col-4">
+                        <p>Código:</p>
+                        <p>Nombre:</p>
+                      </div>
+                      <div class="col-8">
+                        <strong><p id="code" class="real-blue text-nowrap"></p></strong>
+                        <strong><p id="name" class="real-blue text-nowrap"></p></strong>
+                      </div>
+                    </div>
                   </div>
                   <div class="p-2">
-                    <p id="type">Tipo:</p>
-                    <p id="subsidiary">Sucursal:</p>
-                    <p id="deposit">Deposito:</p>
-                    <p id="batch">Lote: </p>
-                    <p id="list">Lista:</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-12 my-2">
-                <div class="row box justify-content-between">
-                  <div class="p-2">
-                    <p id="entrega-remito" class="d-none real-blue"><strong>Entrega con Remito</strong><br></p>
-                  </div>
-                  <div class="p-2">
-                    <p id="seller">Vendedor:</p>
+                    <div class="row">
+                      <div class="col-4">
+                        <p>IVA:</p>
+                        <p>CUIT:</p>
+                      </div>
+                      <div class="col-8">
+                        <strong><p id="iva" class="real-blue text-nowrap"></p></strong>
+                        <strong><p id="cuit" class="real-blue text-nowrap"></p></strong>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -73,12 +83,11 @@
                   <table class="table table-activities">
                     <thead>
                       <tr>
-                        <th scope="col">DETALLE</th>
-                        <th scope="col">UNIDAD</th>
-                        <th scope="col">CANTIDAD</th>
-                        <th scope="col">PRECIO</th>
-                        <th scope="col">% IVA</th>
-                        <th scope="col">IMPORTE</th>
+                        <th scope="col">FECHA</th>
+                        <th scope="col">COMPROBANTE</th>
+                        <th scope="col">DEBE</th>
+                        <th scope="col">HABER</th>
+                        <th scope="col">SALDO</th>
                       </tr>
                     </thead>
                     <tbody id="tbody-table">
@@ -88,59 +97,30 @@
                 </div>
               </div>
 
-              <div class="col-sm-12 mt-4">
+              <div class="col-sm-12 mt-1">
                 <div class="row box">
                   <table class="table table-prices">
                     <tbody>
                       <tr>
-                        <td>SUBTOTAL</td>
-                        <td id="subtotal"></td>
-                      </tr>
-                      <tr>
-                        <td>DESCUENTO</td>
-                        <td id="descuento"></td>
-                      </tr>
-                      <tr>
-                        <td>NETO</td>
-                        <td id="neto"></td>
-                      </tr>
-                      <tr>
-                        <td>IVA</td>
-                        <td id="iva"></td>
-                      </tr>
-                      <tr id="tr-noGravado" class="d-none">
-                        <td>NO GRAVADO</td>
-                        <td id="no-gravado"></td>
-                      </tr>
-                      <tr id="tr-percepcionIIBB" class="d-none">
-                        <td>PERCEPCIÓN IIBB</td>
-                        <td id="percepcion-iibb"></td>
-                      </tr>
-                      <tr id="tr-impuestosInternos" class="d-none">
-                        <td>IMPUESTOS INTERNOS</td>
-                        <td id="impuestos-internos"></td>
-                      </tr>
-                      <tr>
-                        <td>TOTAL</td>
-                        <td id="total"></td>
+                        <td>Saldo final</td>
+                        <td id="final-summary"></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
 
-              <div class="col-sm-12 mt-4">
+              <div class="col-sm-12">
                 <div class="row box">
-                  <p class="ml-2 real-blue"><strong>Observación:</strong></p>
-                  <br>
                   <p id="observation" class="ml-2 mt-2 w-100"></p>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </form>
   </body>
-  <script src="./js/VerComprobante.js"></script>
+  <script src="./js/VerResumen.js"></script>
 </html>
