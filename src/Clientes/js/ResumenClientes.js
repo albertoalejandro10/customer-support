@@ -49,9 +49,9 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
-                    return "Saldo Final"
+                    return ""
                 else
-                    return params.value
+                    return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
             }
         },
         {
