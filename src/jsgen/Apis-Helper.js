@@ -549,3 +549,65 @@ export const get_purchaseDocuments = tkn => {
         console.log( err )
     })
 }
+
+// Conseguir provincias
+export const get_provinces = tkn => {
+    const url_getProvinces = 'https://www.solucioneserp.net/listados/get_provincias'
+    fetch( url_getProvinces, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const provinces = resp
+        for (const element of provinces) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+
+            const select = document.querySelector('#provinces')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+// Conseguir Origenes
+export const get_origins = tkn => {
+    const url_getOrigins = 'https://www.solucioneserp.net/listados/get_origenes'
+    fetch( url_getOrigins, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const origins = resp
+        for (const element of origins) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+
+            const select = document.querySelector('#origins')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
