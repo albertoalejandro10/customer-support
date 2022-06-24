@@ -169,17 +169,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid')
     new agGrid.Grid(gridDiv, gridOptions)
 
+    console.log('JS:', parseInt($(window).height()) )
     if ((parseInt($(window).height()) - 300) < 200) {
-        $("#myGrid").height(100)
+        $("#myGrid").height(160)
     } else {
         $("#myGrid").height(parseInt($(window).height()) - 480)
     }
 
     const gridDiv2 = document.querySelector('#myGrid-purchased')
     new agGrid.Grid(gridDiv2, gridOptions2)
-
     if ((parseInt($(window).height()) - 300) < 200) {
-        $("#myGrid-purchased").height(100)
+        $("#myGrid-purchased").height(160)
     } else {
         $("#myGrid-purchased").height(parseInt($(window).height()) - 480)
     }
@@ -198,7 +198,7 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-    let columnsWithAggregation = ['porcIva', 'iva', 'neto', 'noGravado', 'retencion', 'impuesto1', 'impuest2', 'total']
+    let columnsWithAggregation = ['iva', 'neto', 'noGravado', 'retencion', 'impuesto1', 'impuest2', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -229,7 +229,7 @@ function generatePinnedBottomData2 (){
 function calculatePinnedBottomData2(target) {
     //console.log(target)
     //**list of columns fo aggregation**
-    let columnsWithAggregation = ['porcIva', 'iva', 'neto', 'noGravado', 'retencion', 'impuesto1', 'impuest2', 'total']
+    let columnsWithAggregation = ['iva', 'neto', 'noGravado', 'retencion', 'impuesto1', 'impuest2', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions2.api.forEachNodeAfterFilter((rowNode) => {                  

@@ -9,18 +9,25 @@
     <script type="text/javascript">
 		$(window).unbind("resize")
 		$(window).resize(function () {
-		if ((parseInt($(window).height()) - 300) < 200)
-			$("#myGrid").height(100)
-		else
-			$("#myGrid").height(parseInt($(window).height()) - 340)
-		//$(".grid").width('100%')
+      console.log( parseInt($(window).height()))
+      if ((parseInt($(window).height()) - 300) < 200) {
+        $("#myGrid").height(100)
+      } else {
+        $("#myGrid").height(parseInt($(window).height()) - 480)
+      }
+
+      if ((parseInt($(window).height()) - 300) < 200) {
+        $("#myGrid-purchased").height(100)
+      } else {
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 480)
+      }
 		})
   	</script>
   </head>
   <body>
     <div class="wrapper">
       <div class="container-fluid" style="height: 100%;">
-        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <div class="container mt-1 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
             <div class="col-12 mb-2">
