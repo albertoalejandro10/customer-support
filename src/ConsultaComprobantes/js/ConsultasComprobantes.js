@@ -230,7 +230,7 @@ const get_salesDocs = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
-        console.log( linea )
+        // console.log( linea )
         //clear Filtros
         gridOptions.api.setFilterModel(null)
         //Clear Grilla
