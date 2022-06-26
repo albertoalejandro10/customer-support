@@ -1,4 +1,4 @@
-//Nuevo Listado Clientes
+// Nuevo Listado Clientes
 export const get_customers = tkn => {
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
@@ -85,7 +85,7 @@ export const get_customers = tkn => {
     })
 }
 
-//Nuevo Listado Productos
+// Nuevo Listado Productos
 export const get_products = tkn => {
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
@@ -171,7 +171,7 @@ export const get_products = tkn => {
     })
 }
 
-//Lista Proveedores
+// Lista Proveedores
 export const get_suppliers = tkn => {
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
@@ -599,6 +599,68 @@ export const get_origins = tkn => {
             // console.log(id, nombre)
 
             const select = document.querySelector('#origins')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+// Listado tipos clientes todos
+export const get_allCustomersType = tkn => {
+    const url_getAllCustomersType = 'https://www.solucioneserp.net/listados/get_tipos_clientes_todos'
+    fetch( url_getAllCustomersType, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const customers = resp
+        for (const element of customers) {
+            const { id, detalle } = element
+            // console.log(id, detalle)
+
+            const select = document.querySelector('#customer-type')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", detalle)
+            option.value = id
+            option.textContent = detalle
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+// Listado grupos clientes
+export const get_customersGroups = tkn => {
+    const url_getCustomersGroup = 'https://www.solucioneserp.net/listados/get_grupos_clientes'
+    fetch( url_getCustomersGroup, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const customers = resp
+        for (const element of customers) {
+            const { id, nombre, tipo } = element
+            // console.log(id, nombre, tipo)
+
+            const select = document.querySelector('#customer-groups')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
             option.value = id

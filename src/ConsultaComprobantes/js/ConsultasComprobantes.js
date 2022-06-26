@@ -16,7 +16,7 @@ const gridOptions = {
         editable: false,
         resizable: true,  
         suppressNavigable: true, 
-        //minWidth: 100,                      
+        //minWidth: 100,
     },
     // No rows and grid loader
     overlayLoadingTemplate:
@@ -50,7 +50,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
-                    return "<b>Totales</b>"
+                    return "Totales"
                 else
                     if (params.value=='Saldo Inicial')
                         return params.value
@@ -65,21 +65,10 @@ const gridOptions = {
             sortable: true,
             filter: true ,
             cellRenderer: function(params) {
-                if (String(params.data)=="null")
+                if (String(params.data) == "null")
                     return ''
                 else
                     return params.value
-            }
-        },
-        {   
-            width: 30, 
-            headerName: "", 
-            field: "linkComprobante",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-file-lines"></i></a>'
             }
         },
         {   
@@ -90,13 +79,24 @@ const gridOptions = {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-file-lines"></i></a>'
             }
         },
         {   
             width: 30, 
             headerName: "", 
             field: "linkAdjuntos",
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
+            }
+        },
+        {   
+            width: 30, 
+            headerName: "", 
+            field: "linkCambioEstado",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -171,8 +171,12 @@ const gridOptions = {
             }
         }
     ],
-
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -226,14 +230,11 @@ const get_salesDocs = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
-        // console.log( linea )
-
+        console.log( linea )
         //clear Filtros
         gridOptions.api.setFilterModel(null)
-
         //Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({
             add: linea
         })

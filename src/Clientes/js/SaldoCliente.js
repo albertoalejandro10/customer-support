@@ -43,60 +43,51 @@ const gridOptions = {
         {
             flex: 1,
             headerName: "Cliente",
-            field: "codigoCliente",
+            field: "nombre",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
                     return "<b>Total</b>"
                 else
-                    if (params.value=='Saldo Inicial')
-                        return params.value
-                    else
-                        return params.data.codigoCliente
+                    return params.value
             }
         },
         {
-            width: 120,
+            width: 110,
             headerName: "Teléfono",
             field: "telefono",
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
+                if (String(params.value) == "null")
+                    return ''
                 else
-                    return params.data.telefono
+                    return params.value
             }
         },
         {
-            width: 120,
+            width: 90,
             headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
             headerName: "Prom. Dias Cobros",
             field: "promoDiasCobros",
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
+                if (String(params.value) == "null")
+                    return ''
                 else
-                    return params.data.promoDiasCobros
+                    return params.value
             }
         },
         {
-            width: 120,
+            width: 90,
             headerClass: "text-center", 
             cellClass: 'ag-right-aligned-cell',
             headerName: "Prom. Dias Valores",
             field: "promoDiasCobros",
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
-                    return params.value
+                if (String(params.value)== "null")
+                    return ''
                 else
-                    return params.data.promoDiasValores
+                    return params.value
             }
         },
         {
@@ -138,8 +129,8 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
+                if (String(params.value) == "null")
+                    return ''
                 else
                     return format_number(params.value)
             }
@@ -153,7 +144,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -168,7 +159,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -183,7 +174,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -200,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 340)
+        $("#myGrid").height(parseInt($(window).height()) - 320)
 })
 
 function generatePinnedBottomData(){
@@ -251,7 +242,7 @@ const get_AccountsBalance = (tkn, data) => {
         //Clear Grilla
         gridOptions.api.setRowData([])
 
-        const res = gridOptions.api.applyTransaction({
+        gridOptions.api.applyTransaction({
             add: linea            
           })
         
@@ -274,11 +265,9 @@ $form.addEventListener('submit', event => {
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
     const tipoCliente = Number(formData.get('customer-type'))
     const grupoCliente = Number(formData.get('customer-groups'))
-    const estado = formData.get('state')
+    const estado = formData.get('status')
     const cobrador = Number(formData.get('debt-collector'))
     const orden = Number(formData.get('orden-by'))
-    const proformas = 0
-    const remitos = 0
     const saldoCero = (formData.get('exclude-balances') === 'on') ? 1 : 0
 
     const data = {
@@ -290,8 +279,6 @@ $form.addEventListener('submit', event => {
         estado, 
         cobrador,
         orden,
-        proformas,
-        remitos,
         saldoCero
     }
 

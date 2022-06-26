@@ -379,6 +379,7 @@ document.getElementById("confirm").addEventListener("click", () => {
     const data = {
         numero
     }
+    console.log( JSON.stringify(data) )
     const tkn = getParameter('tkn')
-    post_ConfirmButton( tkn, data )
+    // post_ConfirmButton( tkn, data )
 })

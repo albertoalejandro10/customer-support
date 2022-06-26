@@ -1,163 +1,8 @@
 import { getParameter, get_StartPeriod } from "../../jsgen/Helper"
-
-// Listado unidades de negocios
-const get_BusinessUnits = tkn => {
-    const url_getBusinessUnits = 'https://www.solucioneserp.net/listados/get_unidades_negocio'
-    fetch( url_getBusinessUnits, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for (const element of customers) {
-            const { id, nombre } = element
-            // console.log(id, nombre)
-
-            const select = document.querySelector('#business')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = id
-            option.textContent = nombre
-            
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
-
-// Listado tipos clientes todos
-const get_AllCustomersType = tkn => {
-    const url_getAllCustomersType = 'https://www.solucioneserp.net/listados/get_tipos_clientes_todos'
-    fetch( url_getAllCustomersType, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for (const element of customers) {
-            const { id, detalle } = element
-            // console.log(id, detalle)
-
-            const select = document.querySelector('#customer-type')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", detalle)
-            option.value = id
-            option.textContent = detalle.replace('(', '').replace(')', '')
-            
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
-
-// Listado grupos clientes
-const get_CustomersGroup = tkn => {
-    const url_getCustomersGroup = 'https://www.solucioneserp.net/listados/get_grupos_clientes'
-    fetch( url_getCustomersGroup, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for (const element of customers) {
-            const { id, nombre, tipo } = element
-            // console.log(id, nombre, tipo)
-
-            const select = document.querySelector('#customer-groups')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = id
-            option.textContent = nombre
-            
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
-
-// Listado estados deudores
-const get_DebtStates = tkn => {
-    const url_getDebtStates = 'https://www.solucioneserp.net/listados/get_estados_deudores'
-    fetch( url_getDebtStates, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for (const element of customers) {
-            const { codigo, estado } = element
-            // console.log(codigo, estado)
-
-            const select = document.querySelector('#state')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", estado)
-            option.value = codigo
-            option.textContent = estado
-            
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
-
-
-// Listado deudores
-const get_DebtCollectors = tkn => {
-    const url_getDebtCollectors = 'https://www.solucioneserp.net/listados/get_cobradores'
-    fetch( url_getDebtCollectors, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const customers = resp
-        for (const element of customers) {
-            const { id, nombre } = element
-            // console.log(id, nombre)
-
-            const select = document.querySelector('#debt-collector')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = id
-            option.textContent = nombre
-            
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}
+import { get_businessUnits, get_debtCollector, get_allCustomersType, get_customersGroups, get_status } from '../../jsgen/Apis-Helper'
 
 // Listado saldo orden
-const get_BalanceOrder = tkn => {
+const get_balanceOrder = tkn => {
     const url_getBalanceOrder = 'https://www.solucioneserp.net/reportes/clientes/get_saldo_orden_listado'
     fetch( url_getBalanceOrder, {
         method: 'GET',
@@ -196,10 +41,10 @@ const get_BalanceOrder = tkn => {
 const tkn = getParameter('tkn')
 if ( tkn ) {
     get_StartPeriod( tkn )
-    get_BusinessUnits( tkn )
-    get_AllCustomersType( tkn )
-    get_CustomersGroup( tkn )
-    get_DebtCollectors( tkn )
-    get_BalanceOrder( tkn )
-    get_DebtStates( tkn )
+    get_businessUnits( tkn )
+    get_allCustomersType( tkn )
+    get_customersGroups( tkn )
+    get_debtCollector( tkn )
+    get_balanceOrder( tkn )
+    get_status( tkn )
 }

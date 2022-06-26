@@ -12,22 +12,23 @@ const post_getReceipts = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        
-        
+        // console.log( resp )
         // Eliminar filas viejas
-        const tbody = document.getElementById('credit-tbody')
+        const tbodyCredit = document.getElementById('credit-tbody')
         const elements = document.getElementsByClassName('delete-row')
-        if ( tbody.children.length >= 1) {
+        if ( tbodyCredit.children.length >= 1) {
+            while (elements.length > 0) elements[0].remove()
+        }
+
+        const tbodyDebit = document.getElementById('debit-tbody')
+        if ( tbodyDebit.children.length >= 1) {
             while (elements.length > 0) elements[0].remove()
         }
 
         // Resetear inputs de totales
-        const totalCredit = document.getElementById('total-credit')
-        totalCredit.value = ''
-        const totalDebit = document.getElementById('total-debit')
-        totalDebit.value = ''
-        const totalDifference = document.getElementById('total-difference')
-        totalDifference.value = ''
+        document.getElementById('total-credit').value = ''
+        document.getElementById('total-debit').value = ''
+        document.getElementById('total-difference').value = ''
         sumarImporteCredit(0, true)
         sumarImporteDebit(0, true)
         restarImporteCredit(0, true)
@@ -114,7 +115,6 @@ const printElementTables = ( tbody, tfoot, id, fecha, comprobante, total, pendie
     row.appendChild(row_data_5)
     
     tbody.appendChild(row)
-
     tfoot.classList.remove('d-none')                
 }
 
@@ -124,15 +124,21 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const data = {
-        "cuenta": (formData.get('account')).trim(),
-        "codCliente": formData.get('customers'),
-        "unidadNegocio": Number(formData.get('business')),
-        "fechaDesde": formData.get('periodStart').split('-').reverse().join('/'),
-        "fechaHasta": formData.get('periodEnd').split('-').reverse().join('/'),
-        "orden": Number(formData.get('orden-fecha'))
-    }
+    const cuenta = formData.get('account')
+    const codCliente = formData.get('customers')
+    const unidadNegocio = Number(formData.get('business'))
+    const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
+    const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
+    const orden = Number(formData.get('orden-fecha'))
 
+    const data = {
+        cuenta,
+        codCliente,
+        unidadNegocio,
+        fechaDesde,
+        fechaHasta,
+        orden
+    }
     // console.table( data )
     const tkn = getParameter('tkn')
     post_getReceipts( tkn, data )
@@ -262,13 +268,9 @@ const post_RecordButton = (tkn, data) => {
             fechaHasta,
             orden,
         }
-
-        const totalCredit = document.getElementById('total-credit')
-        totalCredit.value = ''
-        const totalDebit = document.getElementById('total-debit')
-        totalDebit.value = ''
-        const totalDifference = document.getElementById('total-difference')
-        totalDifference.value = ''
+        document.getElementById('total-credit').value = ''
+        document.getElementById('total-debit').value = ''
+        document.getElementById('total-difference').value = ''
     
         // console.table( data )
         const tkn = getParameter('tkn')
