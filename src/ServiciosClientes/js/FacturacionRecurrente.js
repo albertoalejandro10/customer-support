@@ -233,12 +233,6 @@ const get_lastSettlement = tkn => {
         const observation = document.getElementById('observation')
         observation.value = liquidacion.observacion
 
-        const vencimiento1Element = document.getElementById('vencimiento1')
-        vencimiento1Element.value = liquidacion.vencimiento1
-        const vencimiento2Element = document.getElementById('vencimiento2')
-        vencimiento2Element.value = liquidacion.vencimiento2
-        const vencimiento3Element = document.getElementById('vencimiento3')
-        vencimiento3Element.value = liquidacion.vencimiento3
         const interesVenc2Element = document.getElementById('interesVenc2')
         interesVenc2Element.value = liquidacion.interesVenc2
         const interesVenc3Element = document.getElementById('interesVenc3')
@@ -325,9 +319,9 @@ $form.addEventListener('submit', event => {
     const tipoComprobante = Number(formData.get('voucher-type'))
     const tipoCalculaRecargo = Number(formData.get('calculate-charges'))
     const tipoCargoReconexion = Number(formData.get('reconection-charges'))
-    const vencimiento1 = formData.get('vencimiento1')
-    const vencimiento2 = formData.get('vencimiento2')
-    const vencimiento3 = formData.get('vencimiento3')
+    const vencimiento1 = formData.get('expiration').split('-').reverse().join('/')
+    const vencimiento2 = formData.get('expiration').split('-').reverse().join('/')
+    const vencimiento3 = formData.get('expiration').split('-').reverse().join('/')
     const interesVenc2 = Number(formData.get('interesVenc2'))
     const interesVenc3 = Number(formData.get('interesVenc3'))
     const observacion = formData.get('observation')
@@ -347,8 +341,7 @@ $form.addEventListener('submit', event => {
         interesVenc3,
         observacion
     }
-
-    // console.table( JSON.stringify(data) )
+    // console.table( data )
     const tkn = getParameter('tkn')
     post_GenerateButton( tkn, data )
 })
