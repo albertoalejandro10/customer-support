@@ -3,6 +3,7 @@
 :root {
     --font-family-sans-serif: "Poppins", sans-serif;
 }
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 * {
@@ -17,7 +18,7 @@ body, html {
     overflow-y: hidden !important;
 }
 .ag-header-cell-text{
-    font-size: 10px !important;
+    font-size: 12px !important;
 }
 
 .ag-header-cell{
@@ -26,21 +27,26 @@ body, html {
 }
 
 .ag-cell{
-    font-size: 10px !important;
+    font-size: 12px !important;
     padding-left: 8px !important;
     padding-right: 8px !important;
 }
 
 .ag-cell a {
-    font-size: 10px !important;
+    font-size: 12px !important;
 }
 
 .ag-cell span {        
-    font-size: 10px !important;
+    font-size: 12px !important;
 }
 
-.ag-cell span b {
-    font-size: 10px !important;
+.ag-cell span b {    
+    font-size: 12px !important;
+}
+
+.wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .container-fluid {
@@ -57,40 +63,38 @@ h4 {
     font-weight: 400;
 }
 
-h6 {
-    font-size: 12px;
-    font-weight: 400;
-}
-
 label {
     margin-bottom: 0px;
 
-    &[for="business"] {
-        margin-right: 10px;
-    }
-    &[for="sale-point"] {
+    &[for="customer"] {
         margin-right: 4px;
     }
-    &[for="activity-iva"] {
-        margin-right: 4px;
+    &[for="report-type"] {
+        margin-right: 19px;
     }
+    &[for="entry"] {
+        margin-right: 9px;
+    }
+
     &[for="periodStart"] {
-        margin-right: 8px;
-    }
-    &[for="subsidiary"] {
-        margin-right: 4px;
-    }
-    &[for="provinces"] {
-        margin-right: 4px;
-    }
-    &[for="origins"] {
         margin-right: 18px;
     }
-}
-
-#sale-point {
-    width: 60px;
-    margin-right: 20px;
+    &[for="product"] {
+        margin-right: 10px;
+    }
+    &[for="supplier"] {
+        margin-right: 4px;
+    }
+    
+    &[for="voucher"] {
+        margin-right: 4px;
+    }
+    &[for="subsidiary"] {
+        margin-right: 38px;
+    }
+    &[for="sale-line"] {
+        margin-right: 19px;
+    }
 }
 
 input[type="checkbox"] {
@@ -165,7 +169,7 @@ input[type="checkbox"] {
     to {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
-    }
+}
 }
 
 @keyframes segment-spin {
@@ -188,5 +192,4 @@ input[type="checkbox"] {
     box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.4);
     letter-spacing: 1.2px;
     font-weight: 400;
-    font-size: 12px;
 }

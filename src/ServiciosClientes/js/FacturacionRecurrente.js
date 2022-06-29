@@ -348,7 +348,7 @@ $form.addEventListener('submit', event => {
         observacion
     }
 
-    // console.table( data )
+    // console.table( JSON.stringify(data) )
     const tkn = getParameter('tkn')
     post_GenerateButton( tkn, data )
 })
@@ -379,7 +379,7 @@ document.getElementById("confirm").addEventListener("click", () => {
     const data = {
         numero
     }
-    console.log( JSON.stringify(data) )
+    // console.log( data )
     const tkn = getParameter('tkn')
-    // post_ConfirmButton( tkn, data )
+    post_ConfirmButton( tkn, data )
 })

@@ -18,7 +18,7 @@ const get_userData = tkn => {
     })
     .catch( err => {
         console.log( 'Error en el llamado a la API: ', err )
-    })  
+    })
 }
 
 const tkn = getParameter('tkn')
@@ -32,12 +32,12 @@ const get_dataFromURL = () => {
         data[`${property}`] = value
     }
     // console.log( data )
-    get_accountSummary( tkn, data )
+    get_customerSales( tkn, data )
 }
 
-const get_accountSummary = ( tkn, data ) => {
-    const url_accountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
-    fetch( url_accountSummary , {
+const get_customerSales = ( tkn, data ) => {
+    const url_getCustomerSales = 'https://www.solucioneserp.net/reportes/clientes/get_ventasxcliente'
+    fetch( url_getCustomerSales , {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -47,14 +47,15 @@ const get_accountSummary = ( tkn, data ) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
+        console.log( data )
         const dataHeader = {
             fechaDesde: data.fechaDesde,
             fechaHasta: data.fechaHasta,
             cuit: resp[0].cuit,
-            nombre: resp[0].nombre,
-            codigo: resp[0].codigo,
-            iva: resp[0].iva,
-            observacion: resp[0].observacion
+            nombre: data.cliente,
+            codigo: data.codProducto,
+            // iva: resp[0].iva,
+            observacion: resp[0].observacionesF
         }
         printHeader( dataHeader )
         printTable( resp )

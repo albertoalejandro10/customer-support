@@ -171,17 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('JS:', parseInt($(window).height()) )
     if ((parseInt($(window).height()) - 300) < 200) {
-        $("#myGrid").height(160)
+        $("#myGrid").height(100)
     } else {
-        $("#myGrid").height(parseInt($(window).height()) - 480)
+        $("#myGrid").height(parseInt($(window).height()) - 450)
     }
 
     const gridDiv2 = document.querySelector('#myGrid-purchased')
     new agGrid.Grid(gridDiv2, gridOptions2)
     if ((parseInt($(window).height()) - 300) < 200) {
-        $("#myGrid-purchased").height(160)
+        $("#myGrid-purchased").height(100)
     } else {
-        $("#myGrid-purchased").height(parseInt($(window).height()) - 480)
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 450)
     }
 })
 

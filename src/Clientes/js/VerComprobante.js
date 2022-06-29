@@ -1,5 +1,27 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 
+const get_userData = tkn => {
+    const url_getUserData = 'https://www.solucioneserp.net/session/login_sid'
+    fetch( url_getUserData , {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const users = resp
+        const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, empresaCUIT, empresaDomicilio } = users
+        // console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, empresaCUIT, empresaDomicilio )
+        document.getElementById('name-company').textContent = empresaNombre
+        document.getElementById('direction-company').textContent = empresaDomicilio
+        document.getElementById('cuit-company').textContent = empresaCUIT
+    })
+    .catch( err => {
+        console.log( 'Error en el llamado a la API: ', err )
+    })  
+}
+
 const get_salesReceipts = ( tkn, data ) => {
     const url_salesReceipts = 'https://www.solucioneserp.net/reportes/consultas/get_comprobante_venta_id'
     fetch( url_salesReceipts , {
@@ -12,6 +34,7 @@ const get_salesReceipts = ( tkn, data ) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
+        // console.log( resp )
         printInvoice( resp )
     })
     .catch( err => {
@@ -25,6 +48,7 @@ if ( id && tkn ) {
     const data = {
         id
     }
+    get_userData( tkn )
     get_salesReceipts( tkn, data )
 }
 
@@ -38,7 +62,7 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('invoice').innerHTML = `${compTipo1.toUpperCase()} (${compTipo2}) ${letra} ${ptoVta}-${invoiceNumber(numero)}`
     document.getElementById('date').innerText = fecha
     const [ expiry ] = vencimientos
-    document.getElementById('expiration').innerText = expiry.fecha
+    document.getElementById('expiration').innerText = expiry.fecha || 'No tiene vencimiento'
     
     // console.log( cliente )
     const { nombre, domicilio, cuit, email } = cliente
@@ -95,13 +119,13 @@ const printTable = ({ codigo, cantidad, unidad, detalle, precio, porcIva, noGrav
     row_data_2.textContent = unidad
 
     let row_data_3 = document.createElement('td')
-    row_data_3.textContent = cantidad
+    row_data_3.textContent = cantidad.toFixed(2)
 
     let row_data_4 = document.createElement('td')
     row_data_4.textContent = format_number(precio)
 
     let row_data_5 = document.createElement('td')
-    row_data_5.textContent = porcIva
+    row_data_5.textContent = porcIva.toFixed(1)
 
     let row_data_6 = document.createElement('td')
     row_data_6.textContent = format_number(importe)
