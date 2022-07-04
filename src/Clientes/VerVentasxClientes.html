@@ -54,24 +54,24 @@
                   <div class="p-2">
                     <div class="row">
                       <div class="col-4">
-                        <p>Código Producto:</p>
-                        <p>Cliente:</p>
+                        <p>Proveedor:</p>
+                        <p class="text-nowrap">Línea Venta:</p>
                       </div>
                       <div class="col-8">
-                        <strong><p id="code" class="real-blue text-nowrap"></p></strong>
-                        <strong><p id="name" class="real-blue text-nowrap"></p></strong>
+                        <strong><p id="supplier" class="real-blue text-nowrap"></p></strong>
+                        <strong><p id="sale-line" class="real-blue text-nowrap"></p></strong>
                       </div>
                     </div>
                   </div>
                   <div class="p-2">
                     <div class="row">
-                      <div class="col-4">
-                        <p>IVA:</p>
-                        <p>CUIT:</p>
+                      <div class="col-6">
+                        <p>Rubro:</p>
+                        <p>Comprobante:</p>
                       </div>
-                      <div class="col-8">
-                        <strong><p id="iva" class="real-blue text-nowrap"></p></strong>
-                        <strong><p id="cuit" class="real-blue text-nowrap"></p></strong>
+                      <div class="col-6">
+                        <strong><p id="rubro" class="real-blue text-nowrap"></p></strong>
+                        <strong><p id="voucher" class="real-blue text-nowrap"></p></strong>
                       </div>
                     </div>
                   </div>
@@ -85,9 +85,12 @@
                       <tr>
                         <th scope="col">FECHA</th>
                         <th scope="col">COMPROBANTE</th>
-                        <th scope="col">DEBE</th>
-                        <th scope="col">HABER</th>
-                        <th scope="col">SALDO</th>
+                        <th scope="col">CLIENTE</th>
+                        <th scope="col">SUCURSAL</th>
+                        <th scope="col">PRODUCTO</th>
+                        <th scope="col">CANTIDAD</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col" class="text-nowrap">PRECIO FINAL</th>
                       </tr>
                     </thead>
                     <tbody id="tbody-table">
@@ -102,8 +105,14 @@
                   <table class="table table-prices">
                     <tbody>
                       <tr>
-                        <td>Saldo final</td>
-                        <td id="final-summary"></td>
+                        <td>Totales</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td id="quantity"></td>
+                        <td id="price"></td>
+                        <td id="final-price"></td>
                       </tr>
                     </tbody>
                   </table>

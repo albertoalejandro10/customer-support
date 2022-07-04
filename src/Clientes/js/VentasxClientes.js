@@ -81,6 +81,7 @@ const gridOptions = {
         {
             flex: 2,
             field: "detalle",
+            headerName: "Producto",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -284,13 +285,12 @@ document.getElementById("btn_print").onclick = () => {
         idTipoReporte,
         idTipoComprobante
     }
-    
-    console.table( data )
+    // console.table( data )
     const tkn = getParameter('tkn')
-    // let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerVentasxClientes.html?'
-    // for (const property in data) {
-    //     returnURL += `${property}=${data[property]}&`
-    // }
-    // // console.log(returnURL + tkn)
-    // setTimeout(() => window.open(returnURL + 'tkn=' + tkn), 1000)
+    let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerVentasxClientes.html?'
+    for (const property in data) {
+        returnURL += `${property}=${data[property]}&`
+    }
+    const fullURL = returnURL + 'tkn=' + tkn
+    setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
 }

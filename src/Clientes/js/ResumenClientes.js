@@ -315,6 +315,6 @@ document.getElementById("btn_print").onclick = () => {
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
     }
-    // console.log(returnURL + tkn)
-    setTimeout(() => window.open(returnURL + 'tkn=' + tkn), 1000)
+    const fullURL = returnURL + 'tkn=' + tkn
+    setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
 }

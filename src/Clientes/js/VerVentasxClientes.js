@@ -47,15 +47,16 @@ const get_customerSales = ( tkn, data ) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        console.log( data )
+        // console.log( data )
         const dataHeader = {
             fechaDesde: data.fechaDesde,
             fechaHasta: data.fechaHasta,
-            cuit: resp[0].cuit,
-            nombre: data.cliente,
-            codigo: data.codProducto,
-            // iva: resp[0].iva,
-            observacion: resp[0].observacionesF
+            idLineaVenta: Number(data.idLineaVenta),
+            idProveedor: Number(data.idProveedor),
+            idRubro: Number(data.idRubro),
+            idComprobante: Number(data.idTipoComprobante),
+            tkn: data.tkn,
+            observacion: resp[0].observacionesF,
         }
         printHeader( dataHeader )
         printTable( resp )
@@ -68,54 +69,164 @@ const get_customerSales = ( tkn, data ) => {
 get_userData( tkn )
 get_dataFromURL()
 
-const printHeader = ({ fechaDesde, fechaHasta, cuit, nombre, codigo, iva, observacion }) => {
-
-    document.getElementById('date').textContent = fechaDesde + ' - ' + fechaHasta
-    document.getElementById('cuit').textContent = cuit
-
-    document.getElementById('code').innerHTML = `<strong class="real-blue">${codigo}</strong>`
-    document.getElementById('name').innerHTML = `<strong class="real-blue">${nombre}</strong>`
-    document.getElementById('iva').innerHTML = `<strong class="real-blue">${iva}</strong>`
-    document.getElementById('cuit').innerHTML = `<strong class="real-blue">${cuit}</strong>`
-
+const printHeader = ({ fechaDesde, fechaHasta, idLineaVenta, idProveedor, idRubro, idComprobante, tkn, observacion }) => {
+    // console.log(fechaDesde, fechaHasta, idLineaVenta, idProveedor, idRubro, idComprobante, tkn, observacion)
+    getValues(idLineaVenta, idProveedor, idRubro, idComprobante, tkn)
+    document.getElementById('date').textContent = fechaDesde + ' - ' + fechaHasta    
     if ( observacion ) {
         document.getElementById('observation').innerHTML = `<strong class="real-blue">Observación:</strong> ${observacion}`
     }
 }
 
+const getValues = (idLineaVenta, idProveedor, idRubro, idComprobante, tkn) => {
+    fetch( 'https://www.solucioneserp.net/listados/productos/get_lineas', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const line = resp.filter( x => x.id === idLineaVenta)
+        let value = ''
+        if ( line?.length ) {
+            const [object] = line
+            const { nombre } = object
+            value = nombre
+        } else {
+            value = 'No existe'
+        }
+        // console.log('Linea de Venta', value)
+        document.getElementById('sale-line').innerHTML = `<strong class="real-blue">${value}</strong>`
+    })
+    
+    fetch( 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify({
+            "filtro":"",
+            "soloProveedores":1,
+            "soloConProductos":1,
+            "opcionTodos":0
+        })
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const supplier = resp.filter( x => x.id === idProveedor)
+        let value = ''
+        if ( supplier?.length ) {
+            const [object] = supplier
+            const { nombre } = object
+            value = nombre
+        } else {
+            value = 'No existe'
+            if ( idProveedor === 0 ) {
+                value = 'Todos'
+            }
+        }
+        // console.log('Proveedor', value)
+        document.getElementById('supplier').innerHTML = `<strong class="real-blue">${value}</strong>`
+    })
+    
+    fetch( 'https://www.solucioneserp.net/listados/productos/get_rubros', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const rubro = resp.filter( x => x.id === idRubro)
+        let value = ''
+        if ( rubro?.length ) {
+            const [object] = rubro
+            const { nombre } = object
+            value = nombre
+        } else {
+            value = 'No existe'
+        }
+        // console.log('Rubros', value)
+        document.getElementById('rubro').innerHTML = `<strong class="real-blue">${value}</strong>`
+    })
+
+    fetch( 'https://www.solucioneserp.net/listados/clientes/ventasxcliente/get_tipo_comprobante', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const voucher = resp.filter( x => x.id === idComprobante)
+        let value = ''
+        if ( voucher?.length ) {
+            const [object] = voucher
+            const { nombre } = object
+            value = nombre
+        } else {
+            value = 'No existe'
+            if ( idComprobante === 0 ) {
+                value = 'Todos'
+            }
+        }
+        // console.log('Comprobante tipo', value)
+        document.getElementById('voucher').innerHTML = `<strong class="real-blue">${value}</strong>`
+    })
+}
+
 // Imprimir datos en la tabla
 const printTable = ( resp ) => {
-    let saldo = 0
+    let quantity = 0
+    let price = 0
+    let finalPrice = 0
     for (const element of resp) {
-        const { fecha, comprobante, importeDebe, importeHaber } = element
+        // console.log(element)
+        const { Fecha, Comprobante, cliente, Sucursal, detalle, cantidad, precio, precioF } = element
+        quantity += cantidad
+        price += precio
+        finalPrice += precioF
         let row = document.createElement('tr')
     
         let row_data_1 = document.createElement('td')
-        row_data_1.textContent = fecha
+        row_data_1.textContent = Fecha
         
         let row_data_2 = document.createElement('td')
-        row_data_2.textContent = comprobante
+        row_data_2.textContent = Comprobante
         
         let row_data_3 = document.createElement('td')
-        row_data_3.textContent = format_number(importeDebe)
-    
-        let row_data_4 = document.createElement('td')
-        row_data_4.textContent = format_number(importeHaber)
+        cliente = cliente.substring(0, 28)
+        row_data_3.textContent = cliente
         
-        saldo += importeDebe - importeHaber
+        let row_data_4 = document.createElement('td')
+        row_data_4.textContent = Sucursal
+        
         let row_data_5 = document.createElement('td')
-        row_data_5.textContent = format_number(saldo)
+        detalle = detalle.substring(0, 28)
+        row_data_5.textContent = detalle
+        
+        let row_data_6 = document.createElement('td')
+        row_data_6.textContent = format_number(cantidad)
+        
+        let row_data_7 = document.createElement('td')
+        row_data_7.textContent = format_number(precio)
+        
+        let row_data_8 = document.createElement('td')
+        row_data_8.textContent = format_number(precioF)
         
         row.appendChild(row_data_1)
         row.appendChild(row_data_2)
         row.appendChild(row_data_3)
         row.appendChild(row_data_4)
         row.appendChild(row_data_5)
-        
+        row.appendChild(row_data_6)
+        row.appendChild(row_data_7)
+        row.appendChild(row_data_8)
+
         document.getElementById('tbody-table').appendChild(row)
     }
-    // console.log( saldo )
-    document.getElementById('final-summary').textContent = format_number(saldo)
+    quantity = quantity.toFixed(2)
+    price = price.toFixed(2)
+    finalPrice = finalPrice.toFixed(2)
+    document.getElementById('quantity').textContent = format_number(quantity)
+    document.getElementById('price').textContent = format_number(price)
+    document.getElementById('final-price').textContent = format_number(finalPrice)
 }
 
 document.getElementById('btn_print').onclick = () => {
