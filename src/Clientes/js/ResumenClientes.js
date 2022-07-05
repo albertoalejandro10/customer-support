@@ -70,7 +70,7 @@ const gridOptions = {
             }
         },
         {
-            width: 30, 
+            width: 30,
             field: "linkAdjuntos",
             headerName: "",
             cellRenderer: function(params) {
