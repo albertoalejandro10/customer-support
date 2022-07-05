@@ -48,10 +48,13 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if ( String(params.value) == "null" )
-                    return ""
+                if (String(params.value) == "null")
+                    return "Saldo Final"
                 else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                    if (params.value == 'Saldo Inicial')
+                        return params.value
+                    else
+                        return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
             }
         },
         {
@@ -68,24 +71,30 @@ const gridOptions = {
         },
         {
             width: 30, 
-            field: "linkComprobante",
+            field: "linkAdjuntos",
             headerName: "",
             cellRenderer: function(params) {
                 if ( String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder-closed"></i></a>'
+                    if ( params.data.id === 0 )
+                        return ''
+                    else
+                        return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder-closed"></i></a>'
             }
         },
         {
             width: 30, 
-            field: "linkAsiento",
+            field: "linkAsignaciones",
             headerName: "",
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
+                    if( params.data.id === 0 )
+                        return ''
+                    else
+                        return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
             }
         },
         {
@@ -210,7 +219,6 @@ const get_accountSummary = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-
         let saldo = 0
         resp.map( resp => {
             const { importeDebe, importeHaber } = resp
