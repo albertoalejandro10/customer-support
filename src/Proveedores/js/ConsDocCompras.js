@@ -65,7 +65,7 @@ const gridOptions = {
             }
         },
         {
-            flex: 1,
+            width: 120,
             field: "comprobante",
             sortable: true,
             filter: true,
@@ -77,7 +77,7 @@ const gridOptions = {
             }
         },
         {
-            width: 140,
+            flex: 1,
             field: "proveedor",
             sortable: true,
             filter: true,
@@ -267,7 +267,6 @@ function calculatePinnedBottomData(target){
             target[element] = '0.00'
         }
     })
-
     //console.log(target)
     return target
 }

@@ -170,13 +170,13 @@ function generatePinnedBottomData () {
     return calculatePinnedBottomData(result)
 }
 
-function calculatePinnedBottomData (target){
+function calculatePinnedBottomData(target) {
     // console.log(target)
     //**list of columns fo aggregation**
     let columnsWithAggregation = ['importeDebe', 'importeHaber']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {   
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {
             if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
             }
@@ -190,17 +190,13 @@ function calculatePinnedBottomData (target){
 
     let columnsWithAggregationBalance = ['saldo']
     columnsWithAggregationBalance.forEach(element => {
-        //console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {   
+        // console.log('element', element)
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {
             if (rowNode.data[element]) {
                 target[element] = Number(rowNode.data[element].toFixed(2))
             }
+            target[element] = rowNode.data.saldo || '0.00'
         })
-        if (target[element]) {
-            target[element] = `${target[element].toFixed(2)}`
-        } else {
-            target[element] = '0.00'
-        }
     })
     return target
 }
