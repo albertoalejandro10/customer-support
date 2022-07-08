@@ -49,7 +49,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
-                    return "Saldo Final"
+                    return "Totales"
                 else
                     if (params.value == 'Saldo Inicial')
                         return params.value
