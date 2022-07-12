@@ -44,7 +44,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
-                    return "<b>Totales</b>"
+                    return "Totales"
                 else
                     if (params.value=='Saldo Inicial')
                         return params.value
@@ -82,7 +82,8 @@ const gridOptions = {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
-            field: "iva", 
+            field: "iva",
+            headerName: "IVA",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -108,6 +109,11 @@ const gridOptions = {
         }
     ],
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -227,53 +233,109 @@ const get_lastSettlement = tkn => {
     .then( resp => resp.json() )
     .then( ({ liquidacion, recargo, comprobantes, reconexion }) => {
         // console.log( liquidacion, recargo, comprobantes, reconexion )
+        const { numero, observacion, interesVenc2, interesVenc3, codigoCliente, grupoClienteId, tipoClienteId, tipoComprobante, tipoCargoReconexion, tipoCalculaRecargo, vencimiento1, confirmada, cantComprobantes, totalComprobantes } = liquidacion
         // console.log(comprobantes)
-        const lotNumber = document.getElementById('numero')
-        lotNumber.value = liquidacion.numero
-        const observation = document.getElementById('observation')
-        observation.value = liquidacion.observacion
+        document.getElementById('numero').value = numero
+        document.getElementById('observation').value = observacion
 
-        const interesVenc2Element = document.getElementById('interesVenc2')
-        interesVenc2Element.value = liquidacion.interesVenc2
-        const interesVenc3Element = document.getElementById('interesVenc3')
-        interesVenc3Element.value = liquidacion.interesVenc3
+        document.getElementById('interesVenc2').value = interesVenc2
+        document.getElementById('interesVenc3').value = interesVenc3
+        
+        const groupClient = document.getElementById('group-client')
+        if ( codigoCliente !== '' ) {
+            // console.log('Existe')
+            visibleInput('clientCode')
+            groupClient.value = 1
+        } else {
+            // console.log('No existe, tenemos grupo cliente')
+            visibleInput('generatedFor')
+            groupClient.value = 2
+            document.getElementById('generated-for').value = grupoClienteId
+        }
+
+        if ( tipoClienteId ) {
+            document.getElementById('customer-type').value = tipoClienteId
+        }
+
+        if ( tipoComprobante ) {
+            document.getElementById('voucher-type').value = tipoComprobante
+        }
+
+        if ( tipoCargoReconexion ) {
+            document.getElementById('reconection-charges').value = tipoCargoReconexion
+        }
+
+        if ( tipoCalculaRecargo ) {
+            document.getElementById('calculate-charges').value = tipoCalculaRecargo
+        }
+
+        if ( vencimiento1 ) {
+            document.getElementById('expiration').value = vencimiento1.split('/').reverse().join('-')
+        }
 
         if ( recargo.detalle ) {
             // console.log( 'Recargo seccion:', recargo.detalle )
             document.getElementById('reconnection-section').classList.remove('d-none')
-            const reconectionChargesTextElement = document.getElementById('reconection-charges-text')
-            reconectionChargesTextElement.innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
+            document.getElementById('reconection-charges-text').innerText = `${recargo.detalle} ${format_number(recargo.precio)}`
         }
 
         if ( reconexion.detalle ) {
             // console.log( 'Reconexion seccion:', reconexion.detalle )
             document.getElementById('surchage-section').classList.remove('d-none')
-            const calculateChargesTextElement = document.getElementById('calculate-charges-text')
-            calculateChargesTextElement.innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
+            document.getElementById('calculate-charges-text').innerText = `${reconexion.detalle} ${format_number(reconexion.precio)}`
         }
 
-        if ( liquidacion.confirmada === -1 ) return
-        if ( liquidacion.confirmada === 0 ) {
+        if ( confirmada === -1 ) return
+        if ( confirmada === 0 ) {
             const generateReceipts = document.getElementById('generate-receipts')
             generateReceipts.classList.remove('d-none')
 
             const generate = document.getElementById('generate')
             const regenerateButtons = document.getElementById('regenerate-buttons')
-
             generate.classList.add('d-none')
             regenerateButtons.classList.remove('d-none')
 
-            const cantReceipts = document.getElementById('number-receipts')
-            const totalReceipts = document.getElementById('total-receipts')
-            cantReceipts.innerText = liquidacion.cantComprobantes
-            totalReceipts.innerText = `$${format_number(liquidacion.totalComprobantes)}`
-
+            document.getElementById('number-receipts').innerText = cantComprobantes
+            document.getElementById('total-receipts').innerText = `$${format_number(totalComprobantes)}`
+            
+            hiddenConfirmButton()
             get_recurringBilling( tkn )
         }
     })
     .catch( err => {
         console.log( err )
     })
+}
+
+const hiddenConfirmButton = () => {
+    const regenerate = document.getElementById('regenerate')
+    const confirm = document.getElementById('confirm')
+    if (regenerate.classList.contains('d-none')) {
+        confirm.classList.remove('d-none')
+        regenerate.classList.add('d-none')
+    } else {
+        regenerate.classList.add('d-none')
+        confirm.classList.remove('d-none')
+    }
+
+    $('#client-code').on('select2:select', function (e) {
+        confirm.classList.add('d-none')
+        regenerate.classList.remove('d-none')
+    })
+
+    const inputs = document.getElementById('form')
+    inputs.addEventListener('keydown', () => {
+        confirm.classList.add('d-none')
+        regenerate.classList.remove('d-none')
+    })
+    
+    const selects = document.getElementsByTagName('select')
+    for (const iterator of selects) {
+        iterator.addEventListener('change', () => {
+            confirm.classList.add('d-none')
+            regenerate.classList.remove('d-none')
+        }, false)
+    }
 }
 
 const tkn = getParameter('tkn')
@@ -295,6 +357,7 @@ const post_GenerateButton = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(mensaje)
+        if ( mensaje === 'Liquidación no generada, no existen comprobantes') return
         const generate = document.getElementById('generate')
         const regenerateButtons = document.getElementById('regenerate-buttons')
 
@@ -375,4 +438,8 @@ document.getElementById("confirm").addEventListener("click", () => {
     // console.log( data )
     const tkn = getParameter('tkn')
     post_ConfirmButton( tkn, data )
+})
+
+document.getElementById('update').addEventListener("click", () => {
+    get_lastSettlement( tkn )
 })

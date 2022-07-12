@@ -27,13 +27,15 @@
             <div class="row p-2 mb-2 rounded form-top">
               <div class="col-12 d-flex justify-content-between">
                 <h4 class="mb-0">Facturación Recurrente</h4>
-                <button type="button" id="update" class="btn btn-primary top-bottom mr-2">Actualizar</button>
-                <button type="submit" id="generate" class="btn btn-success top-bottom">Generar</button>
-                <div id="regenerate-buttons" class="d-none">
-                  <div class="d-flex">
-                    <button type="submit" id="regenerate" class="btn btn-warning top-bottom mr-1">Re-Generar</button>
-                    <button type="button" id="confirm" class="btn btn-success top-bottom mx-1">Confirmar</button>
-                    <button type="button" id="btn_export" class="btn btn-dark top-bottom ml-1">Exportar</button>
+                <div class="d-flex">
+                  <button type="button" id="update" class="btn btn-primary top-bottom mr-1">Actualizar</button>
+                  <button type="submit" id="generate" class="btn btn-success top-bottom">Generar</button>
+                  <div id="regenerate-buttons" class="d-none">
+                    <div class="d-flex">
+                      <button type="submit" id="regenerate" class="btn btn-warning top-bottom mx-1 d-none">Re-Generar</button>
+                      <button type="button" id="confirm" class="btn btn-success top-bottom mx-1">Confirmar</button>
+                      <button type="button" id="btn_export" class="btn btn-dark top-bottom ml-1">Exportar</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -66,7 +68,7 @@
                             <!-- Options group-client -->
                           </select>
                           <select class="form-control" name="generated-for" id="generated-for" required>
-                            <option value="" disabled selected>Seleccionar grupo cliente</option>
+                            <option disabled selected>Seleccionar grupo cliente</option>
                             <!-- Options generated-for -->
                           </select>
                           <div class="d-none" id="divClientCode">
@@ -82,7 +84,7 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <label for="customer-type">Tipo de Cliente</label>
                         <select class="form-control" name="customer-type" id="customer-type" required>
-                          <option value="" disabled selected>Seleccionar tipo cliente</option>
+                          <option disabled selected>Seleccionar tipo cliente</option>
                           <!-- Options customer-type  -->
                         </select>
                       </div>

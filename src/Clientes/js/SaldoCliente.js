@@ -48,7 +48,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
-                    return "<b>Total</b>"
+                    return "Total"
                 else
                     return params.value
             }
@@ -182,6 +182,11 @@ const gridOptions = {
         }
     ],
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+            return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
