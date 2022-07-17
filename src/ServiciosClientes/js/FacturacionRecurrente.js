@@ -240,38 +240,6 @@ const get_lastSettlement = tkn => {
 
         document.getElementById('interesVenc2').value = interesVenc2
         document.getElementById('interesVenc3').value = interesVenc3
-        
-        const groupClient = document.getElementById('group-client')
-        if ( codigoCliente !== '' ) {
-            // console.log('Existe')
-            visibleInput('clientCode')
-            groupClient.value = 1
-        } else {
-            // console.log('No existe, tenemos grupo cliente')
-            visibleInput('generatedFor')
-            groupClient.value = 2
-            document.getElementById('generated-for').value = grupoClienteId
-        }
-
-        if ( tipoClienteId ) {
-            document.getElementById('customer-type').value = tipoClienteId
-        }
-
-        if ( tipoComprobante ) {
-            document.getElementById('voucher-type').value = tipoComprobante
-        }
-
-        if ( tipoCargoReconexion ) {
-            document.getElementById('reconection-charges').value = tipoCargoReconexion
-        }
-
-        if ( tipoCalculaRecargo ) {
-            document.getElementById('calculate-charges').value = tipoCalculaRecargo
-        }
-
-        if ( vencimiento1 ) {
-            document.getElementById('expiration').value = vencimiento1.split('/').reverse().join('-')
-        }
 
         if ( recargo.detalle ) {
             // console.log( 'Recargo seccion:', recargo.detalle )
@@ -294,6 +262,39 @@ const get_lastSettlement = tkn => {
             const regenerateButtons = document.getElementById('regenerate-buttons')
             generate.classList.add('d-none')
             regenerateButtons.classList.remove('d-none')
+
+            const groupClient = document.getElementById('group-client')
+            if ( codigoCliente !== '' ) {
+                // console.log('Existe')
+                visibleInput('clientCode')
+                groupClient.value = 1
+                get_customerCode( tkn, codigoCliente )
+            } else {
+                // console.log('No existe, tenemos grupo cliente')
+                visibleInput('generatedFor')
+                groupClient.value = 2
+                document.getElementById('generated-for').value = grupoClienteId
+            }
+    
+            if ( tipoClienteId ) {
+                document.getElementById('customer-type').value = tipoClienteId
+            }
+    
+            if ( tipoComprobante ) {
+                document.getElementById('voucher-type').value = tipoComprobante
+            }
+    
+            if ( tipoCargoReconexion ) {
+                document.getElementById('reconection-charges').value = tipoCargoReconexion
+            }
+    
+            if ( tipoCalculaRecargo ) {
+                document.getElementById('calculate-charges').value = tipoCalculaRecargo
+            }
+    
+            if ( vencimiento1 ) {
+                document.getElementById('expiration').value = vencimiento1.split('/').reverse().join('-')
+            }
 
             document.getElementById('number-receipts').innerText = cantComprobantes
             document.getElementById('total-receipts').innerText = `$${format_number(totalComprobantes)}`
@@ -318,7 +319,7 @@ const hiddenConfirmButton = () => {
         confirm.classList.remove('d-none')
     }
 
-    $('#client-code').on('select2:select', function (e) {
+    $('#client-code').on('select2:select', function () {
         confirm.classList.add('d-none')
         regenerate.classList.remove('d-none')
     })
@@ -336,11 +337,6 @@ const hiddenConfirmButton = () => {
             regenerate.classList.remove('d-none')
         }, false)
     }
-}
-
-const tkn = getParameter('tkn')
-if ( tkn ) {
-    get_lastSettlement( tkn )
 }
 
 const post_GenerateButton = (tkn, data) => {
@@ -405,7 +401,6 @@ $form.addEventListener('submit', event => {
         observacion
     }
     // console.table( data )
-    const tkn = getParameter('tkn')
     post_GenerateButton( tkn, data )
 })
 
@@ -436,10 +431,132 @@ document.getElementById("confirm").addEventListener("click", () => {
         numero
     }
     // console.log( data )
-    const tkn = getParameter('tkn')
     post_ConfirmButton( tkn, data )
 })
 
 document.getElementById('update').addEventListener("click", () => {
     get_lastSettlement( tkn )
 })
+
+const get_customerCode = ( tkn, codigoCliente ) => {
+    const url_getCustomers = 'https://www.solucioneserp.net/listados/get_clienes_filtro'
+    fetch( url_getCustomers, {
+        method: 'POST',
+        body: JSON.stringify({"filtro": ""}),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( data => data.json())
+    .then( data => {
+        const customerInfo = data.filter(x => x.codigo === codigoCliente)
+        const {id, codigo, cuit, nombre} = customerInfo[0]
+        const result = {
+            id,
+            codigo,
+            cuit,
+            nombre
+        }
+        get_customers(tkn, result)
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+// Nuevo Listado Clientes
+const get_customers = (tkn, result = false) => {
+    //get config para el combo de clientes
+    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    fetch( url_config_cli , {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        //variable cantidad de caracteres
+        let cant_character_to_search = 0
+        const configs_resp = resp
+        const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, configuracion } = configs_resp
+        //console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
+
+        const config_params = configuracion
+        //const { codigo , valor } = [config_params]
+        for ( const config_ele of config_params ) {
+            // Desestructuracion del objeto element
+            const { codigo, valor } = config_ele
+            if( codigo == 'COMBOTIPOCLIENTES' ) {
+                cant_character_to_search = valor
+            }
+        }   
+
+        let combo_configs = {
+            language: {
+                noResults: function() {
+                    return "No hay resultado"
+                },
+                searching: function() {
+                    return "Buscando.."
+                },
+                inputTooShort: function(){
+                    return "Ingrese 3 caracteres o mas para buscar"
+                }
+            },
+            placeholder: 'Buscar Cliente',
+            ajax: {
+                delay: 500,
+                url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+                headers: {'Authorization' : 'Bearer ' + tkn},
+                type: 'POST',
+                dataType:'json',
+                data: function (params) {
+                    if ( params.term == null ) {
+                        return JSON.stringify('{filtro:""}')
+                    } else {
+                        return {filtro: params.term}
+                    }
+                },
+                processResults: function (data) {
+                    let arr_t = []  
+                    const customers = data
+                    for ( const element of customers ) {
+                        // Desestructuracion del objeto element
+                        const { id, codigo, nombre, cuit } = element
+                        arr_t.push({ id: codigo, text: nombre + ' - ' + codigo + ' - ' + cuit })
+                    }
+                    return {                
+                        //data.items
+                        results: arr_t
+                    }
+                }
+            }
+        }
+
+        if ( cant_character_to_search > 0 ){
+            combo_configs.minimumInputLength = cant_character_to_search
+        }
+        $("#client-code").select2(combo_configs) //fin select
+        //se usa para que al abrir el combo coloque el foco en el text de busqueda
+        $("#client-code").on('select2:open', function (e) {
+            //alert('test')
+            $(".select2-search__field")[0].focus()
+        })
+
+        if ( result ) {
+            // console.log(result)
+            // create the option and append to Select2
+            const text = `${result.nombre} - ${result.codigo} - ${result.cuit}`
+            const option = new Option(text, result.id, true, true)
+            $('#client-code').append(option).trigger('change')
+        }
+    })
+}
+
+const tkn = getParameter('tkn')
+if ( tkn ) {
+    get_customers( tkn )
+    get_lastSettlement( tkn )
+}

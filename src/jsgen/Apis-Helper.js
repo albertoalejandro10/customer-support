@@ -735,3 +735,34 @@ export const get_salesLine = tkn => {
         console.log( err )
     })
 }
+
+// Listado de cuentas por cobrar
+export const get_accounts = tkn => {
+    const url_getAccounts = 'https://www.solucioneserp.net/listados/get_cuentasxcobrar'
+    fetch( url_getAccounts, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const customers = resp
+        for (const element of customers) {
+            const { codigo, nombre } = element
+            // console.log(codigo, nombre)
+
+            const select = document.querySelector('#account')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = codigo
+            option.textContent = nombre
+            
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}

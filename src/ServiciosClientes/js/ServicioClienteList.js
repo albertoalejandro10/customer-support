@@ -1,7 +1,7 @@
-import * as bootstrap from 'bootstrap'
+import { getParameter, format_number } from "../../jsgen/Helper"
 
 // Fetch para imprimir datos del servicio
-const customerPromise = (id, tkn, name) => {
+const customerService = ( id, name, tkn ) => {
     const url_getServices = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_servicios'
     fetch( url_getServices, {
         method: 'POST',
@@ -15,8 +15,7 @@ const customerPromise = (id, tkn, name) => {
     })
     .then( resp => resp.json() )
     .then( ({ Linea }) => {
-
-        // Eliminar filas viejas
+        // Eliminar filas vieja
         const tbody = document.getElementById('tbody')
         const elements = document.getElementsByClassName('delete-row')
         if ( tbody.children.length >= 1) {
@@ -25,6 +24,7 @@ const customerPromise = (id, tkn, name) => {
             importe.textContent = ''
         }
 
+        const importeElement = document.getElementById('importeTotal')
         for (const element of Linea) {
             // Desestructuracion del objeto element
             const { Id, ClienteID, Codigo, Detalle, Cantidad, Importe, Vencimiento, Observacion, Comptipo, Lista, Abono } = element
@@ -36,7 +36,7 @@ const customerPromise = (id, tkn, name) => {
 
             let row_data_1 = document.createElement('td')
             let row_data_1_anchor = document.createElement('a')
-            row_data_1_anchor.href = `/ServiciosClientes/ServicioClientesEdit.html?id=${ClienteID}&idservice=${Id}&name=${name}&codigo=${(Codigo).trim()}&tkn=${tkn}`
+            row_data_1_anchor.href = `/ServiciosClientes/ServicioClientesEdit.html?id=${ClienteID}&idservice=${Id}&name=${name}&codigo=${Codigo.trim()}&tkn=${tkn}`
             row_data_1_anchor.textContent = `${ Codigo }`
             row_data_1.appendChild(row_data_1_anchor)
 
@@ -62,28 +62,11 @@ const customerPromise = (id, tkn, name) => {
 
             // Calcular e imprimir importeTotal
             calcularImporteTotal( Importe )
-            const  style = {
-                minimumFractionDigits: 2,
-                useGrouping: true
-            }
-            const formatter = new Intl.NumberFormat("de-DE", style)
-
-            let importe = document.getElementById('importeTotal')
-            importe.textContent = formatter.format( importeTotal )
+            importeElement.textContent = format_number(importeTotal)
         }
         importeTotal = 0
     })
     .catch( err => console.log( err ))
-}
-
-const format_number = importeNeto => {
-    const  style = {
-        minimumFractionDigits: 2,
-        useGrouping: true
-    }
-    const formatter = new Intl.NumberFormat("de-DE", style)
-    const importe = formatter.format(importeNeto)
-    return importe
 }
 
 // Calcular importe total
@@ -93,36 +76,31 @@ const calcularImporteTotal = importe => {
     return importeTotal
 }
 
-// Conseguir parametros del URL
-const getParameter = parameterName => {
-    let parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
+const activateNewButton = (id, name, tkn) => {
+    const newService = document.getElementById('newServiceButton')
+    newService.disabled = false
+    newService.onclick = () => {
+        let returnURL = window.location.protocol + '//' + window.location.host + `/ServiciosClientes/ServicioClientesEdit.html?id=${id}&name=${name}&tkn=${tkn}`
+        setTimeout(() => location.href = returnURL, 1000)
+    }
 }
 
 const id = getParameter('id')
 const tkn = getParameter('tkn')
-const name = getParameter('name')
 
-const tokenBearer = document.getElementById('tokenBearer')
-tokenBearer.value = tkn
-
-// El usuario selecciona una opcion del combo clientes. Filtrar el id y nombre para enviarlo a service.html
-const selectedInput = document.getElementById('clientes')
-selectedInput.addEventListener('change', event => {
-    // Si el valueSelected esta vacio, retorno.
-    if ( event.currentTarget.options[selectedInput.selectedIndex].value === '') return
-    // Si existe valueSelected, obtengo el valor.
-    const selectedOption = event.currentTarget.options[selectedInput.selectedIndex]
-    const selectedName = (selectedOption.textContent).replaceAll(' ', '+')
-    // console.log( selectedOption.value, getParameter('tkn'), selectedName )
-    customerPromise(selectedOption.value, getParameter('tkn'), selectedName)
-    
-    const customerSelected = document.getElementById('customer')
-    customerSelected.value = (selectedOption.text).replace(' ', '-')
+$('#customer').on('select2:select', function (e) {
+    // console.log( e.params.data )
+    let {id, name, text} = e.params.data
+    name = name.replaceAll(' ', '+')
+    customerService(id, name, tkn)
+    activateNewButton(id, name, tkn)
 })
 
+const nameURL = getParameter('name')
 // Si viene id, name y tkn en la URL, se ejecuta.
-if ( id && tkn && name ) {
-    const parameterName = (name).replaceAll(' ', '+')
-    customerPromise( id, tkn, parameterName )
+if ( id && tkn && nameURL ) {
+    // console.log(id, tkn, parameterName)
+    const parameterName = nameURL.replaceAll(' ', '+')
+    customerService( id, parameterName, tkn )
+    activateNewButton(id, parameterName, tkn)
 }

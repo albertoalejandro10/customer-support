@@ -1,8 +1,6 @@
 import { getParameter } from "../../jsgen/Helper"
-import { get_accounts, get_businessUnits, get_startPeriod } from "../../jsgen/Apis-Helper"
-
-//Nuevo Listado Clientes
-const get_customers = tkn => {
+// Nuevo Listado Clientes
+export const get_customers = tkn => {
     //get config para el combo de clientes
     const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
     fetch( url_config_cli , {
@@ -13,30 +11,30 @@ const get_customers = tkn => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        //variable cantidad de caracteres
-        let cant_character_to_search = 0
-
         const configs_resp = resp
         const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, configuracion } = configs_resp
         //console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
+        
+        // Variable cantidad de caracteres
+        let cant_character_to_search = 0
 
         const config_params = configuracion
         //const { codigo , valor } = [config_params]
         
-        for ( const config_ele of config_params ) {
+        for ( const config_ele of config_params ) {        
             // Desestructuracion del objeto element
-            const { codigo, valor } = config_ele
-            if ( codigo == 'COMBOTIPOCLIENTES' ) {
+            const { codigo, valor } = config_ele   
+            if( codigo == 'COMBOTIPOCLIENTES' ) {
                 cant_character_to_search = valor
             }
-        }
+        }   
 
         let combo_configs = {
             language: {
-                noResults: function() {
+                noResults: function() {    
                     return "No hay resultado"
                 },
-                searching: function() {
+                searching: function() {    
                     return "Buscando.."
                 },
                 inputTooShort: function() {
@@ -58,14 +56,14 @@ const get_customers = tkn => {
                     }
                 },
                 processResults: function (data) {
-                    let arr_t = []
+                    let arr_t = []          
                     const customers = data
                     for ( const element of customers ) {
                         // Desestructuracion del objeto element
                         const { id, codigo, nombre, cuit } = element
-                        arr_t.push({ id: codigo, text: nombre + ' - ' + codigo + ' - ' + cuit })
+                        arr_t.push({ id: id, name: nombre, text: nombre + ' - ' + codigo })
                     }
-                    return {
+                    return {                
                         //data.items
                         results: arr_t
                     }
@@ -77,21 +75,27 @@ const get_customers = tkn => {
             combo_configs.minimumInputLength = cant_character_to_search
         }
 
-        $(".cmb_clientes").select2(combo_configs) //fin select
+        //fin select
+        $(".cmb_clientes").select2(combo_configs)
 
         //se usa para que al abrir el combo coloque el foco en el text de busqueda
         $(".cmb_clientes").on('select2:open', function (e) {
-            //alert('test');
+            //alert('test')
             $(".select2-search__field")[0].focus()
         })
+
+        if ( id && name && tkn ) {
+            // create the option and append to Select2
+            const option = new Option(name, id, true, true)
+            $('.cmb_clientes').append(option).trigger('change')
+        }
     })
 }
 
 // Ejecutar
+const id = getParameter('id')
+const name = getParameter('name')
 const tkn = getParameter('tkn')
 if ( tkn ) {
-    get_accounts( tkn )
     get_customers( tkn )
-    get_businessUnits( tkn )
-    get_startPeriod( tkn )
 }
