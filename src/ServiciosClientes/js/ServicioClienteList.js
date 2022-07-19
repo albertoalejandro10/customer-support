@@ -15,6 +15,11 @@ const customerService = ( id, name, tkn ) => {
     })
     .then( resp => resp.json() )
     .then( ({ Linea }) => {
+        // console.log( Linea )
+        if ( Linea.length === 0 ) {
+            // console.log('Empty')
+            document.getElementById('no-service').classList.remove('d-none')
+        }
         // Eliminar filas vieja
         const tbody = document.getElementById('tbody')
         const elements = document.getElementsByClassName('delete-row')
@@ -65,8 +70,20 @@ const customerService = ( id, name, tkn ) => {
             importeElement.textContent = format_number(importeTotal)
         }
         importeTotal = 0
+
+        Array.from(loader).forEach(element => {
+            // console.log(element.tagName)
+            element.classList.add('d-none')
+        })
     })
-    .catch( err => console.log( err ))
+    .catch( err => {
+        console.log('Error: ', err)
+        Array.from(loader).forEach(element => {
+            // console.log(element.tagName)
+            element.classList.add('d-none')
+        })
+        document.getElementById('no-service').classList.add('d-none')
+    })
 }
 
 // Calcular importe total
@@ -87,8 +104,12 @@ const activateNewButton = (id, name, tkn) => {
 
 const id = getParameter('id')
 const tkn = getParameter('tkn')
-
+const loader = document.getElementsByClassName('loadingx')
 $('#customer').on('select2:select', function (e) {
+    Array.from(loader).forEach(element => {
+        // console.log(element.tagName)
+        element.classList.remove('d-none')
+    })
     // console.log( e.params.data )
     let {id, name, text} = e.params.data
     name = name.replaceAll(' ', '+')

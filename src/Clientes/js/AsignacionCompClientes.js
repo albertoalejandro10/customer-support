@@ -81,9 +81,18 @@ const post_getReceipts = (tkn, data) => {
         // Click sobre checkboxes
         getCheckboxesCredit()
         getCheckboxesDebit()
+
+        Array.from(loader).forEach(element => {
+            // console.log(element.tagName)
+            element.classList.add('d-none')
+        })
     })
     .catch( err => {
         console.log( err )
+        Array.from(loader).forEach(element => {
+            // console.log(element.tagName)
+            element.classList.remove('d-none')
+        })
     })
 }
 
@@ -119,11 +128,22 @@ const printElementTables = ( tbody, tfoot, id, fecha, comprobante, total, pendie
 }
 
 // Boton Actualizar
+const loader = document.getElementsByClassName('loadingx')
+const loaderfoot = document.getElementsByClassName('loading')
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
+    Array.from(loader).forEach(element => {
+        // console.log(element.tagName)
+        element.classList.remove('d-none')
+    })
+
+    Array.from(loaderfoot).forEach(element => {
+        // console.log(element.tagName)
+        element.classList.add('d-none')
+    })
+
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-
     const cuenta = formData.get('account')
     const codCliente = formData.get('customers')
     const unidadNegocio = Number(formData.get('business'))
@@ -318,7 +338,6 @@ document.getElementById("record").addEventListener("click", () => {
         fecha,
         comprobantes
     }
-
     // console.log(data)
     const tkn = getParameter('tkn')
     post_RecordButton( tkn, data )

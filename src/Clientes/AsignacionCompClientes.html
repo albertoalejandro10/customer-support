@@ -84,6 +84,7 @@
                   <div class="col-sm">
                     <h5>Creditos</h5>
                     <table id="credit-table" class="table-striped table-borderless table-hover table-light rounded text-secondary">
+                      <div class="d-none loadingx"></div>
                       <thead>
                         <tr>
                           <th>&nbsp;</th>
@@ -103,6 +104,7 @@
                   <div class="col-sm">
                     <h5>Debitos</h5>
                     <table id="debit-table" class="table-striped table-borderless table-hover table-light rounded text-secondary">
+                      <div class="d-none loadingx"></div>
                       <thead>
                         <tr>
                           <th>&nbsp;</th>
@@ -121,7 +123,7 @@
                 </div>
                 <div class="row">
                   <div class="col-sm">
-                    <div id="credit-tfoot" class="d-none">
+                    <div id="credit-tfoot" class="d-none loading">
                       <div class="d-flex justify-content-end">
                         <label for="total-credit" class="font-weight-bold">Total:</label>
                         <input class="form-control" type="text" name="total-credit" id="total-credit" placeholder="0,00" disabled>
@@ -129,7 +131,7 @@
                     </div>
                   </div>
                   <div class="col-sm">
-                    <div id="debit-tfoot" class="d-none">
+                    <div id="debit-tfoot" class="d-none loading">
                       <div class="d-flex justify-content-end">
                         <label for="total-debit" class="font-weight-bold">Total:</label>
                         <input class="form-control" type="text" name="total-debit" id="total-debit" placeholder="0,00" disabled>
