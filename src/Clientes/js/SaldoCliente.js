@@ -1,4 +1,4 @@
-import { getParameter, format_number } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -18,6 +18,12 @@ const gridOptions = {
         suppressNavigable: true, 
         //minWidth: 100,
     },
+    // No rows and grid loader
+    overlayLoadingTemplate:
+    '<div class="loadingx" style="margin: 7em"></div>',
+    overlayNoRowsTemplate:
+    '<span class="no-rows"> No hay información </span>',
+
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -25,7 +31,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 120,
+            width: 100,
             headerName: "CUIT",
             field: "cuit",
             sortable: true,
@@ -68,7 +74,7 @@ const gridOptions = {
             width: 90,
             headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Prom. Dias Cobros",
+            headerName: "Pro. Dias Cob.",
             field: "promoDiasCobros",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
@@ -81,7 +87,7 @@ const gridOptions = {
             width: 90,
             headerClass: "text-center", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Prom. Dias Valores",
+            headerName: "Pro. Dias Val.",
             field: "promoDiasCobros",
             cellRenderer: function(params) {
                 if (String(params.value)== "null")
@@ -94,7 +100,7 @@ const gridOptions = {
             width: 120,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
-            headerName: "Última venta",
+            headerName: "Últ. venta",
             field: "fecha",
             sortable: true,
             filter: true,
@@ -109,7 +115,7 @@ const gridOptions = {
             width: 120,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
-            headerName: "Último Credito",
+            headerName: "Últ. Credito",
             field: "ultCredito",
             sortable: true,
             filter: true,
@@ -229,6 +235,8 @@ function calculatePinnedBottomData(target){
 }
 
 const get_AccountsBalance = (tkn, data) => {
+    // Mostrar Grid Loader
+    gridOptions.api.showLoadingOverlay()
     const url_getAccountsBalance = 'https://www.solucioneserp.net/reportes/clientes/get_saldo_cuentas_por_cobrar'
     fetch( url_getAccountsBalance , {
         method: 'POST',
@@ -241,19 +249,22 @@ const get_AccountsBalance = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ linea }) => {
         // console.log( linea )
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({
-            add: linea            
-          })
+            add: linea
+        })
         
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
 
+        if ( Object.keys( linea ).length === 0 ) {
+            // console.log( 'Is empty')
+            gridOptions.api.setPinnedBottomRowData([])
+            gridOptions.api.showNoRowsOverlay()
+        }
     })
     .catch( err => {
         console.log( err )

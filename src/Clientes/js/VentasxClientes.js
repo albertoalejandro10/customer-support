@@ -10,8 +10,8 @@ btn_export.onclick = function() {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -163,7 +163,7 @@ function generatePinnedBottomData () {
     return calculatePinnedBottomData(result)
 }
 
-function calculatePinnedBottomData (target){
+function calculatePinnedBottomData (target) {
     // console.log(target)
     //**list of columns fo aggregation**
     let columnsWithAggregation = ['cantidad', 'precio', 'precioF']

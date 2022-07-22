@@ -10,8 +10,8 @@ btn_export.onclick = function() {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -49,7 +49,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
-                    return "Subtotal"
+                    return "Totales"
                 else
                     return params.value
             }
@@ -185,11 +185,18 @@ function calculatePinnedBottomData (target){
         }
 
     })
+
+    // Calcular campo «costo»
+    const { entrada, salida } = target
+    const costo = Number(entrada) - Number(salida)
+    target.costo = `${costo}.00`
+    
     // console.log(target)
     return target
 }
 
 const get_productMovements = (tkn, data) => {
+    // Mostrar Loader
     gridOptions.api.showLoadingOverlay()
 
     const url_getProductMovements = 'https://www.solucioneserp.net/inventario/reportes/get_movimiento_productos'
@@ -209,50 +216,22 @@ const get_productMovements = (tkn, data) => {
         gridOptions.api.setRowData([])
         gridOptions.api.setPinnedBottomRowData([])
 
-        gridOptions.api.applyTransaction({ 
+        gridOptions.api.applyTransaction({
             add: resp
         })
 
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
+        
         if ( resp.length === 0 ) {
             // console.log( 'Is empty')
+            gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
-        } else {
-            const bothRows = []
-            const subtotalRow = generatePinnedBottomData()
-            bothRows.push(subtotalRow)
-            const { entrada, salida } = subtotalRow
-
-            if ( ! ( entrada === null || salida === null ) ) {
-                // console.log('Ok total')
-                const totalRow = calculateLastRow(entrada, salida)
-                bothRows.push(totalRow)
-            }
-
-            gridOptions.api.setPinnedBottomRowData(bothRows)
-            gridOptions.api.hideOverlay()
         }
     })
     .catch( err => {
         console.log( err )
     })
-}
-
-const calculateLastRow = (entrada = 0, salida = 0) => {
-    entrada = Number(reverseFormatNumber(entrada, 'de'))
-    salida  = Number(reverseFormatNumber(salida, 'de'))
-    let total = entrada - salida
-    total = String(total).slice(0, -2)
-    const obj = {
-        comprobante: "Total",
-        costo: null,
-        detalle: null,
-        entrada: null,
-        fecha: null,
-        precio: null,
-        precioF: null,
-        salida: total
-    }
-    return obj
 }
 
 const $form = document.getElementById('form')

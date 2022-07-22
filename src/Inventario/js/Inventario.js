@@ -21,14 +21,21 @@ btn_export.onclick = () => {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
         suppressNavigable: true, 
         //minWidth: 100,                      
     },
+
+    // No rows and grid loader
+    overlayLoadingTemplate:
+    '<div class="loadingx" style="margin: 7em"></div>',
+    overlayNoRowsTemplate:
+    '<span class="no-rows"> No hay información </span>',
+
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -176,6 +183,8 @@ function calculatePinnedBottomData(target){
 }
 
 const post_getDeposits = (tkn, data) => {
+    // Mostrar loader
+    gridOptions.api.showLoadingOverlay()
     const url_getDeposits = 'https://www.solucioneserp.net/inventario/reportes/get_inventario'
     fetch( url_getDeposits , {
         method: 'POST',
@@ -188,18 +197,21 @@ const post_getDeposits = (tkn, data) => {
     .then( resp => resp.json() )
     .then( resp => {
         // console.log( resp )
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({
             add: resp
         })
-
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
+
+        // No rows loader
+        if ( resp.length === 0 ) {
+            // console.log( 'Is empty')
+            gridOptions.api.showNoRowsOverlay()
+        }
     })
     .catch( err => {
         console.log( err )

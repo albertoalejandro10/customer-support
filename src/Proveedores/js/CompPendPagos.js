@@ -24,8 +24,8 @@ checkboxExpiration.addEventListener('change', event => {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -46,7 +46,7 @@ const gridOptions = {
     columnDefs: [
         {
             width: 85, 
-            headerName: "Vencimiento",
+            headerName: "Venc.",
             field: "vencimiento",
             sortable: true,
             filter: true,
@@ -108,11 +108,11 @@ const gridOptions = {
             }
         },
         { 
-            flex: 2,
+            flex: 1,
             field: "observacion",
             headerName: "Observaciones",
             sortable: true,
-            filter: true
+            filter: true,
         },
         {
             width: 30,
@@ -122,11 +122,11 @@ const gridOptions = {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
             }
         },
         {
-            width: 115,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "moneda",
@@ -140,7 +140,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "neto",
@@ -154,7 +154,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "total",
@@ -168,7 +168,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "pendiente",
@@ -280,12 +280,12 @@ $form.addEventListener('submit', event => {
     const fechaHasta      = formData.get('periodEnd').split('-').reverse().join('/')
     const monedaId        = Number(formData.get('coin'))
     const estado          = formData.get('status')
-    const proveedor       = $(".cmb_proveedor").val()
+    const proveedor       = formData.get('supplier') === null ? '0' : formData.get('supplier')
 
     // Operador ternario
-    const habilitaFechaVencimiento = (formData.get('expirationCheckbox') === 'on') ? 1 : 0
-    const fechaVencimiento         = (formData.get('expiration') === null) ? '' : formData.get('expiration').split('-').reverse().join('/')
-    const conDetVencimiento        = (formData.get('with-expiration') === 'on') ? 1 : 0
+    const habilitaFechaVencimiento = formData.get('expirationCheckbox') === 'on' ? 1 : 0
+    const fechaVencimiento         = formData.get('expiration') === null ? '' : formData.get('expiration').split('-').reverse().join('/')
+    const conDetVencimiento        = formData.get('with-expiration') === 'on' ? 1 : 0
 
     const data = {
         idUnidadNegocio,
@@ -299,7 +299,7 @@ $form.addEventListener('submit', event => {
         conDetVencimiento
     }
 
-    // console.table( data )
+    console.table( data )
     const tkn = getParameter('tkn')
     get_PendingCharges( tkn, data )
 })

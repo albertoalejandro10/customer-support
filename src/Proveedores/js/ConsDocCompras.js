@@ -10,8 +10,8 @@ btn_export.onclick = function() {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -31,7 +31,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85,
+            width: 70,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -111,11 +111,10 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
+            width: 60,
             field: "numeroInterno",
+            headerName: "Nro. Int",
             cellClass: 'ag-right-aligned-cell',
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -124,10 +123,8 @@ const gridOptions = {
             }
         },
         { 
-            width: 110,
+            width: 80,
             field: "ejercicio",
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -136,7 +133,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 70,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "neto",
@@ -150,7 +147,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 60,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "iva",
@@ -193,7 +190,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 80,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "importe",

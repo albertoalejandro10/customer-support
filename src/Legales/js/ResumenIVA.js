@@ -4,8 +4,8 @@ import { ag_grid_locale_es, filterChangedd } from "../../jsgen/Grid-Helper"
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 25,
+    rowHeight: 22,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -37,7 +37,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 80,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "porcIva",
@@ -52,7 +52,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "neto",
@@ -124,7 +124,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "impuest2",
@@ -139,7 +139,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "total",
@@ -160,10 +160,7 @@ const gridOptions = {
         }
     },
 }
-
 const gridOptions2 = {...gridOptions}
-// console.log('GridOptions1: ', gridOptions)
-// console.log('GridOptions2: ', gridOptions2)
 
 document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid')
@@ -173,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid").height(100)
     } else {
-        $("#myGrid").height(parseInt($(window).height()) - 450)
+        $("#myGrid").height(parseInt($(window).height()) - 455)
     }
 
     const gridDiv2 = document.querySelector('#myGrid-purchased')
@@ -181,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid-purchased").height(100)
     } else {
-        $("#myGrid-purchased").height(parseInt($(window).height()) - 450)
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 455)
     }
 })
 

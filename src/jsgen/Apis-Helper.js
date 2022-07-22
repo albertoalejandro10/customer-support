@@ -196,7 +196,7 @@ export const get_suppliers = tkn => {
         for ( const config_ele of config_params ) {
             // Desestructuracion del objeto element
             const { codigo, valor } = config_ele
-            if ( codigo=='COMBOTIPOCLIENTES' ) {
+            if ( codigo == 'COMBOTIPOCLIENTES' ) {
                 cant_character_to_search = valor
             }
         }
