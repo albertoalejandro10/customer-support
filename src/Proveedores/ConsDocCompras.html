@@ -3,24 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet" href="./ConsDocCompras.scss">
-    
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript">     
-  
-      $(window).unbind("resize")
-  
-      $(window).resize(function () {          
-
-          if ((parseInt($(window).height()) - 300) < 200)
-              $("#myGrid").height(100)
-          else
-              $("#myGrid").height(parseInt($(window).height()) - 340)
-          //$(".grid").width('100%')
-      })
+    <script type="text/javascript">
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 340)
+      //$(".grid").width('100%')
+    })
   </script>
   </head>
   <body>
@@ -53,8 +47,7 @@
                     <div class="d-flex mb-2">
                       <label class="text-nowrap" for="number-seats">Nº Asiento:</label>
                       <input class="form-control" type="text" name="number-seats" id="number-seats">
-                    </div> 
-
+                    </div>
                   </div>
                 
                   <div class="col-sm">
