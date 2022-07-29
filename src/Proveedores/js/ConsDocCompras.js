@@ -90,18 +90,18 @@ const gridOptions = {
         },
         {
             width: 30, 
-            field: "linkComprobante",
+            field: "linkAsiento",
             headerName: "",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder-closed"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-file-lines"></i></a>'
             }
         },
         {
             width: 30, 
-            field: "linkAsiento",
+            field: "linkAdjuntos",
             headerName: "",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")

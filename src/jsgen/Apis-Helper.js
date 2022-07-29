@@ -378,8 +378,8 @@ export const get_coins = tkn => {
     .then( resp => {
         const coins = resp
         for (const element of coins) {
-            const { id, nombre, orden } = element  
-            // console.log( id, nombre, orden ) 
+            const { id, nombre, orden } = element
+            // console.log( id, nombre, orden )
             
             const select = document.querySelector('#coin')
             let option = document.createElement("option")
@@ -391,7 +391,7 @@ export const get_coins = tkn => {
         }
     })
     .catch( err => {
-        console.log( err )
+        console.log( 'Error coin:', err )
     })
 }
 

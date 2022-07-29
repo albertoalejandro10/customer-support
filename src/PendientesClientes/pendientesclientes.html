@@ -3,27 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet" href="./comprobantescobro.scss">
-    
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <script type="text/javascript">     
-  
-      $(window).unbind("resize");
-  
-      $(window).resize(function () {          
-
-          if ((parseInt($(window).height()) - 300) < 200)
-              $("#myGrid").height(100);
-          else
-              $("#myGrid").height(parseInt($(window).height()) - 340);
-          //$(".grid").width('100%');
-      });
+    <script type="text/javascript">
+      $(window).unbind("resize")
+      $(window).resize(function () {
+        if ((parseInt($(window).height()) - 300) < 200)
+          $("#myGrid").height(100)
+        else
+          $("#myGrid").height(parseInt($(window).height()) - 340)
+        //$(".grid").width('100%')
+      })
   </script>
   </head>
   <body>
@@ -41,7 +34,6 @@
                 <div class="row">
   
                   <div class="col-sm">
-  
                     <div class="d-flex mt-1 mb-2">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select id="business" name="business" class="form-control">
@@ -71,7 +63,7 @@
   
                     <div class="d-flex mb-2">
                       <label for="customers">Cliente:</label>
-                      <select class="cmb_clientes" style="width:100%;">
+                      <select class="cmb_clientes" name="customers" style="width:100%;">
                       </select>
                     </div>
                   </div>
@@ -84,12 +76,12 @@
                     </div>
   
                     <div class="d-flex mb-2">
-                      <label for="coins">Moneda:</label>
-                      <select id="coins" name="coin" class="form-control">
+                      <label for="coin">Moneda:</label>
+                      <select id="coin" name="coin" class="form-control">
                         <!-- Options Coins -->
                       </select>
                     </div>
-  
+                      
                     <div class="d-flex mb-2 justify-content-end buttons">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
@@ -111,8 +103,7 @@
             </div>
           </div>
           <!-- Form - Lower -->
-          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
-          </div>
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
         </div>
       </div>
     </div>

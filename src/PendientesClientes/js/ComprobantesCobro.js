@@ -22,7 +22,6 @@ checkboxExpiration.addEventListener('change', event => {
 })
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 35,
     rowHeight: 30,
@@ -106,12 +105,23 @@ const gridOptions = {
         {
             width: 30,
             headerName: "",
+            field: "linkAsiento",
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-file-lines"></i></a>'
+            }
+        },
+        {
+            width: 30,
+            headerName: "",
             field: "linkAdjuntos",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
             }
         },
         {
@@ -192,6 +202,7 @@ function calculatePinnedBottomData(target){
 }
 
 const get_PendingCharges = (tkn, data) => {
+    // Show Loader Grilla
     gridOptions.api.showLoadingOverlay()
 
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
@@ -206,16 +217,13 @@ const get_PendingCharges = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ linea }) => {
 
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({ 
             add: linea
-        })
-        
+        })        
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         
@@ -229,6 +237,8 @@ const get_PendingCharges = (tkn, data) => {
     })
     .catch( err => {
         console.log( err )
+        gridOptions.api.setPinnedBottomRowData([])
+        gridOptions.api.showNoRowsOverlay()
     })
 }
 
@@ -237,42 +247,29 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const business = Number(formData.get('business'))
-    const periodStart = formData.get('periodStart').split('-').reverse().join('/')
-    const periodEnd = formData.get('periodEnd').split('-').reverse().join('/')
-    const expirationCheckbox = formData.get('expirationCheckbox')
-    const expiration = get_expirationDate(formData.get('expiration'))
-    const status = formData.get('status')
-    const customer = $(".cmb_clientes").val()//formData.get('customer')
-    const coin = formData.get('coin')
-    if (formData.get('platform')=="on")
-        var platform = 1
-    else
-        var platform = 0
+    const idUnidadNegocio = Number(formData.get('business'))
+    const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
+    const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
+    const cuentaEstado = formData.get('status')
+    const idMoneda = Number(formData.get('coin'))
 
+    const hastaFechaVencimiento = formData.get('expirationCheckbox') === 'on' ? 1 : 0
+    const fechaVencimiento = formData.get('expiration') === null ? '' : formData.get('expiration').split('-').reverse().join('/')
+    const codigoCliente = formData.get('customers') === null ? '' : formData.get('customers')
+    const incluirProformas = formData.get('platform') === 'on' ? 1 : 0
+    
     const data = {
-        "idUnidadNegocio": business,
-        "fechaDesde": periodStart,
-        "fechaHasta": periodEnd,
-        "hastaFechaVencimiento": 0,
-        "fechaVencimiento": expiration,
-        "cuentaEstado": status,
-        "codigoCliente": customer,
-        "idMoneda": coin,
-        "incluirProformas": platform,
-        "incluirRemitos": 0
+        idUnidadNegocio,
+        fechaDesde,
+        fechaHasta,
+        hastaFechaVencimiento,
+        fechaVencimiento,
+        cuentaEstado,
+        codigoCliente,
+        idMoneda,
+        incluirProformas
     }
-
+    // console.table( data )
     const tkn = getParameter('tkn')
     get_PendingCharges( tkn, data )
 })
-
-const get_expirationDate = expirationValue => {
-    let expiration
-    if ( expirationValue ) {
-        expiration = expirationValue.split('-').reverse().join('/')
-    } else {
-        expiration = ""
-    }
-    return expiration
-}

@@ -69,17 +69,6 @@ const gridOptions = {
                 comparator: comparafecha
             }
         },
-        {   
-            width: 30, 
-            field: "linkComprobante",
-            headerName: "",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
-            }
-        },
         {
             width: 145,
             field: "comprobante",
@@ -122,7 +111,7 @@ const gridOptions = {
                 if (String(params.value) == "null")
                     return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-folder"></i></a>'
+                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
             }
         },
         {
