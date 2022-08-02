@@ -199,7 +199,7 @@ function generatePinnedBottomData(){
     return calculatePinnedBottomData(result)
 }
 
-function calculatePinnedBottomData(target){
+function calculatePinnedBottomData(target) {
     //console.log(target)
     //**list of columns fo aggregation**
 
@@ -233,13 +233,10 @@ const get_PendingCharges = (tkn, data) => {
     .then( resp => resp.json() )
     .then( resp => {
         // console.log( resp )
-
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({ 
             add: resp
         })
@@ -248,7 +245,6 @@ const get_PendingCharges = (tkn, data) => {
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         
         gridOptions.api.hideOverlay()
-
         if ( Object.keys( resp ).length === 0 ) {
             // console.log( 'Is empty')
             gridOptions.api.showNoRowsOverlay()
@@ -287,8 +283,7 @@ $form.addEventListener('submit', event => {
         proveedor,
         conDetVencimiento
     }
-
-    console.table( data )
+    // console.log( data )
     const tkn = getParameter('tkn')
     get_PendingCharges( tkn, data )
 })

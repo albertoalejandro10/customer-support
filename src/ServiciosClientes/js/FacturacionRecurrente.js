@@ -1,4 +1,4 @@
-import { getParameter, format_number } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -10,8 +10,8 @@ btn_export.onclick = function() {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -43,25 +43,25 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return "Totales"
                 else
-                    if (params.value=='Saldo Inicial')
+                    if (params.value == 'Saldo Inicial')
                         return params.value
                     else
-                        return '<a href="" onclick="window.open(\'' + params.data.linkComprobante + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                        return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
             }
         },
-        { 
-            flex: 1, headerName: "Cliente",
-            field: "nombre",
+        {
+            flex: 1,
+            field: "cliente",
             sortable: true,
-            filter: true ,
+            filter: true,
             cellRenderer: function(params) {
-                if (String(params.data)=="null")
+                if (String(params.data) == "null")
                     return ''
                 else
-                    return params.data.cliente
+                    return params.value
             }
         },
         {
@@ -72,7 +72,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -87,7 +87,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -101,7 +101,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -174,16 +174,13 @@ const get_recurringBilling = tkn => {
             return element
         })
 
-        // clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
         // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({
             add: comprobantes
-          })
-        
+        })
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])      
 
@@ -356,7 +353,6 @@ const post_GenerateButton = (tkn, data) => {
         if ( mensaje === 'Liquidación no generada, no existen comprobantes') return
         const generate = document.getElementById('generate')
         const regenerateButtons = document.getElementById('regenerate-buttons')
-
         generate.classList.add('d-none')
         regenerateButtons.classList.remove('d-none')
         get_lastSettlement( tkn )

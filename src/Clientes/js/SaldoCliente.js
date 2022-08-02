@@ -297,7 +297,6 @@ $form.addEventListener('submit', event => {
         orden,
         saldoCero
     }
-
     // console.table( data )
     const tkn = getParameter('tkn')
     get_AccountsBalance( tkn, data )
