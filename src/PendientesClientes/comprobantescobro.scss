@@ -63,19 +63,46 @@ h4 {
     font-weight: 400;
 }
 
+.select2-container {
+    min-width: 150px !important;
+    max-width: 540px !important;
+}
+
+/* Using SCSS variables to store breakpoints */
+$breakpoint-extra-large-screen: 1700px;
+@media (min-width: $breakpoint-extra-large-screen) {
+    .select2-container {
+        max-width: 508px !important;
+    }
+
+    .w-xl-80 {
+        width: 70% !important;
+    }
+}
+
+select {
+    min-width: 150px;
+    max-width: 300px;
+}
+
+input[type="date"] {
+    min-width: 150px;
+    max-width: 250px;
+}
+
 label {
     margin-bottom: 0px;
 
     &[for="business"] {
-        margin-right: 21px;
+        margin-right: 4px;
     }
 
     &[for="status"] {
-        margin-right: 68px;
+        margin-right: 51px;
     }
 
     &[for="platform"] {
-        margin-right: 4px;
+        margin-right: 18px;
     }
 
     &[for="periodStart"] {
@@ -83,7 +110,7 @@ label {
     }
 
     &[for="coin"] {
-        margin-right: 70px;
+        margin-right: 41px;
     }
 
     &[for="customers"] {
@@ -112,10 +139,6 @@ input[type="checkbox"] {
 
 .col-sm .d-flex {
     align-items: center;
-}
-
-#expiration {
-    width: 100%;
 }
 
 .row {

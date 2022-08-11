@@ -71,6 +71,7 @@ const gridOptions = {
         {
             width: 145,
             field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -87,6 +88,7 @@ const gridOptions = {
             flex: 1,
             headerName: "Cliente",
             field: "nombre",
+            tooltipField: 'nombre',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -99,6 +101,7 @@ const gridOptions = {
         { 
             flex: 2,
             field: "observacion",
+            tooltipField: 'observacion',
             sortable: true,
             filter: true
         },
