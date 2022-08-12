@@ -75,8 +75,8 @@ $breakpoint-extra-large-screen: 1700px;
         max-width: 508px !important;
     }
 
-    .w-xl-80 {
-        width: 70% !important;
+    .w-xl-65 {
+        width: 65% !important;
     }
 }
 
@@ -102,7 +102,7 @@ label {
     }
 
     &[for="platform"] {
-        margin-right: 18px;
+        margin-right: 16px;
     }
 
     &[for="periodStart"] {

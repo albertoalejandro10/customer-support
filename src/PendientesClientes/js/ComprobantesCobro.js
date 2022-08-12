@@ -99,7 +99,7 @@ const gridOptions = {
             }
         },
         { 
-            flex: 2,
+            flex: 1,
             field: "observacion",
             tooltipField: 'observacion',
             sortable: true,
