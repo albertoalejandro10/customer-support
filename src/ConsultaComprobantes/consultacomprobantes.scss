@@ -103,11 +103,42 @@ label {
     }
 }
 
+/* Using SCSS variables to store breakpoints */
+$breakpoint-large-screen: 1300px;
+@media (min-width: $breakpoint-large-screen) {
+    .w-xl-65 {
+        width: 65% !important;
+    }
+}
+
+/* Using SCSS variables to store breakpoints */
+$breakpoint-extra-large-screen: 2000px;
+@media (min-width: $breakpoint-extra-large-screen) {
+    .w-xxxl-55 {
+        width: 55% !important;
+    }
+}
+
+select,
+input[type="text"] {
+    min-width: 120px;
+    max-width: 290px;
+}
+
+input[type="date"] {
+    min-width: 90px;
+    max-width: 142px;
+}
+
 #sale-point {
-    width: 120px;
+    min-width: initial;
+    max-width: initial;
+    width: 50px;
 }
 
 #letter {
+    min-width: initial;
+    max-width: initial;
     width: 40px;
 }
 

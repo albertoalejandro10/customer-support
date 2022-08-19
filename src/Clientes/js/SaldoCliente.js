@@ -10,14 +10,18 @@ btn_export.onclick = function() {
 const localeText = ag_grid_locale_es
 
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
-        suppressNavigable: true, 
+        suppressNavigable: true,
+        wrapHeaderText: true,
+        autoHeaderHeight: true,
         //minWidth: 100,
     },
+    // Tooltip Delayer (1seg)
+    tooltipShowDelay: 1000,
     // No rows and grid loader
     overlayLoadingTemplate:
     '<div class="loadingx" style="margin: 7em"></div>',
@@ -34,13 +38,14 @@ const gridOptions = {
             width: 100,
             headerName: "CUIT",
             field: "cuit",
+            tooltipField: 'cuit',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return ""
                 else
-                    if (params.value=='Saldo Inicial')
+                    if (params.value == 'Saldo Inicial')
                         return params.value
                     else
                         return '<a href="" onclick="window.open(\'' + params.data.cuit + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
@@ -48,13 +53,15 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 100,
             headerName: "Cliente",
             field: "nombre",
+            tooltipField: 'nombre',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
-                    return "Total"
+                if (String(params.value) == "null")
+                    return "Totales"
                 else
                     return params.value
             }
@@ -63,6 +70,7 @@ const gridOptions = {
             width: 110,
             headerName: "Teléfono",
             field: "telefono",
+            tooltipField: 'telefono',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ''
@@ -71,11 +79,12 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 80,
             headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Pro. Dias Cob.",
+            headerName: "Promo Dias Cobros",
             field: "promoDiasCobros",
+            tooltipField: 'promoDiasCobros',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ''
@@ -84,20 +93,21 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
-            headerClass: "text-center", 
+            width: 80,
+            headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Pro. Dias Val.",
-            field: "promoDiasCobros",
+            headerName: "Promo Dias Valores",
+            field: "promoDiasValores",
+            tooltipField: 'promoDiasValores',           
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return ''
                 else
                     return params.value
             }
         },
         {
-            width: 120,
+            width: 110,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
             headerName: "Últ. venta",
@@ -112,7 +122,7 @@ const gridOptions = {
             }   
         },
         {
-            width: 120,
+            width: 110,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
             headerName: "Últ. Credito",

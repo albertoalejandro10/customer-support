@@ -1,4 +1,5 @@
 @import "../../scss/custom-variables";
+@import "../../scss/loader";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 :root {
     --font-family-sans-serif: "Poppins", sans-serif;
@@ -66,15 +67,26 @@ h4 {
 
 label {
     margin-bottom: 0px;
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 #check {
-    margin-right: 8px;
+    margin-right: 4px;
+}
+
+select {
+    min-width: 100px;
+    max-width: 200px;
+}
+
+input[type="date"] {
+    min-width: 140px;
+    max-width: 200px;
 }
 
 input[type="checkbox"] {
     accent-color: #60C1DD;
+    margin-top: 2px;
     cursor: pointer;
 }
 

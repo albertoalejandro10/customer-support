@@ -31,6 +31,8 @@ const gridOptions = {
         suppressNavigable: true, 
         //minWidth: 100,                      
     },
+    // Tooltip delayer (1seg)
+    tooltipShowDelay: 1000,
     // No rows and grid loader
     overlayLoadingTemplate:
     '<div class="loadingx" style="margin: 7em"></div>',

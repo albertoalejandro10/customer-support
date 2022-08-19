@@ -106,5 +106,5 @@ if ( tkn ) {
 
 const today = new Date().toLocaleDateString('en-GB')
 const date = today.split('/').reverse().join('-')
-const dateElement = document.getElementById('modified')
+const dateElement = document.getElementById('to-date')
 dateElement.value = date

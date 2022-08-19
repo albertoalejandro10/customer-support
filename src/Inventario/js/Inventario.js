@@ -46,6 +46,7 @@ const gridOptions = {
             width: 120,
             headerName: "Código",
             field: "codigo",
+            tooltipField: 'codigo',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -59,6 +60,7 @@ const gridOptions = {
             flex: 1,
             headerName: "Detalle",
             field: "detalle",
+            tooltipField: 'detalle',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -77,6 +79,7 @@ const gridOptions = {
             cellClass: 'ag-right-aligned-cell',
             headerName: "Stock",
             field: "stock",
+            tooltipField: 'stock',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -92,6 +95,7 @@ const gridOptions = {
             cellClass: 'ag-right-aligned-cell',
             headerName: "Unidad",
             field: "unidad",
+            tooltipField: 'unidad',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -107,6 +111,7 @@ const gridOptions = {
             cellClass: 'ag-right-aligned-cell',
             headerName: "Stk. Valuado",
             field: "stockValuado",
+            tooltipField: 'stockValuado',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -122,6 +127,7 @@ const gridOptions = {
             cellClass: 'ag-right-aligned-cell',
             headerName: "Deposito",
             field: "deposito",
+            tooltipField: 'deposito',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {

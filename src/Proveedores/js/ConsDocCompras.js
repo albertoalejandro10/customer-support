@@ -15,7 +15,9 @@ const gridOptions = {
     defaultColDef: {
         editable: false,
         resizable: true,  
-        suppressNavigable: true, 
+        suppressNavigable: true,
+        wrapHeaderText: true,
+        autoHeaderHeight: true,
         //minWidth: 100,                      
     },
     // No rows and grid loader
@@ -33,6 +35,7 @@ const gridOptions = {
         {
             width: 70,
             field: "fecha",
+            tooltipField: 'fecha',
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -46,6 +49,7 @@ const gridOptions = {
             width: 100,
             headerName: 'Contabilizado',
             field: "fechaContable",
+            tooltipField: 'fechaContable',
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -56,7 +60,7 @@ const gridOptions = {
             },
             cellRenderer: function(params) {
                 if ( String(params.value) == "null" )
-                    return "TOTALES"
+                    return "Totales"
                 else
                     if (String(params.value) == 'null')
                         return ''
@@ -67,6 +71,7 @@ const gridOptions = {
         {
             width: 120,
             field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -78,7 +83,9 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 100,
             field: "proveedor",
+            tooltipField: 'proveedor',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -113,7 +120,8 @@ const gridOptions = {
         {
             width: 60,
             field: "numeroInterno",
-            headerName: "Nro. Int",
+            tooltipField: 'numeroInterno',
+            headerName: "Número Interno",
             cellClass: 'ag-right-aligned-cell',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
@@ -125,6 +133,7 @@ const gridOptions = {
         { 
             width: 80,
             field: "ejercicio",
+            tooltipField: 'ejercicio',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -133,7 +142,7 @@ const gridOptions = {
             }
         },
         {
-            width: 70,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "neto",
@@ -147,7 +156,7 @@ const gridOptions = {
             }
         },
         {
-            width: 60,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "iva",
@@ -176,7 +185,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "noGravado",
@@ -190,7 +199,7 @@ const gridOptions = {
             }
         },
         {
-            width: 80,
+            width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "importe",

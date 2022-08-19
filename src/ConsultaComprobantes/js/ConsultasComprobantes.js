@@ -18,6 +18,8 @@ const gridOptions = {
         suppressNavigable: true, 
         //minWidth: 100,
     },
+    // Tooltip delayer (1seg)
+    tooltipShowDelay: 1000,
     // No rows and grid loader
     overlayLoadingTemplate:
     '<div class="loadingx" style="margin: 7em"></div>',
@@ -31,7 +33,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85,
+            width: 80,
             headerName: "Fecha",
             field: "fecha",
             sortable: true,
@@ -45,7 +47,8 @@ const gridOptions = {
         },
         {
             width: 145, 
-            field: "comprobante", 
+            field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -60,8 +63,10 @@ const gridOptions = {
         },
         { 
             flex: 1,
+            minWidth: 80,
             headerName: "Cliente",
             field: "cliente",
+            tooltipField: 'cliente',
             sortable: true,
             filter: true ,
             cellRenderer: function(params) {
@@ -105,8 +110,9 @@ const gridOptions = {
             }
         },
         {
-            width: 130,
-            field: "Ejercicio", 
+            width: 80,
+            field: "Ejercicio",
+            tooltipField: 'Ejercicio',
             cellRenderer: function(params) {
                 if (String(params.data)=="null")
                     return ''
@@ -115,7 +121,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100, 
+            width: 100,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "neto", 
@@ -129,7 +135,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100, 
+            width: 90, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "iva", 
@@ -142,7 +148,7 @@ const gridOptions = {
                     return format_number(params.value)
             }
         },
-        {   
+        {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
@@ -157,7 +163,7 @@ const gridOptions = {
             }
         },
         {   
-            width: 100, 
+            width: 100,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'ag-right-aligned-cell',
             field: "importe",

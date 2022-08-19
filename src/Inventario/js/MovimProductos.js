@@ -198,7 +198,6 @@ function calculatePinnedBottomData (target){
 const get_productMovements = (tkn, data) => {
     // Mostrar Loader
     gridOptions.api.showLoadingOverlay()
-
     const url_getProductMovements = 'https://www.solucioneserp.net/inventario/reportes/get_movimiento_productos'
     fetch( url_getProductMovements , {
         method: 'POST',
