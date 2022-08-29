@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 230)
+        $("#myGrid").height(parseInt($(window).height()) - 245)
 })
 
 const post_getPriceList = (tkn, data) => {
