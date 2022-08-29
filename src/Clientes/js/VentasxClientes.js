@@ -43,8 +43,11 @@ const gridOptions = {
             }
         },
         {
-            width: 145,
+            flex: 1,
+            minWidth: 110,
+            maxWidth: 140,
             field: "Comprobante",
+            tooltipField: 'Comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -56,7 +59,9 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 120,
             field: "cliente",
+            tooltipField: 'cliente',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -67,8 +72,11 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            flex: 1,
+            minWidth: 80,
+            maxWidth: 120,
             field: "Sucursal",
+            tooltipField: 'Sucursal',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -80,7 +88,9 @@ const gridOptions = {
         },
         {
             flex: 2,
+            minWidth: 120,
             field: "detalle",
+            tooltipField: 'detalle',
             headerName: "Producto",
             sortable: true,
             filter: true,

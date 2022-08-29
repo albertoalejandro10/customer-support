@@ -82,7 +82,7 @@ const gridOptions = {
             width: 80,
             headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Promo Dias Cobros",
+            headerName: "Promo Días Cobros",
             field: "promoDiasCobros",
             tooltipField: 'promoDiasCobros',
             cellRenderer: function(params) {
@@ -96,7 +96,7 @@ const gridOptions = {
             width: 80,
             headerClass: "text-center",
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Promo Dias Valores",
+            headerName: "Promo Días Valores",
             field: "promoDiasValores",
             tooltipField: 'promoDiasValores',           
             cellRenderer: function(params) {
@@ -107,10 +107,11 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
+            minWidth: 90,
+            maxWidth: 100,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
-            headerName: "Últ. venta",
+            headerName: "Última venta",
             field: "fecha",
             sortable: true,
             filter: true,
@@ -122,10 +123,12 @@ const gridOptions = {
             }   
         },
         {
-            width: 110,
+            flex: 1,
+            minWidth: 90,
+            maxWidth: 120,
             headerClass: "text-center",
             cellClass: 'ag-center-aligned-cell',
-            headerName: "Últ. Credito",
+            headerName: "Último Credito",
             field: "ultCredito",
             sortable: true,
             filter: true,
@@ -137,13 +140,13 @@ const gridOptions = {
             }   
         },
         {
-            width: 100,
-            headerClass: "ag-right-aligned-header", 
+            flex: 1,
+            minWidth: 60,
+            maxWidth: 100,
+            headerClass: "text-center", 
             cellClass: 'ag-right-aligned-cell',
-            headerName: "Cred. Cheques",
+            headerName: "Créditos Cheques",
             field: "creditoCheches",
-            sortable: true,
-            filter: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ''

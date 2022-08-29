@@ -8,7 +8,6 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 30,
     rowHeight: 25,
@@ -23,7 +22,6 @@ const gridOptions = {
     '<div class="loadingx" style="margin: 7em"></div>',
     overlayNoRowsTemplate:
     '<span class="no-rows"> No hay información </span>',
-
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -45,6 +43,7 @@ const gridOptions = {
         {
             width: 145,
             field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -57,6 +56,8 @@ const gridOptions = {
         {
             flex: 1,
             field: "detalle",
+            tooltipField: 'detalle',
+            minWidth: 100,
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -67,7 +68,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "entrada",
@@ -81,7 +82,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "salida",
@@ -95,7 +96,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "costo",
@@ -109,7 +110,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "precio",
@@ -123,7 +124,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             headerName: "Precio Final",

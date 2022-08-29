@@ -8,7 +8,6 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 35,
     rowHeight: 30,
@@ -45,6 +44,7 @@ const gridOptions = {
         {
             width: 145,
             field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -60,6 +60,8 @@ const gridOptions = {
         {
             flex: 1,
             field: "observacion",
+            tooltipField: 'observacion',
+            minWidth: 60,
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -202,8 +204,8 @@ function calculatePinnedBottomData(target) {
 }
 
 const get_accountSummary = (tkn, data) => {
+    // Mostrar Loader Grid
     gridOptions.api.showLoadingOverlay()
-
     const url_getAccountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
     fetch( url_getAccountSummary , {
         method: 'POST',

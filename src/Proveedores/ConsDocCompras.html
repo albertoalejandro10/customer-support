@@ -32,6 +32,13 @@
                 <div class="row">
                   <div class="col-sm">
                     <div class="d-flex mt-1 mb-2">
+                      <label class="text-nowrap" for="business">U. de Negocio:</label>
+                      <select class="form-control" name="business" id="business">
+                        <!-- Options U de negocio -->
+                      </select>
+                    </div>
+
+                    <div class="d-flex mb-2">
                       <label for="voucher">Comprobante:</label>
                       <select class="form-control" id="voucher" name="voucher">
                         <!-- Comprobante -->
@@ -42,11 +49,6 @@
                       <label for="supplier">Proveedor/CUIT:</label>
                       <input class="form-control" type="text" name="supplier" id="supplier">
                     </div>
-
-                    <div class="d-flex mb-2">
-                      <label class="text-nowrap" for="number-seats">Nº Asiento:</label>
-                      <input class="form-control" type="text" name="number-seats" id="number-seats">
-                    </div>
                   </div>
                 
                   <div class="col-sm">
@@ -56,8 +58,8 @@
                     </div>
 
                     <div class="d-flex mb-2">
-                      <label class="text-nowrap" for="sale-point">Punto de Venta:</label>
-                      <input class="form-control" type="text" name="sale-point" id="sale-point" placeholder="0000" minlength="4" maxlength="4" />
+                      <label class="text-nowrap" for="number-seats">Nº Asiento:</label>
+                      <input class="form-control" type="text" name="number-seats" id="number-seats">
                     </div>
                   </div>
   
@@ -67,11 +69,9 @@
                       <input class="form-control" type="text" name="doc-number" id="doc-number">
                     </div>
 
-                    <div class="d-flex mt-1 mb-2">
-                      <label class="text-nowrap" for="business">U. de Negocio:</label>
-                      <select class="form-control" name="business" id="business">
-                        <!-- Options U de negocio -->
-                      </select>
+                    <div class="d-flex mb-2">
+                      <label class="text-nowrap" for="sale-point">Punto de Venta:</label>
+                      <input class="form-control" type="text" name="sale-point" id="sale-point" placeholder="0000" minlength="4" maxlength="4" />
                     </div>
   
                     <div class="d-flex mb-2 justify-content-end">

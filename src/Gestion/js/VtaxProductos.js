@@ -1,5 +1,5 @@
-import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
-import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
+import { ag_grid_locale_es, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
@@ -8,16 +8,20 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 35,
     rowHeight: 30,
     defaultColDef: {
         editable: false,
         resizable: true,  
-        suppressNavigable: true, 
+        suppressNavigable: true,
         //minWidth: 100,                      
     },
+    // No rows and grid loader
+    overlayLoadingTemplate:
+    '<div class="loadingx" style="margin: 7em"></div>',
+    overlayNoRowsTemplate:
+    '<span class="no-rows"> No hay información </span>',
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -28,6 +32,7 @@ const gridOptions = {
             width: 100,
             field: "codigo", 
             headerName: "Código",
+            tooltipField: 'codigo',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -40,7 +45,9 @@ const gridOptions = {
         {
             flex: 1,
             field: "producto",
+            tooltipField: 'producto',
             headerName: "Detalle",
+            minWidth: 100,
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -145,6 +152,7 @@ const gridOptions = {
             headerClass: "ag-right-aligned-header",
             cellClass: 'ag-right-aligned-cell',
             field: "sucursal",
+            tooltipField: 'sucursal',
             headerName: "Sucursal",
             sortable: true,
             filter: true,
@@ -156,8 +164,12 @@ const gridOptions = {
             }
         }
     ],
-
     rowData: [],
+    getRowStyle: (params) => {
+        if (params.node.rowPinned) {
+          return { 'font-weight': 'bold' }
+        }
+    },
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -183,7 +195,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['cantidad', 'precio', 'venta', 'iva', 'noGravado', 'ventaTotal']
     columnsWithAggregation.forEach(element => {
         // console.log('element', element)
@@ -202,6 +213,8 @@ function calculatePinnedBottomData(target){
 }
 
 const get_salesMovements = (tkn, data) => {
+    // Mostrar Loader Grilla
+    gridOptions.api.showLoadingOverlay()
     const url_getSalesMovements = 'https://www.solucioneserp.net/reportes/ventas/get_movimiento_ventas'
     fetch( url_getSalesMovements , {
         method: 'POST',
@@ -214,19 +227,20 @@ const get_salesMovements = (tkn, data) => {
     .then( resp => resp.json() )
     .then( resp => {
         // console.log( resp )
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-
         // Clear Grilla
         gridOptions.api.setRowData([])
-
         gridOptions.api.applyTransaction({
-            add: resp           
+            add: resp
         })
-        
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
-
+        gridOptions.api.hideOverlay()
+        if ( Object.keys( resp ).length === 0 ) {
+            // console.log( 'Is empty')
+            gridOptions.api.showNoRowsOverlay()
+        }
     })
     .catch( err => {
         console.log( err )

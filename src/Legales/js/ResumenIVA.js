@@ -2,7 +2,6 @@ import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
 import { ag_grid_locale_es, filterChangedd } from "../../jsgen/Grid-Helper"
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 25,
     rowHeight: 22,
@@ -17,7 +16,6 @@ const gridOptions = {
     '<div class="loadingx" style="margin: 7em"></div>',
     overlayNoRowsTemplate:
     '<span class="no-rows"> No hay información </span>',
-
     onFilterChanged: event => filterChangedd(event),
     suppressExcelExport: true,
     popupParent: document.body,
@@ -26,7 +24,9 @@ const gridOptions = {
     columnDefs: [
         {
             flex: 1,
+            minWidth: 120,
             field: "tipoIva",
+            tooltipField: 'tipoIva',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -161,12 +161,11 @@ const gridOptions = {
     },
 }
 const gridOptions2 = {...gridOptions}
-
 document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid')
     new agGrid.Grid(gridDiv, gridOptions)
 
-    console.log('JS:', parseInt($(window).height()) )
+    // console.log('JS:', parseInt($(window).height()) )
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid").height(100)
     } else {
@@ -274,7 +273,7 @@ const printSalesTables = resp => {
     // console.log( resp )
     // Clear Filtros
     gridOptions.api.setFilterModel(null)
-    //Clear Grilla
+    // Clear Grilla
     gridOptions.api.setRowData([])
     gridOptions.api.applyTransaction({ 
         add: resp
@@ -298,7 +297,7 @@ const printPurchasesTables = resp => {
     // console.log( resp )
     // Clear Filtros
     gridOptions2.api.setFilterModel(null)
-    //Clear Grilla
+    // Clear Grilla
     gridOptions2.api.setRowData([])
     gridOptions2.api.applyTransaction({ 
         add: resp
@@ -346,8 +345,8 @@ $form.addEventListener('submit', event => {
     const origen = formData.get('origins')
     
     // Operador ternario
-    const puntoVenta = (formData.get('sale-point') === '') ? '0000' : formData.get('sale-point')
-    const ivaPorActividad = (formData.get('activity-iva') === 'on') ? 1 : 0
+    const puntoVenta = formData.get('sale-point') === '' ? '0000' : formData.get('sale-point')
+    const ivaPorActividad = formData.get('activity-iva') === 'on' ? 1 : 0
 
     const data = {
         unidadNegocioId,

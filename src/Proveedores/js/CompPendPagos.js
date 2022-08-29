@@ -219,8 +219,8 @@ function calculatePinnedBottomData(target) {
 }
 
 const get_PendingCharges = (tkn, data) => {
+    // Mostrar Loader Grilla
     gridOptions.api.showLoadingOverlay()
-
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/proveedores/get_comprobantes_pendiente_pago'
     fetch( url_getPendingCharges , {
         method: 'POST',

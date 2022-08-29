@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet" href="./VtaxProductos.scss">
-    
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
@@ -22,9 +20,8 @@
             <div class="col-12">
               <form id="form">
                 <div class="row">
-  
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-2">
                       <label for="entry">Rubro:</label>
                       <select class="form-control" id="entry" name="entry" >
                         <!-- Options entries -->
@@ -37,14 +34,21 @@
                         <!-- Options sellers -->
                       </select>
                     </div>
-  
+
                     <div class="d-flex mb-2">
-                      <label for="periodStart">Período:</label>
-                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                      <label for="price">Precio:</label>
+                      <select class="form-control" name="price" id="price">
+                        <!-- Options price -->
+                      </select>
                     </div>
                   </div>
   
                   <div class="col-sm">
+                    <div class="d-flex mb-2">
+                      <label for="periodStart">Período:</label>
+                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                    </div>
+
                     <div class="d-flex mb-2">
                       <label class="text-nowrap" for="line-sales">Linea Venta:</label>
                       <select class="form-control" name="line-sales" id="line-sales"></select>
@@ -54,13 +58,6 @@
                       <label class="text-nowrap" for="customer-type">Tipo Cliente:</label>
                       <select class="form-control" name="customer-type" id="customer-type">
                         <!-- Options customer-type -->
-                      </select>
-                    </div>
-
-                    <div class="d-flex mb-2">
-                      <label class="text-nowrap" for="documents">Documentos:</label>
-                      <select class="form-control" name="documents" id="documents">
-                        <!-- Options documents -->
                       </select>
                     </div>
                   </div>
@@ -74,18 +71,18 @@
                     </div>
 
                     <div class="d-flex mb-2">
-                      <label for="price">Precio:</label>
-                      <select class="form-control" name="price" id="price">
-                        <!-- Options price -->
+                      <label for="documents">Documentos:</label>
+                      <select class="form-control" name="documents" id="documents">
+                        <!-- Options documents -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mt-3 mb-2">
                       <label class="text-nowrap" for="include-proformas">Incluir Proformas:</label>
                       <input type="checkbox" id="include-proformas" name="include-proformas">
                     </div>
   
-                    <div class="d-flex mb-2 justify-content-end buttons">
+                    <div class="d-flex justify-content-end">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Exportar</button>
                     </div>
@@ -100,25 +97,19 @@
             <div class="col">
               <h6 class="mt-2 font-weight-bolder">Ventas</h6>
               <div class="container-fluid">
-
                 <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
-
               </div>
             </div>
           </div>
-
           <!-- Form - Lower -->
           <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
-          
         </div>
       </div>
     </div>
   </body>
   <script src="js/VtaxProductos.js"></script>
   <script src="js/VtaxProductosGetApis.js"></script>
-  <script src="../jsgen/footer-form.js"></script>
-
-  
+  <script src="../jsgen/footer-form.js"></script>  
   <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">

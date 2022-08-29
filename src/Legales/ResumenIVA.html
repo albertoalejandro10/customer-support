@@ -14,7 +14,6 @@
       } else {
         $("#myGrid").height(parseInt($(window).height()) - 455)
       }
-
       if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid-purchased").height(100)
       } else {
@@ -35,7 +34,6 @@
               </div>
               <div class="col-12">
                 <div class="row">
-
                   <div class="col-sm">
                     <div class="d-flex mb-1">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
@@ -44,7 +42,7 @@
                       </select>
                     </div>
 
-                    <div class="d-flex mb-1">
+                    <div class="d-flex">
                       <label class="text-nowrap" for="sale-point">Punto de Venta:</label>
                       <input class="form-control" type="text" name="sale-point" id="sale-point" placeholder="0000" minlength="4" maxlength="4" />
                       <label class="text-nowrap" for="activity-iva">IVA por actividad:</label>
@@ -57,7 +55,7 @@
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
-                    <div class="d-flex mb-1">
+                    <div class="d-flex">
                       <label for="provinces">Provincia:</label>
                       <select id="provinces" name="provinces" class="form-control">
                         <!-- Provincia -->
@@ -65,13 +63,14 @@
                     </div>
                   </div>
   
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
+                  <div class="col-sm d-none d-xl-block">
+                    <div class="d-none d-flex mb-1">
                       <label for="subsidiary">Sucursal:</label>
                       <select id="subsidiary" name="subsidiary" class="form-control">
                         <!-- Sucursal -->
                       </select>
                     </div>
+                    
                   </div>
   
                   <div class="col-sm">
@@ -81,7 +80,13 @@
                         <!-- Origen -->
                       </select>
                     </div>
-                    <div class="d-flex mb-2 justify-content-end buttons">
+                    <div class="d-flex d-xl-none mb-1">
+                      <label for="subsidiary-minor">Sucursal:</label>
+                      <select id="subsidiary-minor" name="subsidiary" class="form-control">
+                        <!-- Sucursal -->
+                      </select>
+                    </div>
+                    <div class="d-flex justify-content-end">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                     </div>
                   </div>
@@ -119,7 +124,6 @@
   <script src="./js/ResumenIVA.js"></script>
   <script src="./js/ResumenIVAApis.js"></script>
   <script src="../jsgen/footer-form.js"></script>
-  
   <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
