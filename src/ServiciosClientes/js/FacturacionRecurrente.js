@@ -8,7 +8,6 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 30,
     rowHeight: 25,
@@ -39,7 +38,8 @@ const gridOptions = {
         },
         {
             width: 145, 
-            field: "comprobante", 
+            field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -55,6 +55,7 @@ const gridOptions = {
         {
             flex: 1,
             field: "cliente",
+            tooltipField: 'cliente',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {

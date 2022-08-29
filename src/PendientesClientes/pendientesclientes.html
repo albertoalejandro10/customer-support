@@ -31,8 +31,9 @@
             <div class="col-12">
               <form id="form">
                 <div class="row">
+
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-2">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select id="business" name="business" class="form-control">
                         <!-- U. de Negocio -->
@@ -47,7 +48,7 @@
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex">
                       <label for="coin">Moneda:</label>
                       <select id="coin" name="coin" class="form-control">
                         <!-- Options Coins -->
@@ -56,44 +57,39 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2 justify-content-xl-center">
+                    <div class="d-flex mb-2 w-xxxl-70 mx-xxxl-auto">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
   
-                    <div class="d-flex mt-2 mb-2 justify-content-xl-center">
+                    <div class="d-flex mt-2 w-xxxl-70 mx-xxxl-auto">
                       <label for="customers">Cliente:</label>
                       <select class="cmb_clientes" name="customers" style="width:100%;"></select>
-                    </div>
-
-                    <div class="d-xl-none d-flex mt-4 align-items-center">
-                      <label for="platform">Incluir Proformas:</label>
-                      <input class="checkbox" type="checkbox" name="platform" id="platform">
                     </div>
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex justify-content-start justify-content-xxl-end">
-                      <div class="d-flex justify-content-between d-xl-block w-100 w-xl-65">
-                        <div class="d-flex mt-1 mb-2 w-100">
-                          <label for="expiration" class="text-nowrap">Hasta vencimiento:</label>
-                          <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
-                          <input class="form-control" type="date" name="expiration" id="expiration" disabled>
-                        </div>
-  
-                        <div class="d-none d-xl-flex mt-2 align-items-center">
-                          <label for="platform">Incluir Proformas:</label>
-                          <input class="checkbox" type="checkbox" name="platform" id="platform">
-                        </div>
-                          
-                        <div class="d-flex mt-xl-4 justify-content-end w-100">
-                          <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                          <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                        </div>
+                    <div class="w-xxxl-70 ml-xxxl-auto">
+                      <div class="d-flex mb-2">
+                        <label class="text-nowrap" for="expiration">Hasta vencimiento:</label>
+                        <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
+                        <input class="form-control" type="date" name="expiration" id="expiration" disabled>
                       </div>
-                    </div>                    
-                  </div>
+  
+                      <div class="d-flex mt-2">
+                        <label class="text-nowrap" for="platform">Incluir Proformas:</label>
+                        <input class="checkbox" type="checkbox" name="platform" id="platform">
+                      </div>
+                        
+                      <div class="d-flex mt-4 justify-content-end">
+                        <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                        <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+                      </div>
 
+                    </div>
+
+
+                  </div>
                 </div>
               </form>
             </div>
