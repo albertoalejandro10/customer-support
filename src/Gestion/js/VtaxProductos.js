@@ -173,13 +173,13 @@ const gridOptions = {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-const gridDiv = document.querySelector('#myGrid')
-new agGrid.Grid(gridDiv, gridOptions)
+    const gridDiv = document.querySelector('#myGrid')
+    new agGrid.Grid(gridDiv, gridOptions)
 
-if ((parseInt($(window).height()) - 300) < 200)
-    $("#myGrid").height(100)
-else
-    $("#myGrid").height(parseInt($(window).height()) - 340)
+    if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+    else
+        $("#myGrid").height(parseInt($(window).height()) - 340)
 })
 
 function generatePinnedBottomData(){

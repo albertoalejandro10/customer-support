@@ -2,13 +2,13 @@ import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
-const btn_export = document.getElementById("btn_export")
-btn_export.onclick = function() {
+document.getElementById("btn_export").onclick = () => redirectExport()
+document.getElementById("btn_export_1024").onclick = () => redirectExport()
+const redirectExport = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
     headerHeight: 30,
     rowHeight: 25,
@@ -219,17 +219,20 @@ const get_salesCustomers = (tkn, data) => {
         
         gridOptions.api.hideOverlay()
         document.getElementById('btn_print').disabled = false
+        document.getElementById('btn_print_1024').disabled = false
         
         if ( Object.keys( resp ).length === 0 ) {
             // console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
             document.getElementById('btn_print').disabled = true
+            document.getElementById('btn_print_1024').disabled = true
         }
     })
     .catch( err => {
         console.log( err )
         document.getElementById('btn_print').disabled = true
+        document.getElementById('btn_print_1024').disabled = true
     })
 }
 
@@ -270,7 +273,9 @@ $form.addEventListener('submit', event => {
 })
 
 // Boton Imprimir
-document.getElementById("btn_print").onclick = () => {
+document.getElementById("btn_print").onclick = () => redirectPrint()
+document.getElementById("btn_print_1024").onclick = () => redirectPrint()
+const redirectPrint = () => {
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
     const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
 

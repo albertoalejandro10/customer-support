@@ -86,6 +86,7 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 100,
             field: "nombre",
             sortable: true,
             filter: true,
@@ -98,6 +99,7 @@ const gridOptions = {
         },
         { 
             flex: 1,
+            minWidth: 120,
             field: "observacion",
             headerName: "Observaciones",
             sortable: true,

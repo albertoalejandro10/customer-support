@@ -1,0 +1,53 @@
+// Service Styles
+.container {
+    max-width: 800px;
+    width: 90%;
+}
+
+label {
+    font-weight: 500;
+}
+
+// Icon Style
+.right-inner-addon {
+    position: relative;
+    
+    input {
+        padding-right: 35px;
+    }
+    
+    i {
+        z-index: 100;
+        position: absolute;
+        right: 10px;
+        top: -2px;
+        padding: 12px 12px;
+        pointer-events: none;
+    }
+}
+
+#product {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+.bootstrap-select {
+    width: 100% !important;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+// Checkbox color
+input[type="checkbox"] {
+    accent-color: #60C1DD;
+}
+
+// anchor
+#redirectToIndex {
+    text-decoration: none;
+    color: white;
+}

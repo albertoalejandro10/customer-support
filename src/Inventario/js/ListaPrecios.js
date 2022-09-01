@@ -13,8 +13,9 @@ checkboxDate.addEventListener('change', event => {
 })
 
 // Boton exportar grilla
-const btn_export = document.getElementById("btn_export")
-btn_export.onclick = () => {
+document.getElementById("btn_export").onclick = () => redirectExport()
+document.getElementById("btn_export_1024").onclick = () => redirectExport()
+const redirectExport = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
 
