@@ -1,0 +1,108 @@
+// Este main.scss no esta vinculado a ningun archivo.
+@import "./scss/custom-variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+* {
+    font-size: 14px;
+}
+
+h4 {
+    color: #777777;
+    font-weight: 400;
+}
+
+label {
+    margin-bottom: 0px;
+}
+
+.wrapper {
+    margin-top: 20px;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.fas {
+    margin-right: 6px;
+}
+
+.row {
+    &.form-top {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+    &.form-middle {
+        background-color: #e1e1e1;
+        border: 0.5px solid #b7b7b7;
+    }
+    &.form-bottom {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+}
+
+.bootstrap-select {
+    width: auto !important;
+    margin-right: 4px;
+}
+
+.dropdown-menu.show {
+    width: 350px !important;
+}
+
+table {
+    width: 100%;
+    color: #777777;
+}
+
+table th {
+    padding: 0.1875rem 0.375rem;
+}
+
+table td {
+    padding: 0.2rem;
+}
+
+table th {
+    &:first-child {
+        width: 80px;
+        border: 0.4px solid #D5D5D5;
+    }
+    &:nth-child(2) {
+        border: 0.4px solid #D5D5D5;
+    }
+    &:nth-child(3) {
+        width: 100px;
+        border: 0.4px solid #D5D5D5;
+        text-align: right;
+    }
+    &:nth-child(4) {
+        width: 80px;
+        border: 0.4px solid #D5D5D5;
+        text-align: right;
+    }
+    &:last-child {
+        width: 100px;
+        border: 0.4px solid #D5D5D5;
+        text-align: right;
+    }
+}
+
+table td {
+    &:nth-child(3) {
+        text-align: right;
+    }
+    &:nth-child(4) {
+        text-align: right;
+    }
+    &:last-child {
+        text-align: right;
+    }
+}

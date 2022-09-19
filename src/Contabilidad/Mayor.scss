@@ -66,87 +66,47 @@ h4 {
 label {
     margin-bottom: 0px;
 
-    &[for="voucher"] {
-        margin-right: 4px;
-    }
-
-    &[for="customers"] {
-        margin-right: 12px;
-    }
-    
     &[for="business"] {
+        margin-right: 27px;
+    }
+    &[for="cost-center"] {
         margin-right: 4px;
     }
-    
+    &[for="coin"] {
+        margin-right: 64px;
+    }
+
     &[for="periodStart"] {
-        margin-right: 58px;
-    }
-
-    &[for="number-docs"] {
-        margin-right: 12px;
-    }
-
-    &[for="client-group"] {
-        margin-right: 4px;
-    }    
-
-    &[for="number-seats"] {
-        margin-right: 32px;
-    }
-    
-    &[for="sale-point"] {
         margin-right: 4px;
     }
+    &[for="account"] {
+        margin-right: 8px;
+    }
 
-    &[for="letter"] {
+    &[for="detail"] {
+        margin-right: 20px;
+    }
+    &[for="ref-number"] {
         margin-right: 4px;
     }
+}
+
+#ref-number {
+    width: 80px;
 }
 
 /* Using SCSS variables to store breakpoints */
-$breakpoint-large-screen: 1400px;
-@media (min-width: $breakpoint-large-screen) {
-    .w-xl-65 {
-        width: 65% !important;
+$breakpoint-large-screen: 1100px;
+@media (max-width: $breakpoint-large-screen) {
+    .buttons-responsive {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
     }
-}
-
-$breakpoint-extra-large-screen: 2000px;
-@media (min-width: $breakpoint-extra-large-screen) {
-    .w-xxxl-55 {
-        width: 55% !important;
-    }
-}
-
-select,
-input[type="text"] {
-    min-width: 120px;
-    max-width: 290px;
-}
-
-input[type="date"] {
-    min-width: 90px;
-    max-width: 142px;
-}
-
-#sale-point {
-    min-width: initial;
-    max-width: initial;
-    width: 50px;
-}
-
-#letter {
-    min-width: initial;
-    max-width: initial;
-    width: 40px;
 }
 
 .form-control {
     width: 100%;
-    padding: 0.1875rem 0.375rem;
-}
-
-.btn.dropdown-toggle.btn-light {
     padding: 0.1875rem 0.375rem;
 }
 

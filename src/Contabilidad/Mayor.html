@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./ResumenClientes.scss">
+    <link rel="stylesheet" href="./Mayor.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -26,9 +26,8 @@
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
             <div class="col-12 mb-2">
-              <h4 class="mb-0">Resumen de cuentas de clientes</h4>
+              <h4 class="mb-0">Mayor de cuentas</h4>
             </div>
-            
             <div class="col-12">
               <form id="form">
                 <div class="row">
@@ -41,24 +40,19 @@
                     </div>
 
                     <div class="d-flex mb-2">
-                      <label for="status">Estado:</label>
-                      <select id="status" name="status" class="form-control">
-												<option value="">Todos</option>
-                        <!-- Estado -->
+                      <label class="text-nowrap" for="cost-center">Análisis de cuenta:</label>
+                      <select id="cost-center" name="cost-center" class="form-control">
+                        <!-- Análisis de cuentas -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex">
                       <label for="coin">Moneda:</label>
                       <select id="coin" name="coin" class="form-control">
                         <!-- Moneda -->
                       </select>
                     </div>
 
-                    <div class="d-flex mt-2">
-                      <label class="text-nowrap" for="only-movements">Solo con Movimiento:</label>
-                      <input type="checkbox" name="only-movements" id="only-movements">
-                    </div>
                   </div>
   
                   <div class="col-sm">
@@ -67,35 +61,21 @@
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
 
-										<div class="d-flex my-2">
-											<label for="customer">Cliente:</label>
-											<select class="cmb_clientes" name="customer" id="customer" style="width:100%;" required></select>
-                    </div>
-
-                    <div class="d-flex mt-2 mt-xl-3">
-											<label for="debt-collector">Cobrador:</label>
-											<select id="debt-collector" name="debt-collector" id="debt-collector" class="form-control">
-												<!-- Cobrador -->
-											</select>
+                    <div class="d-flex">
+											<label for="account">Cuenta:</label>
+											<select class="form-control" name="account" id="account"></select>
                     </div>
                   </div>
   
                   <div class="col-sm">
                     <div class="d-flex mb-2">
-                      <label for="subsidiary">Sucursal:</label>
-                      <select id="subsidiary" name="subsidiary" class="form-control">
-                        <!-- Sucursal -->
-                      </select>
+                      <label for="detail">Detalle:</label>
+                      <input class="form-control" type="text" name="detail" id="detail">
                     </div>
 
-										<div class="d-flex mt-2 mt-xl-3 mb-3 mb-xl-4">
-                      <label class="text-nowrap" for="include-proformas">Incluir Proformas:</label>
-                      <input type="checkbox" name="include-proformas" id="include-proformas">
-                    </div>
-
-										<div class="d-flex my-xl-3">
-                      <label class="text-nowrap" for="include-notes">Incluir Remitos:</label>
-                      <input type="checkbox" name="include-notes" id="include-notes">
+										<div class="d-flex mb-2">
+                      <label class="text-nowrap" for="ref-number">Nº de Ref:</label>
+                      <input class="form-control" type="text" name="ref-number" id="ref-number">
                     </div>
 
                     <div class="d-none d-xl-flex justify-content-end">
@@ -118,7 +98,7 @@
           <!-- Form - Middle -->
           <div class="row p-2 mt-2 rounded form-middle text-secondary">
             <div class="col">
-              <h6 class="mt-2 font-weight-bolder">Resumen</h6>
+              <h6 class="mt-2 font-weight-bolder">Cuentas</h6>
               <div class="container-fluid">
                 <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
               </div>
@@ -131,10 +111,9 @@
       </div>
     </div>
   </body>
-  <script src="./js/ResumenClientes.js"></script>
-  <script src="./js/ResumenClientesApis.js"></script>
+  <script src="./js/Mayor.js"></script>
+  <script src="./js/MayorGetApis.js"></script>
   <script src="../jsgen/footer-form.js"></script>
-  
   <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
   <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">

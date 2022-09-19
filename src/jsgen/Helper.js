@@ -83,10 +83,9 @@ export const reverseFormatNumber = (val, locale) => {
 // Solo numeros input tipo texto.
 export const numbersOnly = string => {
     let out = ''
-    //Caracteres validos
+    // Caracteres validos
     const filtro = '1234567890'
-	
-    //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+    // Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
     for (let i = 0; i < string.length; i++) {
         if ( filtro.indexOf(string.charAt(i)) != -1 ) {
             //Se añaden a la salida los caracteres validos

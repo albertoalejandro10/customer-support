@@ -766,3 +766,32 @@ export const get_accounts = tkn => {
         console.log( err )
     })
 }
+
+// Listado Análisis de cuenta (Mayor de cuentas)
+export const get_costCenter = tkn => {
+    const url_getCostCenter = 'https://www.solucioneserp.net/listados/get_centrocostos'
+    fetch( url_getCostCenter, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const costCenters = resp
+        for (const element of costCenters) {
+            const { id, codigo, nombre } = element
+            // console.log(id, codigo, nombre)
+            const select = document.querySelector('#cost-center')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = codigo
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
