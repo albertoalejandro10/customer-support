@@ -91,7 +91,7 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null") {
-                    return "Totales del Período"
+                    return "Totales"
                 } else {
                     return params.value
                 }
@@ -105,7 +105,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.data.detalle != 'Saldo Inicial' && params.value !== null) {
+                if (params.data.detalle != 'Saldo Inicial') {
                     return format_number(params.value)
                 }
             }
@@ -118,7 +118,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.data.detalle != 'Saldo Inicial' && params.value !== null) {
+                if (params.data.detalle != 'Saldo Inicial') {
                     return format_number(params.value)
                 }
             }
@@ -186,7 +186,7 @@ function calculatePinnedBottomData(target) {
             if (rowNode.data[element]) {
                 target[element] = Number(rowNode.data[element].toFixed(2))
             }
-            target[element] = rowNode.data.saldo
+            target[element] = rowNode.data.saldo || '0.00'
         })
     })
     //console.log(target)
@@ -212,6 +212,7 @@ const get_mayorAccount = (tkn, data) => {
             const { debe, haber } = resp
             saldo += debe - haber
             resp.saldo = saldo
+            return resp
         })
 
         // Clear Filtros
@@ -221,10 +222,11 @@ const get_mayorAccount = (tkn, data) => {
         gridOptions.api.applyTransaction({
             add: resp
         })
-
-        gridOptions.api.setPinnedBottomRowData(calculateBottomRows())
+        
+        let pinnedBottomData = generatePinnedBottomData()
+        gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
+        
         gridOptions.api.hideOverlay()
-
         document.getElementById('btn_print').disabled = false
         document.getElementById('btn_print_1024').disabled = false
         
@@ -241,21 +243,6 @@ const get_mayorAccount = (tkn, data) => {
         document.getElementById('btn_print').disabled = true
         document.getElementById('btn_print_1024').disabled = true
     })
-}
-
-const calculateBottomRows = () => {
-    const totalBottomRows = []
-    const lastObject = {
-        "detalle": "Saldo final",
-        "debe": null,
-        "haber": null,
-        "saldo": null
-    }
-    const pinnedBottomData = generatePinnedBottomData()
-    lastObject.saldo = pinnedBottomData.saldo
-    pinnedBottomData.saldo = Number(pinnedBottomData.debe) - Number(pinnedBottomData.haber)
-    totalBottomRows.push(pinnedBottomData, lastObject)
-    return totalBottomRows
 }
 
 // Boton actualizar

@@ -1,7 +1,7 @@
 import { getParameter } from "../../jsgen/Helper"
 import { get_businessUnits, get_coins, get_startMonth, get_costCenter } from "../../jsgen/Apis-Helper"
 
-// Listado de cuentas
+// Listado cuentas 
 const get_AccountPlan = tkn => {
     const url_getAccountPlan = 'https://www.solucioneserp.net/listados/get_plan_cuenta'
     fetch( url_getAccountPlan, {
