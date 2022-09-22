@@ -1,4 +1,4 @@
-import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
+import { getParameter, format_number, numbersOnly, format_currency } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 25,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -32,14 +32,27 @@ const gridOptions = {
     columnDefs: [
         {
             width: 70,
-            field: "asiento",
-            tooltipField: 'asiento',
+            field: "valor",
+            tooltipField: 'valor',
+            cellRenderer: function(params) {
+                if (String(params.value) == "null") {
+                    return "Totales"
+                } else {
+                    return params.value
+                }
+            }
+        },
+        {
+            width: 70,
+            field: "numero",
+            headerName: "Número",
+            tooltipField: 'numero',
             cellRenderer: function(params) {
                 return params.value
             }
         },
         {
-            width: 85, 
+            width: 85,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -52,20 +65,32 @@ const gridOptions = {
         },
         {
             width: 120,
-            field: "unidadDeNegocio",
-            headerName: "U. de Negocio",
-            tooltipField: 'unidadDeNegocio',
+            field: "Vencimiento",
             sortable: true,
             filter: true,
-            cellRenderer: function(params) {
-                return params.value
+            filter: 'agDateColumnFilter',
+            comparator: dateComparator,
+            filterParams: {
+                // provide comparator function
+                comparator: comparafecha
             }
         },
         {
-            width: 90,
-            field: "nroReferencia",
-            headerName: "Nº de Ref.",
-            tooltipField: 'nroReferencia',
+            width: 100,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'ag-right-aligned-cell',
+            field: "importe",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                return format_number(params.value)
+            }
+        },
+        {
+            flex: 1,
+            minWidth: 100,
+            field: "recibido",
+            tooltipField: 'recibido',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -74,8 +99,9 @@ const gridOptions = {
         },
         {
             width: 100,
-            field: "usuario",
-            tooltipField: 'usuario',
+            field: "cuit",
+            headerName: "C.U.I.T.",
+            tooltipField: 'cuit',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -84,54 +110,13 @@ const gridOptions = {
         },
         {
             flex: 1,
-            minWidth: 140,
-            field: "detalle",
-            tooltipField: 'detalle',
+            minWidth: 100,
+            field: "estado",
+            tooltipField: 'estado',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == "null") {
-                    return "Totales"
-                } else {
-                    return params.value
-                }
-            }
-        },
-        {
-            width: 115,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "debe",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (params.data.detalle != 'Saldo Inicial') {
-                    return format_number(params.value)
-                }
-            }
-        },
-        {
-            width: 115,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "haber",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (params.data.detalle != 'Saldo Inicial') {
-                    return format_number(params.value)
-                }
-            }
-        },
-        {
-            width: 115,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "saldo",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                return format_number(params.value)
+                return params.value
             }
         },
     ],
@@ -165,39 +150,26 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData(target) {
     // console.log(target)
     //**list of columns fo aggregation**
-    let columnsWithAggregation = ['debe', 'haber']
+    let columnsWithAggregation = ['importe']
     columnsWithAggregation.forEach(element => {
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {
             if (rowNode.data[element]) {
-                if ( rowNode.data.detalle != 'Saldo Inicial') {
-                    target[element] += Number(rowNode.data[element].toFixed(2))
-                }
+                target[element] += Number(rowNode.data[element].toFixed(2))
             }
         })
         if (target[element]) {
             target[element] = `${target[element].toFixed(2)}`
         }
     })
-
-    let columnsWithAggregationBalance = ['saldo']
-    columnsWithAggregationBalance.forEach(element => {
-        // console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {
-            if (rowNode.data[element]) {
-                target[element] = Number(rowNode.data[element].toFixed(2))
-            }
-            target[element] = rowNode.data.saldo || '0.00'
-        })
-    })
     //console.log(target)
     return target
 }
 
-const get_mayorAccount = (tkn, data) => {
+const get_valuesConsult = (tkn, data) => {
     // Mostrar Loader Grid
     gridOptions.api.showLoadingOverlay()
-    const url_getMayorAccount = 'https://www.solucioneserp.net/contabilidad/reportes/get_mayorcuentas'
-    fetch( url_getMayorAccount , {
+    const url_getValuesConsult = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_consultaValores'
+    fetch( url_getValuesConsult , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -207,12 +179,10 @@ const get_mayorAccount = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        let saldo = 0
         resp.map( resp => {
-            const { debe, haber } = resp
-            saldo += debe - haber
-            resp.saldo = saldo
-            return resp
+            let { importe } = resp
+            importe = Number(importe)
+            resp.importe = importe
         })
 
         // Clear Filtros
@@ -253,26 +223,34 @@ $form.addEventListener('submit', event => {
 
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
-    const detalle = formData.get('detail')
     const unidadNegocioId = Number(formData.get('business'))
-    const analisisCuentaId = Number(formData.get('cost-center'))
-    const monedaId = Number(formData.get('coin'))
-    const nroRef = Number(formData.get('ref-number')) === 0 ? '' : Number(formData.get('ref-number'))
-    const cuentaCod = formData.get('account')
+    const tipoPeriodo = formData.get('period-type')
+    const estado = formData.get('status')
+    const orden = formData.get('order')
+    const numero = formData.get('number')
+    const valorId = Number(formData.get('value'))
+    const detValorId = Number(formData.get('det-value'))
+    const importe = Number(formData.get('net').replaceAll('.', '').replace(',', '.'))
+    const entrega = formData.get('delivery')
+    const cuit = formData.get('cuit')
 
     const data = {
-        unidadNegocioId,
         fechaDesde,
         fechaHasta,
-        detalle,
-        analisisCuentaId,
-        cuentaCod,
-        nroRef,
-        monedaId
+        unidadNegocioId,
+        tipoPeriodo,
+        estado,
+        orden,
+        numero,
+        valorId,
+        detValorId,
+        importe,
+        entrega,
+        cuit
     }
-    // console.table( data )
+    // console.log( data )
     const tkn = getParameter('tkn')
-    get_mayorAccount( tkn, data )
+    get_valuesConsult( tkn, data )
 })
 
 // Boton Imprimir
@@ -308,7 +286,16 @@ $form.addEventListener('submit', event => {
 //     setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
 // }
 
-const refNumberElement = document.getElementById('ref-number')
-refNumberElement.addEventListener('keyup', () => {
-    refNumberElement.value = numbersOnly(refNumberElement.value)
+const numberElement = document.getElementById('number')
+numberElement.addEventListener('keyup', () => {
+    numberElement.value = numbersOnly(numberElement.value)
+})
+
+$("input[data-type='currency']").on({
+    keyup: function() {
+    	format_currency($(this))
+    },
+    blur: function() { 
+    	format_currency($(this), "blur")
+    }
 })
