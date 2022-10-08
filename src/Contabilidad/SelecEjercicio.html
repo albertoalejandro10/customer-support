@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./SelecEjercicio.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  </head>
+  <body class="m-0 vh-100 row justify-content-center align-items-center">
+    <form id="form">
+      <div class="wrapper">
+        <div class="container-fluid">
+          <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+
+            <!-- Form - Higher -->
+            <div class="row p-2 mb-2 rounded form-top">
+              <div class="col-12 d-flex justify-content-between">
+                <h4 class="mb-0">Ejercicios</h4>
+                <button type="submit" id="update" class="btn btn-primary">Aceptar</button>
+              </div>
+            </div>
+
+            <!-- Form - Middle -->
+						<div class="row p-2 mb-2 rounded form-middle">
+							<div class="col-12">
+								<h6 class="mt-2 font-weight-bolder text-secondary">Modificar ejercicio del usuario</h4>
+							</div>
+              <div class="col-12">
+                <div class="w-75 mx-auto">
+                  <select class="form-control" name="exercise" id="exercise" required></select>
+                  <p id="sucess" class="d-none text-success font-weight-bold text-center mt-2 mb-0">Ejercicio modificado satisfactoriamente</p>
+                  <p id="error" class="d-none text-danger font-weight-bold text-center mt-2 mb-0">Ejercicio modificado incorrectamente</p>
+                </div>
+              </div>
+						</div>
+
+						<!-- Form - Lower -->
+						<div id="form-lower" class="row p-2 my-2 rounded form-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+  <script src="./js/SelecEjercicio.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>

@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 30,
+    rowHeight: 22,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -41,6 +41,7 @@ const gridOptions = {
         {
             width: 85, 
             field: "fecha",
+            
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -100,7 +101,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "debe",
             sortable: true,
             filter: true,
@@ -113,7 +114,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "haber",
             sortable: true,
             filter: true,
@@ -126,7 +127,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "saldo",
             sortable: true,
             filter: true,
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 310)
 })
 
 function generatePinnedBottomData () {
@@ -207,6 +208,7 @@ const get_mayorAccount = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
+
         let saldo = 0
         resp.map( resp => {
             const { debe, haber } = resp
@@ -251,10 +253,19 @@ const calculateBottomRows = () => {
         "haber": null,
         "saldo": null
     }
+
     const pinnedBottomData = generatePinnedBottomData()
+
     lastObject.saldo = pinnedBottomData.saldo
+    lastObject.debe = Number(pinnedBottomData.debe)
+    lastObject.haber = Number(pinnedBottomData.haber)
+
     pinnedBottomData.saldo = Number(pinnedBottomData.debe) - Number(pinnedBottomData.haber)
+    pinnedBottomData.debe = null
+    pinnedBottomData.haber = null
+
     totalBottomRows.push(pinnedBottomData, lastObject)
+    // console.log( totalBottomRows )
     return totalBottomRows
 }
 

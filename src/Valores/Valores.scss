@@ -44,6 +44,18 @@ body, html {
     font-size: 12px !important;
 }
 
+.ag-row .ag-cell {
+    display: flex;
+    align-items: center;
+}
+  
+.cell-vertical-align-text-right {
+    display: flex !important;
+    flex-direction: row-reverse;
+    text-align: right !important;
+    align-items: center;
+}
+
 .wrapper {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -64,8 +76,8 @@ h4 {
 }
 
 hr {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }
 
 label {

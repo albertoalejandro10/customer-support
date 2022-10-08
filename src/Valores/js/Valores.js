@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 22,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -35,11 +35,7 @@ const gridOptions = {
             field: "valor",
             tooltipField: 'valor',
             cellRenderer: function(params) {
-                if (String(params.value) == "null") {
-                    return "Totales"
-                } else {
-                    return params.value
-                }
+                return params.value
             }
         },
         {
@@ -76,17 +72,6 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "importe",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                return format_number(params.value)
-            }
-        },
-        {
             flex: 1,
             minWidth: 100,
             field: "recibido",
@@ -94,7 +79,11 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                return params.value
+                if (String(params.value) == "null") {
+                    return "Totales"
+                } else {
+                    return params.value
+                }
             }
         },
         {
@@ -119,6 +108,17 @@ const gridOptions = {
                 return params.value
             }
         },
+        {
+            width: 100,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "importe",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                return format_number(params.value)
+            }
+        }
     ],
     rowData: [],
     getRowStyle: (params) => {
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 310)
 })
 
 function generatePinnedBottomData () {

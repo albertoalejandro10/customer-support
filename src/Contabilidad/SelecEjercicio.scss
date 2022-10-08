@@ -1,0 +1,49 @@
+@import "../../scss/custom-variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import "../../node_modules/bootstrap/scss/bootstrap";
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+
+* {
+    font-size: 14px;
+}
+
+h4 {
+    color: #777777;
+    font-weight: 400;
+}
+
+label {
+    color: #777777;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+select {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#form {
+    width: 90%;
+}
+
+.btn {
+    color: white;
+}
+
+.row {
+    &.form-top {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+    &.form-middle {
+        background-color: #e1e1e1;
+        border: 0.5px solid #b7b7b7;
+    }
+    &.form-bottom {
+        background-color: #efefef;
+        border: 0.5px solid #d5d5d5;
+    }
+}

@@ -32,6 +32,18 @@ body, html {
     padding-right: 8px !important;
 }
 
+.ag-row .ag-cell {
+    display: flex;
+    align-items: center;
+}
+  
+.cell-vertical-align-text-right {
+    display: flex !important;
+    flex-direction: row-reverse;
+    text-align: right !important;
+    align-items: center;
+}
+
 .ag-cell a {
     font-size: 12px !important;
 }
