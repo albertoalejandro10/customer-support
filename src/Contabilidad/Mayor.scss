@@ -120,6 +120,11 @@ $breakpoint-large-screen: 1100px;
 .form-control {
     width: 100%;
     padding: 0.1875rem 0.375rem;
+    height: calc(1.2em + 0.65rem + 2px);
+}
+
+button {
+    height: 30px;
 }
 
 .col-sm .d-flex {

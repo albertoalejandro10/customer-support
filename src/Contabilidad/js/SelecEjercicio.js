@@ -47,10 +47,12 @@ const post_modifiedExercise = (tkn, data) => {
     .then( resp => resp.json())
     .then( resp => {
         document.getElementById('sucess').classList.remove('d-none')
+        document.getElementById('error').classList.add('d-none')
     })
     .catch( err => {
         console.log( err )
         document.getElementById('error').classList.remove('d-none')
+        document.getElementById('sucess').classList.add('d-none')
     })
 }
 

@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 310)
+        $("#myGrid").height(parseInt($(window).height()) - 300)
 })
 
 function generatePinnedBottomData () {
