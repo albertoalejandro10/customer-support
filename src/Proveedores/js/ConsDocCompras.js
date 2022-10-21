@@ -8,10 +8,9 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -122,7 +121,7 @@ const gridOptions = {
             field: "numeroInterno",
             tooltipField: 'numeroInterno',
             headerName: "Número Interno",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: "cell-vertical-align-center",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -144,8 +143,22 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "neto",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "retencion",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 90,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "noGravado",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -158,7 +171,21 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
+            field: "pendiente",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                return ""
+                else
+                return format_number(params.value)
+            }
+        },
+        {
+            width: 90,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
             field: "iva",
             headerName: "IVA",
             sortable: true,
@@ -173,22 +200,8 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "retencion",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "noGravado",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "neto",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -201,26 +214,12 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "importe",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "pendiente",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -242,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 300)
 })
 
 function generatePinnedBottomData(){
@@ -293,16 +292,13 @@ const get_purchaseDocuments = (tkn, data) => {
     .then( resp => {
         // console.log( resp )
 
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-        
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
-        
         gridOptions.api.applyTransaction({ 
             add: resp
         })
-        
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         

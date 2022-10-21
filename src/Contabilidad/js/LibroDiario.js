@@ -141,12 +141,20 @@ const addAssets = (debeAsset, haberAsset) => {
     const row = document.createElement('tr')
     let empty = []
     const startSpots = 1
-    const enoughSpots = 5
+    const enoughSpots = 3
     fillEmptySpaces(row, empty, startSpots, enoughSpots)
+
+    const row_data_3 = document.createElement('td')
+    row_data_3.textContent = 'Totales'
+    row.appendChild(row_data_3)
+
+    const row_data_5 = document.createElement('td')
+    row_data_5.textContent = ''
     const row_data_6 = document.createElement('td')
     row_data_6.textContent = format_number(debeAsset.reduce((a, b) => a + b, 0))
     const row_data_7 = document.createElement('td')
     row_data_7.textContent = format_number(haberAsset.reduce((a, b) => a + b, 0))
+    row.appendChild(row_data_5)
     row.appendChild(row_data_6)
     row.appendChild(row_data_7)
     document.getElementById(`tfoot`).appendChild(row)
