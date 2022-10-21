@@ -5,7 +5,7 @@
 :root {
     --font-family-sans-serif: "Poppins", sans-serif;
 }
-@import "../../scss/main.scss";
+@import "../../scss/main";
 
 hr {
     margin-top: 0.4rem;
@@ -19,7 +19,7 @@ label {
         margin-right: 4px;
     }
     &[for="status"] {
-        margin-right: 50px;
+        margin-right: 51px;
     }
     &[for="number"] {
         margin-right: 4px;
@@ -32,10 +32,10 @@ label {
         margin-right: 4px;
     }
     &[for="order"] {
-        margin-right: 12px;
+        margin-right: 13px;
     }
     &[for="value"] {
-        margin-right: 32px;
+        margin-right: 33px;
     }
 
     &[for="delivery"] {
@@ -45,9 +45,13 @@ label {
         margin-right: 4px;
     }
     &[for="cuit"] {
-        margin-right: 4px;
+        margin-right: 22px;
     }
-    
+}
+
+input[type="date"] {
+    width: 20%;
+    min-width: 120px;
 }
 
 #number, #net {
@@ -73,12 +77,6 @@ $breakpoint-large-screen: 1100px;
         position: relative;
         bottom: 0px;
         right: 0px;
-    }
-
-    label {
-        &[for="cuit"] {
-            margin-right: 22px;
-        }
     }
 }
 
