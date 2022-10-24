@@ -15,8 +15,11 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
-              <h4 class="mb-0">Asignación de Comprobantes</h4>
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Asignación de comprobantes</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/AsigCompVtas.aspx" target="_self">[Versión anterior]</a>
             </div>
             
             <div class="col-12">
@@ -24,14 +27,14 @@
                 <div class="row">
   
                   <div class="col-sm">
-                    <div class="d-flex">
-                      <label class="text-nowrap" for="business">U. de negocio:</label>
+                    <div class="d-flex mb-1">
+                      <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select class="form-control" name="business" id="business">
                         <!-- Options Unit Business -->
                       </select>
                     </div>
 
-                    <div class="d-flex mt-2">
+                    <div class="d-flex">
                       <label class="text-nowrap" for="orden-fecha">Orden Fecha:</label>
                       <select class="form-control" name="orden-fecha" id="orden-fecha">
                         <!-- Options orden-fecha -->
@@ -42,12 +45,12 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
                     
-                    <div class="d-flex mt-2">
+                    <div class="d-flex">
                       <label for="customers">Clientes:</label>
                       <select class="cmb_clientes form-control" type="text" name="customers" id="customers" style="width:100%;" required>
                       </select>
@@ -55,14 +58,14 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="account">Cuenta:</label>
                       <select class="form-control" id="account" name="account" >
                         <!-- Options account -->
                       </select>
                     </div>
   
-                    <div class="d-flex mt-2 justify-content-end">
+                    <div class="d-flex justify-content-end">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="record" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Grabar</button>
                     </div>
@@ -80,7 +83,7 @@
                 <div class="row">
                   <div class="col-sm">
                     <h5>Creditos</h5>
-                    <table id="credit-table" class="table-striped table-borderless table-hover table-light rounded text-secondary">
+                    <table id="credit-table" class="table-borderless rounded text-secondary">
                       <div class="d-none loadingx"></div>
                       <thead>
                         <tr>
@@ -100,7 +103,7 @@
 
                   <div class="col-sm">
                     <h5>Debitos</h5>
-                    <table id="debit-table" class="table-striped table-borderless table-hover table-light rounded text-secondary">
+                    <table id="debit-table" class="table-borderless rounded text-secondary">
                       <div class="d-none loadingx"></div>
                       <thead>
                         <tr>
