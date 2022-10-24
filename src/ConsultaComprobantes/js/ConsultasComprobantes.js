@@ -8,10 +8,9 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -33,7 +32,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 80,
+            width: 75,
             headerName: "Fecha",
             field: "fecha",
             sortable: true,
@@ -52,10 +51,10 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return "Totales"
                 else
-                    if (params.value=='Saldo Inicial')
+                    if (params.value == 'Saldo Inicial')
                         return params.value
                     else
                         return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
@@ -63,7 +62,7 @@ const gridOptions = {
         },
         { 
             flex: 1,
-            minWidth: 80,
+            minWidth: 110,
             headerName: "Cliente",
             field: "cliente",
             tooltipField: 'cliente',
@@ -76,10 +75,11 @@ const gridOptions = {
                     return params.value
             }
         },
-        {   
-            width: 30, 
-            headerName: "", 
+        {
+            width: 30,
+            headerName: "",
             field: "linkAsiento",
+            cellClass: 'cell-vertical-align-center',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -91,17 +91,19 @@ const gridOptions = {
             width: 30, 
             headerName: "", 
             field: "linkAdjuntos",
+            cellClass: 'cell-vertical-align-center',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
                 else
                     return '<a href="" onclick="window.open(\'' + params.value + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
-            }
+                }
         },
         {   
             width: 30, 
             headerName: "", 
             field: "linkCambioEstado",
+            cellClass: 'cell-vertical-align-center',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -112,37 +114,25 @@ const gridOptions = {
         {
             width: 80,
             field: "Ejercicio",
+            headerClass: "ag-center-aligned-header", 
             tooltipField: 'Ejercicio',
             cellRenderer: function(params) {
-                if (String(params.data)=="null")
+                if (String(params.data) == "null")
                     return ''
                 else
                     return params.value
             }
         },
         {
-            width: 100,
-            headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
-            field: "neto", 
-            sortable: true, 
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
             width: 90, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
-            field: "iva", 
+            cellClass: 'cell-vertical-align-text-right',
+            field: "iva",
+            headerName: "IVA",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -151,26 +141,40 @@ const gridOptions = {
         {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
             }
         },
-        {   
+        {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
+            field: "neto", 
+            sortable: true, 
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 100,
+            headerClass: "ag-right-aligned-header", 
+            cellClass: 'cell-vertical-align-text-right',
             field: "importe",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -192,13 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 300)
 })
 
 function generatePinnedBottomData(){
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -208,7 +211,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['neto', 'iva', 'noGravado', 'importe']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
@@ -237,9 +239,9 @@ const get_salesDocs = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ linea }) => {
         // console.log( linea )
-        //clear Filtros
+        // Clear Filtros
         gridOptions.api.setFilterModel(null)
-        //Clear Grilla
+        // Clear Grilla
         gridOptions.api.setRowData([])
         gridOptions.api.applyTransaction({
             add: linea
@@ -247,7 +249,6 @@ const get_salesDocs = (tkn, data) => {
         
         let pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
-        
         gridOptions.api.hideOverlay()
         
         if ( Object.keys( linea ).length === 0 ) {
