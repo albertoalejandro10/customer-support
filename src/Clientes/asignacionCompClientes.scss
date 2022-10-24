@@ -107,6 +107,11 @@ table td {
     background-color: #E8F4FE;
 }
 
+#credit-table tbody > tr:last-child,
+#debit-table tbody > tr:last-child {
+    border-bottom: .4px solid #BABFC7;
+}
+
 input[type="text"]:disabled {
     background: white;
     text-align: right;
@@ -122,19 +127,11 @@ input[type="text"]:disabled {
     border-color: #babfc7;    
 }
 
-#total-credit {
-    width: 20%;
-    margin-top: 2px
-}
-
-#total-debit {
-    width: 20%;
-    margin-top: 2px;
-}
-
+#total-credit,
+#total-debit,
 #total-difference {
     width: 20%;
-    margin-top: 2px;
+    margin-top: 2px
 }
 
 #credit-tfoot label,
