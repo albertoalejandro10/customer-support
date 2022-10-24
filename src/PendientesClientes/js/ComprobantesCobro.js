@@ -23,8 +23,8 @@ checkboxExpiration.addEventListener('change', event => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -46,7 +46,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85, 
+            width: 75,
             headerName: "Venc.",
             field: "vencimiento",
             sortable: true,
@@ -59,7 +59,7 @@ const gridOptions = {
             }
         },
         {
-            width: 85,
+            width: 75,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -111,6 +111,7 @@ const gridOptions = {
             width: 30,
             headerName: "",
             field: "linkAsiento",
+            cellClass: 'cell-vertical-align-center',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -122,6 +123,7 @@ const gridOptions = {
             width: 30,
             headerName: "",
             field: "linkAdjuntos",
+            cellClass: 'cell-vertical-align-center',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
@@ -132,7 +134,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Importe",
             field: "total",
             sortable: true,
@@ -147,7 +149,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "pendiente",
             sortable: true,
             filter: true,
@@ -174,13 +176,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 290)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData() {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -190,7 +191,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['pendiente']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
@@ -209,7 +209,6 @@ function calculatePinnedBottomData(target){
 const get_PendingCharges = (tkn, data) => {
     // Show Loader Grilla
     gridOptions.api.showLoadingOverlay()
-
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
     fetch( url_getPendingCharges , {
         method: 'POST',
@@ -221,7 +220,6 @@ const get_PendingCharges = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
-
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla

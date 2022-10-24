@@ -9,14 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
-      $(window).unbind("resize")
-      $(window).resize(function () {
-        if ((parseInt($(window).height()) - 300) < 200)
-          $("#myGrid").height(100)
-        else
-          $("#myGrid").height(parseInt($(window).height()) - 340)
-        //$(".grid").width('100%')
-      })
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 290)
+      //$(".grid").width('100%')
+    })
   </script>
   </head>
   <body>
@@ -24,23 +24,26 @@
       <div class="container-fluid" style="height: 100%;">
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
-          <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
+          <div class="row px-2 py-1 mb-2 rounded form-top">          
+            <div class="col-6 mb-2">
               <h4 class="mb-0">Comprobantes pendientes de cobro</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/comppendcli.aspx" target="_self">[Versión anterior]</a>
             </div>
             <div class="col-12">
               <form id="form">
                 <div class="row">
 
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select id="business" name="business" class="form-control">
                         <!-- U. de Negocio -->
                       </select>
                     </div>
   
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="status">Estado:</label>
                       <select id="status" name="status" class="form-control">
                         <!-- Options Status -->
@@ -57,12 +60,12 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2 w-xxxl-70 mx-xxxl-auto">
+                    <div class="d-flex mb-1 w-xxxl-70 mx-xxxl-auto">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
   
-                    <div class="d-flex mt-2 w-xxxl-70 mx-xxxl-auto">
+                    <div class="d-flex mt-1 w-xxxl-70 mx-xxxl-auto">
                       <label for="customers">Cliente:</label>
                       <select class="cmb_clientes" name="customers" style="width:100%;"></select>
                     </div>
@@ -70,7 +73,7 @@
   
                   <div class="col-sm">
                     <div class="w-xxxl-70 ml-xxxl-auto">
-                      <div class="d-flex mb-2">
+                      <div class="d-flex mb-1">
                         <label class="text-nowrap" for="expiration">Hasta vencimiento:</label>
                         <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
                         <input class="form-control" type="date" name="expiration" id="expiration" disabled>
@@ -81,7 +84,7 @@
                         <input class="checkbox" type="checkbox" name="platform" id="platform">
                       </div>
                         
-                      <div class="d-flex mt-4 justify-content-end">
+                      <div class="d-flex mt-2 justify-content-end">
                         <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                         <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
                       </div>
