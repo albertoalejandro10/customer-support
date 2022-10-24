@@ -19,6 +19,8 @@ const customerService = ( id, name, tkn ) => {
         if ( Linea.length === 0 ) {
             // console.log('Empty')
             document.getElementById('no-service').classList.remove('d-none')
+        } else {
+            document.getElementById('no-service').classList.add('d-none')
         }
         // Eliminar filas vieja
         const tbody = document.getElementById('tbody')

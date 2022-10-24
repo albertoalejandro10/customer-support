@@ -11,11 +11,9 @@ label {
 // Icon Style
 .right-inner-addon {
     position: relative;
-    
     input {
         padding-right: 35px;
     }
-    
     i {
         z-index: 100;
         position: absolute;
@@ -39,11 +37,6 @@ label {
 
 .dropdown-toggle::after {
     content: none;
-}
-
-// Checkbox color
-input[type="checkbox"] {
-    accent-color: #60C1DD;
 }
 
 // anchor

@@ -16,15 +16,18 @@
           <form id="form">
             <!-- Form - Top -->
             <div class="row p-2 mb-2 rounded form-top">
-              <div class="col-12 mb-2 d-flex align-items-center justify-content-between">
+              <div class="col-6">
                 <h4 class="mb-0">AMB Servicio</h4>
-                <div class="text-right pt-2">
-                  <button id="addService" type="submit" class="btn btn-primary text-white"><i class="fas fa-save"></i> Grabar</button>
-                  <button type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> <a id="redirectToIndex">Lista</a></button>
-                  <button id="deleteService" type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                </div>
-                <input type="text" id="tokenBearer" class="d-none" name="tkn">
-              </div>              
+              </div>
+              <div class="col-6 text-right">
+                <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ServiciosABM.aspx" target="_self">[Versión anterior]</a>
+              </div>
+              <div class="col-12 mt-1 text-right">
+                <button id="addService" type="submit" class="btn btn-primary text-white"><i class="fas fa-save"></i> Grabar</button>
+                <button type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> <a id="redirectToIndex">Lista</a></button>
+                <button id="deleteService" type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
+              </div>
+              <input type="text" id="tokenBearer" class="d-none" name="tkn">
             </div>          
 
             <!-- Form - Middle higher -->
@@ -99,8 +102,7 @@
               </div>
 
               <div class="col-10 mt-2 priceNet d-none">
-                <input class="form-control w-35" type="text" name="currency-field" id="currency-field" value="" data-type="currency" placeholder="0.00">                
-                <!-- <input type="text" name="netPrice" id="netPrice" class="form-control w-35" placeholder="0.00" step=".01"> -->
+                <input class="form-control w-35" type="text" name="currency-field" id="currency-field" data-type="currency" placeholder="0.00">                
               </div>
 
               <!-- % Descuento -->

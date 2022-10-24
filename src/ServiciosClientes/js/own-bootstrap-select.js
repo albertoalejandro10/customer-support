@@ -1,11 +1,6 @@
-$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+$.fn.selectpicker.Constructor.BootstrapVersion = '4'
 
-// Conseguir parametros del URL
-const getParameter = parameterName => {
-  let parameters = new URLSearchParams( window.location.search )
-  return parameters.get( parameterName )
-}
-
+import { getParameter } from "../../jsgen/Helper"
 const tkn = getParameter('tkn')
 const pathname = (window.location.pathname).toLowerCase()
 
@@ -73,34 +68,27 @@ const devOrProductionListProducts = () => {
       "filtro": ""
     })
   })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const products = resp
-        for ( const element of products ) {
-            // Desestructuracion del objeto element
-            const { id, codigo, detalle, unidad, lineaId, iva, activo } = element
-            // console.log( id, codigo, detalle, unidad, lineaId, iva, activo )
-            const description = detalle.trim()
+  .then( resp => resp.json() )
+  .then( resp => {
+    // console.log(resp)
+    const products = resp
+    for ( const element of products ) {
+      // Desestructuracion del objeto element
+      const { id, codigo, detalle, unidad, lineaId, iva, activo } = element
+      // console.log( id, codigo, detalle, unidad, lineaId, iva, activo )
 
-            const select = document.querySelector('.selectpicker')
-            let option = document.createElement("option")
-            option.setAttribute("data-code", codigo)
-            option.setAttribute("data-lineId", lineaId)
-            option.setAttribute("data-content", description)
-            option.value = id
-            option.textContent = description
-
-            select.appendChild( option )
-
-            $('.selectpicker').selectpicker('refresh')
-
-            // if ( getParameter('id') && getParameter('name') && getParameter('idservice')) {
-            //   if ( id === Number(getParameter('idservice')) ) {
-            //     $('.selectpicker').selectpicker('val', id)
-            //   }
-            // }
-        }
-    })  
+      const description = detalle.trim()
+      const select = document.querySelector('.selectpicker')
+      let option = document.createElement("option")
+      option.setAttribute("data-code", codigo)
+      option.setAttribute("data-lineId", lineaId)
+      option.setAttribute("data-content", description)
+      option.value = id
+      option.textContent = description
+      select.appendChild( option )
+      $('.selectpicker').selectpicker('refresh')
+    }
+  })  
 }
 
 const pathnameProducts_Develop = '/serviciosclientes/servicioclientesedit.html'

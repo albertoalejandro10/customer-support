@@ -1,10 +1,5 @@
+import { getParameter, format_currency } from "../../jsgen/Helper"
 import * as bootstrap from 'bootstrap'
-
-// Conseguir parametros del URL
-const getParameter = parameterName => {
-    let parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
-}
 
 // Fetch para traer servicios, si viene id en la URL
 const servicePromise = ( id, idservice, tkn ) => {
@@ -21,9 +16,9 @@ const servicePromise = ( id, idservice, tkn ) => {
         })
     })
     .then( resp => resp.json() )
-    .then( service => {
-    
-        const { codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, tipoPrecio, observacion, clienteId, clienteCodigo, cliente, lineaId, tipoComp } = service
+    .then( resp => {
+        // console.log( resp )
+        const { productoId, codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, tipoPrecio, observacion, clienteId, clienteCodigo, cliente, lineaId, tipoComp } = resp
         // console.log( codigo, detalle, cantidad, fechaVencimiento, activo, abono, mesAbono, vencActivo, precioNeto, tipoPrecio, observacion, clienteId, clienteCodigo, cliente, lineaId, tipoComp )
 
         const observation = document.getElementById('observation')
@@ -31,8 +26,6 @@ const servicePromise = ( id, idservice, tkn ) => {
 
         const description = document.getElementById('description')
         description.value = detalle.trim()
-
-        $('.selectpicker').selectpicker({title: `${detalle.trim()}`}).selectpicker('refresh')
 
         const quantity = document.getElementById('quantity')
         quantity.value = cantidad
@@ -131,13 +124,6 @@ const visibleInput = type => {
     }
 }
 
-// Formatear input precio neto
-// const netPriceInput = document.getElementById('netPrice')
-// netPriceInput.addEventListener('change', () => {
-//     console.log('Ok')
-//     netPriceInput.value = parseFloat(netPriceInput.value).toFixed(2)
-// })
-
 const id = getParameter('id')
 const idService = getParameter('idservice')
 const name = getParameter('name')
@@ -204,7 +190,6 @@ $form.addEventListener('submit', event => {
     const fechavencimiento = (formData.get('expiration')).split('-').reverse().join('/')
     const idcliente = Number(getParameter('id'))
     const observacion = formData.get('observation')
-
 
     let id = Number(getParameter('idservice'))
     if ( ! id ) {
@@ -315,64 +300,11 @@ class CampoNumerico {
 }
 new CampoNumerico('#quantity')
 
-
 $("input[data-type='currency']").on({
     keyup: function() {
-      formatCurrency($(this))
+      format_currency($(this))
     },
     blur: function() { 
-      formatCurrency($(this), "blur")
+      format_currency($(this), "blur")
     }
 })
-
-function formatNumber(n) {
-  // format number 1000000 to 1,234,567
-  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-}
-
-function formatCurrency(input, blur) {
-  // get input value
-  let input_val = input.val()
-  // don't validate empty input
-  if (input_val === "") { return }
-  // original length
-  const original_len = input_val.length
-  // initial caret position 
-  let caret_pos = input.prop("selectionStart")
-  // check for decimal
-  if (input_val.indexOf(",") >= 0) {
-    // get position of first decimal
-    const decimal_pos = input_val.indexOf(",")
-    // split number by decimal point
-    let left_side = input_val.substring(0, decimal_pos)
-    let right_side = input_val.substring(decimal_pos)
-    // add commas to left side of number
-    left_side = formatNumber(left_side)
-    // validate right side
-    right_side = formatNumber(right_side)
-    // On blur make sure 2 numbers after decimal
-    if (blur === "blur") {
-      right_side += "00"
-    }
-    // Limit decimal to only 2 digits
-    right_side = right_side.substring(0, 2)
-    // join number by .
-    input_val = left_side + "," + right_side
-  } else {
-    // no decimal entered
-    // add commas to number
-    // remove all non-digits
-    input_val = formatNumber(input_val)
-    input_val = input_val
-    // final formatting
-    if (blur === "blur") {
-      input_val += ",00"
-    }
-  }
-  // send updated string to input
-  input.val(input_val)
-  // put caret back in the right position
-  const updated_len = input_val.length
-  caret_pos = updated_len - original_len + caret_pos
-  input[0].setSelectionRange(caret_pos, caret_pos)
-}
