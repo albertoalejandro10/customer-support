@@ -24,7 +24,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85,
+            width: 75,
             headerName: "Fecha",
             field: "fecha",
             sortable: true,
@@ -54,6 +54,7 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 120,
             field: "cliente",
             tooltipField: 'cliente',
             sortable: true,
@@ -68,7 +69,7 @@ const gridOptions = {
         {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "neto", 
             sortable: true, 
             filter: true,
@@ -82,7 +83,7 @@ const gridOptions = {
         {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "iva",
             headerName: "IVA",
             sortable: true, 
@@ -97,7 +98,7 @@ const gridOptions = {
         {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "total",
             sortable: true, 
             filter: true,
@@ -131,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function generatePinnedBottomData(){
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -141,7 +141,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     // console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['neto', 'iva', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)

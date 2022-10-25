@@ -25,16 +25,22 @@
           <div class="container mt-2  pt-1 pr-5 pl-5 rounded col-12">
             <!-- Form - Higher -->
             <div class="row p-2 mb-2 rounded form-top">
-              <div class="col-12 d-flex justify-content-between">
-                <h4 class="mb-0">Facturación Recurrente</h4>
+              <div class="col-6 mb-2">
+                <h4 class="mb-0">Facturación recurrente</h4>
+              </div>
+              <div class="col-6 mb-2 text-right">
+                <a class="previous-site" href="#" target="_self">[Versión anterior]</a>
+              </div>
+
+              <div class="col-12 d-flex justify-content-end">
                 <div class="d-flex">
-                  <button type="button" id="update" class="btn btn-primary top-bottom mr-2">Actualizar</button>
+                  <button type="button" id="update" class="btn btn-primary top-bottom mr-1">Actualizar</button>
                   <button type="submit" id="generate" class="btn btn-success top-bottom">Generar</button>
                   <div id="regenerate-buttons" class="d-none">
                     <div class="d-flex">
                       <button type="submit" id="regenerate" class="btn btn-warning top-bottom mx-1 d-none">Re-Generar</button>
                       <button type="button" id="confirm" class="btn btn-success top-bottom mx-1">Confirmar</button>
-                      <button type="button" id="btn_export" class="btn btn-dark top-bottom ml-2">Exportar</button>
+                      <button type="button" id="btn_export" class="btn btn-dark top-bottom ml-1">Exportar</button>
                     </div>
                   </div>
                 </div>
@@ -63,8 +69,8 @@
                     <div class="middle-boxes">
                       <div class="d-flex justify-content-between align-items-center">
                         <label for="group-client">Generar por</label>
-                        <div>
-                          <select class="form-control" name="group-client" id="group-client">
+                        <div class="d-flex">
+                          <select class="form-control mr-1" name="group-client" id="group-client">
                             <!-- Options group-client -->
                           </select>
                           <select class="form-control" name="generated-for" id="generated-for" required>
