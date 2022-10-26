@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
-      $(window).unbind("resize")
-      $(window).resize(function () {
-        if ((parseInt($(window).height()) - 300) < 200)
-            $("#myGrid").height(100)
-        else
-            $("#myGrid").height(parseInt($(window).height()) - 340)
-        //$(".grid").width('100%')
-      })
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 320)
+      //$(".grid").width('100%')
+    })
     </script>
   </head>
   <body>
@@ -23,28 +23,31 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
+            <div class="col-6 mb-2">
               <h4 class="mb-0">Movimientos de Ventas</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovVentas.aspx" target="_self">[Versión anterior]</a>
             </div>
             <div class="col-12">
               <form id="form">
                 <div class="row">
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="entry">Rubro:</label>
                       <select class="form-control" id="entry" name="entry" >
                         <!-- Options entries -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="sellers">Vendedor:</label>
                       <select class="form-control" id="sellers" name="sellers">
                         <!-- Options sellers -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="price">Precio:</label>
                       <select class="form-control" name="price" id="price">
                         <!-- Options price -->
@@ -53,17 +56,17 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Período:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="line-sales">Linea Venta:</label>
                       <select class="form-control" name="line-sales" id="line-sales"></select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="customer-type">Tipo Cliente:</label>
                       <select class="form-control" name="customer-type" id="customer-type">
                         <!-- Options customer-type -->
@@ -72,21 +75,21 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="subsidiary">Sucursal:</label>
                       <select class="form-control" name="subsidiary" id="subsidiary">
                         <!-- Options subsidiary -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="documents">Documentos:</label>
                       <select class="form-control" name="documents" id="documents">
                         <!-- Options documents -->
                       </select>
                     </div>
 
-                    <div class="d-flex mt-3 mb-2">
+                    <div class="d-flex mt-2 mb-1">
                       <label class="text-nowrap" for="include-proformas">Incluir Proformas:</label>
                       <input type="checkbox" id="include-proformas" name="include-proformas">
                     </div>

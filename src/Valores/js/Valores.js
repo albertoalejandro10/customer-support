@@ -39,6 +39,15 @@ const gridOptions = {
             }
         },
         {
+            flex: 1,
+            minWidth: 100,
+            field: "nombre",
+            tooltipField: 'nombre',
+            cellRenderer: function(params) {
+                return params.value
+            }
+        },
+        {
             width: 70,
             field: "numero",
             headerName: "Número",

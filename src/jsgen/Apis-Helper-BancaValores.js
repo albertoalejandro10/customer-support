@@ -111,32 +111,3 @@ export const get_value = tkn => {
         console.log( err )
     })
 }
-
-// Listado de tipos de periodo (Valores)
-export const get_detValues = tkn => {
-    const url_getDetValues = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_valores'
-    fetch( url_getDetValues, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const getValues = resp
-        for (const element of getValues) {
-            const { id, nombre } = element
-            // console.log(id, nombre)
-            const select = document.querySelector('#det-value')
-            let option = document.createElement("option")
-            option.setAttribute("data-tokens", nombre)
-            option.value = id
-            option.textContent = nombre
-            select.appendChild( option )
-        }
-    })
-    .catch( err => {
-        console.log( err )
-    })
-}

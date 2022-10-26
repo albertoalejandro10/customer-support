@@ -36,7 +36,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.data)=="null")
+                if (String(params.data) == "null")
                     return ''
                 else
                     return params.value
@@ -44,15 +44,29 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 100,
             field: "producto",
             tooltipField: 'producto',
             headerName: "Detalle",
-            minWidth: 100,
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.data)=="null")
+                if (String(params.data) == "null")
                     return ''
+                else
+                    return params.value
+            }
+        },
+        {
+            width: 100,
+            field: "sucursal",
+            tooltipField: 'sucursal',
+            headerName: "Sucursal",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
                 else
                     return params.value
             }
@@ -60,13 +74,13 @@ const gridOptions = {
         {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "cantidad",
             headerName: "Cantidad",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -75,13 +89,13 @@ const gridOptions = {
         {
             width: 120,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "precio",
             headerName: "Precio Prom.",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -90,13 +104,13 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "venta",
             headerName: "Venta Neta",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -105,13 +119,13 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "iva",
             headerName: "IVA",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -120,13 +134,13 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
             headerName: "No Gravado",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -135,32 +149,16 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "ventaTotal",
             headerName: "Venta Total",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
-            }
-        },
-        {
-            width: 100,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "sucursal",
-            tooltipField: 'sucursal',
-            headerName: "Sucursal",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return params.value
             }
         }
     ],
@@ -179,13 +177,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 340)
+        $("#myGrid").height(parseInt($(window).height()) - 320)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })

@@ -21,8 +21,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -58,6 +58,7 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 120,
             headerName: "Detalle",
             field: "detalle",
             tooltipField: 'detalle',
@@ -76,7 +77,7 @@ const gridOptions = {
         {
             width: 80,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Stock",
             field: "stock",
             tooltipField: 'stock',
@@ -92,7 +93,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Unidad",
             field: "unidad",
             tooltipField: 'unidad',
@@ -108,7 +109,7 @@ const gridOptions = {
         {
             width: 120,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Stk. Valuado",
             field: "stockValuado",
             tooltipField: 'stockValuado',
@@ -124,7 +125,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Deposito",
             field: "deposito",
             tooltipField: 'deposito',
@@ -153,13 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 245)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -169,7 +169,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['stockValuado']
     columnsWithAggregation.forEach(element => {
         // console.log('element', element)

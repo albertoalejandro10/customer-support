@@ -8,10 +8,9 @@ btn_export.onclick = function() {
 }
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -81,7 +80,7 @@ const gridOptions = {
         {
             width: 80,
             headerClass: "text-center",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-center',
             headerName: "Promo Días Cobros",
             field: "promoDiasCobros",
             tooltipField: 'promoDiasCobros',
@@ -95,7 +94,7 @@ const gridOptions = {
         {
             width: 80,
             headerClass: "text-center",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-center',
             headerName: "Promo Días Valores",
             field: "promoDiasValores",
             tooltipField: 'promoDiasValores',           
@@ -110,7 +109,7 @@ const gridOptions = {
             minWidth: 90,
             maxWidth: 100,
             headerClass: "text-center",
-            cellClass: 'ag-center-aligned-cell',
+            cellClass: 'cell-vertical-align-center',
             headerName: "Última venta",
             field: "fecha",
             sortable: true,
@@ -127,7 +126,7 @@ const gridOptions = {
             minWidth: 90,
             maxWidth: 120,
             headerClass: "text-center",
-            cellClass: 'ag-center-aligned-cell',
+            cellClass: 'cell-vertical-align-center',
             headerName: "Último Credito",
             field: "ultCredito",
             sortable: true,
@@ -144,7 +143,7 @@ const gridOptions = {
             minWidth: 60,
             maxWidth: 100,
             headerClass: "text-center", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Créditos Cheques",
             field: "creditoCheches",
             cellRenderer: function(params) {
@@ -157,7 +156,7 @@ const gridOptions = {
         {
             width: 80,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Crédito",
             field: "credito", 
             sortable: true, 
@@ -172,7 +171,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Saldo Vencido",
             field: "vencido",
             sortable: true, 
@@ -187,7 +186,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Saldo Final",
             field: "pendienteTotal",
             sortable: true, 
@@ -215,13 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 290)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -231,7 +229,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target){
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['vencido', 'pendienteTotal']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
@@ -241,7 +238,6 @@ function calculatePinnedBottomData(target){
         })
         if (target[element])
             target[element] = `${target[element].toFixed(2)}`   
-
     })
     //console.log(target)
     return target

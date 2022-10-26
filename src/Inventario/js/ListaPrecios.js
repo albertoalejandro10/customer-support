@@ -102,22 +102,7 @@ const gridOptions = {
         {
             width: 110,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
-            headerName: "Precio Neto",
-            field: "precio",
-            sortable: true, 
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 110,
-            headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "No Gravado",
             field: "noGravado",
             sortable: true, 
@@ -132,7 +117,22 @@ const gridOptions = {
         {
             width: 110,
             headerClass: "ag-right-aligned-header", 
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
+            headerName: "Precio Neto",
+            field: "precio",
+            sortable: true, 
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 110,
+            headerClass: "ag-right-aligned-header", 
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Precio Final",
             field: "precioFinal",
             sortable: true, 
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 245)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
 const post_getPriceList = (tkn, data) => {
