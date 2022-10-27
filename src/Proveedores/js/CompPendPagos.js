@@ -22,10 +22,9 @@ checkboxExpiration.addEventListener('change', event => {
 })
 
 const localeText = ag_grid_locale_es
-
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -45,9 +44,10 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85, 
+            width: 75,
             headerName: "Venc.",
             field: "vencimiento",
+            tooltipField: 'vencimiento',
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -58,8 +58,9 @@ const gridOptions = {
             }
         },
         {
-            width: 85,
+            width: 75,
             field: "fecha",
+            tooltipField: 'fecha',
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -72,6 +73,7 @@ const gridOptions = {
         {
             width: 145,
             field: "comprobante",
+            tooltipField: 'comprobante',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -88,6 +90,7 @@ const gridOptions = {
             flex: 1,
             minWidth: 100,
             field: "nombre",
+            tooltipField: 'nombre',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -101,6 +104,7 @@ const gridOptions = {
             flex: 1,
             minWidth: 120,
             field: "observacion",
+            tooltipField: 'observacion',
             headerName: "Observaciones",
             sortable: true,
             filter: true,
@@ -119,7 +123,7 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "moneda",
             sortable: true,
             filter: true,
@@ -133,7 +137,7 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "neto",
             sortable: true,
             filter: true,
@@ -147,8 +151,9 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "total",
+            tooltipField: 'total',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -161,8 +166,9 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "pendiente",
+            tooltipField: 'pendiente',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -188,13 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 320)
+        $("#myGrid").height(parseInt($(window).height()) - 300)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -204,7 +209,6 @@ function generatePinnedBottomData(){
 function calculatePinnedBottomData(target) {
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['pendiente']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
@@ -213,8 +217,7 @@ function calculatePinnedBottomData(target) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
         })
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`            
-
+            target[element] = `${target[element].toFixed(2)}`
     })
     //console.log(target)
     return target

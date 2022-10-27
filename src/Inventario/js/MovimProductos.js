@@ -1,4 +1,4 @@
-import { getParameter, format_number, format_token, reverseFormatNumber } from "../../jsgen/Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -9,8 +9,8 @@ btn_export.onclick = function() {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -29,7 +29,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85, 
+            width: 75,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -55,9 +55,9 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 100,
             field: "detalle",
             tooltipField: 'detalle',
-            minWidth: 100,
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -70,7 +70,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "entrada",
             sortable: true,
             filter: true,
@@ -84,7 +84,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "salida",
             sortable: true,
             filter: true,
@@ -98,7 +98,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "costo",
             sortable: true,
             filter: true,
@@ -112,7 +112,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "precio",
             sortable: true,
             filter: true,
@@ -126,7 +126,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             headerName: "Precio Final",
             field: "precioF",
             sortable: true,
@@ -154,13 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 280)
+        $("#myGrid").height(parseInt($(window).height()) - 260)
 })
 
 function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -170,7 +169,6 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData (target){
     // console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['entrada', 'salida']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
@@ -184,9 +182,7 @@ function calculatePinnedBottomData (target){
         } else {
             target[element] = '0.00'
         }
-
     })
-
     // Calcular campo «costo»
     const { entrada, salida } = target
     const costo = Number(entrada) - Number(salida)

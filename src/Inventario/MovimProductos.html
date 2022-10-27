@@ -9,15 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
-      $(window).unbind("resize")
-      $(window).resize(function () {
-        if ((parseInt($(window).height()) - 300) < 200)
-            $("#myGrid").height(100)
-        else
-            $("#myGrid").height(parseInt($(window).height()) - 340)
-        //$(".grid").width('100%')
-      })
-  </script>
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 260)
+      //$(".grid").width('100%')
+    })
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -25,22 +25,26 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
+            <div class="col-6 mb-2">
               <h4 class="mb-0">Movimiento de Productos</h4>
             </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovProducto.aspx" target="_self">[Versión anterior]</a>
+            </div>
+
             <div class="col-12">
               <form id="form">
                 <div class="row">
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label for="deposit">Deposito:</label>
                       <select id="deposit" name="deposit" class="form-control">
                         <!-- Deposito -->
                       </select>
                     </div>
 
-                    <div class="d-flex mt-2">
+                    <div class="d-flex">
                       <label for="customers">Producto:</label>
                       <select class="cmb_productos" name="producto" style="width:100%;">
                       </select>
@@ -48,14 +52,14 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="voucher-type">Tipo Comprob:</label>
                       <select id="voucher-type" name="voucher-type" class="form-control">
                         <!-- Options voucher-type -->

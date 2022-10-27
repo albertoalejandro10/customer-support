@@ -27,52 +27,26 @@
     font-size: 10px !important;
 }
 
-.wrapper {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-i {
-    margin-right: 6px;
-}
-
-h4 {
-    color: #777777;
-    font-weight: 400;
-}
-
 label {
     margin-bottom: 0px;
-
     &[for="voucher"] {
         margin-right: 16px;
     }
-    
     &[for="supplier"] {
         margin-right: 4px;
     }
-    
     &[for="number-seats"] {
         margin-right: 4px;
     }
-
     &[for="periodStart"] {
         margin-right: 22px;
     }
-
     &[for="sale-point"] {
         margin-right: 4px;
     }
-
     &[for="business"] {
         margin-right: 14px;
     }
-
     &[for="doc-number"] {
         margin-right: 6px;
     }

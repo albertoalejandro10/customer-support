@@ -144,7 +144,37 @@ const gridOptions = {
             width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
+            field: "neto",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 90,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "iva",
+            headerName: "IVA",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 90,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
             field: "retencion",
+            headerName: "Retención",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -172,49 +202,6 @@ const gridOptions = {
             width: 90,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
-            field: "pendiente",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                return ""
-                else
-                return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "iva",
-            headerName: "IVA",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "neto",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
             field: "importe",
             sortable: true,
             filter: true,
@@ -223,6 +210,20 @@ const gridOptions = {
                     return ""
                 else
                     return format_number(params.value)
+            }
+        },
+        {
+            width: 90,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "pendiente",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value)=="null")
+                return ""
+                else
+                return format_number(params.value)
             }
         }
     ],

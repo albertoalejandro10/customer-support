@@ -14,7 +14,7 @@
       if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
       else
-        $("#myGrid").height(parseInt($(window).height()) - 340)
+        $("#myGrid").height(parseInt($(window).height()) - 300)
       //$(".grid").width('100%')
     })
   </script>
@@ -25,15 +25,18 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
+            <div class="col-6 mb-2">
               <h4 class="mb-0">Comprobantes pendientes de pago</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/CompPendPro.aspx" target="_self">[Versión anterior]</a>
             </div>
             
             <div class="col-12">
               <form id="form">
                 <div class="row">
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select id="business" name="business" class="form-control">
                         <!-- U. de Negocio -->
@@ -48,19 +51,19 @@
                       </select>
                     </div>
   
-                    <div class="d-flex mt-3">
+                    <div class="d-flex mt-2">
                       <label for="with-expiration">Con det. de Venc:</label>
                       <input class="checkbox" type="checkbox" name="with-expiration" id="with-expiration">
                     </div>                
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
   
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="supplier">Proveedor:</label>
                       <select class="cmb_proveedor" name="supplier" style="width:100%;">
                       </select>
@@ -68,13 +71,13 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mt-1 mb-2">
+                    <div class="d-flex mb-1">
                       <label for="expiration" class="text-nowrap">Hasta vencimiento:</label>
                       <input class="checkbox mr-2" type="checkbox" name="expirationCheckbox" id="checkboxExpiration">
                       <input class="form-control" type="date" name="expiration" id="expiration" disabled>
                     </div>
   
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="coin">Moneda:</label>
                       <select id="coin" name="coin" class="form-control">
                         <!-- Options Coins -->
