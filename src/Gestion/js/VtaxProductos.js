@@ -58,20 +58,6 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
-            field: "sucursal",
-            tooltipField: 'sucursal',
-            headerName: "Sucursal",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return params.value
-            }
-        },
-        {
             width: 100, 
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
@@ -159,6 +145,21 @@ const gridOptions = {
                     return ""
                 else
                     return format_number(params.value)
+            }
+        },
+        {
+            width: 100,
+            headerClass: "ag-right-aligned-header",
+            field: "sucursal",
+            tooltipField: 'sucursal',
+            headerName: "Sucursal",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return params.value
             }
         }
     ],

@@ -57,6 +57,7 @@ const gridOptions = {
         },
         {
             flex: 1,
+            minWidth: 120,
             headerName: "Detalle",
             field: "producto",
             tooltipField: 'producto',
@@ -103,8 +104,8 @@ const gridOptions = {
             width: 110,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
-            headerName: "No Gravado",
-            field: "noGravado",
+            headerName: "Precio Neto",
+            field: "precio",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
@@ -118,8 +119,8 @@ const gridOptions = {
             width: 110,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
-            headerName: "Precio Neto",
-            field: "precio",
+            headerName: "No Gravado",
+            field: "noGravado",
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {

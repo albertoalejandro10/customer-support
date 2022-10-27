@@ -124,8 +124,22 @@ const gridOptions = {
             }
         },
         {
-            width: 90, 
+            width: 100,
             headerClass: "ag-right-aligned-header", 
+            cellClass: 'cell-vertical-align-text-right',
+            field: "neto", 
+            sortable: true, 
+            filter: true,
+            cellRenderer: function(params) {
+                if (String(params.value) == "null")
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 90, 
+            headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "iva",
             headerName: "IVA",
@@ -140,23 +154,9 @@ const gridOptions = {
         },
         {
             width: 100, 
-            headerClass: "ag-right-aligned-header", 
+            headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
-            sortable: true, 
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 100,
-            headerClass: "ag-right-aligned-header", 
-            cellClass: 'cell-vertical-align-text-right',
-            field: "neto", 
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {

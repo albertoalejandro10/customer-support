@@ -15,7 +15,6 @@ selectType.addEventListener('change', event => {
 
 // Listado de tipos de periodo (Valores)
 const get_detValues = ( tkn, value ) => {
-    // console.log(tkn, value, type)
     const url_getDetValues = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_valores'
     fetch( url_getDetValues, {
         method: 'GET',
@@ -28,7 +27,7 @@ const get_detValues = ( tkn, value ) => {
     .then( resp => {
         let detValues = resp
         if ( value !== 0) detValues = detValues.filter( x => x.tipo === value)
-        
+
         for (const element of detValues) {
             const { tipo, id, nombre } = element
             // console.log(tipo, id, nombre)
