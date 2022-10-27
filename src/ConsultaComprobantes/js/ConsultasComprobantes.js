@@ -45,7 +45,7 @@ const gridOptions = {
             }   
         },
         {
-            width: 145, 
+            width: 155,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true, 
@@ -153,7 +153,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100, 
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",

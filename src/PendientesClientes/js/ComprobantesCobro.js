@@ -77,10 +77,10 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return ""
                 else
-                    if (params.value=='Saldo Inicial')
+                    if (params.value == 'Saldo Inicial')
                         return params.value
                     else
                         return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
@@ -201,7 +201,7 @@ function calculatePinnedBottomData(target){
                 target[element] += Number(rowNode.data[element].toFixed(2))
         })
         if (target[element])
-            target[element] = `${target[element].toFixed(2)}`            
+            target[element] = `${target[element].toFixed(2)}`
 
     })
     //console.log(target)
