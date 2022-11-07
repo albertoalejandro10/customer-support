@@ -14,7 +14,7 @@
 			if ((parseInt($(window).height()) - 300) < 200)
 				$("#myGrid").height(100)
 			else
-				$("#myGrid").height(parseInt($(window).height()) - 340)
+				$("#myGrid").height(parseInt($(window).height()) - 320)
 		})
   </script>
   </head>
@@ -24,19 +24,22 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
-              <h4 class="mb-0">Ventas por Cliente</h4>
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Ventas por cliente</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ProdporCliente.aspx" target="_self">[Versión anterior]</a>
             </div>
             <div class="col-12">
               <form id="form">
                 <div class="row">
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
 											<label for="customer">Cliente:</label>
                       <input type="text" name="customer" id="customer" class="form-control">
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="report-type">Tipo:</label>
                       <select id="report-type" name="report-type" class="form-control" required>
                         <!-- Tipo -->
@@ -52,12 +55,12 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart" required>-<input class="form-control" type="date" name="periodEnd" id="periodEnd" required>
                     </div>
 
-                    <div class="d-flex mt-1 mb-3">
+                    <div class="d-flex mb-1">
 											<label for="product">Producto:</label>
 											<select class="cmb_productos" name="product" id="product" style="width:100%;">
 											</select>
@@ -72,21 +75,21 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="voucher">Comprobante:</label>
                       <select id="voucher" name="voucher" class="form-control">
                         <!-- Comprobante -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="subsidiary">Sucursal:</label>
                       <select id="subsidiary" name="subsidiary" class="form-control" required>
                         <!-- Sucursal -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="sale-line">Linea Venta:</label>
                       <select id="sale-line" name="sale-line" class="form-control" required>
                         <!-- linea de venta -->

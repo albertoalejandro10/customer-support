@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 35,
-    rowHeight: 30,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -31,7 +31,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 85, 
+            width: 85,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -43,7 +43,7 @@ const gridOptions = {
             }
         },
         {
-            width: 145,
+            width: 155,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true,
@@ -103,7 +103,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "importeDebe",
             headerName: 'Debe',
             sortable: true,
@@ -118,7 +118,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "importeHaber",
             headerName: 'Haber',
             sortable: true,
@@ -133,7 +133,7 @@ const gridOptions = {
         {
             width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "saldo",
             sortable: true,
             filter: true,
@@ -160,13 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 360)
+        $("#myGrid").height(parseInt($(window).height()) - 320)
 })
 
 function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })

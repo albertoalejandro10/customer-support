@@ -118,7 +118,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 115,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",

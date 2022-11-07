@@ -21,8 +21,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  

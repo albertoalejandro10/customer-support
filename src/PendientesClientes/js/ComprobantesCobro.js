@@ -46,7 +46,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 75,
+            width: 85,
             headerName: "Venc.",
             field: "vencimiento",
             sortable: true,
@@ -59,7 +59,7 @@ const gridOptions = {
             }
         },
         {
-            width: 75,
+            width: 85,
             field: "fecha",
             sortable: true,
             filter: true,
@@ -71,7 +71,7 @@ const gridOptions = {
             }
         },
         {
-            width: 145,
+            width: 155,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true,

@@ -4,21 +4,7 @@
 :root {
     --font-family-sans-serif: "Poppins", sans-serif;
 }
-
-* {
-    font-size: 14px;
-}
-
-h4 {
-    color: #777777;
-    font-weight: 400;
-}
-
-label {
-    color: #777777;
-    cursor: pointer;
-    font-weight: 500;
-}
+@import "../../scss/main";
 
 select {
     margin: 0 auto;
@@ -27,23 +13,4 @@ select {
 
 #form {
     width: 90%;
-}
-
-.btn {
-    color: white;
-}
-
-.row {
-    &.form-top {
-        background-color: #efefef;
-        border: 0.5px solid #d5d5d5;
-    }
-    &.form-middle {
-        background-color: #e1e1e1;
-        border: 0.5px solid #b7b7b7;
-    }
-    &.form-bottom {
-        background-color: #efefef;
-        border: 0.5px solid #d5d5d5;
-    }
 }

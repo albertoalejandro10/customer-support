@@ -14,7 +14,7 @@
       if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
       else
-        $("#myGrid").height(parseInt($(window).height()) - 340)
+        $("#myGrid").height(parseInt($(window).height()) - 320)
       //$(".grid").width('100%')
     })
   </script>
@@ -25,22 +25,25 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-12 mb-2">
+            <div class="col-6 mb-2">
               <h4 class="mb-0">Resumen de cuentas de clientes</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/net2018/views/ini_solu.html#/views/REP_ResCliente" target="_self">[Versión anterior]</a>
             </div>
             
             <div class="col-12">
               <form id="form">
                 <div class="row">
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select id="business" name="business" class="form-control">
                         <!-- Deposito -->
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="status">Estado:</label>
                       <select id="status" name="status" class="form-control">
 												<option value="">Todos</option>
@@ -48,7 +51,7 @@
                       </select>
                     </div>
 
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="coin">Moneda:</label>
                       <select id="coin" name="coin" class="form-control">
                         <!-- Moneda -->
@@ -62,17 +65,17 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
 
-										<div class="d-flex my-2">
+										<div class="d-flex mb-1">
 											<label for="customer">Cliente:</label>
 											<select class="cmb_clientes" name="customer" id="customer" style="width:100%;" required></select>
                     </div>
 
-                    <div class="d-flex mt-2 mt-xl-3">
+                    <div class="d-flex mt-1">
 											<label for="debt-collector">Cobrador:</label>
 											<select id="debt-collector" name="debt-collector" id="debt-collector" class="form-control">
 												<!-- Cobrador -->
@@ -81,24 +84,24 @@
                   </div>
   
                   <div class="col-sm">
-                    <div class="d-flex mb-2">
+                    <div class="d-flex mb-1">
                       <label for="subsidiary">Sucursal:</label>
                       <select id="subsidiary" name="subsidiary" class="form-control">
                         <!-- Sucursal -->
                       </select>
                     </div>
 
-										<div class="d-flex mt-2 mt-xl-3 mb-3 mb-xl-4">
+										<div class="d-flex mt-2">
                       <label class="text-nowrap" for="include-proformas">Incluir Proformas:</label>
                       <input type="checkbox" name="include-proformas" id="include-proformas">
                     </div>
 
-										<div class="d-flex my-xl-3">
+										<div class="d-flex mt-2">
                       <label class="text-nowrap" for="include-notes">Incluir Remitos:</label>
                       <input type="checkbox" name="include-notes" id="include-notes">
                     </div>
 
-                    <div class="d-none d-xl-flex justify-content-end">
+                    <div class="d-none mt-2 d-xl-flex justify-content-end">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
                       <button id="btn_print" type="button" class="btn btn-dark text-white ml-2" disabled><i class="fa-solid fa-print"></i> Imprimir</button>

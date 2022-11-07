@@ -14,7 +14,6 @@ hr {
 
 label {
     margin-bottom: 0px;
-
     &[for="business"] {
         margin-right: 4px;
     }
@@ -27,7 +26,6 @@ label {
     &[for="net"] {
         margin-right: 6px;
     }
-
     &[for="periodStart"] {
         margin-right: 4px;
     }
@@ -37,7 +35,6 @@ label {
     &[for="value"] {
         margin-right: 32px;
     }
-
     &[for="delivery"] {
         margin-right: 4px;
     }
@@ -80,10 +77,6 @@ $breakpoint-large-screen: 1100px;
     }
 }
 
-.col-sm .d-flex,
-.col-sm-2 .d-flex,
-.col-sm-3 .d-flex,
-.col-sm-4 .d-flex,
 .col-sm-8 .d-flex,
 .col-sm-5 .d-flex,
 .col-xl-4 .d-flex {

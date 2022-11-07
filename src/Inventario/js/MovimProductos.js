@@ -124,7 +124,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 120,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             headerName: "Precio Final",

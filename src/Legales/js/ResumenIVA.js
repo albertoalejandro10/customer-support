@@ -3,7 +3,7 @@ import { ag_grid_locale_es, filterChangedd } from "../../jsgen/Grid-Helper"
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 25,
+    headerHeight: 28,
     rowHeight: 22,
     defaultColDef: {
         editable: false,
@@ -27,6 +27,7 @@ const gridOptions = {
             minWidth: 120,
             field: "tipoIva",
             tooltipField: 'tipoIva',
+            headerName: "Tipo IVA",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -39,7 +40,7 @@ const gridOptions = {
         {
             width: 80,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "porcIva",
             headerName: "% IVA",
             sortable: true,
@@ -54,7 +55,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "neto",
             sortable: true,
             filter: true,
@@ -68,7 +69,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "iva",
             headerName: 'IVA Inscrip.',
             sortable: true,
@@ -83,7 +84,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
             sortable: true,
             filter: true,
@@ -97,8 +98,9 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "retencion",
+            headerName: "Retención",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -111,7 +113,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "impuesto1",
             headerName: "Percep. IIBB",
             sortable: true,
@@ -126,7 +128,7 @@ const gridOptions = {
         {
             width: 90,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "impuest2",
             headerName: "Percep. LH",
             sortable: true,
@@ -141,7 +143,7 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "total",
             sortable: true,
             filter: true,
@@ -164,12 +166,10 @@ const gridOptions2 = {...gridOptions}
 document.addEventListener('DOMContentLoaded', () => {
     const gridDiv = document.querySelector('#myGrid')
     new agGrid.Grid(gridDiv, gridOptions)
-
-    // console.log('JS:', parseInt($(window).height()) )
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid").height(100)
     } else {
-        $("#myGrid").height(parseInt($(window).height()) - 455)
+        $("#myGrid").height(parseInt($(window).height()) - 460)
     }
 
     const gridDiv2 = document.querySelector('#myGrid-purchased')
@@ -177,14 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid-purchased").height(100)
     } else {
-        $("#myGrid-purchased").height(parseInt($(window).height()) - 455)
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 460)
     }
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
@@ -215,7 +214,6 @@ function calculatePinnedBottomData(target){
 function generatePinnedBottomData2 (){
     // generate a row-data with null values
     let result = {}
-
     gridOptions2.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })

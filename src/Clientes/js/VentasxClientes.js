@@ -1,4 +1,4 @@
-import { getParameter, format_number, format_token } from "../../jsgen/Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 25,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -45,7 +45,7 @@ const gridOptions = {
         {
             flex: 1,
             minWidth: 110,
-            maxWidth: 140,
+            maxWidth: 155,
             field: "Comprobante",
             tooltipField: 'Comprobante',
             sortable: true,
@@ -102,24 +102,10 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 115,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
             field: "cantidad",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if ( String(params.value) == "null" )
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
-            field: "precio",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -132,7 +118,21 @@ const gridOptions = {
         {
             width: 100,
             headerClass: "ag-right-aligned-header",
-            cellClass: 'ag-right-aligned-cell',
+            cellClass: 'cell-vertical-align-text-right',
+            field: "precio",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if ( String(params.value) == "null" )
+                    return ""
+                else
+                    return format_number(params.value)
+            }
+        },
+        {
+            width: 115,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
             field: "precioF",
             headerName: 'Precio Final',
             sortable: true,
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 360)
+        $("#myGrid").height(parseInt($(window).height()) - 320)
 })
 
 function generatePinnedBottomData () {

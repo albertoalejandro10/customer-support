@@ -10,8 +10,8 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 30,
-    rowHeight: 22,
+    headerHeight: 28,
+    rowHeight: 24,
     defaultColDef: {
         editable: false,
         resizable: true,  
@@ -41,7 +41,6 @@ const gridOptions = {
         {
             width: 85, 
             field: "fecha",
-            
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
@@ -63,7 +62,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             field: "nroReferencia",
             headerName: "Nº de Ref.",
             tooltipField: 'nroReferencia',

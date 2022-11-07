@@ -44,7 +44,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 75,
+            width: 85,
             headerName: "Venc.",
             field: "vencimiento",
             tooltipField: 'vencimiento',
@@ -58,7 +58,7 @@ const gridOptions = {
             }
         },
         {
-            width: 75,
+            width: 85,
             field: "fecha",
             tooltipField: 'fecha',
             sortable: true,
@@ -71,7 +71,7 @@ const gridOptions = {
             }
         },
         {
-            width: 145,
+            width: 155,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true,
@@ -164,7 +164,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "pendiente",
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 300)
+        $("#myGrid").height(parseInt($(window).height()) - 290)
 })
 
 function generatePinnedBottomData () {

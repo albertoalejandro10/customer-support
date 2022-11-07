@@ -11,13 +11,10 @@
 		$(window).resize(function () {
       if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid").height(100)
-      } else {
-        $("#myGrid").height(parseInt($(window).height()) - 455)
-      }
-      if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid-purchased").height(100)
       } else {
-        $("#myGrid-purchased").height(parseInt($(window).height()) - 455)
+        $("#myGrid").height(parseInt($(window).height()) - 460)
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 460)
       }
 		})
   	</script>
@@ -26,12 +23,16 @@
     <form id="form">
       <div class="wrapper">
         <div class="container-fluid" style="height: 100%;">
-          <div class="container mt-1 pt-1 pr-5 pl-5 rounded col-12">
+          <div class="container px-5 rounded col-12">
             <!-- Form - Higher -->
-            <div class="row p-2 mb-1 rounded form-top">
-              <div class="col-12 mb-1">
+            <div class="row px-2 py-1 mb-1 rounded form-top">
+              <div class="col-6 mb-1">
                 <h4 class="mb-0">Resumen libro IVA</h4>
               </div>
+              <div class="col-6 mb-1 text-right">
+                <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ResLibIVA.aspx" target="_self">[Versión anterior]</a>
+              </div>
+
               <div class="col-12">
                 <div class="row">
                   <div class="col-sm">
@@ -96,7 +97,7 @@
             </div>
             
             <!-- Form - Middle -->
-            <div class="row p-2 mt-1 rounded form-middle text-secondary">
+            <div class="row px-2 py-1 mt-1 rounded form-middle text-secondary">
               <div class="col-12">
                 <h6 class="mt-1 font-weight-bolder text-center">Libro IVA - Ventas</h6>
                 <div class="container-fluid">

@@ -148,7 +148,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -163,7 +163,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -185,14 +185,15 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
+            headerName: "No Gravado",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -220,10 +221,10 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
-                return ""
+                if (String(params.value) == "null")
+                    return ""
                 else
-                return format_number(params.value)
+                    return format_number(params.value)
             }
         }
     ],
@@ -242,23 +243,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 300)
+        $("#myGrid").height(parseInt($(window).height()) - 290)
 })
 
-function generatePinnedBottomData(){
+function generatePinnedBottomData () {
     // generate a row-data with null values
     let result = {}
-
     gridOptions.api.columnModel.gridColumns.forEach(item => {
         result[item.colId] = null
     })
     return calculatePinnedBottomData(result)
 }
 
-function calculatePinnedBottomData(target){
+function calculatePinnedBottomData (target) {
     //console.log(target)
     //**list of columns fo aggregation**
-
     let columnsWithAggregation = ['neto', 'iva', 'retencion', 'noGravado', 'importe', 'pendiente']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)

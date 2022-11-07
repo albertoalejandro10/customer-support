@@ -10,7 +10,7 @@ const redirectExport = () => {
 
 const localeText = ag_grid_locale_es
 const gridOptions = {
-    headerHeight: 26,
+    headerHeight: 28,
     rowHeight: 24,
     defaultColDef: {
         editable: false,
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 300)
+        $("#myGrid").height(parseInt($(window).height()) - 295)
 })
 
 function generatePinnedBottomData () {
