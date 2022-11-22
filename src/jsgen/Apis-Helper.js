@@ -795,3 +795,34 @@ export const get_costCenter = tkn => {
         console.log( err )
     })
 }
+
+/*
+    *ventas/get_tipos_documento (Utilidades Page)
+*/
+export const get_docsTypes = tkn => {
+    const url_getDocsTypes = 'https://www.solucioneserp.net/listados/ventas/get_tipos_documento'
+    fetch( url_getDocsTypes, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const docsTypes = resp
+        for (const element of docsTypes) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+            const select = document.querySelector('#documents')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}

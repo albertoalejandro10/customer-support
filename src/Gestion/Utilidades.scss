@@ -1,0 +1,30 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import "../../node_modules/bootstrap/scss/bootstrap";
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+@import "../../scss/main";
+
+label {
+    margin-bottom: 0px;
+    &[for="entry"] {
+        margin-right: 39px;
+    }
+    &[for="documents"] {
+        margin-right: 4px;
+    }
+    &[for="periodStart"] {
+        margin-right: 27px;
+    }
+    &[for="sale-line"] {
+        margin-right: 4px;
+    }
+    &[for="subsidiary"] {
+        margin-right: 4px;
+    }
+    &[for="average-price"] {
+        margin-right: 4px;
+    }
+}

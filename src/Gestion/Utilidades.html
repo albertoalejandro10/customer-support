@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./Utilidades.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 270)
+      //$(".grid").width('100%')
+    })
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Utilidades</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovimientoVenta.aspx" target="_self">[Versión anterior]</a>
+            </div>
+            <div class="col-12">
+              <form id="form">
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label for="entry">Rubro:</label>
+                      <select class="form-control" id="entry" name="entry" >
+                        <!-- Options entries -->
+                      </select>
+                    </div>
+
+                    <div class="d-flex">
+                      <label for="documents">Documento:</label>
+                      <select class="form-control" id="documents" name="documents">
+                        <!-- Options documents -->
+                      </select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label for="periodStart">Período:</label>
+                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                    </div>
+
+                    <div class="d-flex">
+                      <label class="text-nowrap" for="sale-line">Linea Venta:</label>
+                      <select class="form-control" name="sale-line" id="sale-line"></select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label class="text-nowrap" for="subsidiary">Sucursal:</label>
+                      <select class="form-control" name="subsidiary" id="subsidiary">
+                        <!-- Options subsidiary -->
+                      </select>
+                    </div>
+
+                    <div class="d-flex mt-2">
+                      <label class="text-nowrap" for="average-price">Precio promedio:</label>
+                      <input type="checkbox" id="average-price" name="average-price">
+                    </div>
+                  </div>
+
+                  <div class="col-sm d-none d-xl-flex justify-content-end align-items-end">
+                    <div class="d-flex">
+                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Exportar</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex d-xl-none justify-content-end">
+                  <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                  <button id="btn_export_1024" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-check"></i> Exportar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle text-secondary">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder">Utilidades</h6>
+              <div class="container-fluid">
+                <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/Utilidades.js"></script>
+  <script src="js/UtilidadesGetApis.js"></script>
+  <script src="../jsgen/footer-form.js"></script>  
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-alpine.css">
+</html>
