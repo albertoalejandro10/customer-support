@@ -50,6 +50,7 @@ export const restarImporteTotal = importe => {
 export const format_number = importeNeto => {
     const  style = {
         minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
         useGrouping: true
     }
     const formatter = new Intl.NumberFormat("de-DE", style)

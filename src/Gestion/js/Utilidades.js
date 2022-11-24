@@ -2,8 +2,9 @@ import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
-const btn_export = document.getElementById("btn_export")
-btn_export.onclick = function() {
+document.getElementById("btn_export").onclick = () => redirectExport()
+document.getElementById("btn_export_1024").onclick = () => redirectExport()
+const redirectExport = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
 
@@ -57,7 +58,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 105,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
             field: "cantidad",
@@ -69,7 +70,7 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 105,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
             field: "costo",
@@ -79,7 +80,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 105,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
             field: "precio",
@@ -89,7 +90,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 105,
             headerClass: "ag-right-aligned-header", 
             cellClass: 'cell-vertical-align-text-right',
             field: "venta",
@@ -98,7 +99,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 105,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "impUtil",
@@ -108,7 +109,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 105,
             headerClass: "text-right",
             cellClass: 'cell-vertical-align-text-right',
             field: "porcUtil",
@@ -118,7 +119,7 @@ const gridOptions = {
             }
         },
         {
-            width: 115,
+            width: 105,
             headerClass: "text-right",
             cellClass: 'cell-vertical-align-text-right',
             field: "porcVta",
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 270)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
 function generatePinnedBottomData () {
@@ -158,7 +159,7 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData(target){
     //console.log(target)
     // *list of columns fo aggregation*
-    let columnsWithAggregation = ['cantidad', 'costo', 'precio', 'venta', 'impUtil', 'porcUtil', 'porcVta']
+    let columnsWithAggregation = ['cantidad', 'costo', 'precio', 'venta', 'impUtil']
     columnsWithAggregation.forEach(element => {
         // console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -187,14 +188,6 @@ const get_utilities = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        
-        let suma = 0
-        let i = 0
-        resp.map( element => {
-            suma += Math.abs(element.porcUtil)
-            i++
-        })
-        console.log(suma / i)
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
@@ -204,6 +197,10 @@ const get_utilities = (tkn, data) => {
         })
 
         let pinnedBottomData = generatePinnedBottomData()
+        const { costo, precio } = pinnedBottomData
+        pinnedBottomData.porcUtil = (((precio * 100 ) / costo) - 100).toString()
+        pinnedBottomData.porcVta = (100 - (( costo * 100 ) / precio)).toString()
+        
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         gridOptions.api.hideOverlay()
         if ( Object.keys( resp ).length === 0 ) {
