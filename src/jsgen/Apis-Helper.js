@@ -826,3 +826,34 @@ export const get_docsTypes = tkn => {
         console.log( err )
     })
 }
+
+/*
+    *listado/get_tipos_asiento (VentasaContabilizar)
+*/
+export const get_seatType = tkn => {
+    const url_getSeatType = 'https://www.solucioneserp.net/listados/get_tipos_asiento'
+    fetch( url_getSeatType, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const docsTypes = resp
+        for (const element of docsTypes) {
+            const { id, codigo, nombre } = element
+            // console.log(id, codigo, nombre)
+            const select = document.querySelector('#seat-type')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
