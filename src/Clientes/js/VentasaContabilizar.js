@@ -1,5 +1,6 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 
+// *Conseguir ventas por contabilizar
 const post_getPendingSales = (data, tkn) => {
     document.getElementById('loader').classList.remove('d-none')
     const url_getPendingSales = 'https://www.solucioneserp.net/formularios/clientes/get_ventas_pendientes_contabilizar'
@@ -70,7 +71,7 @@ const post_getPendingSales = (data, tkn) => {
     })
 }
 
-// Imprimir datos en las tablas
+// *Imprimir datos en la primera tabla
 const printElementTables = ({id, fecha, comprobante, nombre, total}) => {
     const row = document.createElement('tr')
     row.className = 'delete-row'
@@ -100,6 +101,7 @@ const printElementTables = ({id, fecha, comprobante, nombre, total}) => {
     document.getElementById('sales-table').appendChild(row)
 }
 
+// *Imprimir datos en la segunda tabla
 const printElementInfoTables = ( arrDebits, arrCredits ) => {
     const rowDebits = document.createElement('tr')
     const rowCredits = document.createElement('tr')
@@ -151,7 +153,7 @@ if ( codCliente && tkn ) {
     post_getPendingSales({codCliente}, tkn)
 }
 
-// Boton para grabar
+// *Boton para grabar
 const post_recordedAssess = (tkn, data) => {
     const url_recordedAssess = 'https://www.solucioneserp.net/formularios/clientes/generar_asiento_ventas'
     fetch( url_recordedAssess , {
@@ -173,12 +175,17 @@ const post_recordedAssess = (tkn, data) => {
     })
 }
 
-// Ejecutar boton grabar
+// *Ejecutar boton actualizar
 document.getElementById("update").addEventListener("click", () => {
     post_getPendingSales({codCliente}, tkn)
 })
 
-// Boton Actualizar
+// *Ejecutar boton cargar
+document.getElementById("record").addEventListener("click", () => {
+    location.href = 'https://www.solucioneserp.com.ar/net/webform/compcomp.aspx'
+})
+
+// *Boton contabilizar
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -192,7 +199,7 @@ $form.addEventListener('submit', event => {
     
     let comprobantes = ''
     const checkedCheckboxes = document.querySelectorAll("#sales-table input[type='checkbox']:checked")
-    if ( ! checkedCheckboxes.length ) return alert('Debe marcar al menos dos ventas pendientes para contabilizar')
+    if ( ! checkedCheckboxes.length ) return alert('Debe marcar al menos una venta pendiente para contabilizar')
     for (const e of checkedCheckboxes) {
         comprobantes += ';' + e.id
     }
@@ -205,6 +212,6 @@ $form.addEventListener('submit', event => {
         agrupado,
         comprobantes
     }
-    // console.log(data)
+    // console.log(JSON.stringify(data))
     post_recordedAssess( tkn, data )
 })

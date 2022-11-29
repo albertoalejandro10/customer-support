@@ -7,3 +7,4 @@ if ( tkn ) {
     get_businessUnits( tkn )
     get_seatType( tkn )
 }
+document.getElementById('seat-date').value = (new Date().toLocaleDateString('en-GB')).split('/').reverse().join('-')
