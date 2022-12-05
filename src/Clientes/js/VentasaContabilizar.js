@@ -151,6 +151,8 @@ const codCliente = getParameter('codCliente')
 const tkn = getParameter('tkn')
 if ( codCliente && tkn ) {
     post_getPendingSales({codCliente}, tkn)
+} else {
+    document.getElementById('not-codClient').classList.remove('d-none')
 }
 
 // *Boton para grabar
@@ -182,7 +184,7 @@ document.getElementById("update").addEventListener("click", () => {
 
 // *Ejecutar boton cargar
 document.getElementById("record").addEventListener("click", () => {
-    location.href = 'https://www.solucioneserp.com.ar/net/webform/compcomp.aspx'
+    location.href = 'https://www.solucioneserp.com.ar/net/webform/compvta.aspx '
 })
 
 // *Boton contabilizar
@@ -201,8 +203,9 @@ $form.addEventListener('submit', event => {
     const checkedCheckboxes = document.querySelectorAll("#sales-table input[type='checkbox']:checked")
     if ( ! checkedCheckboxes.length ) return alert('Debe marcar al menos una venta pendiente para contabilizar')
     for (const e of checkedCheckboxes) {
-        comprobantes += ';' + e.id
+        comprobantes += e.id + ';'
     }
+    comprobantes = ';' + comprobantes
 
     const data = {
         fecha,
@@ -212,6 +215,6 @@ $form.addEventListener('submit', event => {
         agrupado,
         comprobantes
     }
-    // console.log(JSON.stringify(data))
+    // console.log(data)
     post_recordedAssess( tkn, data )
 })
