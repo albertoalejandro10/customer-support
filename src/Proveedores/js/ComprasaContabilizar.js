@@ -1,10 +1,10 @@
-import { getParameter, format_number } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 
 // *Conseguir ventas por contabilizar
-const post_getPendingSales = (data, tkn) => {
+const post_getPendingPurchases = (data, tkn) => {
     document.getElementById('loader').classList.remove('d-none')
-    const url_getPendingSales = 'https://www.solucioneserp.net/formularios/clientes/get_ventas_pendientes_contabilizar'
-    fetch( url_getPendingSales , {
+    const url_getPendingPurchases = 'https://www.solucioneserp.net/formularios/proveedores/get_compras_pendientes_contabilizar'
+    fetch( url_getPendingPurchases , {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -16,7 +16,7 @@ const post_getPendingSales = (data, tkn) => {
     .then( resp => {
         // Eliminar tablas previas
         const tableHeaderRowCount = 1
-        const table = document.getElementById('sales-table')
+        const table = document.getElementById('purchases-table')
         const rowCount = table.rows.length
         for (let i = tableHeaderRowCount; i < rowCount; i++) {
             table.deleteRow(tableHeaderRowCount)
@@ -30,44 +30,48 @@ const post_getPendingSales = (data, tkn) => {
         }
 
         if ( ! resp.length ) {
-            document.getElementById('not-sales').classList.remove('d-none')
+            document.getElementById('not-purchases').classList.remove('d-none')
             return
         }
         
         const arrDebits = [
             {neto: 0},
             {iva: 0},
+            {retencion: 0},
             {noGravado: 0},
             {total: 0}
         ]
         const arrCredits = structuredClone(arrDebits)
         for (const element of resp) {
             printElementTables(element)
-            const { debe, neto, iva, noGravado, total } = element
+            const { debe, neto, iva, retencion, noGravado, total } = element
             if ( debe ) {
                 arrCredits[0].neto += neto
                 arrCredits[1].iva += iva
-                arrCredits[2].noGravado += noGravado
-                arrCredits[3].total += total
+                arrCredits[2].retencion += retencion
+                arrCredits[3].noGravado += noGravado
+                arrCredits[4].total += total
             } else {
                 arrDebits[0].neto += neto
                 arrDebits[1].iva += iva
-                arrDebits[2].noGravado += noGravado
-                arrDebits[3].total += total
+                arrDebits[2].retencion += retencion
+                arrDebits[3].noGravado += noGravado
+                arrDebits[4].total += total
             }
         }
+
         printElementInfoTables(arrDebits, arrCredits)
         document.getElementById('loader').classList.add('d-none')
     })
     .catch( err => {
         console.log( err )
         document.getElementById('loader').classList.add('d-none')
-        document.getElementById('not-sales').classList.remove('d-none')
+        document.getElementById('not-purchases').classList.remove('d-none')
     })
 }
 
 // *Imprimir datos en la primera tabla
-const printElementTables = ({id, fecha, comprobante, nombre, total}) => {
+const printElementTables = ({id, fecha, comprobante, linkComprobante, nombre, total}) => {
     const row = document.createElement('tr')
     row.className = 'delete-row'
 
@@ -75,25 +79,29 @@ const printElementTables = ({id, fecha, comprobante, nombre, total}) => {
     row_data_1.innerHTML = `<input type="checkbox" name='checkbox-${id}' id='${id}'>`
 
     const row_data_2 = document.createElement('td')
-    row_data_2.textContent = (fecha.slice(0, 10)).split('-').reverse().join('/')
+    row_data_2.textContent = ''
 
     const row_data_3 = document.createElement('td')
-    row_data_3.textContent = comprobante
+    row_data_3.textContent = (fecha.slice(0, 10)).split('-').reverse().join('/')
 
     const row_data_4 = document.createElement('td')
-    row_data_4.textContent = nombre
+    row_data_4.innerHTML = `<a href="${format_token(linkComprobante)}">${comprobante}</a>`
 
     const row_data_5 = document.createElement('td')
-    row_data_5.id = `tr-${id}`
-    row_data_5.textContent = `${format_number(total)}`
+    row_data_5.textContent = nombre
+
+    const row_data_6 = document.createElement('td')
+    row_data_6.id = `tr-${id}`
+    row_data_6.textContent = `${format_number(total)}`
     
     row.appendChild(row_data_1)
     row.appendChild(row_data_2)
     row.appendChild(row_data_3)
     row.appendChild(row_data_4)
     row.appendChild(row_data_5)
+    row.appendChild(row_data_6)
     
-    document.getElementById('sales-table').appendChild(row)
+    document.getElementById('purchases-table').appendChild(row)
 }
 
 // *Imprimir datos en la segunda tabla
@@ -117,26 +125,33 @@ const printElementInfoTables = ( arrDebits, arrCredits ) => {
     row_data_3_credits.textContent = format_number(arrCredits[1].iva)
 
     const row_data_4_debits = document.createElement('td')
-    row_data_4_debits.textContent = format_number(arrDebits[2].noGravado)
+    row_data_4_debits.textContent = format_number(arrDebits[2].retencion)
     const row_data_4_credits = document.createElement('td')
-    row_data_4_credits.textContent = format_number(arrCredits[2].noGravado)
+    row_data_4_credits.textContent = format_number(arrCredits[2].retencion)
 
     const row_data_5_debits = document.createElement('td')
-    row_data_5_debits.textContent = format_number(arrDebits[3].total)
+    row_data_5_debits.textContent = format_number(arrDebits[3].noGravado)
     const row_data_5_credits = document.createElement('td')
-    row_data_5_credits.textContent = format_number(arrCredits[3].total)
+    row_data_5_credits.textContent = format_number(arrCredits[3].noGravado)
+
+    const row_data_6_debits = document.createElement('td')
+    row_data_6_debits.textContent = format_number(arrDebits[4].total)
+    const row_data_6_credits = document.createElement('td')
+    row_data_6_credits.textContent = format_number(arrCredits[4].total)
     
     rowDebits.appendChild(row_data_1_debits)
     rowDebits.appendChild(row_data_2_debits)
     rowDebits.appendChild(row_data_3_debits)
     rowDebits.appendChild(row_data_4_debits)
     rowDebits.appendChild(row_data_5_debits)
+    rowDebits.appendChild(row_data_6_debits)
 
     rowCredits.appendChild(row_data_1_credits)
     rowCredits.appendChild(row_data_2_credits)
     rowCredits.appendChild(row_data_3_credits)
     rowCredits.appendChild(row_data_4_credits)
     rowCredits.appendChild(row_data_5_credits)
+    rowCredits.appendChild(row_data_6_credits)
     
     document.getElementById('info-table').appendChild(rowDebits)
     document.getElementById('info-table').appendChild(rowCredits)
@@ -145,14 +160,14 @@ const printElementInfoTables = ( arrDebits, arrCredits ) => {
 const codCliente = getParameter('codCliente')
 const tkn = getParameter('tkn')
 if ( codCliente && tkn ) {
-    post_getPendingSales({codCliente}, tkn)
+    post_getPendingPurchases({codCliente}, tkn)
 } else {
     document.getElementById('not-codClient').classList.remove('d-none')
 }
 
 // *Boton para grabar
 const post_recordedAssess = (tkn, data) => {
-    const url_recordedAssess = 'https://www.solucioneserp.net/formularios/clientes/generar_asiento_ventas'
+    const url_recordedAssess = 'https://www.solucioneserp.net/formularios/proveedores/generar_asiento_compras'
     fetch( url_recordedAssess , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -165,7 +180,7 @@ const post_recordedAssess = (tkn, data) => {
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
         alert(`${resultado} - ${mensaje}`)
-        post_getPendingSales({codCliente}, tkn)
+        post_getPendingPurchases({codCliente}, tkn)
     })
     .catch( err => {
         console.log( err )
@@ -174,12 +189,12 @@ const post_recordedAssess = (tkn, data) => {
 
 // *Ejecutar boton actualizar
 document.getElementById("update").addEventListener("click", () => {
-    post_getPendingSales({codCliente}, tkn)
+    post_getPendingPurchases({codCliente}, tkn)
 })
 
 // *Ejecutar boton cargar
 document.getElementById("record").addEventListener("click", () => {
-    location.href = 'https://www.solucioneserp.com.ar/net/webform/compvta.aspx '
+    location.href = 'https://www.solucioneserp.com.ar/net/webform/compcomp.aspx'
 })
 
 // *Boton contabilizar
@@ -195,8 +210,8 @@ $form.addEventListener('submit', event => {
     const agrupado = false
     
     let comprobantes = ''
-    const checkedCheckboxes = document.querySelectorAll("#sales-table input[type='checkbox']:checked")
-    if ( ! checkedCheckboxes.length ) return alert('Debe marcar al menos una venta pendiente para contabilizar')
+    const checkedCheckboxes = document.querySelectorAll("#purchases-table input[type='checkbox']:checked")
+    if ( ! checkedCheckboxes.length ) return alert('Debe marcar al menos una compra pendiente para contabilizar')
     for (const e of checkedCheckboxes) {
         comprobantes += e.id + ';'
     }
