@@ -71,7 +71,7 @@ const post_getPendingPurchases = (data, tkn) => {
 }
 
 // *Imprimir datos en la primera tabla
-const printElementTables = ({id, fecha, comprobante, linkComprobante, nombre, total}) => {
+const printElementTables = ({id, numInterno, fecha, comprobante, linkComprobante, nombre, total}) => {
     const row = document.createElement('tr')
     row.className = 'delete-row'
 
@@ -79,7 +79,7 @@ const printElementTables = ({id, fecha, comprobante, linkComprobante, nombre, to
     row_data_1.innerHTML = `<input type="checkbox" name='checkbox-${id}' id='${id}'>`
 
     const row_data_2 = document.createElement('td')
-    row_data_2.textContent = ''
+    row_data_2.textContent = numInterno
 
     const row_data_3 = document.createElement('td')
     row_data_3.textContent = (fecha.slice(0, 10)).split('-').reverse().join('/')
