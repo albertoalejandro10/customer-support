@@ -111,3 +111,34 @@ export const get_value = tkn => {
         console.log( err )
     })
 }
+
+/*
+    *bancosyvalores/conciliar_tarjetas/get_grupos_tarjetas
+*/
+export const get_cardGroups = tkn => {
+    const url_getCardGroups = 'https://www.solucioneserp.net/bancosyvalores/conciliar_tarjetas/get_grupos_tarjetas'
+    fetch( url_getCardGroups, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const cardGroups = resp
+        for (const element of cardGroups) {
+            const { id, codigo, nombre } = element
+            // console.log(id, codigo, nombre)
+            const select = document.querySelector('#group')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}

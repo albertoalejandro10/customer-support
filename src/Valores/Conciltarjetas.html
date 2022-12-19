@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./Conciltarjetas.scss">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-10 mb-2">
+              <h4 class="mb-0">Conciliar tarjeta - Movimientos no validados con Entidad Financiera</h4>
+            </div>
+            <div class="col-2 mb-2 text-right">
+              <a class="previous-site" target="_self">[No hay enlace]</a>
+            </div>
+            
+            <div class="col-12">
+              <form id="form">
+                <div class="row">
+                  <div class="col-sm-3 col-xl-3">
+                    <div class="d-flex">
+                      <label for="group">Grupo:</label>
+                      <select class="form-control" name="group" id="group">
+                        <!-- Options group -->
+                      </select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-2 col-xl-3">
+                    <div class="d-flex">
+                      <label class="text-nowrap" for="to-date">Hasta fecha:</label>
+                      <input class="form-control" type="date" name="to-date" id="to-date" required>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-7 col-xl-6">
+                    <div class="d-flex justify-content-end">
+                      <button id="assess" type="button" class="btn btn-info text-white"><i class="fa-solid fa-clipboard"></i> Contabilizar movimientos validados</button>
+                      <button id="update" type="submit" class="btn btn-primary text-white mx-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="record" type="button" class="btn btn-success text-white"><i class="fa-solid fa-check"></i> Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle text-secondary">
+            <div class="col">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col">
+                    <h6 class="mt-1 font-weight-bolder">Movimientos</h6>
+                  </div>
+                  <div class="col">
+                    <h6 class="mt-1 font-weight-bolder text-right">Fecha hasta: <span id="to-date-table"></span></h6>
+                  </div>
+                </div>
+                <div id="loader" class="loadingx d-none"></div>
+                <p id="not-movements" class="text-danger text-center font-weight-bold d-none mb-1">No hay movimientos</p>
+                <div class="row">
+                  <div class="col-sm">
+                    <table id="movements-table" class="table-borderless rounded text-secondary">
+                      <thead>
+                        <tr>
+                          <th>F. Pago</th>
+                          <th>F. Presentación</th>
+                          <th>Lote/Cupón</th>
+                          <th>Cliente</th>
+                          <th>Tarjeta</th>
+                          <th>Importe</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody id="movements-tbody">
+                        <!-- Body table -->
+                      </tbody>
+                      <tfoot id="movements-tfoot">
+                        <!-- foot table -->
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/Conciltarjetas.js"></script>
+  <script src="js/ConciltarjetasGetApis.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>
