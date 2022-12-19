@@ -26,6 +26,7 @@ const post_getMovements = (tkn, data) => {
         if ( ! resp.length ) {
             document.getElementById('not-movements').classList.remove('d-none')
             document.getElementById('loader').classList.add('d-none')
+            document.getElementById('assess').disabled = true
             return
         }
         
@@ -37,11 +38,13 @@ const post_getMovements = (tkn, data) => {
         
         document.getElementById('not-movements').classList.add('d-none')
         document.getElementById('loader').classList.add('d-none')
+        document.getElementById('assess').disabled = false
     })
     .catch( err => {
         console.log( err )
         document.getElementById('loader').classList.add('d-none')
         document.getElementById('not-movements').classList.remove('d-none')
+        document.getElementById('assess').disabled = true
     })
 }
 
@@ -107,7 +110,7 @@ const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-
+    
     const grupoId = Number(formData.get('group'))
     const data = {
         grupoId,
