@@ -12,10 +12,10 @@
         <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
           <!-- Form - Higher -->
           <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-10 mb-2">
-              <h4 class="mb-0">Conciliar tarjeta - Movimientos no validados con Entidad Financiera</h4>
+            <div class="col-8 mb-2">
+              <h4 class="mb-0">Conciliación de tarjetas</h4>
             </div>
-            <div class="col-2 mb-2 text-right">
+            <div class="col-4 mb-2 text-right">
               <a class="previous-site" target="_self">[No hay enlace]</a>
             </div>
             
@@ -31,14 +31,14 @@
                     </div>
                   </div>
   
-                  <div class="col-sm-2 col-xl-3">
+                  <div class="col-sm-3 col-xl-3">
                     <div class="d-flex">
                       <label class="text-nowrap" for="to-date">Hasta fecha:</label>
                       <input class="form-control" type="date" name="to-date" id="to-date" required>
                     </div>
                   </div>
   
-                  <div class="col-sm-7 col-xl-6">
+                  <div class="col-sm-6 col-xl-6">
                     <div class="d-flex justify-content-end">
                       <button id="assess" type="button" class="btn btn-info text-white" disabled><i class="fa-solid fa-clipboard"></i> Contabilizar movimientos validados</button>
                       <button id="update" type="submit" class="btn btn-primary text-white mx-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
@@ -58,17 +58,18 @@
                   <div class="col">
                     <h6 class="mt-1 font-weight-bolder">Movimientos</h6>
                   </div>
-                  <div class="col">
-                    <h6 class="mt-1 font-weight-bolder text-right">Fecha hasta: <span id="to-date-table"></span></h6>
+                  <div class="col d-flex justify-content-end align-items-center">
+                    <h6 class="font-weight-bolder text-right text-nowrap mb-0 mr-1">Fecha de pago:</h6> <input class="form-control w-25" type="date" id="to-date-table"/>
                   </div>
                 </div>
                 <div id="loader" class="loadingx d-none"></div>
-                <p id="not-movements" class="text-danger text-center font-weight-bold d-none mb-1">No hay movimientos</p>
-                <div class="row">
+                <p id="not-movements" class="text-danger text-center font-weight-bold d-none mb-0">No hay movimientos</p>
+                <div class="mt-1 row">
                   <div class="col-sm">
                     <table id="movements-table" class="table-borderless rounded text-secondary">
                       <thead>
                         <tr>
+                          <th>&nbsp;</th>
                           <th>F. Pago</th>
                           <th>F. Presentación</th>
                           <th>Lote/Cupón</th>

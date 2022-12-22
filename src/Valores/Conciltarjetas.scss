@@ -49,9 +49,7 @@ table td input[type="checkbox"] {
     font-size: 12px;
     padding: 0.5rem 0.375rem;
     &:first-child {
-        width: 6%;
-        min-width: 80px;
-        text-align: left;
+        width: 2%;
     }
     &:nth-child(2) {
         width: 8%;
@@ -60,23 +58,28 @@ table td input[type="checkbox"] {
     }
     &:nth-child(3) {
         width: 8%;
-        min-width: 80px;
+        min-width: 104px;
+        text-align: left;
     }
     &:nth-child(4) {
-        width: 34%;
-        min-width: 120px;
+        width: 8%;
+        min-width: 80px;
     }
     &:nth-child(5) {
         width: 32%;
-        min-width: 100px;
+        min-width: 120px;
     }
     &:nth-child(6) {
+        width: 32%;
+        min-width: 100px;
+    }
+    &:nth-child(7) {
         width: 8%;
         min-width: 80px;
         text-align: right;
     }
     &:last-child() {
-        width: 4%;
+        width: 2%;
     }
 }
 
@@ -85,7 +88,7 @@ table td input[type="checkbox"] {
     color: var(--bs-blue-dark);
     border-bottom: 0.4px solid #D5D5D5;
     padding: 0.1rem 0.375rem;
-    &:nth-child(6) {
+    &:nth-child(7) {
         text-align: right;
     }
     &:last-child {
@@ -109,4 +112,16 @@ table td input[type="checkbox"] {
     &:nth-child(2) {
         text-align: right;
     }
+}
+
+#movements-table .expand-agrupation {
+    text-align: center;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+#movements-table .expand-agrupation > button {
+    all: unset;
+    cursor: pointer;
+    color: #192596;
 }
