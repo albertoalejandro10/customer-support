@@ -68,6 +68,7 @@ const printElementTables = ({id, fechaPago, vencimiento, numero, importe, nombre
 
     const row_data_1 = document.createElement('td')
     row_data_1.textContent = fechaPago
+    row_data_1.id = `fechaPago-${id}`
 
     const row_data_2 = document.createElement('td')
     row_data_2.textContent = vencimiento
@@ -165,9 +166,11 @@ const getTopGroupsCheckboxes = total => {
 
 // * Check all checkboxes group
 const checkAll = (target, total) => {
+    const fechaPagoDefault = (document.getElementById('to-date-table').value).split('-').reverse().join('/')
     target.forEach(checkElement => {
         checkElement.checked = true
         checkElement.disabled = true
+        document.getElementById(`fechaPago-${checkElement.id}`).textContent = fechaPagoDefault
         const totalTarget = document.getElementById(`tr-${checkElement.id}`).textContent
         const trTotal = Number(reverseFormatNumber(totalTarget, 'de'))
         total.value = format_number(calcularImporteTotal(trTotal))
@@ -182,6 +185,7 @@ const uncheckAll = (target, total) => {
     target.forEach(checkElement => {
         checkElement.checked = false
         checkElement.disabled = false
+        document.getElementById(`fechaPago-${checkElement.id}`).textContent = ''
         const totalTarget = document.getElementById(`tr-${checkElement.id}`).textContent
         const trTotal = Number(reverseFormatNumber(totalTarget, 'de'))
         total.value = format_number(restarImporteTotal(trTotal))
@@ -196,6 +200,7 @@ const getCheckboxesPrices = total => {
     checkboxes.forEach(checkElement => {
         checkElement.addEventListener('click', event => {
 
+            const fechaPagoDefault = (document.getElementById('to-date-table').value).split('-').reverse().join('/')
             const identifier = event.target.getAttribute('identifier')
             const target = Array.from(document.querySelectorAll(`#movements-table [identifier='${identifier}']`))
             const top = target.shift()
@@ -205,9 +210,11 @@ const getCheckboxesPrices = total => {
             
             if ( event.target.checked ) {
                 top.disabled = true
+                document.getElementById(`fechaPago-${checkElement.id}`).textContent = fechaPagoDefault
                 total.value = format_number(calcularImporteTotal(trTotal))
                 getLineaToAPI(event.target, true)
             } else {
+                document.getElementById(`fechaPago-${checkElement.id}`).textContent = ''
                 const isAllCheckboxChecked = target.every(element => element.checked === true)
                 const isAllCheckboxNotChecked = target.every(element => element.checked === false)
                 if (isAllCheckboxChecked) {
@@ -247,8 +254,9 @@ const getLineaToAPI = (value, isChecked) => {
 
 // *Boton para contabilizar movimientos validados
 document.getElementById("assess").addEventListener("click", () => {
+    if( linea.length === 0 ) return alert('Debe cliquear al menos un movimiento')
     for (const element of linea) {
-        delete element.id        
+        delete element.id
     }
     const data = {
         movValidados: true,
