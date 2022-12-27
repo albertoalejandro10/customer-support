@@ -16,6 +16,10 @@ input[type="checkbox"] {
     margin-top: 0px;
 }
 
+input[type="date"] {
+    max-width: 140px;
+}
+
 table {
     width: 100%;
     background: #FFFFFF;
