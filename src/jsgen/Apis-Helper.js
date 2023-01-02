@@ -706,6 +706,9 @@ export const get_customersGroups = tkn => {
     })
 }
 
+/*
+    * listados/proveedores/get_proveedores_filtro (Aumentogrupo)
+*/
 // Listado rubros
 export const get_rubros = tkn => {
     const url_getRubros = 'https://www.solucioneserp.net/listados/productos/get_rubros'
@@ -910,6 +913,171 @@ export const get_seatTypeWithoutAll = tkn => {
             if ( id === 0 ) continue
             // console.log(id, codigo, nombre)
             const select = document.querySelector('#seat-type')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+/*
+    * inventario/precios_por_grupo/get_campos_list (Aumentogrupo)
+*/
+export const get_fieldList = tkn => {
+    const url_getFieldList = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_campos_list'
+    fetch( url_getFieldList, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const fieldLists = resp
+        for (const element of fieldLists) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+            const select = document.querySelector('#field')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+/*
+    * listados/productos/get_listas (Aumentogrupo)
+*/
+export const get_lists = tkn => {
+    const url_getLists = 'https://www.solucioneserp.net/listados/productos/get_listas'
+    fetch( url_getLists, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const lists = resp
+        for (const element of lists) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+            const select = document.querySelector('#list')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+
+            const selectOrigin = document.querySelector('#origin-list')
+            let optionOrigin = document.createElement("option")
+            optionOrigin.setAttribute("data-tokens", nombre)
+            optionOrigin.value = id
+            optionOrigin.textContent = nombre
+            selectOrigin.appendChild( optionOrigin )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+/*
+    * inventario/precios_por_grupo/get_operacion_list (Aumentogrupo)
+*/
+export const get_operations = tkn => {
+    const url_getOperations = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_operacion_list'
+    fetch( url_getOperations, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const operations = resp
+        for (const element of operations) {
+            const { id, nombre } = element
+            // console.log(id, nombre)
+            const select = document.querySelector('#operations')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+/*
+    * inventario/precios_por_grupo/get_redondeo_list (Aumentogrupo)
+*/
+export const get_rounding = tkn => {
+    const url_getRounding = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_redondeo_list'
+    fetch( url_getRounding, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const roundings = resp
+        for (const element of roundings) {
+            // console.log(element)
+            const select = document.querySelector('#rounding')
+            let option = document.createElement("option")
+            option.textContent = element
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
+/*
+    * listados/proveedores/get_proveedores_filtro (Aumentogrupo)
+*/
+export const get_provider = tkn => {
+    const url_getProvider = 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro'
+    fetch( url_getProvider, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify({
+            "filtro": "tel",
+            "soloProveedores": 1,
+            "soloConProductos": 0,
+            "opcionTodos": 1
+        })
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const providers = resp
+        for (const element of providers) {
+            const { id, codigo, cuit, nombre } = element
+            // console.log(id, codigo, cuit, nombre)
+            const select = document.querySelector('#vendor')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
             option.value = id

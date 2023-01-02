@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./Aumentogrupo.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <form id="form">
+      <div class="wrapper">
+        <div class="container-fluid">
+          <div class="container mt-2  pt-1 pr-5 pl-5 rounded col-12">
+            <!-- Form - Higher -->
+            <div class="row p-2 mb-2 rounded form-top">
+              <div class="col-6 mb-2">
+                <h4 class="mb-0">Modificación de precios por grupo</h4>
+              </div>
+              <div class="col-6 mb-2 text-right">
+                <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/preciosGrupos.asp" target="_self">[Versión anterior]</a>
+              </div>
+
+              <div class="col-12 text-right">
+                <button id="modify" type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-check"></i>Modificar</button>
+              </div>
+            </div>
+            <!-- Form - Higher -->
+              <div class="row p-2 mb-2 rounded form-middle">
+                <div class="col-12">
+                  <div class="row flex-column box">
+
+                    <div class="middle-boxes">
+                      <h6 class="pl-4 py-2 font-weight-bolder text-secondary"><i class="fa-solid fa-pen-to-square"></i>Modificar por:</h6>
+                      <div class="boxes">
+                        <label for="field">Campo:</label>
+                        <select class="form-control" name="field" id="field" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="list">Lista:</label>
+                        <select class="form-control" name="list" id="list" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="operations">Operación:</label>
+                        <select class="form-control" name="operations" id="operations" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="origin-list" class="text-nowrap">Lista origen:</label>
+                        <select class="form-control" name="origin-list" id="origin-list" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="index">Índice:</label>
+                        <div class="index-full">
+                          <input class="form-control w-50 mr-2" type="text" name="index" id="index" data-type="index" placeholder="0,000" required/>
+                          <p class="index-indication">El índice se redondea a tres decimales</p>
+                        </div>
+                      </div>
+                      <div class="boxes">
+                        <label for="rounding">Redondeo:</label>
+                        <select class="form-control" name="rounding" id="rounding" required></select>
+                      </div>
+                    </div>
+
+                    <div class="middle-boxes">
+                      <h6 class="pl-4 py-2 font-weight-bolder text-secondary"><i class="fa-solid fa-pen-to-square"></i>Seleccionar productos:</h6>
+                      <div class="boxes">
+                        <label for="field">Proveedor:</label>
+                        <select class="form-control" name="vendor" id="vendor" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="entry">Rubro:</label>
+                        <select class="form-control" name="entry" id="entry" required></select>
+                      </div>
+                      <div class="boxes">
+                        <label for="sale-line" class="text-nowrap">Línea de venta:</label>
+                        <div class="sale-line-full">
+                          <select class="form-control w-100" name="sale-line" id="sale-line" size="5" multiple required></select>
+                          <p class="sale-line-control">Use la tecla de control para multiselección</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Form - Lower -->
+              <div id="form-lower" class="row p-2 my-2 rounded form-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+  <script src="./js/AumentogrupoApis.js"></script>
+  <script src="./js/Automentogrupo.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>
