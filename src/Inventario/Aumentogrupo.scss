@@ -48,6 +48,9 @@ label {
     align-items: center;
     display: flex;
     width: 68%;
+    input {
+        padding: 0px 10px;
+    }
 }
 
 .index-full input {

@@ -37,10 +37,12 @@ $form.addEventListener('submit', event => {
     const rubroId = Number(formData.get('entry'))
 
     const select = document.getElementById('sale-line')
-    const lineaVtaId = [...select.options]
+    let lineaVtaId = [...select.options]
         .filter(x => x.selected)
         .map(x => x.value)
         .toString()
+
+    if (lineaVtaId.includes('0')) lineaVtaId = "0"
 
     const data = {
         campoId,
@@ -55,6 +57,25 @@ $form.addEventListener('submit', event => {
     }
     // console.table( data )
     post_modifyPricesByGroup( tkn, data )
+})
+
+// Desactivar opciones del select dependiendo del click en «todos» o en el grupo de los otros options y limpiar select
+const selectType = document.getElementById('sale-line')
+selectType.addEventListener('click', event => {
+    const options = Array.from(document.querySelectorAll('#sale-line option'))
+    const { path } = event
+    if (path[0].value === '0') {
+        for (const element of options) {
+            if (element.value === '0') continue
+            element.selected = false
+        }
+    } else {
+        options[0].selected = false
+    }
+
+    if (!event.currentTarget.options[selectType.selectedIndex]) {
+        options.map(element => element.disabled = false)
+    }
 })
 
 $("input[data-type='index']").on({
