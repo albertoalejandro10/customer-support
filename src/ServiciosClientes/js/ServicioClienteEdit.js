@@ -1,4 +1,4 @@
-import { getParameter, format_currency } from "../../jsgen/Helper"
+import { getParameter } from "../../jsgen/Helper"
 import * as bootstrap from 'bootstrap'
 
 // Fetch para traer servicios, si viene id en la URL
@@ -23,16 +23,11 @@ const servicePromise = ( id, idservice, tkn ) => {
 
         const observation = document.getElementById('observation')
         observation.value = observacion.trim()
+        observation.setAttribute('exists-observation', true)
 
-        const description = document.getElementById('description')
-        description.value = detalle.trim()
-
-        const quantity = document.getElementById('quantity')
-        quantity.value = cantidad
-
-        const expiration = document.getElementById('expiration')
-        const formatExpiration = fechaVencimiento.split('/').reverse().join('-')
-        expiration.value = formatExpiration
+        document.getElementById('description').value = detalle.trim()
+        document.getElementById('quantity').value = cantidad
+        document.getElementById('expiration').value = fechaVencimiento.split('/').reverse().join('-')
 
         const selectType = document.getElementById('type')
         if ( tipoPrecio === 1 ) {
@@ -72,6 +67,11 @@ select.addEventListener('change', event => {
     const selectedText = selectedOption.text
     printDescription(selectedText)
 
+    const observation = document.getElementById('observation')
+    if(! observation.getAttribute('exists-observation') === true ) {
+        observation.value = selectedText
+    }
+
     const codeElement = document.getElementById('codigo')
     const code = (event.currentTarget.options[select.selectedIndex]).getAttribute('data-code')
     codeElement.value = code
@@ -80,8 +80,16 @@ select.addEventListener('change', event => {
 // Funcion para insertar texto en descripcion
 const printDescription = text => {
     let descriptionValue = document.getElementById('description')
-    if (descriptionValue.value === '') return descriptionValue.value = text    
+    if (! observation.getAttribute('exists-observation') === true ) return descriptionValue.value = text
 }
+
+document.getElementById('description').addEventListener('keyup', event => {
+    const {target} = event
+    let observation = document.getElementById('observation')
+    if (! observation.getAttribute('exists-observation') === true) {
+        observation.value = target.value
+    }
+})
 
 // Obtener el valor de la opcion seleccionada por el usuario
 const selectType = document.getElementById('type')
@@ -134,12 +142,13 @@ const tokenBearer = document.getElementById('tokenBearer')
 tokenBearer.value = tkn
 
 // Insertar href dentro de tag anchor.
-const redirectToIndex = document.getElementById('redirectToIndex')
-redirectToIndex.href = `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
+document.getElementById("redirectToList").onclick = () => {
+    location.href = `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
+}
 
 // Imprimir nombre
 const customer = document.getElementById('customer')
-customer.textContent = (name).replace('+', ' ')
+customer.textContent = name.replace('+', ' ')
 
 // Si en la URL viene id, nombre y tkn, ejecuto esto.
 if ( id && ! idService && name && tkn ) {
@@ -170,7 +179,7 @@ deleteService.onclick = () => {
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
-        alert(`${mensaje}`)
+        alert(`${resultado} - ${mensaje}`)
         location.reload()
     })
     .catch( err => {
@@ -192,15 +201,10 @@ $form.addEventListener('submit', event => {
     const observacion = formData.get('observation')
 
     let id = Number(getParameter('idservice'))
-    if ( ! id ) {
-        // console.log(' No hay id servicio, crear uno nuevo ')
-        id = 0
-    }
+    if ( ! id ) id = 0
     
     let codigo = getParameter('codigo')
-    if ( ! codigo ) {
-        codigo = formData.get('codigo')
-    }
+    if ( ! codigo ) codigo = formData.get('codigo')
 
     let activo = formData.get('activo')
     if ( activo === 'on' ) {
@@ -220,7 +224,6 @@ $form.addEventListener('submit', event => {
     const netPriceValue = Number(((document.getElementById('currency-field').value).replaceAll('.', '')).replace(',','.'))
     const discountRateValue = Number(document.getElementById('discountRate').value)
     let precioneto = 0
-
     if ( preciofijo === 1 ) {
         precioneto = netPriceValue
     }
@@ -231,7 +234,6 @@ $form.addEventListener('submit', event => {
 
     const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto, idlista: 0, ctipo: 1}
     // console.table( data )
-
     const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
     fetch( url_recordService , {
         method: 'POST',
@@ -244,7 +246,7 @@ $form.addEventListener('submit', event => {
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
-        alert(`${mensaje}`)
+        alert(`${resultado} - ${mensaje}`)
         location.reload()
     })
     .catch( err => {
@@ -252,7 +254,7 @@ $form.addEventListener('submit', event => {
     })
 })
 
-// Formatear input cantidad - Es copiado.
+// Formatear input cantidad
 class CampoNumerico {
     constructor(selector) {
         this.nodo = document.querySelector(selector)
@@ -300,11 +302,21 @@ class CampoNumerico {
 }
 new CampoNumerico('#quantity')
 
-$("input[data-type='currency']").on({
-    keyup: function() {
-      format_currency($(this))
-    },
-    blur: function() { 
-      format_currency($(this), "blur")
+document.getElementById('currency-field').addEventListener('keyup', event => {
+    let {target} = event
+    if ( target.value.length < 2 ) {
+        if (target.value === '-') return
     }
+    let result = format_currency(String(target.value))
+    if ( result.includes('NaN') ) result = ''
+    target.value = result
 })
+
+const format_currency = value => {
+    value = value.replace('.', '').replace(',', '').replace(/(?!-)[^0-9]/g, "") 
+    const options = { minimumFractionDigits: 2, maximumFractionsDigits: 2 }
+    const result = new Intl.NumberFormat('pt-BR', options).format(
+        parseFloat(value) / 100
+    )
+    return result
+}

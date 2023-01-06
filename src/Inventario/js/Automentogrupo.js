@@ -1,4 +1,4 @@
-import { format_currency_three, getParameter, reverseFormatNumber } from "../../jsgen/Helper"
+import { getParameter, reverseFormatNumber } from "../../jsgen/Helper"
 
 const post_modifyPricesByGroup = (tkn, data) => {
     const url_GenerateButton = 'https://www.solucioneserp.net/inventario/precios_por_grupo/grabar'
@@ -86,3 +86,32 @@ $("input[data-type='index']").on({
       format_currency_three($(this), "blur")
     }
 })
+
+// * Format currency and rounding to three digits
+const format_currency_three = (input, blur) => {
+    let input_val = input.val()
+    if (input_val === "") { return }
+    const original_len = input_val.length
+    let caret_pos = input.prop("selectionStart")
+    if (input_val.indexOf(",") >= 0) {
+      const decimal_pos = input_val.indexOf(",")
+      let left_side = input_val.substring(0, decimal_pos)
+      let right_side = input_val.substring(decimal_pos)
+      left_side = left_side.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      right_side = right_side.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      if (blur === "blur") {
+        right_side += "000"
+      }
+      right_side = right_side.substring(0, 3)
+      input_val = left_side + "," + right_side
+    } else {
+      input_val = input_val.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+      if (blur === "blur") {
+        input_val += ",000"
+      }
+    }
+    input.val(input_val)
+    const updated_len = input_val.length
+    caret_pos = updated_len - original_len + caret_pos
+    input[0].setSelectionRange(caret_pos, caret_pos)
+}  
