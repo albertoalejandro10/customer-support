@@ -191,7 +191,7 @@ $form.addEventListener('submit', event => {
         fechaHasta,
         agrupaMes
     }
-    // console.table( data )
+    console.log( JSON.stringify(data) )
     post_getDiaryBook( tkn, data )
 })
 
@@ -202,12 +202,12 @@ const redirectPrint = () => {
     const unidadNegocioId = Number(document.getElementById('business').value)
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
     const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
-    const agruparMes = document.getElementById('month').checked
+    const agrupaMes = document.getElementById('month').checked
     const data = {
         unidadNegocioId,
         fechaDesde,
         fechaHasta,
-        agruparMes,
+        agrupaMes,
     }
 
     // console.table( data )

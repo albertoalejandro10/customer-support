@@ -51,8 +51,8 @@ const get_diaryBook = ( tkn, data ) => {
                 if ( debe === '1') {debeAsset += importe}
                 if ( debe === '0' ) { haberAsset += importe }
             })
-            console.log(debeAsset)
-            console.log(haberAsset)
+            // console.log(debeAsset)
+            // console.log(haberAsset)
             createsTableBodies(count)
             addData(count, element)
             addAssets(count, debeAsset, haberAsset)
@@ -162,7 +162,8 @@ const get_dataFromURL = () => {
         const [ property, value ] = pair
         data[`${property}`] = value
     }
-    // console.log( data )
+    delete data.tkn
+    console.log( JSON.stringify(data) )
     get_diaryBook( tkn, data )
 }
 get_dataFromURL()
