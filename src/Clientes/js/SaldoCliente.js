@@ -1,5 +1,11 @@
 import { getParameter, format_number, format_token } from "../../jsgen/Helper"
-import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
+import { ag_grid_locale_es, comparafecha, dateComparator, filterChangedd } from "../../jsgen/Grid-Helper"
+
+function getParams() {
+    return {
+      allColumns: true,
+    }
+}
 
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
@@ -17,6 +23,7 @@ const gridOptions = {
         suppressNavigable: true,
         wrapHeaderText: true,
         autoHeaderHeight: true,
+        allColumns: true
         //minWidth: 100,
     },
     // Tooltip Delayer (1seg)
@@ -34,7 +41,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 100,
+            width: 120,
             headerName: "CUIT",
             field: "cuit",
             tooltipField: 'cuit',
@@ -47,7 +54,7 @@ const gridOptions = {
                     if (params.value == 'Saldo Inicial')
                         return params.value
                     else
-                        return '<a href="" onclick="window.open(\'' + params.data.cuit + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                        return `<a href='/Clientes/ResumenClientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${params.value} </a>`
             }
         },
         {
@@ -66,10 +73,10 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
-            headerName: "Teléfono",
+            width: 100,
             field: "telefono",
             tooltipField: 'telefono',
+            hide: true,
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ''
@@ -192,10 +199,10 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
+                if (typeof params.value === 'string')
                     return format_number(params.value)
+                else
+                    return `<a class="a-ag-table" href='/PendientesClientes/pendientesclientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${format_number(params.value)} </a>`
             }
         }
     ],

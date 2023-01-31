@@ -15,6 +15,13 @@
     justify-content: center !important;
 }
 
+.a-ag-table {
+    color: black;
+    &:hover {
+        color: #60C1DD;
+    }
+}
+
 label {
     margin-bottom: 0px;
     &[for="business"] {
