@@ -88,7 +88,7 @@ const gridOptions = {
             width: 80,
             headerClass: "text-center",
             cellClass: 'cell-vertical-align-center',
-            headerName: "Promo Días Cobros",
+            headerName: "Promedio Días Cobros",
             field: "promoDiasCobros",
             tooltipField: 'promoDiasCobros',
             cellRenderer: function(params) {
@@ -102,7 +102,7 @@ const gridOptions = {
             width: 80,
             headerClass: "text-center",
             cellClass: 'cell-vertical-align-center',
-            headerName: "Promo Días Valores",
+            headerName: "Promedio Días Valores",
             field: "promoDiasValores",
             tooltipField: 'promoDiasValores',           
             cellRenderer: function(params) {
@@ -184,10 +184,10 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
+                if (params.value === 0 || typeof params.value === 'string')
                     return format_number(params.value)
+                else
+                    return `<span class="ag-red">${format_number(params.value)}</span>`
             }
         },
         {
@@ -202,7 +202,7 @@ const gridOptions = {
                 if (typeof params.value === 'string')
                     return format_number(params.value)
                 else
-                    return `<a class="a-ag-table" href='/PendientesClientes/pendientesclientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${format_number(params.value)} </a>`
+                    return `<a href='/PendientesClientes/pendientesclientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${format_number(params.value)} </a>`
             }
         }
     ],
