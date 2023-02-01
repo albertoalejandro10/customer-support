@@ -1,5 +1,5 @@
 import { getParameter } from "../../jsgen/Helper"
-import { get_coins, get_startMonth, get_branchOffices, get_debtCollector } from "../../jsgen/Apis-Helper"
+import { get_startPeriod, get_coins } from "../../jsgen/Apis-Helper"
 
 const get_customers = tkn => {
     //get config para el combo de clientes
@@ -175,18 +175,9 @@ const unidadNegocio = getParameter('unidadNegocio')
 const estadoURL = getParameter('estado')
 
 if ( tkn ) {
-    // Informacion del periodo desde-hasta
-    get_startMonth( tkn )
-    // Rellenar select2-Clientes
-    get_customers( tkn )
-    // U. de negocio:
     get_businessUnits( tkn )
-    // Estado:
+    get_startPeriod( tkn )
     get_status( tkn )
-    // Moneda:
+    get_customers( tkn )
     get_coins( tkn )
-    // Cobrador:
-    get_debtCollector( tkn )
-    // Sucursal:
-    get_branchOffices( tkn )
 }

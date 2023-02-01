@@ -1,4 +1,4 @@
-import { getParameter, format_number, format_token } from "../../jsgen/Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, filterChangedd } from "../../jsgen/Grid-Helper"
 
 function getParams() {
@@ -54,7 +54,7 @@ const gridOptions = {
                     if (params.value == 'Saldo Inicial')
                         return params.value
                     else
-                        return `<a href='/Clientes/ResumenClientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${params.value} </a>`
+                        return `<a href='/Clientes/ResumenClientes.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoCliente=${(params.data.codigoCliente).trim()}&cuit=${(params.data.cuit).trim()}&unidadNegocio=${params.data.unidadNegocio}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_blank"> ${params.value} </a>`
             }
         },
         {
@@ -202,7 +202,7 @@ const gridOptions = {
                 if (typeof params.value === 'string')
                     return format_number(params.value)
                 else
-                    return `<a href='/PendientesClientes/pendientesclientes.html?tkn=${getParameter('tkn')}' target="_blank"> ${format_number(params.value)} </a>`
+                    return `<a href='/PendientesClientes/pendientesclientes.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoCliente=${(params.data.codigoCliente).trim()}&cuit=${(params.data.cuit).trim()}&unidadNegocio=${params.data.unidadNegocio}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_blank"> ${format_number(params.value)} </a>`
             }
         }
     ],
@@ -264,7 +264,13 @@ const get_AccountsBalance = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
-        // console.log( linea )
+        // console.log(linea);
+        const { unidadNegocio, estado } = data
+        linea.map(element => {            
+            element.unidadNegocio = unidadNegocio
+            element.estado = estado
+        })
+        
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
@@ -277,7 +283,7 @@ const get_AccountsBalance = (tkn, data) => {
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
 
         if ( Object.keys( linea ).length === 0 ) {
-            // console.log( 'Is empty')
+            // console.log('Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
         }

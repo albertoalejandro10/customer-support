@@ -1,5 +1,6 @@
 import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
+import { get_startPeriod } from "../../jsgen/Apis-Helper"
 
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
@@ -210,7 +211,7 @@ function calculatePinnedBottomData(target){
 
 const get_PendingCharges = (tkn, data) => {
     // Show Loader Grilla
-    gridOptions.api.showLoadingOverlay()
+    gridOptions.api?.showLoadingOverlay()
     const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
     fetch( url_getPendingCharges , {
         method: 'POST',
@@ -222,6 +223,7 @@ const get_PendingCharges = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
+        // console.log(linea)
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
@@ -242,8 +244,8 @@ const get_PendingCharges = (tkn, data) => {
     })
     .catch( err => {
         console.log( err )
-        gridOptions.api.setPinnedBottomRowData([])
-        gridOptions.api.showNoRowsOverlay()
+        gridOptions.api?.setPinnedBottomRowData([])
+        gridOptions.api?.showNoRowsOverlay()
     })
 }
 
@@ -274,7 +276,47 @@ $form.addEventListener('submit', event => {
         idMoneda,
         incluirProformas
     }
-    // console.table( data )
-    const tkn = getParameter('tkn')
+    // console.log( data )
     get_PendingCharges( tkn, data )
 })
+
+const tkn = getParameter('tkn')
+const name = getParameter('nombre')
+const codigoCliente= getParameter('codigoCliente')
+const cuit = getParameter('cuit')
+const idUnidadNegocio = getParameter('unidadNegocio')
+const estado = getParameter('estado')
+
+const APIRequest = async () => {
+    const endpoint = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    try {
+        const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+        })
+        if( response.ok ) {
+            const data = await response.json()
+            if (tkn && name && codigoCliente && cuit && idUnidadNegocio && estado) {
+                let [fechaDesde] = data
+                const fechaHasta = new Date().toLocaleDateString('en-GB')
+            
+                const info = {
+                    idUnidadNegocio,
+                    fechaDesde: fechaDesde.fecha,
+                    fechaHasta,
+                    hastaFechaVencimiento: 0,
+                    fechaVencimiento: '',
+                    cuentaEstado: estado,
+                    codigoCliente,
+                    idMoneda: 1,
+                    incluirProformas: 0
+                }
+                // console.log(info)
+                get_PendingCharges(tkn, info)
+            }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+APIRequest()

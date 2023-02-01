@@ -205,7 +205,7 @@ function calculatePinnedBottomData(target) {
 
 const get_accountSummary = (tkn, data) => {
     // Mostrar Loader Grid
-    gridOptions.api.showLoadingOverlay()
+    gridOptions.api?.showLoadingOverlay()
     const url_getAccountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
     fetch( url_getAccountSummary , {
         method: 'POST',
@@ -217,6 +217,7 @@ const get_accountSummary = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
+        // console.log(resp)
         let saldo = 0
         resp.map( resp => {
             const { importeDebe, importeHaber } = resp
@@ -256,6 +257,7 @@ const get_accountSummary = (tkn, data) => {
 }
 
 // Boton actualizar
+const tkn = getParameter('tkn')
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -269,9 +271,9 @@ $form.addEventListener('submit', event => {
     const codigoCliente = formData.get('customer')
     const cobrador = formData.get('debt-collector')
     const moneda = formData.get('coin')
-    const soloMovimientos  = (formData.get('only-movements') === 'on')    ? 1 : 0
-    const incluirProformas = (formData.get('include-proformas') === 'on') ? 1 : 0
-    const incluirRemitos   = (formData.get('include-notes') === 'on')     ? 1 : 0
+    const soloMovimientos  = formData.get('only-movements') === 'on'    ? 1 : 0
+    const incluirProformas = formData.get('include-proformas') === 'on' ? 1 : 0
+    const incluirRemitos   = formData.get('include-notes') === 'on'     ? 1 : 0
 
     const data = {
         unidadNegocio,
@@ -287,7 +289,6 @@ $form.addEventListener('submit', event => {
         incluirRemitos
     }
     // console.table( data )
-    const tkn = getParameter('tkn')
     get_accountSummary( tkn, data )
 })
 
@@ -303,9 +304,9 @@ const redirectPrint = () => {
     const codigoCliente = document.getElementById('customer').value
     const cobrador = document.getElementById('debt-collector').value
     const moneda = document.getElementById('coin').value
-    const soloMovimientos  = (document.getElementById('only-movements').value    === 'on') ? 1 : 0
-    const incluirProformas = (document.getElementById('include-proformas').value === 'on') ? 1 : 0
-    const incluirRemitos   = (document.getElementById('include-notes').value     === 'on') ? 1 : 0
+    const soloMovimientos  = document.getElementById('only-movements').value    === 'on' ? 1 : 0
+    const incluirProformas = document.getElementById('include-proformas').value === 'on' ? 1 : 0
+    const incluirRemitos   = document.getElementById('include-notes').value     === 'on' ? 1 : 0
 
     const data = {
         unidadNegocio,
@@ -321,11 +322,36 @@ const redirectPrint = () => {
         incluirRemitos
     }
     // console.table( data )
-    const tkn = getParameter('tkn')
-    let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
+    let returnURL = window.location.protocol + '//' + window.location.host + '/Clientes/VerResumen.html?'
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
     }
     const fullURL = returnURL + 'tkn=' + tkn
     setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
+}
+
+const name = getParameter('nombre')
+const codigoCliente= getParameter('codigoCliente')
+const cuit = getParameter('cuit')
+const unidadNegocio = getParameter('unidadNegocio')
+const estado = getParameter('estado')
+if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
+    const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+    const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+
+    const data = {
+        unidadNegocio,
+        fechaDesde,
+        fechaHasta,
+        sucursal: "0",
+        cuentaEstado: estado,
+        codigoCliente,
+        cobrador: "0",
+        moneda: "1",
+        soloMovimientos: 0,
+        incluirProformas: 0,
+        incluirRemitos: 0
+    }
+    // console.table(data)
+    get_accountSummary(tkn, data)
 }
