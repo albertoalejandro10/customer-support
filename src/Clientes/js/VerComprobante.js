@@ -62,7 +62,7 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('invoice').innerHTML = `${compTipo1.toUpperCase()} (${compTipo2}) ${letra} ${ptoVta}-${invoiceNumber(numero)}`
     document.getElementById('date').innerText = fecha
     const [ expiry ] = vencimientos
-    document.getElementById('expiration').innerText = expiry.fecha || 'No tiene vencimiento'
+    document.getElementById('expiration').innerHTML = `${expiry.fecha || 'No tiene vencimiento'}  <span class="type">Tipo: <span class="real-blue ml-2">${tipoComprobante}</span></span>`
     
     // console.log( cliente )
     const { nombre, domicilio, cuit, email } = cliente
@@ -72,13 +72,12 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('email').innerText = email
     
     // console.log( adicionales )
-    document.getElementById('type').innerHTML = 'Tipo: ' + tipoComprobante
     const { sucursal, deposito,  lote, observacion } = adicionales
-    document.getElementById('subsidiary').innerText = 'Sucursal: ' + sucursal
-    document.getElementById('deposit').innerText = 'Deposito: ' + deposito
+    document.getElementById('subsidiary').innerText = 'Sucu: ' + sucursal
+    document.getElementById('deposit').innerText = 'Depo: ' + deposito
     document.getElementById('batch').innerText = 'Lote: ' + lote
     document.getElementById('list').innerText = 'Lista: ' + lista
-    document.getElementById('seller').innerHTML = 'Vendedor: ' + `<strong class="real-blue">${vendedor}</strong>`
+    document.getElementById('seller').innerHTML = 'Vend: ' + `<strong class="real-blue">${vendedor}</strong>`
     document.getElementById('observation').innerText = observacion
 
     for (const element of detalle) {
