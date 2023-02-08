@@ -1,0 +1,273 @@
+@import "../../scss/custom-variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+* {
+    font-size: 13px;
+    font-family: var(--bs-font-sans-serif);
+}
+
+body {
+    background-color: #F1F5F9;
+}
+
+.wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+p {
+    color: var(--bs-secondary);
+    margin-bottom: 0px;
+}
+
+h1,
+h2 {
+    font-weight: bolder;
+    font-size: 1.4rem;
+    color: var(--bs-blue-dark);
+}
+
+h1 {
+    letter-spacing: 1.4px;
+}
+
+h2 {
+    letter-spacing: 0.8px;
+}
+
+.real-blue {
+    color: var(--bs-blue-dark);
+    font-weight: 500;
+}
+
+.big-box {
+    width: 74%;
+    min-width: 640px;
+    max-width: 1000px;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+}
+
+.box {
+    width: 100%;
+    margin: 0 auto;
+}
+
+table th,
+table td {
+    font-size: 12px;
+    color: var(--bs-secondary);
+    padding: 0.1875rem 0.375rem;
+    line-height: 1;
+}
+
+.table-activities,
+.table-seat,
+.table-docs,
+.table-purchases,
+.table-related {
+    margin: 0 auto;
+    color: #56515F;
+}
+
+.table-activities td {
+    text-align: left;
+}
+
+.table-seat {
+    text-align: center;
+}
+
+.table-seat thead th {
+    border-bottom: 0;
+}
+
+.table-seat tr:last-child td {
+    border: 0;
+    font-weight: 500;
+    border-bottom: 0.4px solid #dcdee0;
+}
+
+.table-activities th,
+.table-seat th,
+.table-docs th, 
+.table-purchases th,
+.table-related th {
+    font-size: 10px;
+    color: var(--bs-secondary);
+}
+
+.table-seat td {
+    color: var(--bs-blue-dark);
+    border: 0;
+    border-bottom: 0.4px solid #dcdee0;
+}
+
+.table-activities th,
+.table-activities td {
+    color: var(--bs-blue-dark);
+    border: 0;
+    border-bottom: .4px solid #dcdee0;
+    &:first-child {
+        width: 7%;
+    }
+    &:nth-child(2) {
+        width: 37%;
+    }
+    &:nth-child(3) {
+        width: 36%;
+    }
+    &:nth-child(4) {
+        width: 10%;
+        text-align: right;
+    }
+    &:last-child {
+        width: 10%;
+        text-align: right;
+    }
+}
+
+.table-docs th,
+.table-docs td {
+    color: var(--bs-blue-dark);
+    border: 0;
+    border-bottom: .4px solid #dcdee0;
+    &:first-child {
+        width: 8%;
+    }
+    &:nth-child(2) {
+        width: 6%;
+    }
+    &:nth-child(3) {
+        width: 8%;
+    }
+    &:nth-child(4) {
+        width: 6%;
+    }
+    &:nth-child(5) {
+        width: 56%;
+    }
+    &:nth-child(6) {
+        width: 8%;
+        text-align: right;
+    }
+    &:last-child {
+        width: 8%;
+        text-align: right;
+    }
+}
+
+.table-docs tr:last-child td {
+    font-weight: 500;
+}
+
+.table-sales th,
+.table-sales td,
+.table-purchases th,
+.table-purchases td,
+.table-related th,
+.table-related td {
+    color: var(--bs-blue-dark);
+    border: 0;
+    border-bottom: .4px solid #dcdee0;
+    &:first-child {
+        width: 10%;
+    }
+    &:nth-child(2) {
+        width: 8%;
+    }
+    &:nth-child(3) {
+        width: 75%;
+    }
+    &:nth-child(4) {
+        width: 5%;
+    }
+    &:nth-child(5) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(6) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(7) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(8) {
+        width: 10%;
+        text-align: right;
+    }
+    &:nth-child(9) {
+        width: 10%;
+        text-align: right;
+    }
+    &:last-child {
+        width: 10%;
+        text-align: right;
+    }
+}
+
+#tbody-sales > tr:last-child td {
+    text-align: right;
+    font-weight: 500;
+    &:first-child {
+        width: 50%;
+    }
+    &:nth-child(2) {
+        width: 10%;
+    }
+    &:nth-child(3) {
+        width: 10%;
+    }
+    &:nth-child(4) {
+        width: 10%;
+    }
+    &:last-child {
+        width: 10%;
+    }
+}
+
+#tbody-sales > tr:last-child td {
+    font-weight: 500
+}
+
+.table-seat tr:first-child th,
+.table-activities tr:first-child th,
+.table-docs tr:first-child th,
+.table-docs tr:nth-child(2) th,
+.table-sales tr:first-child th,
+.table-purchases tr:first-child th,
+.table-related tr:first-child th {
+    font-size: 10px;
+    color: var(--bs-secondary);
+}
+
+.table-seat tr:first-child th,
+.table-activities tr:first-child th,
+.table-docs tr:first-child th,
+.table-sales tr:first-child th
+.table-purchases tr:first-child th,
+.table-related tr:first-child th {
+    border: 0;
+}
+
+.table-activities tr:last-child td,
+.table-docs tr:last-child td
+.table-sales tr:last-child td,
+.table-purchases tr:last-child td,
+.table-related tr:last-child td {
+    border-bottom: 0;
+    font-weight: 500;
+}
+
+button[type="button"] {
+    background: none;
+    border: none;
+    left: 0;
+}

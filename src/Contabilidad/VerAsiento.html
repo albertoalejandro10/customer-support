@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./VerAsiento.scss">
+  </head>
+  <body>
+    <form id="form">
+      <div class="wrapper">
+        <div class="container-fluid">
+          <div class="container rounded col-12">
+            <!-- Feature -->
+            <div class="row shadow px-2 py-4 big-box mx-auto">
+
+              <div class="col-sm-12 my-2">
+                <div class="row box">
+                  <table class="table table-seat">
+                    <thead>
+                      <tr>
+                        <th colspan="4"><h5 class="text-dark">Asiento</h5></th>
+                      </tr>
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Centro de costo</th>
+                        <th>Tipo</th>
+                        <th>Usuario</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-seat">
+                      <!-- Table seat options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-12 my-2" id="table-activities">
+                <div class="row box">
+                  <table class="table table-activities">
+                    <thead>
+                      <tr>
+                        <th scope="col">Cuenta</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Detalle</th>
+                        <th scope="col">Debe</th>
+                        <th scope="col">Haber</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-activities">
+                      <!-- Table activities options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-12 mt-2">
+                <h5 class="text-center">Documentos</h5>
+              </div>
+
+              <div class="col-sm-12 mt-2" id="table-docs">
+                <div class="bg-secondary rounded w-100 p-2 position-relative">
+                  <button type="button" identifier="0" class="text-danger position-absolute" id="minus-check"> <i class="fa-solid fa-minus"></i> </button>
+                  <p class="text-center text-dark font-weight-bold">Cheques</p>
+                </div>
+                <div class="row box" id="docs">
+                  <table class="table table-docs">
+                    <thead>
+                      <tr>
+                        <th>Banco</th>
+                        <th>Numero</th>
+                        <th>Vencimiento</th>
+                        <th>Pventa</th>
+                        <th>Recibido</th>
+                        <th>Estado</th>
+                        <th>Importe</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-docs">
+                      <!-- table docs options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-12 mt-2" id="table-sales">
+                <div class="bg-secondary rounded w-100 p-2 position-relative">
+                  <button type="button" identifier="1" class="text-danger position-absolute" id="minus-sales"> <i class="fa-solid fa-minus"></i> </button>
+                  <p class="text-center text-dark font-weight-bold">Comprobantes de ventas</p>
+                </div>
+                <div class="row box" id="sales">
+                  <table class="table table-sales">
+                    <thead>
+                      <tr>
+                        <th>Comprobante</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Neto</th>
+                        <th>%IVA</th>
+                        <th>IVA</th>
+                        <th class="text-nowrap">Otros. Imp</th>
+                        <th>NoGrav</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-sales">
+                      <!-- table sales options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-12 mt-2" id="table-purchases">
+                <div class="bg-secondary rounded w-100 p-2 position-relative">
+                  <button type="button" identifier="2" class="text-danger position-absolute" id="minus-purchases"> <i class="fa-solid fa-minus"></i> </button>
+                  <p class="text-center text-dark font-weight-bold">Comprobantes de compras</p>
+                </div>
+                <div class="row box" id="purchases">
+                  <table class="table table-purchases">
+                    <thead>
+                      <tr>
+                        <th>Comprobante</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Neto</th>
+                        <th>%IVA</th>
+                        <th>IVA</th>
+                        <th class="text-nowrap">Otros. Imp</th>
+                        <th>NoGrav</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-purchases">
+                      <!-- table purchases options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+              <div class="col-sm-12 mt-2" id="table-related">
+                <div class="bg-secondary rounded w-100 p-2 position-relative">
+                  <button type="button" identifier="3" class="text-danger position-absolute" id="minus-related"> <i class="fa-solid fa-minus"></i> </button>
+                  <p class="text-center text-dark font-weight-bold">Comprobantes relacionados</p>
+                </div>
+                <div class="row box" id="related">
+                  <table class="table table-related">
+                    <thead>
+                      <tr>
+                        <th>Comprobante</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Neto</th>
+                        <th>%IVA</th>
+                        <th>IVA</th>
+                        <th>IVARNI</th>
+                        <th>NoGrav</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-related">
+                      <!-- table related options -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </body>
+  <script src="./js/VerAsiento.js"></script>
+</html>
