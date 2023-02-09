@@ -305,7 +305,6 @@ $form.addEventListener('submit', event => {
     const grupoCliente = Number(formData.get('customer-groups'))
     const estado = formData.get('status')
     const cobrador = Number(formData.get('debt-collector'))
-    const orden = Number(formData.get('orden-by'))
     const saldoCero = (formData.get('exclude-balances') === 'on') ? 1 : 0
 
     const data = {
@@ -316,7 +315,6 @@ $form.addEventListener('submit', event => {
         grupoCliente,
         estado, 
         cobrador,
-        orden,
         saldoCero
     }
     // console.table( data )

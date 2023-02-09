@@ -47,13 +47,10 @@
                         <!-- Options Group clients -->
                       </select>
                     </div>
-  
-                    <div class="d-flex">
-                        <label  class="text-nowrap" for="orden-by">Ordenar por:</label>
-                        <select class="form-control" name="orden-by" id="orden-by">
-                            <!-- Options ordenar por -->
-                        </select>
-                    </div>
+                    <div class="d-flex mt-2">
+                      <label for="exclude-balances">Excluir saldos en cero:</label>
+                      <input type="checkbox" name="exclude-balances" id="exclude-balances">
+                    </div>  
                   </div>
   
                   <div class="col-sm">
@@ -68,11 +65,6 @@
                           <!-- Options state -->
                           <option value="0">Todos</option>
                       </select>
-                    </div>
-
-                    <div class="d-flex mt-2">
-                      <label for="exclude-balances">Excluir saldos en cero:</label>
-                      <input type="checkbox" name="exclude-balances" id="exclude-balances">
                     </div>
                   </div>
   
