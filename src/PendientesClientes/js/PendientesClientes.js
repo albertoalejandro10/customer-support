@@ -297,6 +297,7 @@ const APIRequest = async () => {
         if( response.ok ) {
             const data = await response.json()
             if (tkn && name && codigoCliente && cuit && idUnidadNegocio && estado) {
+                document.getElementById('getBackToPreviousPage').classList.remove('d-none')
                 let [fechaDesde] = data
                 const fechaHasta = new Date().toLocaleDateString('en-GB')
             

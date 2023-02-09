@@ -336,6 +336,7 @@ const cuit = getParameter('cuit')
 const unidadNegocio = getParameter('unidadNegocio')
 const estado = getParameter('estado')
 if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
+    document.getElementById('getBackToPreviousPage').classList.remove('d-none')
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
     const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
 
