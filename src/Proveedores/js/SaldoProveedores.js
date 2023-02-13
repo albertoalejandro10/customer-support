@@ -74,6 +74,7 @@ const gridOptions = {
         },
         {
             width: 120,
+            headerName: "Saldo Final",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "total",
