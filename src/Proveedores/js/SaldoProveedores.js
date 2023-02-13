@@ -61,7 +61,8 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
+            width: 120,
+            headerName: "Saldo Período",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "pendiente",
@@ -72,7 +73,7 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
+            width: 120,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "total",
