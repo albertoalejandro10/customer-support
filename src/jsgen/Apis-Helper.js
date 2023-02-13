@@ -1089,3 +1089,35 @@ export const get_provider = tkn => {
         console.log( err )
     })
 }
+
+/* 
+    * listados/get_cuentasxpagar (Saldo cuentas por pagar)
+*/
+
+export const get_accountsPayableBalance = tkn => {
+    const url_getAccountsPayable = 'https://www.solucioneserp.net/listados/get_cuentasxpagar'
+    fetch( url_getAccountsPayable, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const accounts = resp
+        for (const element of accounts) {
+            const { codigo, nombre } = element
+            // console.log(codigo, nombre)
+            const select = document.querySelector('#status-payable')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = codigo
+            option.textContent = nombre
+            select.appendChild( option )
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}

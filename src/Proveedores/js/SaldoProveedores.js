@@ -1,5 +1,5 @@
 import { getParameter, format_number, format_token } from "../../jsgen/Helper"
-import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
+import { ag_grid_locale_es, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
@@ -32,199 +32,57 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 70,
-            field: "fecha",
-            tooltipField: 'fecha',
-            sortable: true,
-            filter: true,
-            filter: 'agDateColumnFilter',
-            comparator: dateComparator,
-            filterParams: {
-                // provide comparator function
-                comparator: comparafecha
-            }
-        },
-        {
             width: 100,
-            headerName: 'Contabilizado',
-            field: "fechaContable",
-            tooltipField: 'fechaContable',
-            sortable: true,
-            filter: true,
-            filter: 'agDateColumnFilter',
-            comparator: dateComparator,
-            filterParams: {
-                // provide comparator function
-                comparator: comparafecha
-            },
-            cellRenderer: function(params) {
-                if ( String(params.value) == "null" )
-                    return "Totales"
-                else
-                    if (String(params.value) == 'null')
-                        return ''
-                    else
-                        return params.value
-            }
-        },
-        {
-            width: 120,
-            field: "comprobante",
-            tooltipField: 'comprobante',
+            headerName: 'CUIT',
+            field: "cuit",
+            tooltipField: 'cuit',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == 'null')
-                    return ''
+                if ( String(params.value) === "null")
+                    return ""
                 else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.data.linkComprobante) + '\', \'newwindow\', \'width=800,height=800\');return false;" target="_blank">'+ params.value +'</a>'
+                    return `<a href='${format_token(params.data.linkResumenSaldoProveedor)}' target="_self"> ${params.value} </a>`
             }
         },
         {
             flex: 1,
-            minWidth: 100,
-            field: "proveedor",
-            tooltipField: 'proveedor',
+            minWidth: 200,
+            headerName: 'Proveedor',
+            field: "nombre",
+            tooltipField: 'nombre',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == 'null')
-                    return ''
+                if (String(params.value) === "null")
+                    return "Total"
                 else
                     return params.value
             }
         },
         {
-            width: 30, 
-            field: "linkAsiento",
-            headerName: "",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-solid fa-file-lines"></i></a>'
-            }
-        },
-        {
-            width: 30, 
-            field: "linkAdjuntos",
-            headerName: "",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return '<a href="" onclick="window.open(\'' + format_token(params.value) + '\', \'newwindow\', \'width=600,height=600\');return false;" target="_blank"><i class="fa-regular fa-folder-open"></i></a>'
-            }
-        },
-        {
-            width: 60,
-            field: "numeroInterno",
-            tooltipField: 'numeroInterno',
-            headerName: "Número Interno",
-            cellClass: "cell-vertical-align-center",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return params.value
-            }
-        },
-        { 
-            width: 80,
-            field: "ejercicio",
-            tooltipField: 'ejercicio',
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return params.value
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "neto",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "iva",
-            headerName: "IVA",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "retencion",
-            headerName: "Retención",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 100,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "noGravado",
-            headerName: "No Gravado",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "importe",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
-        },
-        {
-            width: 90,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "pendiente",
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
+                return format_number(params.value)
+            }
+        },
+        {
+            width: 110,
+            headerClass: "ag-right-aligned-header",
+            cellClass: 'cell-vertical-align-text-right',
+            field: "total",
+            sortable: true,
+            filter: true,
+            cellRenderer: function(params) {
+                if ( typeof params.value === 'string' )
                     return format_number(params.value)
+                else
+                    return `<a href='${format_token(params.data.linkCompPendienteProveedor)}' target="_self"> ${format_number(params.value)} </a>`
             }
         }
     ],
@@ -243,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
     else
-        $("#myGrid").height(parseInt($(window).height()) - 290)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
 })
 
 function generatePinnedBottomData () {
@@ -257,8 +115,8 @@ function generatePinnedBottomData () {
 
 function calculatePinnedBottomData (target) {
     //console.log(target)
-    //**list of columns fo aggregation**
-    let columnsWithAggregation = ['neto', 'iva', 'retencion', 'noGravado', 'importe', 'pendiente']
+    // **list of columns fo aggregation**
+    let columnsWithAggregation = ['pendiente', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -268,19 +126,16 @@ function calculatePinnedBottomData (target) {
         })
         if (target[element]) {
             target[element] = `${target[element].toFixed(2)}`
-        } else {
-            target[element] = '0.00'
         }
     })
     //console.log(target)
     return target
 }
 
-const get_purchaseDocuments = (tkn, data) => {
+const get_accountsPayableBalance = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
-
-    const url_getPurchaseDocuments = 'https://www.solucioneserp.net/reportes/consultas/get_documentos_compras'
-    fetch( url_getPurchaseDocuments , {
+    const url_getAccountsPayableBalance = 'https://www.solucioneserp.net/reportes/proveedores/get_saldo_cuentas_por_pagar'
+    fetch( url_getAccountsPayableBalance , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -288,23 +143,29 @@ const get_purchaseDocuments = (tkn, data) => {
         },
         body: JSON.stringify(data)
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        // console.log( resp )
+    .then( accounts => accounts.json() )
+    .then( accounts => {
+        // console.log(accounts)
+        accounts.map( account => {
+            account.pendiente = Number(account.pendiente)
+            account.total = Number(account.total)
+        })
 
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
         gridOptions.api.setRowData([])
+
+        // Add info to grid
         gridOptions.api.applyTransaction({ 
-            add: resp
+            add: accounts
         })
-        let pinnedBottomData = generatePinnedBottomData()
+
+        const pinnedBottomData = generatePinnedBottomData()
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
-        
         gridOptions.api.hideOverlay()
         
-        if ( Object.keys( resp ).length === 0 ) {
+        if ( Object.keys( accounts ).length === 0 ) {
             // console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
@@ -315,34 +176,23 @@ const get_purchaseDocuments = (tkn, data) => {
     })
 }
 
+const tkn = getParameter('tkn')
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const comprobante = Number(formData.get('voucher'))
+    const unidadNegocio = Number(formData.get('business'))
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
-    const proveedor = formData.get('supplier')
-    const unidadNegocio = Number(formData.get('business'))
-
-    // Operador ternario
-    const nroDocumento = (formData.get('doc-number') === '') ? '' : Number(formData.get('doc-number'))
-    const nroAsiento = (formData.get('number-seats') === '') ? '' : Number(formData.get('number-seats'))
-    const ptoVta = (formData.get('sale-point') === '') ? '0000' : formData.get('sale-point')
+    const estado = formData.get('status')
 
     const data = {
-        comprobante,
         fechaDesde,
         fechaHasta,
-        nroDocumento,
-        nroAsiento,
-        proveedor,
-        ptoVta,
         unidadNegocio,
+        estado
     }
-
     // console.log( data )
-    const tkn = getParameter('tkn')
-    get_purchaseDocuments( tkn, data )
+    get_accountsPayableBalance( tkn, data )
 })

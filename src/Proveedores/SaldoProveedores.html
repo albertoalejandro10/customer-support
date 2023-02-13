@@ -12,7 +12,7 @@
       if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
       else
-        $("#myGrid").height(parseInt($(window).height()) - 290)
+        $("#myGrid").height(parseInt($(window).height()) - 230)
       //$(".grid").width('100%')
     })
   </script>
@@ -27,13 +27,13 @@
               <h4 class="mb-0">Saldo cuentas por pagar</h4>
             </div>
             <div class="col-6 mb-2 text-right">
-              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/consultadocsCompras.aspx" target="_self">[Versión anterior]</a>
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/saldoproveedor.aspx" target="_self">[Versión anterior]</a>
             </div>
             
             <div class="col-12">
               <form id="form">
                 <div class="row">
-                  <div class="col-sm">
+                  <div class="col-sm-3 col-xl-3">
                     <div class="d-flex mb-1">
                       <label class="text-nowrap" for="business">U. de Negocio:</label>
                       <select class="form-control" name="business" id="business">
@@ -42,25 +42,32 @@
                     </div>
                   </div>
                 
-                  <div class="col-sm">
+                  <div class="col-sm-6 col-xl-3">
                     <div class="d-flex mb-1">
                       <label for="periodStart">Periodo:</label>
                       <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                     </div>
                   </div>
   
-                  <div class="col-sm">
+                  <div class="col-sm-3 col-xl-3">
                     <div class="d-flex mb-1">
                       <label class="text-nowrap" for="status">Estado:</label>
-                      <input class="form-control" type="text" name="status" id="status">
-                    </div>  
-                  </div>
-                
-                  <div class="col-sm">
-                    <div class="d-flex justify-content-end">
+                      <select class="form-control" type="text" name="status" id="status-payable">
+                        <!-- Options status - payable -->
+                      </select>
+                    </div>
+
+                    <div class="d-flex d-xl-none justify-content-end">
                       <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
                       <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="d-none d-xl-block col-xl-3">
+                    <div class="d-flex mb-1 justify-content-end">
+                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+                    </div>
                   </div>
                     
                 </div>
@@ -71,7 +78,7 @@
           <!-- Form - Middle -->
           <div class="row p-2 mt-2 rounded form-middle text-secondary">
             <div class="col">
-              <h6 class="mt-2 font-weight-bolder">Comprobantes</h6>
+              <h6 class="mt-2 font-weight-bolder">Saldo</h6>
               <div class="container-fluid">
                 <div id="myGrid" style="width:100%" class="ag-theme-alpine"></div>
               </div>
