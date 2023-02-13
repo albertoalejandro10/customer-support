@@ -62,7 +62,7 @@ const printInvoice = ({compTipo1, compTipo2, letra, ptoVta, numero, fecha, tipoC
     document.getElementById('invoice').innerHTML = `${compTipo1.toUpperCase()} (${compTipo2}) ${letra} ${ptoVta}-${invoiceNumber(numero)}`
     document.getElementById('date').innerText = fecha
     const [ expiry ] = vencimientos
-    document.getElementById('expiration').innerHTML = `${expiry.fecha || 'No tiene vencimiento'}  <span class="type">Tipo: <span class="real-blue ml-2">${tipoComprobante}</span></span>`
+    document.getElementById('expiration').innerHTML = `${expiry.fecha} <span class="type">Tipo: <span class="real-blue ml-2">${tipoComprobante}</span></span>`
     
     // console.log( cliente )
     const { nombre, domicilio, cuit, email } = cliente
