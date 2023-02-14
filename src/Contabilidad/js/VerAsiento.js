@@ -380,7 +380,7 @@ const printTotalPurchases = purchases => {
 }
 
 // * Print table related
-const printRelatedTable = ({codigo, tipo, ptoVta, numero, fecha, codCliente, nombre, riva, cuit, neto, iva, ivaRni, noGravado, retencion, total, estado, relImp}) => {
+const printRelatedTable = ({codigo, numero, fecha, nombre, neto, iva, noGravado, retencion, total, estado, porcIva, impuesto1}) => {
     // console.log(codigo, tipo, ptoVta, numero, fecha, codCliente, nombre, riva, cuit, neto, iva, ivaRni, noGravado, retencion, total, estado, relImp)
     const row = document.createElement('tr')
     const row_data_1 = document.createElement('td')
@@ -394,11 +394,11 @@ const printRelatedTable = ({codigo, tipo, ptoVta, numero, fecha, codCliente, nom
     const row_data_5 = document.createElement('td')
     row_data_5.textContent = format_number(neto)
     const row_data_6 = document.createElement('td')
-    row_data_6.textContent = ''
+    row_data_6.textContent = format_number(porcIva)
     const row_data_7 = document.createElement('td')
     row_data_7.textContent = format_number(iva)
     const row_data_8 = document.createElement('td')
-    row_data_8.textContent = format_number(retencion)
+    row_data_8.textContent = format_number(retencion + impuesto1)
     const row_data_9 = document.createElement('td')
     row_data_9.textContent = format_number(noGravado)
     const row_data_10 = document.createElement('td')
@@ -421,14 +421,16 @@ const printRelatedTable = ({codigo, tipo, ptoVta, numero, fecha, codCliente, nom
 const printTotalRelated = related => {
     let neto = 0
     let iva = 0
-    let ivaRni = 0
+    let retencion = 0
+    let impuesto1 = 0
     let noGravado = 0
     let total = 0
 
     related.map(sale => {
         neto += sale.neto
         iva += sale.iva
-        ivaRni += sale.ivaRni
+        retencion += sale.retencion
+        impuesto1 += sale.impuesto1
         noGravado += sale.noGravado
         total += sale.total
     })
@@ -443,7 +445,7 @@ const printTotalRelated = related => {
     const row_data_4 = document.createElement('td')
     row_data_4.textContent = format_number(iva)
     const row_data_5 = document.createElement('td')
-    row_data_5.textContent = format_number(ivaRni)
+    row_data_5.textContent = format_number(retencion + impuesto1)
     const row_data_6 = document.createElement('td')
     row_data_6.textContent = format_number(noGravado)
     const row_data_7 = document.createElement('td')
