@@ -1,6 +1,5 @@
 import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
-import 'regenerator-runtime/runtime'
 
 // Boton exportar grilla
 const btn_export = document.getElementById("btn_export")
