@@ -1,3 +1,7 @@
+
+// Permitir Async/Await en el proyecto
+import 'regenerator-runtime/runtime'
+
 // Nuevo Listado Clientes
 export const get_customers = tkn => {
     //get config para el combo de clientes
