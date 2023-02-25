@@ -39,10 +39,10 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if ( String(params.value) === "null")
+                if ( String(params.value) == "null" && String(params.data.nombre == "null"))
                     return ""
                 else
-                    return `<a href='${format_token(params.data.linkResumenSaldoProveedor)}' target="_self"> ${params.value} </a>`
+                    return `<a href="/Proveedores/ResumenProveedores.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoProveedor=${(params.data.codCliente).trim()}&unidadNegocioId=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}" target="_self"> ${params.value} </a>`
             }
         },
         {
@@ -54,7 +54,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value) === "null")
+                if (String(params.value) == "null")
                     return "Total"
                 else
                     return params.value
@@ -81,10 +81,13 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if ( typeof params.value === 'string' )
-                    return format_number(params.value)
+                if ( ! params.data.nombre )
+                    return ''
                 else
-                    return `<a href='${format_token(params.data.linkCompPendienteProveedor)}' target="_self"> ${format_number(params.value)} </a>`
+                    if (typeof params.value === 'string ')
+                        format_number(params.value)
+                    else
+                        return `<a href='./CompPendPagos.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codProveedor=${(params.data.codCliente).trim()}&unidadNegocio=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${format_number(params.value)} </a>`
             }
         }
     ],
@@ -148,9 +151,12 @@ const get_accountsPayableBalance = (tkn, data) => {
     .then( accounts => accounts.json() )
     .then( accounts => {
         // console.log(accounts)
+        const { unidadNegocio, estado } = data
         accounts.map( account => {
             account.pendiente = Number(account.pendiente)
             account.total = Number(account.total)
+            account.unidadNegocioId = unidadNegocio
+            account.estado = estado
         })
 
         // Clear Filtros

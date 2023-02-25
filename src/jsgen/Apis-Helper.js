@@ -275,7 +275,7 @@ export const get_startMonth = () => {
 
 // Fecha de inicio de ejercicio (API)
 export const get_startPeriod = tkn => {
-    const url_getStartPeriod = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    const url_getStartPeriod = process.env.Solu_externo + '/listados/get_fecha_inicio_ejercicio'
     fetch( url_getStartPeriod, {
         method: 'GET',
         headers: {
@@ -304,7 +304,7 @@ export const get_startPeriod = tkn => {
 
 // Listado unidades de negocios
 export const get_businessUnits = tkn => {
-    const url_getBusinessUnits = 'https://www.solucioneserp.net/listados/get_unidades_negocio'
+    const url_getBusinessUnits = process.env.Solu_externo + '/listados/get_unidades_negocio'
     fetch( url_getBusinessUnits, {
         method: 'GET',
         headers: {
@@ -367,7 +367,7 @@ export const get_businessUnitsWithoutAll = tkn => {
 
 // Listado de estados deudores
 export const get_status = tkn => {
-    const url_getStatus = 'https://www.solucioneserp.net/listados/get_estados_deudores'
+    const url_getStatus = process.env.Solu_externo + '/listados/get_estados_deudores'
     fetch( url_getStatus, {
         method: 'GET',
         headers: {
@@ -398,7 +398,7 @@ export const get_status = tkn => {
 
 // Listado de monedas
 export const get_coins = tkn => {
-    const url_getCoins = 'https://www.solucioneserp.net/listados/get_monedas'
+    const url_getCoins = process.env.Solu_externo + '/listados/get_monedas'
     fetch( url_getCoins, {
         method: 'GET',
         headers: {
@@ -1091,11 +1091,11 @@ export const get_provider = tkn => {
 }
 
 /* 
-    * listados/get_cuentasxpagar (Saldo cuentas por pagar)
+    * listados/get_cuentasxpagar (SaldoProveedor, ResumenProveedores, CompPendPagos )
 */
 
 export const get_accountsPayableBalance = tkn => {
-    const url_getAccountsPayable = 'https://www.solucioneserp.net/listados/get_cuentasxpagar'
+    const url_getAccountsPayable = process.env.Solu_externo + '/listados/get_cuentasxpagar'
     fetch( url_getAccountsPayable, {
         method: 'GET',
         headers: {
@@ -1103,11 +1103,11 @@ export const get_accountsPayableBalance = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const accounts = resp
-        for (const element of accounts) {
-            const { codigo, nombre } = element
+    .then( accounts => accounts.json() )
+    .then( accounts => {
+        for (const account of accounts) {
+            let { codigo, nombre } = account
+            if ( codigo === '' ) codigo = "0"
             // console.log(codigo, nombre)
             const select = document.querySelector('#status-payable')
             let option = document.createElement("option")

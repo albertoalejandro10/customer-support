@@ -8,13 +8,14 @@ const get_suppliers = tkn => {
     //get config para el combo de clientes
     const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${tkn}`
-        }
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tkn}`
+      }
     })
     .then( resp => resp.json() )
     .then( resp => {
+
         const configs_resp = resp
         const { estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre, configuracion } = configs_resp
         //console.log( estado, mensaje, usuarioNombre,  ejercicioNombre, ejercicioInicio, ejercicioCierre, empresaNombre )
@@ -50,11 +51,11 @@ const get_suppliers = tkn => {
                 type: 'POST',
                 dataType:'json',
                 data: function (params) {
-                    if ( params.term == null ) {
-                        return JSON.stringify('{filtro: "", soloProveedores: 0, opcionTodos: 0}')
-                    } else {
-                        return {filtro: params.term}
-                    }
+                  if ( params.term == null ) {
+                    return JSON.stringify('{filtro: "", soloProveedores: 1, soloConProductos: 0, opcionTodos: 0}')
+                  } else {
+                    return {filtro: params.term}
+                  }
                 },
                 processResults: function (data) {
                     let arr_t = []
@@ -62,10 +63,8 @@ const get_suppliers = tkn => {
                     for ( const element of suppliers ) {
                         // Desestructuracion del objeto element
                         const { id, codigo, nombre, cuit } = element
-                        arr_t.push({ id: codigo, text: nombre + ' - ' + codigo + ' - ' + cuit })
+                        arr_t.push({ id: cuit, text: nombre + ' - ' + cuit })
                     }
-                    const optionDefault = {id: 0, text: 'Todos'}
-                    arr_t.unshift(optionDefault)
                     return {
                         //data.items
                         results: arr_t
@@ -84,7 +83,7 @@ const get_suppliers = tkn => {
             //alert('test')
             $(".select2-search__field")[0].focus()
         })
-        
+
         if ( name && codigoProveedor && tkn ) {
             // create the option and append to Select2
             name = `${name} - ${codigoProveedor}`
@@ -104,8 +103,9 @@ const get_businessUnits = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( business => business.json() )
-    .then( business => {
+    .then( resp => resp.json() )
+    .then( resp => {
+        const business = resp
         for (const element of business) {
             const { id, nombre } = element
             // console.log(id, nombre)
@@ -140,10 +140,9 @@ const get_accountsPayableBalance = tkn => {
     .then( accounts => accounts.json() )
     .then( accounts => {
         for (const account of accounts) {
-            let { codigo, nombre } = account
-            if ( codigo === '' ) codigo = "0"
+            const { codigo, nombre } = account
             // console.log(codigo, nombre)
-            const select = document.querySelector('#status-payable')
+            const select = document.querySelector('#status')
             let option = document.createElement("option")
             option.setAttribute("data-tokens", nombre)
             option.value = codigo
@@ -163,14 +162,13 @@ const get_accountsPayableBalance = tkn => {
 // Ejecutar
 const tkn = getParameter('tkn')
 let name = getParameter('nombre')
-const codigoProveedor = getParameter('codProveedor')
+const codigoProveedor = getParameter('codigoProveedor')
 const unidadNegocioId = getParameter('unidadNegocioId')
-const estadoURL = getParameter('estado')
-
+const estadoURL = Number(getParameter('estado'))
 if ( tkn ) {
     get_businessUnits( tkn )
+    get_accountsPayableBalance( tkn )
     get_coins( tkn )
     get_suppliers( tkn )
     get_startPeriod( tkn )
-    get_accountsPayableBalance( tkn )
 }

@@ -77,7 +77,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return "TOTAL"
                 else
                     if (params.value=='Saldo Inicial')
@@ -223,10 +223,10 @@ function calculatePinnedBottomData(target) {
     return target
 }
 
-const get_PendingCharges = (tkn, data) => {
+const get_pendingCharges = (tkn, data) => {
     // Mostrar Loader Grilla
     gridOptions.api.showLoadingOverlay()
-    const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/proveedores/get_comprobantes_pendiente_pago'
+    const url_getPendingCharges = process.env.Solu_externo + '/reportes/proveedores/get_comprobantes_pendiente_pago'
     fetch( url_getPendingCharges , {
         method: 'POST',
         headers: {
@@ -289,6 +289,46 @@ $form.addEventListener('submit', event => {
         conDetVencimiento
     }
     // console.log( data )
-    const tkn = getParameter('tkn')
-    get_PendingCharges( tkn, data )
+    get_pendingCharges( tkn, data )
 })
+
+const tkn = getParameter('tkn')
+const name = getParameter('nombre')
+const proveedor = getParameter('codProveedor')
+const idUnidadNegocio = getParameter('unidadNegocio')
+const estado = getParameter('estado')
+
+const APIRequest = async () => {
+    const endpoint = process.env.Solu_externo + '/listados/get_fecha_inicio_ejercicio'
+    try {
+        const response = await fetch(endpoint, {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+        })
+        if( response.ok ) {
+            const data = await response.json()
+            if (tkn && name && proveedor && idUnidadNegocio) {
+                document.getElementById('getBackToPreviousPage').classList.remove('d-none')
+                let [fechaDesde] = data
+                const fechaHasta = new Date().toLocaleDateString('en-GB')
+            
+                const info = {
+                    idUnidadNegocio: Number(idUnidadNegocio),
+                    fechaDesde: fechaDesde.fecha,
+                    fechaHasta,
+                    hastaFechaVencimiento: 0,
+                    fechaVencimiento: "",
+                    estado,
+                    proveedor,
+                    monedaId: 1,
+                    conDetVencimiento: 0
+                }
+                // console.log(info)
+                get_pendingCharges(tkn, info)
+            }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+APIRequest()
