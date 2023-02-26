@@ -3,7 +3,7 @@ import { get_startMonth, get_businessUnits, get_branchOffices, get_provinces, ge
 
 // Listado de Sucursales (Input 0 - 1024px)
 const get_branchOfficesMinorScreen = tkn => {
-    const url_getbranchOffices = 'https://www.solucioneserp.net/listados/get_sucursales'
+    const url_getbranchOffices = process.env.Solu_externo + '/listados/get_sucursales'
     fetch( url_getbranchOffices, {
         method: 'GET',
         headers: {

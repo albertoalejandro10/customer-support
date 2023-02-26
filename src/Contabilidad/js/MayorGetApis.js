@@ -3,7 +3,7 @@ import { get_businessUnits, get_coins, get_startMonth, get_costCenter } from "..
 
 // Listado de cuentas
 const get_AccountPlan = tkn => {
-    const url_getAccountPlan = 'https://www.solucioneserp.net/listados/get_plan_cuenta'
+    const url_getAccountPlan = process.env.Solu_externo + '/listados/get_plan_cuenta'
     fetch( url_getAccountPlan, {
         method: 'POST',
         headers: {

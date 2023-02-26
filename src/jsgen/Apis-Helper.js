@@ -5,7 +5,7 @@ import 'regenerator-runtime/runtime'
 // Nuevo Listado Clientes
 export const get_customers = tkn => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -47,7 +47,7 @@ export const get_customers = tkn => {
             placeholder: 'Buscar Cliente',
             ajax: {
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+                url: process.env.Solu_externo + '/listados/get_clienes_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',
@@ -92,7 +92,7 @@ export const get_customers = tkn => {
 // Nuevo Listado Productos
 export const get_products = tkn => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -133,7 +133,7 @@ export const get_products = tkn => {
             placeholder: 'Buscar producto',            
             ajax: {
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/get_productos_filtro',
+                url: process.env.Solu_externo + '/listados/get_productos_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',
@@ -178,7 +178,7 @@ export const get_products = tkn => {
 // Lista Proveedores
 export const get_suppliers = tkn => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -221,7 +221,7 @@ export const get_suppliers = tkn => {
             
             ajax:{
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro',
+                url: process.env.Solu_externo + '/listados/proveedores/get_proveedores_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',
@@ -339,7 +339,7 @@ export const get_businessUnits = tkn => {
 
 // Listado unidades de negocios sin todos
 export const get_businessUnitsWithoutAll = tkn => {
-    const url_getBusinessUnits = 'https://www.solucioneserp.net/listados/get_unidades_negocio'
+    const url_getBusinessUnits = process.env.Solu_externo + '/listados/get_unidades_negocio'
     fetch( url_getBusinessUnits, {
         method: 'GET',
         headers: {
@@ -433,7 +433,7 @@ export const get_coins = tkn => {
 
 // Listado de Sucursales
 export const get_branchOffices = tkn => {
-    const url_getbranchOffices = 'https://www.solucioneserp.net/listados/get_sucursales'
+    const url_getbranchOffices = process.env.Solu_externo + '/listados/get_sucursales'
     fetch( url_getbranchOffices, {
         method: 'GET',
         headers: {
@@ -464,7 +464,7 @@ export const get_branchOffices = tkn => {
 
 // Listado de Cobrador
 export const get_debtCollector = tkn => {
-    const url_getDebtCollector = 'https://www.solucioneserp.net/listados/get_cobradores'
+    const url_getDebtCollector = process.env.Solu_externo + '/listados/get_cobradores'
     fetch( url_getDebtCollector, {
         method: 'GET',
         headers: {
@@ -495,7 +495,7 @@ export const get_debtCollector = tkn => {
 
 // Listado de depositos
 export const get_deposits = tkn => {
-    const url_getDeposits = 'https://www.solucioneserp.net/listados/get_depositos'
+    const url_getDeposits = process.env.Solu_externo + '/listados/get_depositos'
     fetch( url_getDeposits, {
         method: 'GET',
         headers: {
@@ -526,7 +526,7 @@ export const get_deposits = tkn => {
 
 // Listado tipo de comprobantes
 export const get_voucherType = tkn => {
-    const url_getVoucherType = 'https://www.solucioneserp.net/inventario/reportes/get_tipo_Comprobante'
+    const url_getVoucherType = process.env.Solu_externo + '/inventario/reportes/get_tipo_Comprobante'
     fetch( url_getVoucherType, {
         method: 'GET',
         headers: {
@@ -557,7 +557,7 @@ export const get_voucherType = tkn => {
 
 // Conseguir documentos de compra
 export const get_purchaseDocuments = tkn => {
-    const url_getPurchaseDocuments = 'https://www.solucioneserp.net/listados/get_doc_compras'
+    const url_getPurchaseDocuments = process.env.Solu_externo + '/listados/get_doc_compras'
     fetch( url_getPurchaseDocuments, {
         method: 'GET',
         headers: {
@@ -588,7 +588,7 @@ export const get_purchaseDocuments = tkn => {
 
 // Conseguir provincias
 export const get_provinces = tkn => {
-    const url_getProvinces = 'https://www.solucioneserp.net/listados/get_provincias'
+    const url_getProvinces = process.env.Solu_externo + '/listados/get_provincias'
     fetch( url_getProvinces, {
         method: 'GET',
         headers: {
@@ -619,7 +619,7 @@ export const get_provinces = tkn => {
 
 // Conseguir Origenes
 export const get_origins = tkn => {
-    const url_getOrigins = 'https://www.solucioneserp.net/listados/get_origenes'
+    const url_getOrigins = process.env.Solu_externo + '/listados/get_origenes'
     fetch( url_getOrigins, {
         method: 'GET',
         headers: {
@@ -650,7 +650,7 @@ export const get_origins = tkn => {
 
 // Listado tipos clientes todos
 export const get_allCustomersType = tkn => {
-    const url_getAllCustomersType = 'https://www.solucioneserp.net/listados/get_tipos_clientes_todos'
+    const url_getAllCustomersType = process.env.Solu_externo + '/listados/get_tipos_clientes_todos'
     fetch( url_getAllCustomersType, {
         method: 'GET',
         headers: {
@@ -681,7 +681,7 @@ export const get_allCustomersType = tkn => {
 
 // Listado grupos clientes
 export const get_customersGroups = tkn => {
-    const url_getCustomersGroup = 'https://www.solucioneserp.net/listados/get_grupos_clientes'
+    const url_getCustomersGroup = process.env.Solu_externo + '/listados/get_grupos_clientes'
     fetch( url_getCustomersGroup, {
         method: 'GET',
         headers: {
@@ -715,7 +715,7 @@ export const get_customersGroups = tkn => {
 */
 // Listado rubros
 export const get_rubros = tkn => {
-    const url_getRubros = 'https://www.solucioneserp.net/listados/productos/get_rubros'
+    const url_getRubros = process.env.Solu_externo + '/listados/productos/get_rubros'
     fetch( url_getRubros, {
         method: 'GET',
         headers: {
@@ -746,7 +746,7 @@ export const get_rubros = tkn => {
 
 // Listado linea venta
 export const get_salesLine = tkn => {
-    const url_getSalesLine = 'https://www.solucioneserp.net/listados/productos/get_lineas'
+    const url_getSalesLine = process.env.Solu_externo + '/listados/productos/get_lineas'
     fetch( url_getSalesLine, {
         method: 'GET',
         headers: {
@@ -777,7 +777,7 @@ export const get_salesLine = tkn => {
 
 // Listado de cuentas por cobrar
 export const get_accounts = tkn => {
-    const url_getAccounts = 'https://www.solucioneserp.net/listados/get_cuentasxcobrar'
+    const url_getAccounts = process.env.Solu_externo + '/listados/get_cuentasxcobrar'
     fetch( url_getAccounts, {
         method: 'GET',
         headers: {
@@ -808,7 +808,7 @@ export const get_accounts = tkn => {
 
 // Listado Análisis de cuenta (Mayor de cuentas)
 export const get_costCenter = tkn => {
-    const url_getCostCenter = 'https://www.solucioneserp.net/listados/get_centrocostos'
+    const url_getCostCenter = process.env.Solu_externo + '/listados/get_centrocostos'
     fetch( url_getCostCenter, {
         method: 'GET',
         headers: {
@@ -839,7 +839,7 @@ export const get_costCenter = tkn => {
     *ventas/get_tipos_documento (Utilidades Page)
 */
 export const get_docsTypes = tkn => {
-    const url_getDocsTypes = 'https://www.solucioneserp.net/listados/ventas/get_tipos_documento'
+    const url_getDocsTypes = process.env.Solu_externo + '/listados/ventas/get_tipos_documento'
     fetch( url_getDocsTypes, {
         method: 'GET',
         headers: {
@@ -870,7 +870,7 @@ export const get_docsTypes = tkn => {
     *listado/get_tipos_asiento (VentasaContabilizar)
 */
 export const get_seatType = tkn => {
-    const url_getSeatType = 'https://www.solucioneserp.net/listados/get_tipos_asiento'
+    const url_getSeatType = process.env.Solu_externo + '/listados/get_tipos_asiento'
     fetch( url_getSeatType, {
         method: 'GET',
         headers: {
@@ -901,7 +901,7 @@ export const get_seatType = tkn => {
     *listado/get_tipos_asiento (VentasaContabilizar) sin todos
 */
 export const get_seatTypeWithoutAll = tkn => {
-    const url_getSeatType = 'https://www.solucioneserp.net/listados/get_tipos_asiento'
+    const url_getSeatType = process.env.Solu_externo + '/listados/get_tipos_asiento'
     fetch( url_getSeatType, {
         method: 'GET',
         headers: {
@@ -933,7 +933,7 @@ export const get_seatTypeWithoutAll = tkn => {
     * inventario/precios_por_grupo/get_campos_list (Aumentogrupo)
 */
 export const get_fieldList = tkn => {
-    const url_getFieldList = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_campos_list'
+    const url_getFieldList = process.env.Solu_externo + '/inventario/precios_por_grupo/get_campos_list'
     fetch( url_getFieldList, {
         method: 'GET',
         headers: {
@@ -964,7 +964,7 @@ export const get_fieldList = tkn => {
     * listados/productos/get_listas (Aumentogrupo)
 */
 export const get_lists = tkn => {
-    const url_getLists = 'https://www.solucioneserp.net/listados/productos/get_listas'
+    const url_getLists = process.env.Solu_externo + '/listados/productos/get_listas'
     fetch( url_getLists, {
         method: 'GET',
         headers: {
@@ -1002,7 +1002,7 @@ export const get_lists = tkn => {
     * inventario/precios_por_grupo/get_operacion_list (Aumentogrupo)
 */
 export const get_operations = tkn => {
-    const url_getOperations = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_operacion_list'
+    const url_getOperations = process.env.Solu_externo + '/inventario/precios_por_grupo/get_operacion_list'
     fetch( url_getOperations, {
         method: 'GET',
         headers: {
@@ -1033,7 +1033,7 @@ export const get_operations = tkn => {
     * inventario/precios_por_grupo/get_redondeo_list (Aumentogrupo)
 */
 export const get_rounding = tkn => {
-    const url_getRounding = 'https://www.solucioneserp.net/inventario/precios_por_grupo/get_redondeo_list'
+    const url_getRounding = process.env.Solu_externo + '/inventario/precios_por_grupo/get_redondeo_list'
     fetch( url_getRounding, {
         method: 'GET',
         headers: {
@@ -1061,7 +1061,7 @@ export const get_rounding = tkn => {
     * listados/proveedores/get_proveedores_filtro (Aumentogrupo)
 */
 export const get_provider = tkn => {
-    const url_getProvider = 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro'
+    const url_getProvider = process.env.Solu_externo + '/listados/proveedores/get_proveedores_filtro'
     fetch( url_getProvider, {
         method: 'POST',
         headers: {

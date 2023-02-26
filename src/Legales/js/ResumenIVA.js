@@ -7,9 +7,9 @@ const gridOptions = {
     rowHeight: 22,
     defaultColDef: {
         editable: false,
-        resizable: true,  
+        resizable: true,
         suppressNavigable: true, 
-        //minWidth: 100,                      
+        //minWidth: 100,
     },
     // No rows and grid loader
     overlayLoadingTemplate:
@@ -46,7 +46,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -60,7 +60,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -89,7 +89,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) =="null")
                     return ""
                 else
                     return format_number(params.value)
@@ -104,7 +104,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -134,7 +134,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -148,7 +148,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -244,7 +244,7 @@ function calculatePinnedBottomData2(target) {
 const get_summaryBook = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
     gridOptions2.api.showLoadingOverlay()
-    const url_getSummaryBook = 'https://www.solucioneserp.net/legales/get_resumen_libro_iva'
+    const url_getSummaryBook = process.env.Solu_externo + '/legales/get_resumen_libro_iva'
     fetch( url_getSummaryBook , {
         method: 'POST',
         headers: {

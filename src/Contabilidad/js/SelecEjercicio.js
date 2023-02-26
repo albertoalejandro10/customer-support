@@ -2,7 +2,7 @@ import { getParameter } from "../../jsgen/Helper"
 
 // Listado de Ejercicios
 const get_exercises = tkn => {
-    const url_getExercises = 'https://www.solucioneserp.net/utilidades/ejercicio/get_ejercicios'
+    const url_getExercises = process.env.Solu_externo + '/utilidades/ejercicio/get_ejercicios'
     fetch( url_getExercises, {
         method: 'GET',
         headers: {
@@ -35,7 +35,7 @@ if ( tkn ) {
 }
 
 const post_modifiedExercise = (tkn, data) => {
-    const url_postModifiedExercise = 'https://www.solucioneserp.net/utilidades/ejercicio/modificar_ejercicio_usuario'
+    const url_postModifiedExercise = process.env.Solu_externo + '/utilidades/ejercicio/modificar_ejercicio_usuario'
     fetch( url_postModifiedExercise , {
         method: 'POST',
         headers: {

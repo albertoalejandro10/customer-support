@@ -227,7 +227,7 @@ function calculatePinnedBottomData(target){
 
 const get_salesDocs = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
-    const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/consultas/get_documentos_ventas'
+    const url_getPendingCharges = process.env.Solu_externo + '/reportes/consultas/get_documentos_ventas'
     fetch( url_getPendingCharges , {
         method: 'POST',
         headers: {
@@ -272,7 +272,7 @@ $form.addEventListener('submit', event => {
     const fechaHasta    = formData.get('periodEnd').split('-').reverse().join('/')
     const cliente       = formData.get('cuit')
     const unidadNegocio = Number(formData.get('business'))
-    const grupoCliente  = Number(formData.get('client-group'))
+    const grupoCliente  = Number(formData.get('customer-groups'))
 
     // Uso de operador ternario
     const nroDocumento = (formData.get('number-docs')  === '') ? '' : Number(formData.get('number-docs'))

@@ -156,7 +156,7 @@ function calculatePinnedBottomData(target){
 }
 
 const get_recurringBilling = tkn => {
-    const url_getRecurringBilling = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
+    const url_getRecurringBilling = process.env.Solu_externo + '/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
     fetch( url_getRecurringBilling , {
         method: 'GET',
         headers: {
@@ -219,7 +219,7 @@ const visibleInput = type => {
 
 // Listado de tipos de cargo por reconexion
 const get_lastSettlement = tkn => {
-    const url_getLastSettlement = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
+    const url_getLastSettlement = process.env.Solu_externo + '/maestros/generacion_lotes/get_ultima_liquidacion_cupones'
     fetch( url_getLastSettlement, {
         method: 'GET',
         headers: {
@@ -337,7 +337,7 @@ const hiddenConfirmButton = () => {
 }
 
 const post_GenerateButton = (tkn, data) => {
-    const url_GenerateButton = 'https://www.solucioneserp.net/maestros/generacion_lotes/generar_lote'
+    const url_GenerateButton = process.env.Solu_externo + '/maestros/generacion_lotes/generar_lote'
     fetch( url_GenerateButton , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -401,7 +401,7 @@ $form.addEventListener('submit', event => {
 })
 
 const post_ConfirmButton = (tkn, data) => {
-    const url_ConfirmButton = 'https://www.solucioneserp.net/maestros/generacion_lotes/confirmar_lote'
+    const url_ConfirmButton = process.env.Solu_externo + '/maestros/generacion_lotes/confirmar_lote'
     fetch( url_ConfirmButton , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -435,7 +435,7 @@ document.getElementById('update').addEventListener("click", () => {
 })
 
 const get_customerCode = ( tkn, codigoCliente ) => {
-    const url_getCustomers = 'https://www.solucioneserp.net/listados/get_clienes_filtro'
+    const url_getCustomers = process.env.Solu_externo + '/listados/get_clienes_filtro'
     fetch( url_getCustomers, {
         method: 'POST',
         body: JSON.stringify({"filtro": ""}),
@@ -464,7 +464,7 @@ const get_customerCode = ( tkn, codigoCliente ) => {
 // Nuevo Listado Clientes
 const get_customers = (tkn, result = false) => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -504,7 +504,7 @@ const get_customers = (tkn, result = false) => {
             placeholder: 'Buscar Cliente',
             ajax: {
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+                url: process.env.Solu_externo + '/listados/get_clienes_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',

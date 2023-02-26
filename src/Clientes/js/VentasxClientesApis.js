@@ -3,7 +3,7 @@ import { get_products, get_startMonth, get_branchOffices, get_rubros, get_salesL
 
 // Lista Proveedores
 const get_suppliers = tkn => {
-    const url_getSupplier = 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro'
+    const url_getSupplier = process.env.Solu_externo + '/listados/proveedores/get_proveedores_filtro'
     fetch( url_getSupplier , {
         method: 'POST',
         headers: {
@@ -41,7 +41,7 @@ const get_suppliers = tkn => {
 
 // Listado tipo reporte
 const get_reportType = tkn => {
-    const url_getReportType = 'https://www.solucioneserp.net/listados/clientes/ventasxcliente/get_tipo_reporte'
+    const url_getReportType = process.env.Solu_externo + '/listados/clientes/ventasxcliente/get_tipo_reporte'
     fetch( url_getReportType, {
         method: 'GET',
         headers: {
@@ -72,7 +72,7 @@ const get_reportType = tkn => {
 
 // Listado comprobante
 const get_voucherType = tkn => {
-    const url_getVoucherType = 'https://www.solucioneserp.net/listados/clientes/ventasxcliente/get_tipo_comprobante'
+    const url_getVoucherType = process.env.Solu_externo + '/listados/clientes/ventasxcliente/get_tipo_comprobante'
     fetch( url_getVoucherType, {
         method: 'GET',
         headers: {

@@ -213,7 +213,7 @@ function calculatePinnedBottomData(target){
 const get_salesMovements = (tkn, data) => {
     // Mostrar Loader Grilla
     gridOptions.api.showLoadingOverlay()
-    const url_getSalesMovements = 'https://www.solucioneserp.net/reportes/ventas/get_movimiento_ventas'
+    const url_getSalesMovements = process.env.Solu_externo + '/reportes/ventas/get_movimiento_ventas'
     fetch( url_getSalesMovements , {
         method: 'POST',
         headers: {
@@ -251,11 +251,11 @@ $form.addEventListener('submit', event => {
     const formData = new FormData(event.currentTarget)
 
     const rubroId = Number(formData.get('entry'))
-    const vendedorId = Number(formData.get('sellers'))
+    const vendedorId = Number(formData.get('debt-collector'))
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/') 
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
 
-    const lineaVentaId = Number(formData.get('line-sales'))
+    const lineaVentaId = Number(formData.get('sale-line'))
     const sucursalId = Number(formData.get('subsidiary'))
     const tipoClienteId = Number(formData.get('customer-type'))
 

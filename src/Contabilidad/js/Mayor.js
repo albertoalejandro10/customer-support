@@ -196,7 +196,7 @@ function calculatePinnedBottomData(target) {
 const get_mayorAccount = (tkn, data) => {
     // Mostrar Loader Grid
     gridOptions.api.showLoadingOverlay()
-    const url_getMayorAccount = 'https://www.solucioneserp.net/contabilidad/reportes/get_mayorcuentas'
+    const url_getMayorAccount = process.env.Solu_externo + '/contabilidad/reportes/get_mayorcuentas'
     fetch( url_getMayorAccount , {
         method: 'POST',
         headers: {

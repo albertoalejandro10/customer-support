@@ -3,7 +3,7 @@ import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 // *Conseguir ventas por contabilizar
 const post_getPendingPurchases = (data, tkn) => {
     document.getElementById('loader').classList.remove('d-none')
-    const url_getPendingPurchases = 'https://www.solucioneserp.net/formularios/proveedores/get_compras_pendientes_contabilizar'
+    const url_getPendingPurchases = process.env.Solu_externo + '/formularios/proveedores/get_compras_pendientes_contabilizar'
     fetch( url_getPendingPurchases , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -167,7 +167,7 @@ if ( codCliente && tkn ) {
 
 // *Boton para grabar
 const post_recordedAssess = (tkn, data) => {
-    const url_recordedAssess = 'https://www.solucioneserp.net/formularios/proveedores/generar_asiento_compras'
+    const url_recordedAssess = process.env.Solu_externo + '/formularios/proveedores/generar_asiento_compras'
     fetch( url_recordedAssess , {
         method: 'POST',
         body: JSON.stringify(data),

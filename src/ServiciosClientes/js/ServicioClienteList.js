@@ -2,7 +2,7 @@ import { getParameter, format_number } from "../../jsgen/Helper"
 
 // Fetch para imprimir datos del servicio
 const customerService = ( id, name, tkn ) => {
-    const url_getServices = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_servicios'
+    const url_getServices = process.env.Solu_externo + '/maestros/servicios_clientes/get_servicios'
     fetch( url_getServices, {
         method: 'POST',
         headers: {

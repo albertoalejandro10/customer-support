@@ -2,7 +2,7 @@ import { getParameter } from "../../jsgen/Helper"
 
 // Tipo de Generacion
 const get_typeGeneration = tkn => {
-    const url_gettypeGeneration = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_generacion'
+    const url_gettypeGeneration = process.env.Solu_externo + '/maestros/generacion_lotes/get_tipo_generacion'
     fetch( url_gettypeGeneration, {
         method: 'GET',
         headers: {
@@ -38,7 +38,7 @@ const get_typeGeneration = tkn => {
 
 // Listado grupos clientes
 const get_groupCustomers = tkn => {
-    const url_getGroupsCustomers = 'https://www.solucioneserp.net/listados/get_grupos_clientes'
+    const url_getGroupsCustomers = process.env.Solu_externo + '/listados/get_grupos_clientes'
     fetch( url_getGroupsCustomers, {
         method: 'GET',
         headers: {
@@ -69,7 +69,7 @@ const get_groupCustomers = tkn => {
 
 // Listado tipos de clientes
 const get_customerTypes = tkn => {
-    const url_getCustomerTypes = 'https://www.solucioneserp.net/listados/get_tipos_clientes'
+    const url_getCustomerTypes = process.env.Solu_externo + '/listados/get_tipos_clientes'
     fetch( url_getCustomerTypes, {
         method: 'GET',
         headers: {
@@ -105,7 +105,7 @@ const get_customerTypes = tkn => {
 
 // Listado tipos de comprobantes
 const get_voucherTypes = tkn => {
-    const url_getVoucherTypes = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_comprobante'
+    const url_getVoucherTypes = process.env.Solu_externo + '/maestros/generacion_lotes/get_tipo_comprobante'
     fetch( url_getVoucherTypes, {
         method: 'GET',
         headers: {
@@ -141,7 +141,7 @@ const get_voucherTypes = tkn => {
 
 // Listado de cargos por reconexion
 const get_reconnectionCharges = tkn => {
-    const url_getReconnectionCharges = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_cargo_reconexion'
+    const url_getReconnectionCharges = process.env.Solu_externo + '/maestros/generacion_lotes/get_tipo_cargo_reconexion'
     fetch( url_getReconnectionCharges, {
         method: 'GET',
         headers: {
@@ -177,7 +177,7 @@ const get_reconnectionCharges = tkn => {
 
 // Listado de tipos de cargo por reconexion
 const get_chargesType = tkn => {
-    const url_getChargesType = 'https://www.solucioneserp.net/maestros/generacion_lotes/get_tipo_cargo_reconexion'
+    const url_getChargesType = process.env.Solu_externo + '/maestros/generacion_lotes/get_tipo_cargo_reconexion'
     fetch( url_getChargesType, {
         method: 'GET',
         headers: {

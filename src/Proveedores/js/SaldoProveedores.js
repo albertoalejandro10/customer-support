@@ -17,7 +17,7 @@ const gridOptions = {
         suppressNavigable: true,
         wrapHeaderText: true,
         autoHeaderHeight: true,
-        //minWidth: 100,                      
+        //minWidth: 100,
     },
     // No rows and grid loader
     overlayLoadingTemplate:
@@ -124,7 +124,7 @@ function calculatePinnedBottomData (target) {
     let columnsWithAggregation = ['pendiente', 'total']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
-        gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {
             if (rowNode.data[element]) {
                 target[element] += Number(rowNode.data[element].toFixed(2))
             }
@@ -139,7 +139,7 @@ function calculatePinnedBottomData (target) {
 
 const get_accountsPayableBalance = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
-    const url_getAccountsPayableBalance = 'https://www.solucioneserp.net/reportes/proveedores/get_saldo_cuentas_por_pagar'
+    const url_getAccountsPayableBalance = process.env.Solu_externo + '/reportes/proveedores/get_saldo_cuentas_por_pagar'
     fetch( url_getAccountsPayableBalance , {
         method: 'POST',
         headers: {

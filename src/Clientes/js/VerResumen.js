@@ -1,7 +1,7 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 
 const get_userData = tkn => {
-    const url_getUserData = 'https://www.solucioneserp.net/session/login_sid'
+    const url_getUserData = process.env.Solu_externo + '/session/login_sid'
     fetch( url_getUserData , {
         method: 'GET',
         headers: {
@@ -36,7 +36,7 @@ const get_dataFromURL = () => {
 }
 
 const get_accountSummary = ( tkn, data ) => {
-    const url_accountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
+    const url_accountSummary = process.env.Solu_externo + '/reportes/clientes/get_resumen_cuenta_cliente'
     fetch( url_accountSummary , {
         method: 'POST',
         body: JSON.stringify(data),

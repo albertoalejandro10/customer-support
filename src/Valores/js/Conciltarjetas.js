@@ -3,7 +3,7 @@ import { getParameter, format_number, reverseFormatNumber, calcularImporteTotal,
 // *Conseguir movimientos validados
 const post_getMovements = (tkn, data) => {
     document.getElementById('loader').classList.remove('d-none')
-    const url_getMovements = 'https://www.solucioneserp.net/bancosyvalores/conciliar_tarjetas/get_movimientos'
+    const url_getMovements = process.env.Solu_externo + '/bancosyvalores/conciliar_tarjetas/get_movimientos'
     fetch( url_getMovements , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -268,7 +268,7 @@ document.getElementById("assess").addEventListener("click", () => {
 
 // *Boton para contabilizar movimientos validados
 const post_saveReconciliation = (tkn, data) => {
-    const url_recordedAssess = 'https://www.solucioneserp.net/bancosyvalores/conciliar_tarjetas/guardar_conciliacion'
+    const url_recordedAssess = process.env.Solu_externo + '/bancosyvalores/conciliar_tarjetas/guardar_conciliacion'
     fetch( url_recordedAssess , {
         method: 'POST',
         body: JSON.stringify(data),

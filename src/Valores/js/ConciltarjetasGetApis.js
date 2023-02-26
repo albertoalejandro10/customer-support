@@ -1,7 +1,6 @@
 import { getParameter } from "../../jsgen/Helper"
 import { get_cardGroups } from "../../jsgen/Apis-Helper-BancaValores"
 
-
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {

@@ -2,7 +2,7 @@ import { getParameter, format_number } from "../../jsgen/Helper"
 
 // * Get API's information and print all tables
 const get_seat = ( tkn, data ) => {
-    const url_getSeat = 'https://www.solucioneserp.net/contabilidad/reportes/get_asiento'
+    const url_getSeat = process.env.Solu_externo + '/contabilidad/reportes/get_asiento'
     fetch( url_getSeat , {
         method: 'POST',
         body: JSON.stringify(data),

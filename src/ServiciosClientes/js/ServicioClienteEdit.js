@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap'
 
 // Fetch para traer servicios, si viene id en la URL
 const servicePromise = ( id, idservice, tkn ) => {
-    const url_getService = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_servicioid'
+    const url_getService = process.env.Solu_externo + '/maestros/servicios_clientes/get_servicioid'
     fetch( url_getService , {
         method: 'POST',
         headers: {
@@ -165,7 +165,7 @@ if ( id && idService && name && tkn ) {
 const deleteService = document.getElementById('deleteService')
 deleteService.onclick = () => {
     const id = getParameter('idservice')
-    const url_deleteService = 'https://www.solucioneserp.net/maestros/servicios_clientes/delete_servicioid'
+    const url_deleteService = process.env.Solu_externo + '/maestros/servicios_clientes/delete_servicioid'
     fetch( url_deleteService, {
         method: 'POST',
         headers: {
@@ -234,7 +234,7 @@ $form.addEventListener('submit', event => {
 
     const data = { id, codigo, detalle, cantidad, fechavencimiento, idcliente, observacion, activo, abono, preciofijo, precioneto, idlista: 0, ctipo: 1}
     // console.table( data )
-    const url_recordService = 'https://www.solucioneserp.net/maestros/servicios_clientes/grabar_servicioid'
+    const url_recordService = process.env.Solu_externo + '/maestros/servicios_clientes/grabar_servicioid'
     fetch( url_recordService , {
         method: 'POST',
         body: JSON.stringify(data),

@@ -253,7 +253,7 @@ function calculatePinnedBottomData(target){
 const get_AccountsBalance = (tkn, data) => {
     // Mostrar Grid Loader
     gridOptions.api.showLoadingOverlay()
-    const url_getAccountsBalance = 'https://www.solucioneserp.net/reportes/clientes/get_saldo_cuentas_por_cobrar'
+    const url_getAccountsBalance = process.env.Solu_externo + '/reportes/clientes/get_saldo_cuentas_por_cobrar'
     fetch( url_getAccountsBalance , {
         method: 'POST',
         headers: {

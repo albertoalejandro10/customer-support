@@ -6,7 +6,7 @@ const lastDate = getParameter('fechaHasta')
 document.getElementById('date').textContent = `${startDate} - ${lastDate}`
 
 const get_userData = tkn => {
-    const url_getUserData = 'https://www.solucioneserp.net/session/login_sid'
+    const url_getUserData = process.env.Solu_externo + '/session/login_sid'
     fetch( url_getUserData , {
         method: 'GET',
         headers: {
@@ -28,7 +28,7 @@ const get_userData = tkn => {
 get_userData( tkn )
 
 const get_diaryBook = ( tkn, data ) => {
-    const url_getDiaryBook = 'https://www.solucioneserp.net/contabilidad/reportes/get_librodiario'
+    const url_getDiaryBook = process.env.Solu_externo + '/contabilidad/reportes/get_librodiario'
     fetch( url_getDiaryBook , {
         method: 'POST',
         body: JSON.stringify(data),

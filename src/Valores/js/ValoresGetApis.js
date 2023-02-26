@@ -15,7 +15,7 @@ selectType.addEventListener('change', event => {
 
 // Listado de tipos de periodo (Valores)
 const get_detValues = ( tkn, value ) => {
-    const url_getDetValues = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_valores'
+    const url_getDetValues = process.env.Solu_externo + '/bancosyvalores/reportes/get_valores'
     fetch( url_getDetValues, {
         method: 'GET',
         headers: {

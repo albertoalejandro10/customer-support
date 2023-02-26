@@ -2,7 +2,7 @@ import { getParameter } from "../../jsgen/Helper"
 // Nuevo Listado Clientes
 export const get_customers = tkn => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -17,7 +17,6 @@ export const get_customers = tkn => {
         
         // Variable cantidad de caracteres
         let cant_character_to_search = 0
-
         const config_params = configuracion
         //const { codigo , valor } = [config_params]
         
@@ -44,7 +43,7 @@ export const get_customers = tkn => {
             placeholder: 'Buscar Cliente',
             ajax: {
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+                url: process.env.Solu_externo + '/listados/get_clienes_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',

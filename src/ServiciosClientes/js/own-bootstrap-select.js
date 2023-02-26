@@ -7,7 +7,7 @@ const pathname = (window.location.pathname).toLowerCase()
 // Index Page
 const devOrProductionListClients = () => {
   // Fetch para traer datos de clientes
-  const url_getCustomers = 'https://www.solucioneserp.net/maestros/servicios_clientes/get_clientes'
+  const url_getCustomers = process.env.Solu_externo + '/maestros/servicios_clientes/get_clientes'
   fetch( url_getCustomers , {
       method: 'GET',
       headers: {
@@ -57,7 +57,7 @@ if ( pathname === pathnameClients_Production) {
 const devOrProductionListProducts = () => {
   // Service Page
   // Fetch para traer datos de productos (detalle y id)
-  const url_getProducts = 'https://www.solucioneserp.net/listados/get_productos_filtro'
+  const url_getProducts = process.env.Solu_externo + '/listados/get_productos_filtro'
   fetch(url_getProducts, {
     method: 'POST',
     headers: {

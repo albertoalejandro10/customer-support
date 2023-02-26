@@ -177,7 +177,7 @@ function calculatePinnedBottomData(target){
 const get_utilities = (tkn, data) => {
     // Mostrar Loader Grilla
     gridOptions.api.showLoadingOverlay()
-    const url_getUtilities = 'https://www.solucioneserp.net/reportes/ctrl_gestion/get_utilidades'
+    const url_getUtilities = process.env.Solu_externo + '/reportes/ctrl_gestion/get_utilidades'
     fetch( url_getUtilities , {
         method: 'POST',
         headers: {

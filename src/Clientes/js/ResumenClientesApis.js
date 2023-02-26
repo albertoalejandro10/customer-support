@@ -3,7 +3,7 @@ import { get_coins, get_startMonth, get_branchOffices, get_debtCollector } from 
 
 const get_customers = tkn => {
     //get config para el combo de clientes
-    const url_config_cli = 'https://www.solucioneserp.net/session/login_sid'
+    const url_config_cli = process.env.Solu_externo + '/session/login_sid'
     fetch( url_config_cli , {
         method: 'GET',
         headers: {
@@ -45,7 +45,7 @@ const get_customers = tkn => {
             placeholder: 'Buscar Cliente',
             ajax: {
                 delay: 500,
-                url: 'https://www.solucioneserp.net/listados/get_clienes_filtro',
+                url: process.env.Solu_externo + '/listados/get_clienes_filtro',
                 headers: {'Authorization' : 'Bearer ' + tkn},
                 type: 'POST',
                 dataType:'json',
@@ -96,7 +96,7 @@ const get_customers = tkn => {
 
 // Listado unidades de negocios
 const get_businessUnits = tkn => {
-    const url_getBusinessUnits = 'https://www.solucioneserp.net/listados/get_unidades_negocio'
+    const url_getBusinessUnits = process.env.Solu_externo + '/listados/get_unidades_negocio'
     fetch( url_getBusinessUnits, {
         method: 'GET',
         headers: {
@@ -131,7 +131,7 @@ const get_businessUnits = tkn => {
 
 // Listado de estados deudores
 const get_status = tkn => {
-    const url_getStatus = 'https://www.solucioneserp.net/listados/get_estados_deudores'
+    const url_getStatus = process.env.Solu_externo + '/listados/get_estados_deudores'
     fetch( url_getStatus, {
         method: 'GET',
         headers: {

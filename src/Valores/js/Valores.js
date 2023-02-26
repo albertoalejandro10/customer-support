@@ -177,7 +177,7 @@ function calculatePinnedBottomData(target) {
 const get_valuesConsult = (tkn, data) => {
     // Mostrar Loader Grid
     gridOptions.api.showLoadingOverlay()
-    const url_getValuesConsult = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_consultaValores'
+    const url_getValuesConsult = process.env.Solu_externo + '/bancosyvalores/reportes/get_consultaValores'
     fetch( url_getValuesConsult , {
         method: 'POST',
         headers: {

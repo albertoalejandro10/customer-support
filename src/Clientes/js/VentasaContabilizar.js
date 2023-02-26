@@ -3,7 +3,7 @@ import { getParameter, format_number } from "../../jsgen/Helper"
 // *Conseguir ventas por contabilizar
 const post_getPendingSales = (data, tkn) => {
     document.getElementById('loader').classList.remove('d-none')
-    const url_getPendingSales = 'https://www.solucioneserp.net/formularios/clientes/get_ventas_pendientes_contabilizar'
+    const url_getPendingSales = process.env.Solu_externo + '/formularios/clientes/get_ventas_pendientes_contabilizar'
     fetch( url_getPendingSales , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -152,7 +152,7 @@ if ( codCliente && tkn ) {
 
 // *Boton para grabar
 const post_recordedAssess = (tkn, data) => {
-    const url_recordedAssess = 'https://www.solucioneserp.net/formularios/clientes/generar_asiento_ventas'
+    const url_recordedAssess = process.env.Solu_externo + '/formularios/clientes/generar_asiento_ventas'
     fetch( url_recordedAssess , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -179,7 +179,7 @@ document.getElementById("update").addEventListener("click", () => {
 
 // *Ejecutar boton cargar
 document.getElementById("record").addEventListener("click", () => {
-    location.href = 'https://www.solucioneserp.com.ar/net/webform/compvta.aspx '
+    location.href = process.env.Solu_externo_ar + '/net/webform/compvta.aspx'
 })
 
 // *Boton contabilizar

@@ -6,7 +6,7 @@ export const getParameter = parameterName => {
 
 // Fecha de inicio de ejercicio
 export const get_StartPeriod = tkn => {
-    const url_getStartPeriod = 'https://www.solucioneserp.net/session/login_sid'
+    const url_getStartPeriod = process.env.Solu_externo + '/session/login_sid'
     fetch( url_getStartPeriod, {
         method: 'GET',
         headers: {

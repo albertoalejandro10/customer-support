@@ -1,7 +1,7 @@
 import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 
 const post_getDiaryBook = (tkn, data) => {
-    const url_getDiaryBook = 'https://www.solucioneserp.net/contabilidad/reportes/get_librodiario'
+    const url_getDiaryBook = process.env.Solu_externo + '/contabilidad/reportes/get_librodiario'
     fetch( url_getDiaryBook , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -119,8 +119,6 @@ const addInfo = (count, linea) => {
     const row_data_5 = document.createElement('td')
     row_data_5.textContent = detalle
     const row_data_6 = document.createElement('td')
-
-
     row_data_6.textContent = (debe === '1') ? format_number(importe) : ''
     const row_data_7 = document.createElement('td')
     row_data_7.textContent = (debe === '0') ? format_number(importe) : ''
@@ -191,7 +189,7 @@ $form.addEventListener('submit', event => {
         fechaHasta,
         agrupaMes
     }
-    console.log( JSON.stringify(data) )
+    // console.log( JSON.stringify(data) )
     post_getDiaryBook( tkn, data )
 })
 

@@ -1,7 +1,7 @@
 import { getParameter, format_number, reverseFormatNumber } from "../../jsgen/Helper"
 
 const post_getReceipts = (tkn, data) => {
-    const url_getReceipts = 'https://www.solucioneserp.net/clientes/formularios/asignacion_comprobantes/get_comprobantes_pendientes'
+    const url_getReceipts = process.env.Solu_externo + '/clientes/formularios/asignacion_comprobantes/get_comprobantes_pendientes'
     fetch( url_getReceipts , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -259,7 +259,7 @@ const calculateDifferenceBetweenCreditAndDebit = () => {
 
 // Boton para grabar
 const post_RecordButton = (tkn, data) => {
-    const url_ConfirmButton = 'https://www.solucioneserp.net/clientes/formularios/asignacion_comprobantes/asignar_comprobantes_pendientes'
+    const url_ConfirmButton = process.env.Solu_externo + '/clientes/formularios/asignacion_comprobantes/asignar_comprobantes_pendientes'
     fetch( url_ConfirmButton , {
         method: 'POST',
         body: JSON.stringify(data),

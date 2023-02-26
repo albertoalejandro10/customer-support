@@ -1,7 +1,7 @@
 import { getParameter, format_number } from "../../jsgen/Helper"
 
 const get_userData = tkn => {
-    const url_getUserData = 'https://www.solucioneserp.net/session/login_sid'
+    const url_getUserData = process.env.Solu_externo + '/session/login_sid'
     fetch( url_getUserData , {
         method: 'GET',
         headers: {
@@ -36,7 +36,7 @@ const get_dataFromURL = () => {
 }
 
 const get_customerSales = ( tkn, data ) => {
-    const url_getCustomerSales = 'https://www.solucioneserp.net/reportes/clientes/get_ventasxcliente'
+    const url_getCustomerSales = process.env.Solu_externo + '/reportes/clientes/get_ventasxcliente'
     fetch( url_getCustomerSales , {
         method: 'POST',
         body: JSON.stringify(data),
@@ -79,7 +79,7 @@ const printHeader = ({ fechaDesde, fechaHasta, idLineaVenta, idProveedor, idRubr
 }
 
 const getValues = (idLineaVenta, idProveedor, idRubro, idComprobante, tkn) => {
-    fetch( 'https://www.solucioneserp.net/listados/productos/get_lineas', {
+    fetch( process.env.Solu_externo + '/listados/productos/get_lineas', {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
     })
@@ -98,7 +98,7 @@ const getValues = (idLineaVenta, idProveedor, idRubro, idComprobante, tkn) => {
         document.getElementById('sale-line').innerHTML = `<strong class="real-blue">${value}</strong>`
     })
     
-    fetch( 'https://www.solucioneserp.net/listados/proveedores/get_proveedores_filtro', {
+    fetch( process.env.Solu_externo + '/listados/proveedores/get_proveedores_filtro', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const getValues = (idLineaVenta, idProveedor, idRubro, idComprobante, tkn) => {
         document.getElementById('supplier').innerHTML = `<strong class="real-blue">${value}</strong>`
     })
     
-    fetch( 'https://www.solucioneserp.net/listados/productos/get_rubros', {
+    fetch( process.env.Solu_externo + '/listados/productos/get_rubros', {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
     })
@@ -148,7 +148,7 @@ const getValues = (idLineaVenta, idProveedor, idRubro, idComprobante, tkn) => {
         document.getElementById('rubro').innerHTML = `<strong class="real-blue">${value}</strong>`
     })
 
-    fetch( 'https://www.solucioneserp.net/listados/clientes/ventasxcliente/get_tipo_comprobante', {
+    fetch( process.env.Solu_externo + '/listados/clientes/ventasxcliente/get_tipo_comprobante', {
         method: 'GET',
         headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
     })

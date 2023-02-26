@@ -194,7 +194,7 @@ function calculatePinnedBottomData (target) {
 const get_salesCustomers = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
 
-    const url_getSalesCustomers = 'https://www.solucioneserp.net/reportes/clientes/get_ventasxcliente'
+    const url_getSalesCustomers = process.env.Solu_externo + '/reportes/clientes/get_ventasxcliente'
     fetch( url_getSalesCustomers , {
         method: 'POST',
         headers: {

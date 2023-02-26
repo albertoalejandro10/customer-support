@@ -206,7 +206,7 @@ function calculatePinnedBottomData(target) {
 const get_accountSummary = (tkn, data) => {
     // Mostrar Loader Grid
     gridOptions.api?.showLoadingOverlay()
-    const url_getAccountSummary = 'https://www.solucioneserp.net/reportes/clientes/get_resumen_cuenta_cliente'
+    const url_getAccountSummary = process.env.Solu_externo + '/reportes/clientes/get_resumen_cuenta_cliente'
     fetch( url_getAccountSummary , {
         method: 'POST',
         headers: {

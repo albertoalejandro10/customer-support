@@ -279,7 +279,7 @@ function calculatePinnedBottomData (target) {
 const get_purchaseDocuments = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
 
-    const url_getPurchaseDocuments = 'https://www.solucioneserp.net/reportes/consultas/get_documentos_compras'
+    const url_getPurchaseDocuments = process.env.Solu_externo + '/reportes/consultas/get_documentos_compras'
     fetch( url_getPurchaseDocuments , {
         method: 'POST',
         headers: {

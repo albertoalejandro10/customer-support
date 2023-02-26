@@ -1,6 +1,6 @@
 // Listado de cuentas estado (Valores)
 export const get_statusAccount = tkn => {
-    const url_getStatusAccount = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_cuentas_estado'
+    const url_getStatusAccount = process.env.Solu_externo + '/bancosyvalores/reportes/get_cuentas_estado'
     fetch( url_getStatusAccount, {
         method: 'GET',
         headers: {
@@ -29,7 +29,7 @@ export const get_statusAccount = tkn => {
 
 // Listado de tipos de periodo (Valores)
 export const get_periodType = tkn => {
-    const url_getPeriodType = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_tipos_periodo'
+    const url_getPeriodType = process.env.Solu_externo + '/bancosyvalores/reportes/get_tipos_periodo'
     fetch( url_getPeriodType, {
         method: 'GET',
         headers: {
@@ -57,7 +57,7 @@ export const get_periodType = tkn => {
 }
 // Listado de orden (Valores)
 export const get_order = tkn => {
-    const url_getOrder = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_tipos_orden'
+    const url_getOrder = process.env.Solu_externo + '/bancosyvalores/reportes/get_tipos_orden'
     fetch( url_getOrder, {
         method: 'GET',
         headers: {
@@ -85,7 +85,7 @@ export const get_order = tkn => {
 }
 // Listado de Valor (Valores)
 export const get_value = tkn => {
-    const url_getValue = 'https://www.solucioneserp.net/bancosyvalores/reportes/get_tipos_valores'
+    const url_getValue = process.env.Solu_externo + '/bancosyvalores/reportes/get_tipos_valores'
     fetch( url_getValue, {
         method: 'GET',
         headers: {
@@ -116,7 +116,7 @@ export const get_value = tkn => {
     *bancosyvalores/conciliar_tarjetas/get_grupos_tarjetas
 */
 export const get_cardGroups = tkn => {
-    const url_getCardGroups = 'https://www.solucioneserp.net/bancosyvalores/conciliar_tarjetas/get_grupos_tarjetas'
+    const url_getCardGroups = process.env.Solu_externo + '/bancosyvalores/conciliar_tarjetas/get_grupos_tarjetas'
     fetch( url_getCardGroups, {
         method: 'GET',
         headers: {

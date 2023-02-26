@@ -1,3 +1,5 @@
+import { getParameter } from "./Helper"
+
 const formLower = document.getElementById('form-lower')
 formLower.innerHTML = 
 `    
@@ -17,7 +19,7 @@ formLower.innerHTML =
 `
 
 const get_UserFooter = tkn => {
-    const url_getUser = 'https://www.solucioneserp.net/session/login_sid'
+    const url_getUser = process.env.Solu_externo + '/session/login_sid'
     fetch( url_getUser , {
         method: 'GET',
         headers: {
@@ -49,16 +51,10 @@ const get_UserFooter = tkn => {
     })
 }
 
-// Conseguir parametros del URL
-const getParameter = parameterName => {
-    let parameters = new URLSearchParams( window.location.search )
-    return parameters.get( parameterName )
-}
-
-const tkn = getParameter('tkn')
+const tkn = getParameter( 'tkn' )
 // Si viene tkn en la URL, se ejecuta
 if ( tkn ) {    
-        try{
+        try {
             const tokenBearer = document.getElementById('tokenBearer')
             tokenBearer.value = tkn
         }

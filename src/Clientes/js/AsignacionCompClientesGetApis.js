@@ -3,7 +3,7 @@ import { get_accounts, get_startPeriod, get_customers } from "../../jsgen/Apis-H
 
 // Listado unidades de negocios
 export const get_businessUnits = tkn => {
-    const url_getBusinessUnits = 'https://www.solucioneserp.net/listados/get_unidades_negocio'
+    const url_getBusinessUnits = process.env.Solu_externo + '/listados/get_unidades_negocio'
     fetch( url_getBusinessUnits, {
         method: 'GET',
         headers: {

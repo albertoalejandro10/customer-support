@@ -142,7 +142,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -156,7 +156,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -208,10 +208,10 @@ function calculatePinnedBottomData(target){
     return target
 }
 
-const get_PendingCharges = (tkn, data) => {
+const get_pendingCharges = (tkn, data) => {
     // Show Loader Grilla
     gridOptions.api?.showLoadingOverlay()
-    const url_getPendingCharges = 'https://www.solucioneserp.net/reportes/clientes/get_comprobantes_pendientes_cobro'
+    const url_getPendingCharges = process.env.Solu_externo + '/reportes/clientes/get_comprobantes_pendientes_cobro'
     fetch( url_getPendingCharges , {
         method: 'POST',
         headers: {
@@ -276,7 +276,7 @@ $form.addEventListener('submit', event => {
         incluirProformas
     }
     // console.log( data )
-    get_PendingCharges( tkn, data )
+    get_pendingCharges( tkn, data )
 })
 
 const tkn = getParameter('tkn')
@@ -287,7 +287,7 @@ const idUnidadNegocio = getParameter('unidadNegocio')
 const estado = getParameter('estado')
 
 const APIRequest = async () => {
-    const endpoint = 'https://www.solucioneserp.net/listados/get_fecha_inicio_ejercicio'
+    const endpoint = process.env.Solu_externo + '/listados/get_fecha_inicio_ejercicio'
     try {
         const response = await fetch(endpoint, {
             method: 'GET',
@@ -312,7 +312,7 @@ const APIRequest = async () => {
                     incluirProformas: 0
                 }
                 // console.log(info)
-                get_PendingCharges(tkn, info)
+                get_pendingCharges(tkn, info)
             }
         }
     } catch (error) {
