@@ -112,7 +112,7 @@ $('#customer').on('select2:select', function (e) {
         // console.log(element.tagName)
         element.classList.remove('d-none')
     })
-    console.log( e.params.data )
+    // console.log( e.params.data )
     let {id, name, text} = e.params.data
     name = name.replaceAll(' ', '+')
     customerService(id, name, tkn)
