@@ -50,7 +50,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
+                if (params.value == 'Saldo Inicial')
                     return params.value
                 else
                     return params.value
@@ -65,7 +65,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)== "null")
+                if (String(params.value) == "null")
                     return "Totales"
                 else
                     if (params.value=='Saldo Inicial')
@@ -84,7 +84,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -100,7 +100,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return params.value
@@ -116,7 +116,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -190,7 +190,7 @@ function calculatePinnedBottomData(target){
 const post_getDeposits = (tkn, data) => {
     // Mostrar loader
     gridOptions.api.showLoadingOverlay()
-    const url_getDeposits = 'https://www.solucioneserp.net/inventario/reportes/get_inventario'
+    const url_getDeposits = process.env.Solu_externo + '/inventario/reportes/get_inventario'
     fetch( url_getDeposits , {
         method: 'POST',
         headers: {
@@ -229,7 +229,7 @@ $form.addEventListener('submit', event => {
     const formData = new FormData(event.currentTarget)
 
     const rubroId = Number(formData.get('entry'))
-    const lineaId = Number(formData.get('line'))
+    const lineaId = Number(formData.get('sale-line'))
     const depositoId = Number(formData.get('list'))
     const habilitarFecha = (formData.get('check') === 'on') ? 1 : 0
     let fecha = formData.get('to-date')

@@ -1,7 +1,7 @@
 import { getParameter, reverseFormatNumber } from "../../jsgen/Helper"
 
 const post_modifyPricesByGroup = (tkn, data) => {
-    const url_GenerateButton = 'https://www.solucioneserp.net/inventario/precios_por_grupo/grabar'
+    const url_GenerateButton = process.env.Solu_externo + '/inventario/precios_por_grupo/grabar'
     fetch( url_GenerateButton , {
         method: 'POST',
         body: JSON.stringify(data),

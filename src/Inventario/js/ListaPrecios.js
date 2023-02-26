@@ -49,7 +49,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.value ==' Saldo Inicial')
+                if (params.value == 'Saldo Inicial')
                     return params.value
                 else
                     return params.value
@@ -64,7 +64,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (params.value=='Saldo Inicial')
+                if (params.value == 'Saldo Inicial')
                     return params.value
                 else
                     return params.value
@@ -80,7 +80,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return params.value
@@ -94,7 +94,7 @@ const gridOptions = {
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return params.value
@@ -109,7 +109,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -124,7 +124,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -139,7 +139,7 @@ const gridOptions = {
             sortable: true, 
             filter: true,
             cellRenderer: function(params) {
-                if (String(params.value)=="null")
+                if (String(params.value) == "null")
                     return ""
                 else
                     return format_number(params.value)
@@ -162,8 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
 const post_getPriceList = (tkn, data) => {
     // Mostrar Loader
     gridOptions.api.showLoadingOverlay()
-    const url_getAccountsBalance = 'https://www.solucioneserp.net/inventario/reportes/get_listas_precios'
-    fetch( url_getAccountsBalance , {
+    const url_getPriceList = process.env.Solu_externo + '/inventario/reportes/get_listas_precios'
+    fetch( url_getPriceList , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ $form.addEventListener('submit', event => {
     const formData = new FormData(event.currentTarget)
 
     const rubroId = Number(formData.get('entry'))
-    const lineaId = Number(formData.get('line'))
+    const lineaId = Number(formData.get('sale-line'))
     const listaId = Number(formData.get('list'))
     const habilitarFecha = formData.get('check') === 'on' ? 1 : 0
     const fecha = formData.get('to-date') === null ? '' : formData.get('to-date').split('-').reverse().join('/')
