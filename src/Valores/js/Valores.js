@@ -262,39 +262,6 @@ $form.addEventListener('submit', event => {
     get_valuesConsult( tkn, data )
 })
 
-// Boton Imprimir
-// document.getElementById("btn_print").onclick = () => redirectPrint()
-// document.getElementById("btn_print_1024").onclick = () => redirectPrint()
-// const redirectPrint = () => {
-//     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
-//     const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
-//     const detalle = document.getElementById('detail').value
-//     const unidadNegocioId = Number(document.getElementById('business').value)
-//     const analisisCuentaId = Number(document.getElementById('cost-center').value)
-//     const monedaId = Number(document.getElementById('coin').value)
-//     const nroRef  = Number(document.getElementById('ref-number').value) === 0 ? '' : Number(document.getElementById('ref-number').value)
-//     const cuentaCod = document.getElementById('account').value
-
-//     const data = {
-//         unidadNegocioId,
-//         fechaDesde,
-//         fechaHasta,
-//         detalle,
-//         analisisCuentaId,
-//         cuentaCod,
-//         nroRef,
-//         monedaId
-//     }
-//     console.table( data )
-//     const tkn = getParameter('tkn')
-//     let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
-//     for (const property in data) {
-//         returnURL += `${property}=${data[property]}&`
-//     }
-//     const fullURL = returnURL + 'tkn=' + tkn
-//     setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
-// }
-
 const numberElement = document.getElementById('number')
 numberElement.addEventListener('keyup', () => {
     numberElement.value = numbersOnly(numberElement.value)

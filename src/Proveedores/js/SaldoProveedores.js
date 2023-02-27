@@ -42,7 +42,7 @@ const gridOptions = {
                 if ( String(params.value) == "null" && String(params.data.nombre == "null"))
                     return ""
                 else
-                    return `<a href="/Proveedores/ResumenProveedores.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoProveedor=${(params.data.codCliente).trim()}&unidadNegocioId=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}" target="_self"> ${params.value} </a>`
+                    return `<a href="${process.env.VarURL}/Proveedores/ResumenProveedores.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoProveedor=${(params.data.codCliente).trim()}&unidadNegocioId=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}" target="_self"> ${params.value} </a>`
             }
         },
         {
@@ -87,7 +87,7 @@ const gridOptions = {
                     if (typeof params.value === 'string ')
                         format_number(params.value)
                     else
-                        return `<a href='./CompPendPagos.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codProveedor=${(params.data.codCliente).trim()}&unidadNegocio=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${format_number(params.value)} </a>`
+                        return `<a href='${process.env.VarURL}/Proveedores/CompPendPagos.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codProveedor=${(params.data.codCliente).trim()}&unidadNegocio=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${format_number(params.value)} </a>`
             }
         }
     ],

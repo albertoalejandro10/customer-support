@@ -178,7 +178,8 @@ const printTable = ( resp ) => {
     let finalPrice = 0
     for (const element of resp) {
         // console.log(element)
-        const { Fecha, Comprobante, cliente, Sucursal, detalle, cantidad, precio, precioF } = element
+        const { Fecha, Comprobante, Sucursal, cantidad, precio, precioF } = element
+        let { cliente, detalle } = element
         quantity += cantidad
         price += precio
         finalPrice += precioF

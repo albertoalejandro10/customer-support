@@ -322,7 +322,8 @@ const redirectPrint = () => {
         incluirRemitos
     }
     // console.table( data )
-    let returnURL = window.location.protocol + '//' + window.location.host + '/Clientes/VerResumen.html?'
+    let returnURL = process.env.VarURL + '/Clientes/VerResumen.html?'
+    // console.log(returnURL)
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
     }
