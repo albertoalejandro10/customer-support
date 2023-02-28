@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel ./src/ServiciosClientes/*.html ./src/PendientesClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html --out-dir public --no-cache && node postbuild.js"
+    "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html"
   },
   "repository": {
     "type": "git",
