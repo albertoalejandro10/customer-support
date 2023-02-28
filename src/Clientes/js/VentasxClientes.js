@@ -302,7 +302,7 @@ const redirectPrint = () => {
     }
     // console.table( data )
     const tkn = getParameter('tkn')
-    let returnURL = process.env.VarURL + '/Clientes/VerVentasxClientes.html?'
+    let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Clientes/VerVentasxClientes.html?'
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
     }

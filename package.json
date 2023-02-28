@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel ./src/ServiciosClientes/*.html ./src/PendientesClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html",
     "prebuild": "npx rimraf build",
-    "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html"
+    "build": "parcel build ./src/PendientesClientes/*.html ./src/ServiciosClientes/*.html ./src/ConsultaComprobantes/*.html ./src/Clientes/*.html ./src/Inventario/*.html ./src/Gestion/*.html ./src/Proveedores/*.html ./src/Legales/*.html ./src/Contabilidad/*.html ./src/Valores/*.html --out-dir public --no-cache && node postbuild.js"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
     "bootstrap": "^4.6.1",
-    "bootstrap-select": "^1.13.18"
+    "bootstrap-select": "^1.13.18",
+    "lodash.escaperegexp": "^4.1.2",
+    "replace-in-file": "^6.3.5"
   },
   "devDependencies": {
-    "@types/regenerator-runtime": "^0.13.1",
     "cssnano": "^4.1.11",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.49.7"

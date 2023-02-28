@@ -322,7 +322,7 @@ const redirectPrint = () => {
         incluirRemitos
     }
     // console.table( data )
-    let returnURL = process.env.VarURL + '/Clientes/VerResumen.html?'
+    let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Clientes/VerResumen.html?'
     // console.log(returnURL)
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
@@ -345,11 +345,11 @@ if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
         unidadNegocio,
         fechaDesde,
         fechaHasta,
-        sucursal: "0",
+        sucursal: 0,
         cuentaEstado: estado,
         codigoCliente,
-        cobrador: "0",
-        moneda: "1",
+        cobrador: 0,
+        moneda: 1,
         soloMovimientos: 0,
         incluirProformas: 0,
         incluirRemitos: 0
@@ -357,3 +357,32 @@ if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
     // console.table(data)
     get_accountSummary(tkn, data)
 }
+
+const APIRequest = async () => {
+    try {
+        if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
+            document.getElementById('getBackToPreviousPage').classList.remove('d-none')
+            const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+            const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+        
+            const data = {
+                unidadNegocio,
+                fechaDesde,
+                fechaHasta,
+                sucursal: 0,
+                cuentaEstado: estado,
+                codigoCliente,
+                cobrador: 0,
+                moneda: 1,
+                soloMovimientos: 0,
+                incluirProformas: 0,
+                incluirRemitos: 0
+            }
+            // console.table(data)
+            get_accountSummary(tkn, data)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+APIRequest()

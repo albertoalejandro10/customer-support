@@ -43,21 +43,21 @@ const customerService = ( id, name, tkn ) => {
 
             let row_data_1 = document.createElement('td')
             let row_data_1_anchor = document.createElement('a')
-            row_data_1_anchor.href = `/ServiciosClientes/ServicioClientesEdit.html?id=${ClienteID}&idservice=${Id}&name=${name}&codigo=${Codigo.trim()}&tkn=${tkn}`
-            row_data_1_anchor.textContent = `${ Codigo }`
+            row_data_1_anchor.href = `${process.env.VarURL}/ServiciosClientes/ServicioClientesEdit.html?id=${ClienteID}&idservice=${Id}&name=${name}&codigo=${Codigo.trim()}&tkn=${tkn}`
+            row_data_1_anchor.textContent = Codigo
             row_data_1.appendChild(row_data_1_anchor)
 
             let row_data_2 = document.createElement('td')
-            row_data_2.textContent = `${ Detalle }`
+            row_data_2.textContent = Detalle
 
             let row_data_3 = document.createElement('td')
-            row_data_3.textContent = `${ Vencimiento }`
+            row_data_3.textContent = Vencimiento
 
             let row_data_4 = document.createElement('td')
-            row_data_4.textContent = `${ Cantidad }`
+            row_data_4.textContent = Cantidad
 
             let row_data_5 = document.createElement('td')
-            row_data_5.textContent = `${ format_number(Importe) }`
+            row_data_5.textContent = format_number(Importe)
             
             row.appendChild(row_data_1)
             row.appendChild(row_data_2)
@@ -99,7 +99,7 @@ const activateNewButton = (id, name, tkn) => {
     const newService = document.getElementById('newServiceButton')
     newService.disabled = false
     newService.onclick = () => {
-        let returnURL = window.location.protocol + '//' + window.location.host + `/ServiciosClientes/ServicioClientesEdit.html?id=${id}&name=${name}&tkn=${tkn}`
+        let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/ServiciosClientes/ServicioClientesEdit.html?id=${id}&name=${name}&tkn=${tkn}`
         setTimeout(() => location.href = returnURL, 1000)
     }
 }

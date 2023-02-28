@@ -308,7 +308,7 @@ const APIRequest = async () => {
                     fechaVencimiento: '',
                     cuentaEstado: estado,
                     codigoCliente,
-                    idMoneda: 1,
+                    idMoneda: '',
                     incluirProformas: 0
                 }
                 // console.log(info)

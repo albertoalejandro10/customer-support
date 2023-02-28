@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./saldocliente.scss">    
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+		$(window).unbind("resize")
+		$(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 290)
+		})
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Saldo cuentas por cobrar</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/comppendcli.aspx" target="_self">[Versión anterior]self</a>
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/comppendcli.aspx" target="mainFrame1">[Versión anterior]frame</a>
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/comppendcli.aspx" target="_parent">[Versión anterior]parent</a>
+            </div>
+            
+            <div class="col-12">
+              <form id="form">
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label class="text-nowrap" for="business">U. de Negocio:</label>
+                      <select class="form-control" id="business" name="business" >
+                        <!-- Options business -->
+                      </select>
+                    </div>
+
+                    <div class="d-flex mb-1">
+                      <label class="text-nowrap" for="customer-groups">Grupo Clientes:</label>
+                      <select class="form-control" name="customer-groups" id="customer-groups">
+                        <!-- Options Group clients -->
+                      </select>
+                    </div>
+  
+                    <div class="d-flex">
+                        <label  class="text-nowrap" for="orden-by">Ordenar por:</label>
+                        <select class="form-control" name="orden-by" id="orden-by">
+                            <!-- Options ordenar por -->
+                        </select>
+                    </div>
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label for="periodStart">Periodo:</label>
+                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                    </div>
+
+                    <div class="d-flex mb-1">
+                      <label for="status">Estado:</label>
+                      <select class="form-control" name="status" id="status">
+                          <!-- Options state -->
+                          <option value="0">Todos</option>
+                      </select>
+                    </div>
+
+                    <div class="d-flex mt-2">
+                      <label for="exclude-balances">Excluir saldos en cero:</label>
+                      <input type="checkbox" name="exclude-balances" id="exclude-balances">
+                    </div>
+                  </div>
+  
+                  <div class="col-sm">
+                    <div class="d-flex mb-1">
+                      <label class="text-nowrap" for="customer-type">Tipo Cliente:</label>
+                      <select class="form-control" name="customer-type" id="customer-type">
+                          <!-- options tipo de cliente -->
+                      </select>
+                    </div>
+  
+                    <div class="d-flex mb-1">
+                        <label for="debt-collector">Cobrador:</label>
+                        <select class="form-control" name="debt-collector" id="debt-collector">
+                            <!-- options Cobrador -->
+                        </select>
+                    </div>
+  
+                    <div class="d-flex justify-content-end">
+                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+        
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/SaldoCliente.js"></script>
+  <script src="js/SaldoClienteApis.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css"/>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"/>
+</html>

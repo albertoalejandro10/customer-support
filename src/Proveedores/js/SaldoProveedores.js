@@ -82,12 +82,9 @@ const gridOptions = {
             filter: true,
             cellRenderer: function(params) {
                 if ( ! params.data.nombre )
-                    return ''
+                    return format_number(params.value)
                 else
-                    if (typeof params.value === 'string ')
-                        format_number(params.value)
-                    else
-                        return `<a href='${process.env.VarURL}/Proveedores/CompPendPagos.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codProveedor=${(params.data.codCliente).trim()}&unidadNegocio=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${format_number(params.value)} </a>`
+                    return `<a href='${process.env.VarURL}/Proveedores/CompPendPagos.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codProveedor=${(params.data.codCliente).trim()}&unidadNegocio=${params.data.unidadNegocioId}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${format_number(params.value)} </a>`
             }
         }
     ],

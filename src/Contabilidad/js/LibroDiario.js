@@ -209,7 +209,7 @@ const redirectPrint = () => {
     }
 
     // console.table( data )
-    let returnURL = process.env.VarURL + '/Contabilidad/VerLibroDiario.html?'
+    let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Contabilidad/VerLibroDiario.html?'
     for (const property in data) {
         returnURL += `${property}=${data[property]}&`
     }

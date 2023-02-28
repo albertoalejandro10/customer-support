@@ -6,6 +6,11 @@ body, html {
     height: 100%;
 }
 
+.fa-arrow-left.return {
+    left: -16px;
+    top: 8px;
+} 
+
 .ag-floating-bottom {
     overflow-y: hidden !important;
 }
@@ -20,8 +25,8 @@ body, html {
 
 .ag-cell {
     font-size: 12px !important;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
 }
 
 .ag-cell a {

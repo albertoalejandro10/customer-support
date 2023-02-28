@@ -10,7 +10,10 @@
 label {
     margin-bottom: 0px;
     margin-right: 4px;
-    &[for="supplier"] {
-      margin-right: 28px;
+    &[for="status"] {
+      margin-right: 51px;
+    }
+    &[for="periodStart"] {
+      margin-right: 20px;
     }
 }

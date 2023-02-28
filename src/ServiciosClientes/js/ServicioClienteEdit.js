@@ -143,7 +143,7 @@ tokenBearer.value = tkn
 
 // Insertar href dentro de tag anchor.
 document.getElementById("redirectToList").onclick = () => {
-    location.href = `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
+    location.href = process.env.VarURL + `/ServiciosClientes/ServicioClientesList.html?id=${id}&name=${parameterName}&tkn=${tkn}`
 }
 
 // Imprimir nombre
