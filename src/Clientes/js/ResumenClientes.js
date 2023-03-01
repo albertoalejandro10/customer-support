@@ -336,6 +336,7 @@ const codigoCliente= getParameter('codigoCliente')
 const cuit = getParameter('cuit')
 const unidadNegocio = getParameter('unidadNegocio')
 const estado = getParameter('estado')
+
 if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
     document.getElementById('getBackToPreviousPage').classList.remove('d-none')
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
@@ -359,27 +360,35 @@ if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
 }
 
 const APIRequest = async () => {
+    const endpoint = process.env.Solu_externo + '/listados/get_monedas'
     try {
-        if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
-            document.getElementById('getBackToPreviousPage').classList.remove('d-none')
-            const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
-            const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
-        
-            const data = {
-                unidadNegocio,
-                fechaDesde,
-                fechaHasta,
-                sucursal: 0,
-                cuentaEstado: estado,
-                codigoCliente,
-                cobrador: 0,
-                moneda: 1,
-                soloMovimientos: 0,
-                incluirProformas: 0,
-                incluirRemitos: 0
+        const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${tkn}`}
+        })
+        if ( response.ok ) {
+            const moneda = await response.json()
+            if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
+                document.getElementById('getBackToPreviousPage').classList.remove('d-none')
+                const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+                const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+
+                const info = {
+                    unidadNegocio: Number(unidadNegocio),
+                    fechaDesde,
+                    fechaHasta,
+                    sucursal: 0,
+                    cuentaEstado: estado,
+                    codigoCliente,
+                    cobrador: 0,
+                    moneda: moneda[0].id,
+                    soloMovimientos: 0,
+                    incluirProformas: 0,
+                    incluirRemitos: 0
+                }
+                console.log(info)
+                get_accountSummary(tkn, info)
             }
-            // console.table(data)
-            get_accountSummary(tkn, data)
         }
     } catch (error) {
         console.log(error)

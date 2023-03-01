@@ -297,21 +297,22 @@ const APIRequest = async () => {
             const data = await response.json()
             if (tkn && name && codigoCliente && cuit && idUnidadNegocio && estado) {
                 document.getElementById('getBackToPreviousPage').classList.remove('d-none')
+                const idMoneda = Number(document.getElementById('coin').value)
                 let [fechaDesde] = data
                 const fechaHasta = new Date().toLocaleDateString('en-GB')
             
                 const info = {
-                    idUnidadNegocio,
+                    idUnidadNegocio: Number(idUnidadNegocio),
                     fechaDesde: fechaDesde.fecha,
                     fechaHasta,
                     hastaFechaVencimiento: 0,
                     fechaVencimiento: '',
                     cuentaEstado: estado,
                     codigoCliente,
-                    idMoneda: '',
+                    idMoneda,
                     incluirProformas: 0
                 }
-                // console.log(info)
+                console.log(info)
                 get_pendingCharges(tkn, info)
             }
         }

@@ -310,6 +310,7 @@ const APIRequest = async () => {
             const data = await response.json()
             if (tkn && name && codigoProveedor && unidadNegocioId) {
                 document.getElementById('getBackToPreviousPage').classList.remove('d-none')
+                const monedaId = Number(document.getElementById('coin').value)
                 let [fechaDesde] = data
                 const fechaHasta = new Date().toLocaleDateString('en-GB')
             
@@ -319,7 +320,7 @@ const APIRequest = async () => {
                   fechaHasta,
                   cuentaEstado: estado,
                   codigoProveedor,
-                  "monedaId": 1
+                  monedaId
                 }
                 // console.log(info)
                 get_supplierSummary(tkn, info)
