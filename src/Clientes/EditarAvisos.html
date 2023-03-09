@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./EditarAvisos.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <form id="form">
+            <!-- Form - Top -->
+            <div class="row p-2 mb-2 rounded form-top">
+              <div class="col-6">
+                <h4 class="mb-0">Edición avisos</h4>
+              </div>
+              <div class="col-6 text-right">
+                <button id="save" type="submit" class="btn btn-primary text-white"><i class="fas fa-save"></i> Grabar</button>
+                <button id="backtolist" type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> Lista</button>
+                <button id="delete" type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
+              </div>
+            </div>
+
+            <div class="row p-2 mt-2 rounded align-items-center form-middle">
+
+              <!-- Id aviso -->
+              <div class="col-1">
+                <label for="name">Nombre:</label>
+              </div>
+              <div class="col-11">
+                <input type="text" name="name" id="name" class="form-control" required>
+              </div>
+
+              <!-- Titulo -->
+              <div class="col-1">
+                <label for="matter">Asunto:</label>
+              </div>
+              <div class="col-11">
+                <input type="text" name="matter" id="matter" class="form-control" required>
+              </div>
+
+              <div class="col-1">
+                <label for="editor">Cuerpo:</label>
+              </div>
+              <div class="col-11">
+                <div id="editor">
+                  <p></p>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+          <!-- Footer form -->
+          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/EditarAvisos.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>

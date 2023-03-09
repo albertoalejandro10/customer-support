@@ -320,4 +320,36 @@ $form.addEventListener('submit', event => {
     // console.table( data )
     const tkn = getParameter('tkn')
     get_AccountsBalance( tkn, data )
+    window.top.SCC = data
+    // console.log(window.top);
 })
+
+// Rellenar filtros si viene window.top.scc
+const existsSCC = async () => {
+    const scc = new Promise(() => {
+        setTimeout(() => {
+            const { cobrador, estado, fechaDesde, fechaHasta, grupoCliente, saldoCero, tipoCliente, unidadNegocio } = window.top.SCC
+            console.log(cobrador, estado, fechaDesde, fechaHasta, grupoCliente, saldoCero, tipoCliente, unidadNegocio)
+            document.getElementById('business').value = unidadNegocio
+            document.getElementById('periodStart').value = fechaDesde.split('/').reverse().join('-')
+            document.getElementById('periodEnd').value = fechaHasta.split('/').reverse().join('-')
+            document.getElementById('customer-type').value = tipoCliente
+            document.getElementById('customer-groups').value = grupoCliente
+            document.getElementById('status').value = estado
+            document.getElementById('debt-collector').value = cobrador
+        
+            saldoCeroElement = document.getElementById('exclude-balances')
+            if ( saldoCero ) {
+                saldoCeroElement.checked = true
+            } else {
+                saldoCeroElement.checked = false
+            }
+        }, 1000)
+    })
+    await scc;
+}
+
+// Verificar si existe window.top.scc y ejecutar la funcion
+if ( window.top.SCC ) {
+    existsSCC()
+}

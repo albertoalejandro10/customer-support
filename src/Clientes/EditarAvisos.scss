@@ -1,0 +1,35 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+@import "../../scss/main";
+:root {
+  --ck-z-default: 100;
+  --ck-z-modal: calc( var(--ck-z-default) + 999 );
+}
+
+.ck-source-editing-area,
+.ck-editor__editable {
+    min-height: 550px;
+}
+
+.ck-editor__main {
+    height: 550px;
+    overflow-y: scroll;
+    border: 1px solid #bbbbbb;
+}
+// .container-fluid {
+//   max-width: 800px;
+//   width: 90%;
+// }
+
+.form-middle {
+  gap: 6px 0;
+}
+
+label {
+  font-weight: 500;
+}

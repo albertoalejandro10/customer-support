@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./EnvioAvisos.scss">    
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-6">
+              <h4 class="mb-0">Envio de avisos a clientes</h4>
+            </div>
+            
+            <div class="col-6">
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary text-white text-nowrap mr-2 top-button"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                <button id="newNotice" type="button" class="btn btn-success text-white text-nowrap top-button"><i class="fa-solid fa-check"></i> Nuevo</button>
+              </div>
+            </div>
+              
+          </div>
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder text-secondary">Avisos</h6>
+              <table id="full-table" class="table-borderless rounded text-secondary">
+                <div class="loadingx"></div>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Editar/Enviar</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  <!-- Table body -->                  
+                </tbody>
+              </table>
+              <p id="no-notices" class="h6 mt-2 font-weight-bold text-danger d-none text-center">No hay avisos</p>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/EnvioAvisos.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>
