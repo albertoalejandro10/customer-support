@@ -33,18 +33,22 @@ const notices = (id, tkn) => {
         const {avisoDatos, resultado} = notices
         const { aviso, titulo, mensaje } = avisoDatos
         if ( resultado === 'ok' ) {
-            document.getElementById('name').value = aviso
+            const name = document.getElementById('name')
+            name.value = aviso
+            name.disabled = true
             document.getElementById('matter').value = titulo
             editor.setData(mensaje)
         }
     })
 }
-notices(id, tkn)
+
+if (id) {
+    notices(id, tkn)
+}
 
 // Method post - Delete servicioid
 const deleteNotice = document.getElementById('delete')
 deleteNotice.onclick = () => {
-
     const result = confirm('¿Esta seguro?')
     if ( !result ) return
 
