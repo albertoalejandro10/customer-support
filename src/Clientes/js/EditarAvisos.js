@@ -22,7 +22,7 @@ CKEDITOR.ClassicEditor.create(editor, {
         shouldNotGroupWhenFull: true
     },
     // Changing the language of the interface requires loading the language file using the <script> tag.
-    language: 'es',
+    // language: 'es',
     list: {
         properties: {
             styles: true,
@@ -116,9 +116,9 @@ CKEDITOR.ClassicEditor.create(editor, {
         // These two are commercial, but you can try them out without registering to a trial.
         // 'ExportPdf',
         // 'ExportWord',
-        'CKBox',
-        'CKFinder',
-        'EasyImage',
+        // 'CKBox',
+        // 'CKFinder',
+        // 'EasyImage',
         // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
         // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
         // Storing images as Base64 is usually a very bad idea.
