@@ -10,4 +10,7 @@
 label {
     margin-bottom: 0px;
     margin-right: 4px;
+    &[for="periodStart"] {
+        margin-right: 46px;
+    }
 }

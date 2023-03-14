@@ -252,7 +252,7 @@ function calculatePinnedBottomData(target){
 
 const get_AccountsBalance = (tkn, data) => {
     // Mostrar Grid Loader
-    gridOptions.api.showLoadingOverlay()
+    gridOptions.api?.showLoadingOverlay()
     const url_getAccountsBalance = process.env.Solu_externo + '/reportes/clientes/get_saldo_cuentas_por_cobrar'
     fetch( url_getAccountsBalance , {
         method: 'POST',
@@ -293,6 +293,7 @@ const get_AccountsBalance = (tkn, data) => {
     })
 }
 
+const tkn = getParameter('tkn')
 const $form = document.getElementById('form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -318,10 +319,9 @@ $form.addEventListener('submit', event => {
         saldoCero
     }
     // console.table( data )
-    const tkn = getParameter('tkn')
+    // console.log(window.top);
     get_AccountsBalance( tkn, data )
     window.top.SCC = data
-    // console.log(window.top);
 })
 
 // Rellenar filtros si viene window.top.scc
@@ -329,7 +329,7 @@ const existsSCC = async () => {
     const scc = new Promise(() => {
         setTimeout(() => {
             const { cobrador, estado, fechaDesde, fechaHasta, grupoCliente, saldoCero, tipoCliente, unidadNegocio } = window.top.SCC
-            console.log(cobrador, estado, fechaDesde, fechaHasta, grupoCliente, saldoCero, tipoCliente, unidadNegocio)
+            // console.log(cobrador, estado, fechaDesde, fechaHasta, grupoCliente, saldoCero, tipoCliente, unidadNegocio)
             document.getElementById('business').value = unidadNegocio
             document.getElementById('periodStart').value = fechaDesde.split('/').reverse().join('-')
             document.getElementById('periodEnd').value = fechaHasta.split('/').reverse().join('-')
@@ -337,7 +337,7 @@ const existsSCC = async () => {
             document.getElementById('customer-groups').value = grupoCliente
             document.getElementById('status').value = estado
             document.getElementById('debt-collector').value = cobrador
-        
+            
             saldoCeroElement = document.getElementById('exclude-balances')
             if ( saldoCero ) {
                 saldoCeroElement.checked = true
@@ -345,6 +345,7 @@ const existsSCC = async () => {
                 saldoCeroElement.checked = false
             }
         }, 1000)
+        get_AccountsBalance( tkn, data )
     })
     await scc;
 }

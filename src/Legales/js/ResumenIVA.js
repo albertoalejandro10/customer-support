@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid").height(100)
     } else {
-        $("#myGrid").height(parseInt($(window).height()) - 460)
+        $("#myGrid").height(parseInt($(window).height()) - 550)
     }
 
     const gridDiv2 = document.querySelector('#myGrid-purchased')
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((parseInt($(window).height()) - 300) < 200) {
         $("#myGrid-purchased").height(100)
     } else {
-        $("#myGrid-purchased").height(parseInt($(window).height()) - 460)
+        $("#myGrid-purchased").height(parseInt($(window).height()) - 550)
     }
 })
 

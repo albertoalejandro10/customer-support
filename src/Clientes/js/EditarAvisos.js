@@ -8,7 +8,7 @@ CKEDITOR.ClassicEditor.create(editor, {
             'exportPDF','exportWord', '|',
             'findAndReplace', 'selectAll', '|',
             'heading', '|',
-            'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+            'bold', 'italic', 'strikethrough', 'underline', 'code', 'removeFormat', '|',
             'bulletedList', 'numberedList', 'todoList', '|',
             'outdent', 'indent', '|',
             'undo', 'redo',

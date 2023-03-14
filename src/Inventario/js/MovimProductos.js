@@ -183,11 +183,6 @@ function calculatePinnedBottomData (target){
             target[element] = '0.00'
         }
     })
-    // Calcular campo «costo»
-    const { entrada, salida } = target
-    const costo = Number(entrada) - Number(salida)
-    target.costo = `${costo}.00`
-    
     // console.log(target)
     return target
 }

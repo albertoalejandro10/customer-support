@@ -20,67 +20,65 @@
               <div class="col-6 mb-2 text-right">
                 <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/preciosGrupos.asp" target="_self">[Versión anterior]</a>
               </div>
-
+              
               <div class="col-12 text-right">
                 <button id="modify" type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-check"></i>Modificar</button>
               </div>
             </div>
             <!-- Form - Higher -->
-              <div class="row p-2 mb-2 rounded form-middle">
-                <div class="col-12">
-                  <div class="row flex-column box">
+            <div class="row d-flex flex-column p-2 mb-2 rounded form-middle">
+                <h6 class="mt-2 font-weight-bolder text-secondary">Modificar por:</h6>
+                <div class="boxes">
+                  <label for="field">Campo:</label>
+                  <select class="form-control" name="field" id="field" required></select>
+                </div>
 
-                    <div class="middle-boxes">
-                      <h6 class="pl-4 py-2 font-weight-bolder text-secondary"><i class="fa-solid fa-pen-to-square"></i>Modificar por:</h6>
-                      <div class="boxes">
-                        <label for="field">Campo:</label>
-                        <select class="form-control" name="field" id="field" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="list">Lista:</label>
-                        <select class="form-control" name="list" id="list" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="operations">Operación:</label>
-                        <select class="form-control" name="operations" id="operations" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="origin-list" class="text-nowrap">Lista origen:</label>
-                        <select class="form-control" name="origin-list" id="origin-list" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="index">Índice:</label>
-                        <div class="index-full">
-                          <input class="form-control w-50 mr-2" type="text" name="index" id="index" data-type="index" placeholder="0,000" required/>
-                          <p class="index-indication">El índice se redondea a tres decimales</p>
-                        </div>
-                      </div>
-                      <div class="boxes">
-                        <label for="rounding">Redondeo:</label>
-                        <select class="form-control" name="rounding" id="rounding" required></select>
-                      </div>
-                    </div>
+                <div class="boxes">
+                  <label for="list">Lista:</label>
+                  <select class="form-control" name="list" id="list" required></select>
+                </div>
 
-                    <div class="middle-boxes">
-                      <h6 class="pl-4 py-2 font-weight-bolder text-secondary"><i class="fa-solid fa-pen-to-square"></i>Seleccionar productos:</h6>
-                      <div class="boxes">
-                        <label for="field">Proveedor:</label>
-                        <select class="form-control" name="vendor" id="vendor" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="entry">Rubro:</label>
-                        <select class="form-control" name="entry" id="entry" required></select>
-                      </div>
-                      <div class="boxes">
-                        <label for="sale-line" class="text-nowrap">Línea de venta:</label>
-                        <div class="sale-line-full">
-                          <select class="form-control w-100" name="sale-line" id="sale-line" size="8" multiple required></select>
-                          <p class="sale-line-control">Use la tecla de control para multiselección</p>
-                        </div>
-                      </div>
-                    </div>
+                <div class="boxes">
+                  <label for="operations">Operación:</label>
+                  <select class="form-control" name="operations" id="operations" required></select>
+                </div>
+
+                <div class="boxes">
+                  <label for="origin-list" class="text-nowrap">Lista origen:</label>
+                  <select class="form-control" name="origin-list" id="origin-list" required></select>
+                </div>
+
+                <div class="boxes">
+                  <label for="index">Índice:</label>
+                  <div class="index-full">
+                    <input class="form-control w-50 mr-2" type="text" name="index" id="index" data-type="index" placeholder="0,000" required/>
+                    <p class="index-indication">El índice se redondea a tres decimales</p>
                   </div>
                 </div>
+
+                <div class="boxes">
+                  <label for="rounding">Redondeo:</label>
+                  <select class="form-control" name="rounding" id="rounding" required></select>
+                </div>
+              </div>
+
+              <div class="row d-flex flex-column p-2 mb-2 rounded form-middle">
+                <h6 class="mt-2 font-weight-bolder text-secondary">Seleccionar productos:</h6>
+                <div class="boxes">
+                  <label for="vendor">Proveedor:</label>
+                  <select class="form-control" name="vendor" id="vendor" required></select>
+                </div>
+                <div class="boxes">
+                  <label for="entry">Rubro:</label>
+                  <select class="form-control" name="entry" id="entry" required></select>
+                </div>
+                <div class="boxes">
+                  <label for="sale-line" class="text-nowrap">Línea de venta:</label>
+                  <div class="sale-line-full">
+                    <select class="form-control w-100" name="sale-line" id="sale-line" size="8" multiple required></select>
+                    <p class="sale-line-control">Use la tecla de control para multiselección</p>
+                  </div>
+                </div>                
               </div>
               <!-- Form - Lower -->
               <div id="form-lower" class="row p-2 my-2 rounded form-bottom"></div>
