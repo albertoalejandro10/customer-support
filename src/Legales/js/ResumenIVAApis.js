@@ -45,5 +45,5 @@ if ( tkn ) {
     // Provincias:
     get_provinces( tkn )
     // Origenes
-    get_origins( tkn )
+    // get_origins( tkn )
 }

@@ -340,7 +340,7 @@ $form.addEventListener('submit', event => {
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
     const provinciaId = Number(formData.get('provinces'))
-    const origen = formData.get('origins')
+    // const origen = formData.get('origins')
     
     // Operador ternario
     const puntoVenta = formData.get('sale-point') === '' ? '0000' : formData.get('sale-point')
@@ -353,7 +353,7 @@ $form.addEventListener('submit', event => {
         fechaHasta,
         puntoVenta,
         provinciaId,
-        origen,
+        origen: '',
         ivaPorActividad,
     }
 
