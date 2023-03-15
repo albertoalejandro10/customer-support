@@ -22,7 +22,7 @@
               </div>
               
               <div class="col-12 text-right">
-                <button id="modify" type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-check"></i>Modificar</button>
+                <button id="modify" type="submit" class="btn btn-primary text-white"><i class="fa-solid fa-check"></i>Confirmar</button>
               </div>
             </div>
             <!-- Form - Higher -->
@@ -51,14 +51,17 @@
                 <div class="boxes">
                   <label for="index">Índice:</label>
                   <div class="index-full">
-                    <input class="form-control w-50 mr-2" type="text" name="index" id="index" data-type="index" placeholder="0,000" required/>
-                    <p class="index-indication">El índice se redondea a tres decimales</p>
+                    <input class="form-control mr-2" type="text" name="index" id="index" data-type="index" placeholder="0,000" required/>
+                    <p class="index-indication text-nowrap">El índice se redondea a tres decimales</p>
                   </div>
                 </div>
 
                 <div class="boxes">
                   <label for="rounding">Redondeo:</label>
-                  <select class="form-control" name="rounding" id="rounding" required></select>
+                  <div class="index-full">
+                    <select class="form-control" name="rounding" id="rounding" required></select>
+                    <p class="index-indication text-nowrap">&nbsp;</p>
+                  </div>
                 </div>
               </div>
 

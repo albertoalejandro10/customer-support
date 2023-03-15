@@ -25,19 +25,17 @@ label {
 .index-full {
     align-items: center;
     display: flex;
-    width: 84%;
+    width: 340px;
+    justify-content: right;
     input {
         padding: 0px 10px;
     }
 }
 
-.index-full input {
-    width: auto;
-}
-
 .index-indication {
-    font-size: 8px;
-    font-weight: 300;
+    width: 253px;
+    font-size: 11px;
+    font-weight: 400;
     margin-bottom: 0;
     text-align: center;
 }
@@ -47,8 +45,8 @@ label {
 }
 
 .sale-line-control {
-    font-size: 8px;
-    font-weight: 300;
+    font-size: 11px;
+    font-weight: 400;
     margin-bottom: 0;
     text-align: left;
 }
