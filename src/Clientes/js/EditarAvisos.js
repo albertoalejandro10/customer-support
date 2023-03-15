@@ -5,17 +5,17 @@ CKEDITOR.ClassicEditor.create(editor, {
     // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
     toolbar: {
         items: [
-            'exportPDF','exportWord', '|',
+            'exportPDF', '|',
             'findAndReplace', 'selectAll', '|',
             'heading', '|',
-            'bold', 'italic', 'strikethrough', 'underline', 'code', 'removeFormat', '|',
-            'bulletedList', 'numberedList', 'todoList', '|',
+            'bold', 'italic', 'strikethrough', 'underline', 'removeFormat', '|',
+            'bulletedList', 'numberedList', '|',
             'outdent', 'indent', '|',
             'undo', 'redo',
             '-',
             'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
             'alignment', '|',
-            'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
+            'link', 'blockQuote', 'insertTable', '|',
             'specialCharacters', 'horizontalLine', 'pageBreak', '|',
             'sourceEditing'
         ],
