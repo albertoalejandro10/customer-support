@@ -10,18 +10,10 @@
 label {
     margin-bottom: 0px;
     margin-right: 4px;
-}
-
-#check {
-    margin-right: 4px;
-}
-
-select {
-    min-width: 100px;
-    max-width: 240px;
-}
-
-input[type="date"] {
-    min-width: 140px;
-    max-width: 240px;
+    &[for="value-x"] {
+        margin-right: 25px;
+    }
+    &[for="condition"] {
+        margin-right: 25px;
+    }
 }

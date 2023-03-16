@@ -17,7 +17,7 @@ const get_shippings = tkn => {
     for (const shipping of shippings) {
       const { id, nombre } = shipping
       // console.log(id, nombre)
-      const select = document.querySelector('#kind-shipping')
+      const select = document.querySelector('#shipping-type')
       let option = document.createElement("option")
       option.setAttribute("data-tokens", nombre)
       option.value = id

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./EditarAvisos.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> -->
   </head>
   <body>
     <div class="wrapper">
@@ -32,16 +31,16 @@
                 <div class="row">
                   <!-- shipping -->
                   <div class="col-4 col-xl-2">
-                    <label class="text-nowrap" for="kind-shipping">Tipo envío:</label>
+                    <label class="text-nowrap" for="shipping-type">Tipo envío</label>
                   </div>
                   <div class="col-8 col-xl-10">
-                    <select class="form-control" name="kind-shipping" id="kind-shipping" required>
+                    <select class="form-control" name="shipping-type" id="shipping-type" required>
                       <!-- Shipping -->
                     </select>
                   </div>
                   <!-- condition -->
                   <div class="col-4 col-xl-2">
-                    <label for="condition">Condición:</label>
+                    <label for="condition">Condición</label>
                   </div>
                   <div class="col-8 col-xl-10">
                     <select class="form-control" name="condition" id="condition" required>
@@ -51,7 +50,7 @@
 
                   <!-- value-x -->
                   <div class="col-4 col-xl-2">
-                    <label for="value-x">Valor X:</label>
+                    <label for="value-x">Valor X</label>
                   </div>
                   <div class="col-8 col-xl-10">
                     <input type="number" class="form-control text-right" name="value-x" id="value-x" value="0" required>
@@ -63,7 +62,7 @@
                 <div class="row">
                   <!-- customer group -->
                   <div class="col-3 col-xl-2">
-                    <label class="text-nowrap" for="customer-group">Grupo cliente:</label>
+                    <label class="text-nowrap" for="customer-group">Grupo cliente</label>
                   </div>
                   <div class="col-9 col-xl-10">
                     <select class="form-control" name="customer-group" id="customer-group" required>
@@ -73,19 +72,27 @@
   
                   <!-- customer kind -->
                   <div class="col-3 col-xl-2">
-                    <label class="text-nowrap" for="customer-types">Tipo cliente:</label>
+                    <label class="text-nowrap" for="customer-types">Tipo cliente</label>
                   </div>
                   <div class="col-9 col-xl-10">
                     <select class="form-control" name="customer-types" id="customer-types" required>
                       <!-- customer-types -->
                     </select>
                   </div>
+
+                  <!-- empty space -->
+                  <div class="col-3 col-xl-2">
+                    <label>&nbsp;</label>
+                  </div>
+                  <div class="col-9 col-xl-10">
+                    &nbsp;
+                  </div>
                 </div>
               </div>
 
-              <div class="col-12">
-                <hr>
-              </div>
+            </div>
+
+            <div class="row p-2 mt-2 rounded align-items-center form-middle">
 
               <div class="col-12">
                 <h6 class="font-weight-bolder text-secondary">Aviso</h6>
@@ -95,7 +102,7 @@
                 <div class="row">
                   <!-- Id aviso -->
                   <div class="col-2 col-xl-1">
-                    <label for="name">Nombre:</label>
+                    <label for="name">Nombre</label>
                   </div>
                   <div class="col-10 col-xl-11">
                     <input type="text" name="name" id="name" class="form-control" required>
@@ -103,7 +110,7 @@
     
                   <!-- Titulo -->
                   <div class="col-2 col-xl-1">
-                    <label for="matter">Asunto:</label>
+                    <label for="matter">Asunto</label>
                   </div>
                   <div class="col-10 col-xl-11">
                     <input type="text" name="matter" id="matter" class="form-control" required>
@@ -113,7 +120,7 @@
                     <div class="row">
                       <div class="col-sm-2 col-xl-1 d-flex flex-column">
                         <div>
-                          <label for="editor">Cuerpo:</label>
+                          <label for="editor">Cuerpo</label>
                         </div>
                         <div class="h-50 my-auto">
                           <span class="text-nowrap text"><u id="available-variable">Variables disponibles</u></span><br>
@@ -132,7 +139,7 @@
     
                   <!-- Adjunto -->
                   <div class="col-2 col-xl-1 d-flex">
-                    <label for="attach">Adjunto:</label>
+                    <label for="attach">Adjunto</label>
                   </div>
                   <div class="col-10 col-xl-11">
                     <select class="form-control" name="attach" id="attach">
