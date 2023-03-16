@@ -25,15 +25,18 @@ label {
 .index-full {
     align-items: center;
     display: flex;
-    width: 340px;
-    justify-content: right;
+    width: 84%;
     input {
-        padding: 0px 10px;
+        padding: 0px 0px;
+        padding-right: 22px;
+        width: 15%;
+    }
+    select {
+        width: 15%;
     }
 }
 
 .index-indication {
-    width: 253px;
     font-size: 11px;
     font-weight: 400;
     margin-bottom: 0;
