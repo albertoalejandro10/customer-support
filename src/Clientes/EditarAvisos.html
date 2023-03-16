@@ -25,27 +25,93 @@
             </div>
 
             <div class="row p-2 mt-2 rounded align-items-center form-middle">
-              <div class="col-9">
+              <div class="col-12">
+                <h6 class="font-weight-bolder text-secondary">Opciones de envío</h6>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <!-- shipping -->
+                  <div class="col-4 col-xl-2">
+                    <label class="text-nowrap" for="kind-shipping">Tipo envío:</label>
+                  </div>
+                  <div class="col-8 col-xl-10">
+                    <select class="form-control" name="kind-shipping" id="kind-shipping" required>
+                      <!-- Shipping -->
+                    </select>
+                  </div>
+                  <!-- condition -->
+                  <div class="col-4 col-xl-2">
+                    <label for="condition">Condición:</label>
+                  </div>
+                  <div class="col-8 col-xl-10">
+                    <select class="form-control" name="condition" id="condition" required>
+                      <!-- Condition -->
+                    </select>
+                  </div>
+
+                  <!-- value-x -->
+                  <div class="col-4 col-xl-2">
+                    <label for="value-x">Valor X:</label>
+                  </div>
+                  <div class="col-8 col-xl-10">
+                    <input type="number" class="form-control text-right" name="value-x" id="value-x" value="0" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="row">
+                  <!-- customer group -->
+                  <div class="col-3 col-xl-2">
+                    <label class="text-nowrap" for="customer-group">Grupo cliente:</label>
+                  </div>
+                  <div class="col-9 col-xl-10">
+                    <select class="form-control" name="customer-group" id="customer-group" required>
+                      <!-- customer-group -->
+                    </select>
+                  </div>
+  
+                  <!-- customer kind -->
+                  <div class="col-3 col-xl-2">
+                    <label class="text-nowrap" for="customer-types">Tipo cliente:</label>
+                  </div>
+                  <div class="col-9 col-xl-10">
+                    <select class="form-control" name="customer-types" id="customer-types" required>
+                      <!-- customer-types -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr>
+              </div>
+
+              <div class="col-12">
+                <h6 class="font-weight-bolder text-secondary">Aviso</h6>
+              </div>
+
+              <div class="col-12">
                 <div class="row">
                   <!-- Id aviso -->
-                  <div class="col-2">
+                  <div class="col-2 col-xl-1">
                     <label for="name">Nombre:</label>
                   </div>
-                  <div class="col-10">
+                  <div class="col-10 col-xl-11">
                     <input type="text" name="name" id="name" class="form-control" required>
                   </div>
     
                   <!-- Titulo -->
-                  <div class="col-2">
+                  <div class="col-2 col-xl-1">
                     <label for="matter">Asunto:</label>
                   </div>
-                  <div class="col-10">
+                  <div class="col-10 col-xl-11">
                     <input type="text" name="matter" id="matter" class="form-control" required>
                   </div>
     
                   <div class="col-12">
                     <div class="row">
-                      <div class="col-sm-2 d-flex flex-column">
+                      <div class="col-sm-2 col-xl-1 d-flex flex-column">
                         <div>
                           <label for="editor">Cuerpo:</label>
                         </div>
@@ -57,7 +123,7 @@
                           #ClavePortal#
                         </div>
                       </div>
-                      <div class="col-sm-10">
+                      <div class="col-sm-10 col-xl-11">
                         <div id="editor">
                         </div>
                       </div>
@@ -65,68 +131,16 @@
                   </div>
     
                   <!-- Adjunto -->
-                  <div class="col-2 d-flex">
+                  <div class="col-2 col-xl-1 d-flex">
                     <label for="attach">Adjunto:</label>
                   </div>
-                  <div class="col-10">
-                    <select class="form-control w-25" name="attach" id="attach">
+                  <div class="col-10 col-xl-11">
+                    <select class="form-control" name="attach" id="attach">
                       <!-- Options attach -->
                     </select>
                   </div>
 
                 </div>
-              </div>
-              <!-- Second column -->
-              <div class="col-3">
-                <div class="row">
-                  <!-- shipping -->
-                  <div class="col-4">
-                    <label class="text-nowrap" for="kind-shipping">Tipo envío:</label>
-                  </div>
-                  <div class="col-8">
-                    <select class="form-control" name="kind-shipping" id="kind-shipping" required>
-                      <!-- Shipping -->
-                    </select>
-                  </div>
-                  <!-- condition -->
-                  <div class="col-4">
-                    <label for="condition">Condición:</label>
-                  </div>
-                  <div class="col-8">
-                    <select class="form-control" name="condition" id="condition" required>
-                      <!-- Condition -->
-                    </select>
-                  </div>
-
-                  <!-- value-x -->
-                  <div class="col-4">
-                    <label for="value-x">Valor X:</label>
-                  </div>
-                  <div class="col-8">
-                    <input type="number" class="form-control text-right" name="value-x" id="value-x" value="0" required>
-                  </div>
-
-                  <!-- customer group -->
-                  <div class="col-4">
-                    <label class="text-nowrap" for="customer-group">Grupo cliente:</label>
-                  </div>
-                  <div class="col-8">
-                    <select class="form-control" name="customer-group" id="customer-group" required>
-                      <!-- customer-group -->
-                    </select>
-                  </div>
-
-                  <!-- customer kind -->
-                  <div class="col-4">
-                    <label class="text-nowrap" for="customer-types">Tipo cliente:</label>
-                  </div>
-                  <div class="col-8">
-                    <select class="form-control" name="customer-types" id="customer-types" required>
-                      <!-- customer-types -->
-                    </select>
-                  </div>
-                </div>
-
               </div>
             </div>
 

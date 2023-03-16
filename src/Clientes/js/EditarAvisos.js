@@ -11,13 +11,11 @@ CKEDITOR.ClassicEditor.create(editor, {
             'bold', 'italic', 'strikethrough', 'underline', 'removeFormat', '|',
             'bulletedList', 'numberedList', '|',
             'outdent', 'indent', '|',
-            'undo', 'redo',
-            '-',
-            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+            'undo', 'redo', '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
             'alignment', '|',
             'link', 'blockQuote', 'insertTable', '|',
             'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-            'sourceEditing'
+            // 'sourceEditing'
         ],
         shouldNotGroupWhenFull: true
     },
