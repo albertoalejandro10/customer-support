@@ -25,56 +25,109 @@
             </div>
 
             <div class="row p-2 mt-2 rounded align-items-center form-middle">
-
-              <!-- Id aviso -->
-              <div class="col-sm-2 col-xl-1">
-                <label for="name">Nombre:</label>
-              </div>
-              <div class="col-sm-10 col-xl-11">
-                <input type="text" name="name" id="name" class="form-control" required>
-              </div>
-
-              <!-- Titulo -->
-              <div class="col-sm-2 col-xl-1">
-                <label for="matter">Asunto:</label>
-              </div>
-              <div class="col-sm-10 col-xl-11">
-                <input type="text" name="matter" id="matter" class="form-control" required>
-              </div>
-
-              <div class="col-12">
+              <div class="col-9">
                 <div class="row">
-                  <div class="col-sm-2 col-xl-1 d-flex flex-column">
-                    <div class="mt-3">
-                      <label for="editor">Cuerpo:</label>
-                    </div>
-                    <div class="h-50 my-auto">
-                      <span class="text-nowrap text"><u id="available-variable">Variables disponibles</u></span><br>
-                      #Saldo# <br>
-                      #Nombre# <br>
-                      #CUIT# <br>
-                      #ClavePortal#
+                  <!-- Id aviso -->
+                  <div class="col-2">
+                    <label for="name">Nombre:</label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" name="name" id="name" class="form-control" required>
+                  </div>
+    
+                  <!-- Titulo -->
+                  <div class="col-2">
+                    <label for="matter">Asunto:</label>
+                  </div>
+                  <div class="col-10">
+                    <input type="text" name="matter" id="matter" class="form-control" required>
+                  </div>
+    
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-2 d-flex flex-column">
+                        <div class="mt-3">
+                          <label for="editor">Cuerpo:</label>
+                        </div>
+                        <div class="h-50 my-auto">
+                          <span class="text-nowrap text"><u id="available-variable">Variables disponibles</u></span><br>
+                          #Saldo# <br>
+                          #Nombre# <br>
+                          #CUIT# <br>
+                          #ClavePortal#
+                        </div>
+                      </div>
+                      <div class="col-10">
+                        <div id="editor">
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-10 col-xl-11">
-                    <div id="editor">
-                      <p></p>
-                    </div>
+    
+                  <!-- Adjunto -->
+                  <div class="col-2 d-flex">
+                    <label for="attach">Adjunto:</label>
                   </div>
+                  <div class="col-10">
+                    <select class="form-control w-25" name="attach" id="attach">
+                      <!-- Options attach -->
+                    </select>
+                  </div>
+
                 </div>
               </div>
+              <!-- Second column -->
+              <div class="col-3">
+                <div class="row">
+                  <!-- shipping -->
+                  <div class="col-4">
+                    <label class="text-nowrap" for="kind-shipping">Tipo envío:</label>
+                  </div>
+                  <div class="col-8">
+                    <select class="form-control" name="kind-shipping" id="kind-shipping" required>
+                      <!-- Shipping -->
+                    </select>
+                  </div>
+                  <!-- condition -->
+                  <div class="col-4">
+                    <label for="condition">Condición:</label>
+                  </div>
+                  <div class="col-8">
+                    <select class="form-control" name="condition" id="condition" required>
+                      <!-- Condition -->
+                    </select>
+                  </div>
 
+                  <!-- value-x -->
+                  <div class="col-4">
+                    <label for="value-x">Valor X:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="number" class="form-control text-right" name="value-x" id="value-x" value="0" required>
+                  </div>
 
-              <!-- Adjunto -->
-              <div class="col-sm-2 col-xl-1 d-flex">
-                <label for="attach">Adjunto:</label>
+                  <!-- customer group -->
+                  <div class="col-4">
+                    <label class="text-nowrap" for="customer-group">Grupo cliente:</label>
+                  </div>
+                  <div class="col-8">
+                    <select class="form-control" name="customer-group" id="customer-group" required>
+                      <!-- customer-group -->
+                    </select>
+                  </div>
+
+                  <!-- customer kind -->
+                  <div class="col-4">
+                    <label class="text-nowrap" for="customer-types">Tipo cliente:</label>
+                  </div>
+                  <div class="col-8">
+                    <select class="form-control" name="customer-types" id="customer-types" required>
+                      <!-- customer-types -->
+                    </select>
+                  </div>
+                </div>
+
               </div>
-              <div class="col-sm-10 col-xl-11">
-                <select class="form-control w-25" name="attach" id="attach">
-                  <!-- Options attach -->
-                </select>
-              </div>
-
             </div>
 
           </form>
@@ -85,6 +138,7 @@
     </div>
   </body>
   <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/super-build/ckeditor.js"></script>
+  <script src="./js/EditarAvisosApis.js"></script>
   <script src="./js/EditarAvisos.js"></script>
   <script src="../jsgen/footer-form.js"></script>
 </html>

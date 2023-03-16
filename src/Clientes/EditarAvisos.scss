@@ -11,24 +11,24 @@
   --ck-z-modal: calc( var(--ck-z-default) + 999 );
 }
 
+label {
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
 .ck-source-editing-area,
 .ck-editor__editable {
-  min-height: 440px;
+  min-height: 400px;
 }
 
 .ck-editor__main {
-  height: 440px;
+  height: 400px;
   overflow-y: scroll;
   border: 1px solid #bbbbbb;
 }
 
-.form-middle {
-  gap: 6px 0;
-}
-
-label {
-  font-weight: 500;
-  margin-bottom: 0;
+.form-middle .row {
+  gap: 3px 0;
 }
 
 @media (min-width: 1200px) and (max-width: 1560px) {
