@@ -264,7 +264,7 @@ const get_AccountsBalance = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ linea }) => {
-        // console.log(linea);
+        // console.log(linea)
         const { unidadNegocio, estado } = data
         linea.map(element => {            
             element.unidadNegocio = unidadNegocio
@@ -318,10 +318,10 @@ $form.addEventListener('submit', event => {
         cobrador,
         saldoCero
     }
-    // console.table( data )
-    // console.log(window.top);
-    get_AccountsBalance( tkn, data )
     window.top.SCC = data
+    // console.log(window.top.SCC)
+    // console.table( data )
+    get_AccountsBalance( tkn, data )
 })
 
 // Rellenar filtros si viene window.top.scc
@@ -338,16 +338,16 @@ const existsSCC = async () => {
             document.getElementById('status').value = estado
             document.getElementById('debt-collector').value = cobrador
             
-            saldoCeroElement = document.getElementById('exclude-balances')
-            if ( saldoCero ) {
+            let saldoCeroElement = document.getElementById('exclude-balances')
+            if ( saldoCero === 1 ) {
                 saldoCeroElement.checked = true
             } else {
                 saldoCeroElement.checked = false
             }
         }, 1000)
-        get_AccountsBalance( tkn, data )
+        get_AccountsBalance( tkn, window.top.SCC )
     })
-    await scc;
+    await scc
 }
 
 // Verificar si existe window.top.scc y ejecutar la funcion
