@@ -198,6 +198,30 @@ $form.addEventListener('submit', event => {
         unidadNegocio,
         estado
     }
-    // console.log( data )
+    window.top.SCP = data
+    // console.log(window.top.SCP)
+    // console.table( data )
     get_accountsPayableBalance( tkn, data )
 })
+
+// Rellenar filtros si viene window.top.SCP
+const existsSCP = async () => {
+    const scp = new Promise(() => {
+        setTimeout(() => {
+            const { estado, fechaDesde, fechaHasta, unidadNegocio } = window.top.SCP
+            // console.log(estado, fechaDesde, fechaHasta, unidadNegocio)
+            document.getElementById('business').value = unidadNegocio
+            document.getElementById('periodStart').value = fechaDesde.split('/').reverse().join('-')
+            document.getElementById('periodEnd').value = fechaHasta.split('/').reverse().join('-')
+            document.getElementById('status').value = estado
+            
+        }, 1000)
+        get_accountsPayableBalance( tkn, window.top.SCP )
+    })
+    await scp
+}
+
+// Verificar si existe window.top.scp y ejecutar la funcion
+if ( window.top.SCP ) {
+    existsSCP()
+}
