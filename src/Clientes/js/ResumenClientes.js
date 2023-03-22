@@ -3,7 +3,6 @@ import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChang
 
 // Boton exportar grilla
 document.getElementById("btn_export").onclick = () => redirectExport()
-document.getElementById("btn_export_1024").onclick = () => redirectExport()
 const redirectExport = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
@@ -294,7 +293,6 @@ $form.addEventListener('submit', event => {
 
 // Boton Imprimir
 document.getElementById("btn_print").onclick = () => redirectPrint()
-document.getElementById("btn_print_1024").onclick = () => redirectPrint()
 const redirectPrint = () => {
     const unidadNegocio = Number(document.getElementById('business').value)
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
@@ -386,7 +384,7 @@ const APIRequest = async () => {
                     incluirProformas: 0,
                     incluirRemitos: 0
                 }
-                console.log(info)
+                // console.log(info)
                 get_accountSummary(tkn, info)
             }
         }
@@ -395,3 +393,4 @@ const APIRequest = async () => {
     }
 }
 APIRequest()
+

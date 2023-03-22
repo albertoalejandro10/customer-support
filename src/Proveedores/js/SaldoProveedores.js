@@ -213,8 +213,7 @@ const existsSCP = async () => {
             document.getElementById('business').value = unidadNegocio
             document.getElementById('periodStart').value = fechaDesde.split('/').reverse().join('-')
             document.getElementById('periodEnd').value = fechaHasta.split('/').reverse().join('-')
-            document.getElementById('status').value = estado
-            
+            document.getElementById('status-payable').value = estado
         }, 1000)
         get_accountsPayableBalance( tkn, window.top.SCP )
     })

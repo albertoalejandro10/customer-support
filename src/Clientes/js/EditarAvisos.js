@@ -108,21 +108,7 @@ CKEDITOR.ClassicEditor.create(editor, {
             }
         ]
     },
-    // The "super-build" contains more premium features that require additional configuration, disable them below.
-    // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
     removePlugins: [
-        // These two are commercial, but you can try them out without registering to a trial.
-        // 'ExportPdf',
-        // 'ExportWord',
-        // 'CKBox',
-        // 'CKFinder',
-        // 'EasyImage',
-        // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
-        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
-        // Storing images as Base64 is usually a very bad idea.
-        // Replace it on production website with other solutions:
-        // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
-        // 'Base64UploadAdapter',
         'RealTimeCollaborativeComments',
         'RealTimeCollaborativeTrackChanges',
         'RealTimeCollaborativeRevisionHistory',
@@ -133,9 +119,6 @@ CKEDITOR.ClassicEditor.create(editor, {
         'RevisionHistory',
         'Pagination',
         'WProofreader',
-        // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
-        // from a local file system (file://) - load this site via HTTP server if you enable MathType
-        'MathType'
     ]
 })
 .then( newEditor => {
@@ -162,15 +145,18 @@ const notices = (id, tkn) => {
         })
     })
     .then( notices => notices.json() )
-    .then( notices => {
-        // console.log(notices)
-        const {avisoDatos, resultado} = notices
-        const { aviso, titulo, mensaje } = avisoDatos
+    .then( ({avisoDatos, resultado}) => {
+        const { aviso, titulo, mensaje, tipoEnvioId, condicionId, valor, grupoClienteId, tipoClienteId } = avisoDatos
         if ( resultado === 'ok' ) {
             const name = document.getElementById('name')
             name.value = aviso
             name.readOnly = true
             document.getElementById('matter').value = titulo
+            document.getElementById('shipping-type').value = tipoEnvioId
+            document.getElementById('condition').value = condicionId
+            document.getElementById('value-x').value = valor
+            document.getElementById('customer-group').value = grupoClienteId
+            document.getElementById('customer-types').value = tipoClienteId
             editor.setData(mensaje)
         }
     })

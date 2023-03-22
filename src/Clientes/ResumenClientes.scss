@@ -9,44 +9,28 @@
 
 label {
     margin-bottom: 0px;
-    &[for="business"] {
-        margin-right: 4px;
-    }
+    margin-right: 4px;
     &[for="status"] {
         margin-right: 50px;
     }
     &[for="coin"] {
         margin-right: 40px;
     }
-    &[for="only-movements"] {
-        margin-right: 4px;
-    }
     &[for="periodStart"] {
         margin-right: 15px;
     }
-    &[for="debt-collector"] {
-        margin-right: 4px;
-    }
     &[for="customer"] {
         margin-right: 20px;
-    }
-    &[for="subsidiary"] {
-        margin-right: 4px;
-    }
-    &[for="include-proformas"] {
-        margin-right: 4px;
     }
     &[for="include-notes"] {
         margin-right: 18px;
     }
 }
 
-/* Using SCSS variables to store breakpoints */
-$breakpoint-large-screen: 1100px;
-@media (max-width: $breakpoint-large-screen) {
-    .buttons-responsive {
-        position: absolute;
-        bottom: -4px;
-        right: 0px;
-    }
+.dropdown-menu {
+    min-width: 8rem !important;
+}
+
+.dropdown-item {
+    padding: 0.25rem 0.4rem;
 }

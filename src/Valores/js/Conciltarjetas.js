@@ -177,7 +177,6 @@ const checkAll = (target, total) => {
         getLineaToAPI(checkElement, true)
         document.getElementById('total').textContent = total.value === '-0,00' ? '0,00' : total.value
     })
-    
 }
 
 // * Unchecked all checkboxes group

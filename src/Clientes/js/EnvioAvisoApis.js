@@ -2,22 +2,21 @@ import { getParameter } from "../../jsgen/Helper"
 // import { get_startMonth } from "../../jsgen/Apis-Helper"
 
 // Listado envios
-const get_shippings = tkn => {
-  const url_getShippings = process.env.Solu_externo + '/maestros/clientes/get_tipos_Envio'
+const get_customerTypes = tkn => {
+  const url_getShippings = process.env.Solu_externo + '/maestros/clientes/get_tipos_cliente'
   fetch( url_getShippings, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${tkn}`
-      }
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    }
   })
-  .then( shippings => shippings.json() )
-  .then( ({tiposEnvio}) => {
-    const shippings = tiposEnvio
-    for (const shipping of shippings) {
-      const { id, nombre } = shipping
+  .then( customerTypes => customerTypes.json() )
+  .then( ({tiposCliente}) => {
+    for (const tipoCliente of tiposCliente) {
+      const { id, nombre } = tipoCliente
       // console.log(id, nombre)
-      const select = document.querySelector('#shipping-type')
+      const select = document.querySelector('#customer-type')
       let option = document.createElement("option")
       option.setAttribute("data-tokens", nombre)
       option.value = id
@@ -34,11 +33,11 @@ const get_shippings = tkn => {
 const get_conditions = tkn => {
   const url_getConditions = process.env.Solu_externo + '/maestros/clientes/get_condiciones'
   fetch( url_getConditions, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${tkn}`
-      }
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    }
   })
   .then( conditions => conditions.json() )
   .then( ({condiciones}) => {
@@ -91,7 +90,7 @@ const get_customerGroup = tkn => {
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
-  get_shippings(tkn)
+  get_customerTypes(tkn)
   get_conditions(tkn)
   get_customerGroup(tkn)
 }
