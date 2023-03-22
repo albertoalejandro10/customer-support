@@ -168,10 +168,8 @@ if ( id ) {
 // Method post - Delete servicioid
 const deleteNotice = document.getElementById('delete')
 deleteNotice.onclick = () => {
-
     const result = confirm('¿Esta seguro?')
     if ( !result ) return
-
     const url_deleteNotice = process.env.Solu_externo + '/maestros/clientes/guardar_aviso'
     fetch( url_deleteNotice, {
         method: 'POST',
@@ -199,7 +197,7 @@ backToList.onclick = () => {
     location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
 }
 
-// Method post - grabar servicioid
+// Grabar aviso
 const $form = document.querySelector('#form')
 $form.addEventListener('submit', event => {
     event.preventDefault()
@@ -207,6 +205,11 @@ $form.addEventListener('submit', event => {
 
     const aviso = formData.get('name')
     const titulo = formData.get('matter')
+    const tipoEnvioId = Number(formData.get('shipping-type'))
+    const grupoClienteId = Number(formData.get('customer-group'))
+    const tipoClienteId = Number(formData.get('customer-types'))
+    const condicionId = Number(formData.get('condition'))
+    const valor = Number(formData.get('value-x'))
     const mensaje = editor.getData()
 
     if ( ! id ) id = 0
@@ -215,7 +218,12 @@ $form.addEventListener('submit', event => {
         "avisoDatos": {
             aviso,
             titulo,
-            mensaje
+            mensaje,
+            tipoEnvioId,
+            grupoClienteId,
+            tipoClienteId,
+            condicionId,
+            valor
         },
         accion: "ADD"
     }
