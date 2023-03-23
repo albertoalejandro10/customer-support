@@ -237,21 +237,25 @@ const get_accountSummary = (tkn, data) => {
         gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
         
         gridOptions.api.hideOverlay()
-        document.getElementById('btn_print').disabled = false
-        document.getElementById('btn_print_1024').disabled = false
+        changeButtonStatus(false)
         
         if ( Object.keys( resp ).length === 0 ) {
             // console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
-            document.getElementById('btn_print').disabled = true
-            document.getElementById('btn_print_1024').disabled = true
+            changeButtonStatus(true)
         }
     })
     .catch( err => {
         console.log( err )
-        document.getElementById('btn_print').disabled = true
-        document.getElementById('btn_print_1024').disabled = true
+        changeButtonStatus(true)
+    })
+}
+
+const changeButtonStatus = boolean => {
+    const buttons = Array.from(document.querySelectorAll('button[type="button"]'))
+    buttons.forEach(button => {
+        button.disabled = boolean
     })
 }
 
@@ -294,31 +298,7 @@ $form.addEventListener('submit', event => {
 // Boton Imprimir
 document.getElementById("btn_print").onclick = () => redirectPrint()
 const redirectPrint = () => {
-    const unidadNegocio = Number(document.getElementById('business').value)
-    const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
-    const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
-    const sucursal = Number(document.getElementById('subsidiary').value)
-    const cuentaEstado = document.getElementById('status').value
-    const codigoCliente = document.getElementById('customer').value
-    const cobrador = document.getElementById('debt-collector').value
-    const moneda = document.getElementById('coin').value
-    const soloMovimientos  = document.getElementById('only-movements').value    === 'on' ? 1 : 0
-    const incluirProformas = document.getElementById('include-proformas').value === 'on' ? 1 : 0
-    const incluirRemitos   = document.getElementById('include-notes').value     === 'on' ? 1 : 0
-
-    const data = {
-        unidadNegocio,
-        fechaDesde,
-        fechaHasta,
-        sucursal,
-        cuentaEstado,
-        codigoCliente,
-        cobrador,
-        moneda,
-        soloMovimientos,
-        incluirProformas,
-        incluirRemitos
-    }
+    const data = get_dataToAPI()
     // console.table( data )
     let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Clientes/VerResumen.html?'
     // console.log(returnURL)
@@ -357,6 +337,7 @@ if (tkn && name && codigoCliente && cuit && unidadNegocio && estado) {
     get_accountSummary(tkn, data)
 }
 
+// Llenar filtros y actualizar grilla
 const APIRequest = async () => {
     const endpoint = process.env.Solu_externo + '/listados/get_monedas'
     try {
@@ -394,3 +375,81 @@ const APIRequest = async () => {
 }
 APIRequest()
 
+// Boton Enviar Mail
+document.getElementById('send-mail').addEventListener('click', () => {
+    const data = get_dataToAPI()
+    const url_sendMail = process.env.Solu_externo + '/reportes/clientes/enviar_mail_resumen_cta_cliente'
+    fetch( url_sendMail , {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify(data)
+    })
+    .then( mail => mail.json() )
+    .then( ({resultado, mensaje}) => {
+        if(!resultado === 'ok') return
+        // console.log(resultado)
+        alert(`${resultado} - ${mensaje}`)
+    })
+    .catch( err => err)
+})
+
+// Boton descargar pdf
+document.getElementById('download-pdf').addEventListener('click', () => {
+    const data = get_dataToAPI()
+    const url_downloadPDF = process.env.Solu_externo + '/reportes/clientes/descargar_resumen_cta_cliente'
+    fetch( url_downloadPDF , {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        },
+        body: JSON.stringify(data)
+    })
+    .then( pdf => pdf.json() )
+    .then( ({archivo, mensaje, resultado}) => {
+        if (!resultado === 'ok') return
+        const {bytes, contentType, nombre} = archivo
+        // console.log(bytes, contentType, nombre)
+        const downloadLink = document.createElement('a')
+        const linkSource = `data:${contentType};base64, ${bytes}`
+        const fileName = nombre
+        downloadLink.href = linkSource
+        downloadLink.download = fileName
+        downloadLink.click()
+    })
+    .catch( err => err)
+})
+
+// Conseguir data para imprimir, enviar mail y descargar pdf
+const get_dataToAPI = () => {
+    const unidadNegocio = Number(document.getElementById('business').value)
+    const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
+    const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
+    const sucursal = Number(document.getElementById('subsidiary').value)
+    const cuentaEstado = document.getElementById('status').value
+    const codigoCliente = document.getElementById('customer').value
+    const cobrador = document.getElementById('debt-collector').value
+    const moneda = document.getElementById('coin').value
+    const soloMovimientos  = document.getElementById('only-movements').value    === 'on' ? 1 : 0
+    const incluirProformas = document.getElementById('include-proformas').value === 'on' ? 1 : 0
+    const incluirRemitos   = document.getElementById('include-notes').value     === 'on' ? 1 : 0
+
+    const data = {
+        unidadNegocio,
+        fechaDesde,
+        fechaHasta,
+        sucursal,
+        cuentaEstado,
+        codigoCliente,
+        cobrador,
+        moneda,
+        soloMovimientos,
+        incluirProformas,
+        incluirRemitos
+    }
+    // console.log(data);
+    return data
+}
