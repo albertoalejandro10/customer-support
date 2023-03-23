@@ -46,7 +46,7 @@ const notices = tkn => {
 
 const printTable = aviso => {
   // Desestructuracion del objeto element
-  const {id, nombre, orden} = aviso
+  const {id, nombre} = aviso
   
   // Imprimir datos en la tabla
   const row = document.createElement('tr')
@@ -64,16 +64,19 @@ const printTable = aviso => {
   buttonModified.classList.add('btn-primary')
   buttonModified.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Editar`
   row_data_2_anchor.appendChild(buttonModified)
+
+  const row_data_3_anchor = document.createElement('a')
+  row_data_3_anchor.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAviso.html?id=${id}&tkn=${tkn}`
   
   const buttonSend = document.createElement('button')
   buttonSend.type = 'button'
-  buttonSend.setAttribute('id', id)
   buttonSend.classList.add('btn')
   buttonSend.classList.add('btn-success')
   buttonSend.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Enviar`
+  row_data_3_anchor.appendChild(buttonSend)
   
   row_data_2.appendChild(row_data_2_anchor)
-  row_data_2.appendChild(buttonSend)
+  row_data_2.appendChild(row_data_3_anchor)
   row.appendChild(row_data_1)
   row.appendChild(row_data_2)
   
