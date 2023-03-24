@@ -1,9 +1,8 @@
-import { getParameter, format_number, numbersOnly } from "../../jsgen/Helper"
+import { getParameter, format_number, numbersOnly, format_token } from "../../jsgen/Helper"
 import { ag_grid_locale_es, comparafecha, dateComparator, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla
 document.getElementById("btn_export").onclick = () => redirectExport()
-document.getElementById("btn_export_1024").onclick = () => redirectExport()
 const redirectExport = () => {
     gridOptions.api.exportDataAsCsv(getParams())
 }
@@ -35,7 +34,9 @@ const gridOptions = {
             field: "asiento",
             tooltipField: 'asiento',
             cellRenderer: function(params) {
-                return params.value
+                if (params.value) {
+                    return `<a href='${format_token(params.data.linkAsiento)}' target="_self"> ${params.value} </a>`
+                }
             }
         },
         {
@@ -227,20 +228,17 @@ const get_mayorAccount = (tkn, data) => {
         gridOptions.api.hideOverlay()
 
         document.getElementById('btn_print').disabled = false
-        document.getElementById('btn_print_1024').disabled = false
         
         if ( Object.keys( resp ).length === 0 ) {
             // console.log( 'Is empty')
             gridOptions.api.setPinnedBottomRowData([])
             gridOptions.api.showNoRowsOverlay()
             document.getElementById('btn_print').disabled = true
-            document.getElementById('btn_print_1024').disabled = true
         }
     })
     .catch( err => {
         console.log( err )
         document.getElementById('btn_print').disabled = true
-        document.getElementById('btn_print_1024').disabled = true
     })
 }
 
@@ -297,39 +295,6 @@ $form.addEventListener('submit', event => {
     const tkn = getParameter('tkn')
     get_mayorAccount( tkn, data )
 })
-
-// Boton Imprimir
-// document.getElementById("btn_print").onclick = () => redirectPrint()
-// document.getElementById("btn_print_1024").onclick = () => redirectPrint()
-// const redirectPrint = () => {
-//     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')
-//     const fechaHasta = (document.getElementById('periodEnd').value).split('-').reverse().join('/')
-//     const detalle = document.getElementById('detail').value
-//     const unidadNegocioId = Number(document.getElementById('business').value)
-//     const analisisCuentaId = Number(document.getElementById('cost-center').value)
-//     const monedaId = Number(document.getElementById('coin').value)
-//     const nroRef  = Number(document.getElementById('ref-number').value) === 0 ? '' : Number(document.getElementById('ref-number').value)
-//     const cuentaCod = document.getElementById('account').value
-
-//     const data = {
-//         unidadNegocioId,
-//         fechaDesde,
-//         fechaHasta,
-//         detalle,
-//         analisisCuentaId,
-//         cuentaCod,
-//         nroRef,
-//         monedaId
-//     }
-//     console.table( data )
-//     const tkn = getParameter('tkn')
-//     let returnURL = window.location.protocol + '//' + window.location.host + '/clientes/VerResumen.html?'
-//     for (const property in data) {
-//         returnURL += `${property}=${data[property]}&`
-//     }
-//     const fullURL = returnURL + 'tkn=' + tkn
-//     setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0'), 1000)
-// }
 
 const refNumberElement = document.getElementById('ref-number')
 refNumberElement.addEventListener('keyup', () => {

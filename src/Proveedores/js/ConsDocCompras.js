@@ -15,8 +15,6 @@ const gridOptions = {
         editable: false,
         resizable: true,  
         suppressNavigable: true,
-        wrapHeaderText: true,
-        autoHeaderHeight: true,
         //minWidth: 100,                      
     },
     // No rows and grid loader
@@ -40,13 +38,12 @@ const gridOptions = {
             filter: 'agDateColumnFilter',
             comparator: dateComparator,
             filterParams: {
-                // provide comparator function
                 comparator: comparafecha
             }
         },
         {
-            width: 100,
-            headerName: 'Contabilizado',
+            width: 90,
+            headerName: 'F.Contable',
             field: "fechaContable",
             tooltipField: 'fechaContable',
             sortable: true,
@@ -54,7 +51,6 @@ const gridOptions = {
             filter: 'agDateColumnFilter',
             comparator: dateComparator,
             filterParams: {
-                // provide comparator function
                 comparator: comparafecha
             },
             cellRenderer: function(params) {
@@ -68,7 +64,7 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 140,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true,
@@ -120,7 +116,7 @@ const gridOptions = {
             width: 60,
             field: "numeroInterno",
             tooltipField: 'numeroInterno',
-            headerName: "Número Interno",
+            headerName: "Nro Int.",
             cellClass: "cell-vertical-align-center",
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
@@ -130,7 +126,7 @@ const gridOptions = {
             }
         },
         { 
-            width: 80,
+            width: 90,
             field: "ejercicio",
             tooltipField: 'ejercicio',
             cellRenderer: function(params) {

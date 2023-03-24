@@ -13,16 +13,20 @@ const get_seat = ( tkn, data ) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
+        // console.log(resp);
         const cheques = resp.cheques.Cheque
         const ventas = resp.ventas.comprobante
         const compras = resp.compras.comprobante
         const relacionados = resp.relacionados.relacionados
+        if (!cheques.length && !ventas.length && !compras.length && !relacionados.length) {
+            document.getElementById('no-movements').classList.remove('d-none')
+        }
 
         printHeader( resp )
 
         // * Get HTMLElement of each table 
         const tableDocs = document.getElementById('table-docs')
-        if ( Array.isArray(cheques)  && cheques.length ) {
+        if ( Array.isArray(cheques) && cheques.length ) {
             printCheck( resp )
         } else {
             tableDocs.classList.add('d-none')
@@ -55,7 +59,7 @@ const get_seat = ( tkn, data ) => {
 }
 
 // * Verified for asientoid and tkn parameters on URL
-const asientoid = getParameter('asientoid')
+const asientoid = getParameter('id')
 const tkn = getParameter('tkn')
 if ( asientoid && tkn ) {
     const data = {
@@ -151,7 +155,7 @@ const printLine = ({cuenta, nombre, detalle, importe, debe}) => {
 
 // * Print total check
 const printTotal = lineas => {
-    console.log(lineas);
+    // console.log(lineas)
     const importeTotalDebe = lineas.filter(linea => linea.debe === 0)
                                    .map(x => x.importe)
                                    .reduce((a, b) => a + b, 0)
@@ -494,13 +498,10 @@ const toggleTable = option => {
 }
 
 const changeIcon = identifier => {
-    if (allButtons[identifier].classList.contains('text-danger')) {
+    const [button] = allButtons[identifier].children
+    if (button.classList.contains('fa-minus')) {
         allButtons[identifier].innerHTML = '<i class="fa-regular fa-plus"></i>'
-        allButtons[identifier].classList.add('text-primary')
-        allButtons[identifier].classList.remove('text-danger')
     } else {
         allButtons[identifier].innerHTML = '<i class="fa-solid fa-minus"></i>'
-        allButtons[identifier].classList.add('text-danger')
-        allButtons[identifier].classList.remove('text-primary')
     }
 }

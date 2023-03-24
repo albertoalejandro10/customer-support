@@ -9,29 +9,18 @@
 
 label {
     margin-bottom: 0px;
-
+    margin-right: 4px;
     &[for="business"] {
         margin-right: 27px;
-    }
-    &[for="cost-center"] {
-        margin-right: 4px;
     }
     &[for="coin"] {
         margin-right: 64px;
     }
-
-    &[for="periodStart"] {
-        margin-right: 4px;
-    }
     &[for="account"] {
         margin-right: 8px;
     }
-
     &[for="detail"] {
         margin-right: 20px;
-    }
-    &[for="ref-number"] {
-        margin-right: 4px;
     }
 }
 
@@ -40,11 +29,8 @@ label {
 }
 
 /* Using SCSS variables to store breakpoints */
-$breakpoint-large-screen: 1100px;
-@media (max-width: $breakpoint-large-screen) {
-    .buttons-responsive {
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-    }
-}
+// @media only screen and (max-width: 1024px) and (min-width: 1000px)  {
+//     #coin {
+//         width: 50%;
+//     }
+// }

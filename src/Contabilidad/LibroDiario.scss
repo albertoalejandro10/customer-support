@@ -13,15 +13,7 @@ h5 {
 
 label {
     margin-bottom: 0px;
-    &[for="business"] {
-        margin-right: 4px;
-    }
-    &[for="periodStart"] {
-        margin-right: 4px;
-    }
-    &[for="month"] {
-        margin-right: 4px;
-    }
+    margin-right: 4px;
 }
 
 table {
@@ -87,10 +79,7 @@ table td {
 
 .first-td {
     a {
-        color: var(--bs-blue-dark);
-        &:hover {
-            color: #47cff5;
-        }
+        color: var(--bs-info);
     }
 }
 

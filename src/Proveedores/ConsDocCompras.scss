@@ -7,42 +7,14 @@
 }
 @import "../../scss/main";
 
-.ag-header-cell-text {
-    font-size: 10px !important;
-}
-
-.ag-cell {
-    font-size: 10px !important;
-}
-
-.ag-cell a {
-    font-size: 10px !important;
-}
-
-.ag-cell span {        
-    font-size: 10px !important;
-}
-
-.ag-cell span b {    
-    font-size: 10px !important;
-}
-
 label {
     margin-bottom: 0px;
+    margin-right: 4px;
     &[for="voucher"] {
         margin-right: 16px;
     }
-    &[for="supplier"] {
-        margin-right: 4px;
-    }
-    &[for="number-seats"] {
-        margin-right: 4px;
-    }
     &[for="periodStart"] {
         margin-right: 22px;
-    }
-    &[for="sale-point"] {
-        margin-right: 4px;
     }
     &[for="business"] {
         margin-right: 14px;
