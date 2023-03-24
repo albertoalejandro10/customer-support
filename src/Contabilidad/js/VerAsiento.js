@@ -500,7 +500,7 @@ const toggleTable = option => {
 const changeIcon = identifier => {
     const [button] = allButtons[identifier].children
     if (button.classList.contains('fa-minus')) {
-        allButtons[identifier].innerHTML = '<i class="fa-regular fa-plus"></i>'
+        allButtons[identifier].innerHTML = '<i class="fa-solid fa-plus"></i>'
     } else {
         allButtons[identifier].innerHTML = '<i class="fa-solid fa-minus"></i>'
     }
