@@ -27,7 +27,6 @@ const gridOptions = {
     suppressExcelExport: true,
     popupParent: document.body,
     localeText: localeText,
-
     columnDefs: [
         {
             width: 70,
@@ -42,8 +41,8 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
-            headerName: 'F.Contable',
+            width: 80,
+            headerName: 'Contabilizado',
             field: "fechaContable",
             tooltipField: 'fechaContable',
             sortable: true,
@@ -137,7 +136,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "neto",
@@ -151,7 +150,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "iva",
@@ -166,7 +165,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 100,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "retencion",
@@ -208,20 +207,6 @@ const gridOptions = {
                 else
                     return format_number(params.value)
             }
-        },
-        {
-            width: 90,
-            headerClass: "ag-right-aligned-header",
-            cellClass: 'cell-vertical-align-text-right',
-            field: "pendiente",
-            sortable: true,
-            filter: true,
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return format_number(params.value)
-            }
         }
     ],
     rowData: [],
@@ -254,7 +239,7 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData (target) {
     //console.log(target)
     //**list of columns fo aggregation**
-    let columnsWithAggregation = ['neto', 'iva', 'retencion', 'noGravado', 'importe', 'pendiente']
+    let columnsWithAggregation = ['neto', 'iva', 'retencion', 'noGravado', 'importe']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -274,7 +259,6 @@ function calculatePinnedBottomData (target) {
 
 const get_purchaseDocuments = (tkn, data) => {
     gridOptions.api.showLoadingOverlay()
-
     const url_getPurchaseDocuments = process.env.Solu_externo + '/reportes/consultas/get_documentos_compras'
     fetch( url_getPurchaseDocuments , {
         method: 'POST',
@@ -337,7 +321,6 @@ $form.addEventListener('submit', event => {
         ptoVta,
         unidadNegocio,
     }
-
     // console.log( data )
     const tkn = getParameter('tkn')
     get_purchaseDocuments( tkn, data )

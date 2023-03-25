@@ -20,8 +20,12 @@ label {
         margin-right: 8px;
     }
     &[for="detail"] {
-        margin-right: 20px;
+        margin-right: 9px;
     }
+}
+
+.col-xl .d-flex {
+    align-items: center;
 }
 
 #ref-number {
