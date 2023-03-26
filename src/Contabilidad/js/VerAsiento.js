@@ -115,6 +115,7 @@ const printRelated = resp => {
 
 // * Print Seat
 const printSeat = ({fecha, unidadNegocio, tipo, usuario}) => {
+    // console.log(fecha, unidadNegocio, tipo, usuario)
     const row = document.createElement('tr')
     const row_data_1 = document.createElement('td')
     row_data_1.textContent = fecha
@@ -165,13 +166,16 @@ const printTotal = lineas => {
                                     .reduce((a, b) => a + b, 0)
                           
     const row = document.createElement('tr')
+    const row_data_0 = document.createElement('td')
+    row_data_0.colSpan = 2
     const row_data_1 = document.createElement('td')
-    row_data_1.colSpan = 3
+    row_data_1.textContent = 'Totales'
     const row_data_2 = document.createElement('td')
     row_data_2.textContent = format_number(importeTotalDebe)
     row_data_2.classList.add('text-right')
     const row_data_3 = document.createElement('td')
     row_data_3.textContent = format_number(importeTotalHaber)
+    row.appendChild(row_data_0)
     row.appendChild(row_data_1)
     row.appendChild(row_data_2)
     row.appendChild(row_data_3)
@@ -499,9 +503,9 @@ const toggleTable = option => {
 
 const changeIcon = identifier => {
     const [button] = allButtons[identifier].children
-    if (button.classList.contains('fa-minus')) {
-        allButtons[identifier].innerHTML = '<i class="fa-solid fa-plus"></i>'
-    } else {
+    if (button.classList.contains('fa-plus')) {
         allButtons[identifier].innerHTML = '<i class="fa-solid fa-minus"></i>'
+    } else {
+        allButtons[identifier].innerHTML = '<i class="fa-solid fa-plus"></i>'
     }
 }
