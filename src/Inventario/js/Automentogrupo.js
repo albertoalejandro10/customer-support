@@ -12,7 +12,7 @@ const post_modifyPricesByGroup = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( ({ resultado, mensaje}) => {
-        console.log(resultado, mensaje)
+        // console.log(resultado, mensaje)
         alert(`${resultado} - ${mensaje}`)
         location.reload()
     })
@@ -29,7 +29,7 @@ $form.addEventListener('submit', event => {
 
     const campoId = Number(formData.get('field'))
     const listaId = Number(formData.get('list'))
-    const operacionId = Number(formData.get('opetaions'))
+    const operacionId = Number(formData.get('operations'))
     const listaOrigenId = Number(formData.get('origin-list'))
     const indice = formData.get('index') === '' ? 0.000 : Number(reverseFormatNumber(formData.get('index'), 'de'))
     const redondeo = Number(formData.get('rounding'))

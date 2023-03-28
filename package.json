@@ -29,6 +29,7 @@
     "replace-in-file": "^6.3.5"
   },
   "devDependencies": {
+    "@types/regenerator-runtime": "^0.13.1",
     "cssnano": "^4.1.11",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.49.7"

@@ -1,4 +1,3 @@
-
 // Permitir Async/Await en el proyecto
 import 'regenerator-runtime/runtime'
 
@@ -816,11 +815,10 @@ export const get_costCenter = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const costCenters = resp
-        for (const element of costCenters) {
-            const { id, codigo, nombre } = element
+    .then( costCenters => costCenters.json() )
+    .then( costCenters => {
+        for (const costCenter of costCenters) {
+            const { id, codigo, nombre } = costCenter
             // console.log(id, codigo, nombre)
             const select = document.querySelector('#cost-center')
             let option = document.createElement("option")
@@ -847,11 +845,10 @@ export const get_docsTypes = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const docsTypes = resp
-        for (const element of docsTypes) {
-            const { id, nombre } = element
+    .then( docsTypes => docsTypes.json() )
+    .then( docsTypes => {
+        for (const docsType of docsTypes) {
+            const { id, nombre } = docsType
             // console.log(id, nombre)
             const select = document.querySelector('#documents')
             let option = document.createElement("option")
@@ -878,11 +875,10 @@ export const get_seatType = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const docsTypes = resp
-        for (const element of docsTypes) {
-            const { id, codigo, nombre } = element
+    .then( seatTypes => seatTypes.json() )
+    .then( seatTypes => {
+        for (const seatType of seatTypes) {
+            const { id, codigo, nombre } = seatType
             // console.log(id, codigo, nombre)
             const select = document.querySelector('#seat-type')
             let option = document.createElement("option")
@@ -909,11 +905,10 @@ export const get_seatTypeWithoutAll = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const docsTypes = resp
-        for (const element of docsTypes) {
-            const { id, codigo, nombre } = element
+    .then( seatTypes => seatTypes.json() )
+    .then( seatTypes => {
+        for (const seatType of seatTypes) {
+            const { id, codigo, nombre } = seatType
             if ( id === 0 ) continue
             // console.log(id, codigo, nombre)
             const select = document.querySelector('#seat-type')
@@ -941,11 +936,10 @@ export const get_fieldList = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const fieldLists = resp
-        for (const element of fieldLists) {
-            const { id, nombre } = element
+    .then( fieldLists => fieldLists.json() )
+    .then( fieldLists => {
+        for (const fieldList of fieldLists) {
+            const { id, nombre } = fieldList
             // console.log(id, nombre)
             const select = document.querySelector('#field')
             let option = document.createElement("option")
@@ -972,11 +966,10 @@ export const get_lists = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const lists = resp
-        for (const element of lists) {
-            const { id, nombre } = element
+    .then( lists => lists.json() )
+    .then( lists => {
+        for (const list of lists) {
+            const { id, nombre } = list
             // console.log(id, nombre)
             const select = document.querySelector('#list')
             let option = document.createElement("option")
@@ -1010,11 +1003,10 @@ export const get_operations = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const operations = resp
-        for (const element of operations) {
-            const { id, nombre } = element
+    .then( operations => operations.json() )
+    .then( operations => {
+        for (const operation of operations) {
+            const { id, nombre } = operation
             // console.log(id, nombre)
             const select = document.querySelector('#operations')
             let option = document.createElement("option")
@@ -1041,14 +1033,13 @@ export const get_rounding = tkn => {
             'Authorization': `Bearer ${tkn}`
         }
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const roundings = resp
-        for (const element of roundings) {
-            // console.log(element)
+    .then( roundings => roundings.json() )
+    .then( roundings => {
+        for (const rounding of roundings) {
+            // console.log(rounding)
             const select = document.querySelector('#rounding')
             let option = document.createElement("option")
-            option.textContent = element
+            option.textContent = rounding
             select.appendChild( option )
         }
     })
@@ -1075,11 +1066,10 @@ export const get_provider = tkn => {
             "opcionTodos": 1
         })
     })
-    .then( resp => resp.json() )
-    .then( resp => {
-        const providers = resp
-        for (const element of providers) {
-            const { id, codigo, cuit, nombre } = element
+    .then( providers => providers.json() )
+    .then( providers => {
+        for (const provider of providers) {
+            const { id, codigo, cuit, nombre } = provider
             // console.log(id, codigo, cuit, nombre)
             const select = document.querySelector('#vendor')
             let option = document.createElement("option")

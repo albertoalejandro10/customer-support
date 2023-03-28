@@ -1,4 +1,4 @@
-import { getParameter, format_number, format_token } from "../../jsgen/Helper"
+import { getParameter, format_number } from "../../jsgen/Helper"
 import { ag_grid_locale_es, getParams, filterChangedd } from "../../jsgen/Grid-Helper"
 
 // Boton exportar grilla

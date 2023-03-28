@@ -29,7 +29,7 @@ const gridOptions = {
     localeText: localeText,
     columnDefs: [
         {
-            width: 70,
+            width: 80,
             field: "fecha",
             tooltipField: 'fecha',
             sortable: true,
@@ -41,7 +41,7 @@ const gridOptions = {
             }
         },
         {
-            width: 80,
+            width: 110,
             headerName: 'Contabilizado',
             field: "fechaContable",
             tooltipField: 'fechaContable',
@@ -63,7 +63,7 @@ const gridOptions = {
             }
         },
         {
-            width: 140,
+            width: 150,
             field: "comprobante",
             tooltipField: 'comprobante',
             sortable: true,
@@ -77,7 +77,7 @@ const gridOptions = {
         },
         {
             flex: 1,
-            minWidth: 100,
+            minWidth: 180,
             field: "proveedor",
             tooltipField: 'proveedor',
             sortable: true,
@@ -136,7 +136,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "neto",
@@ -150,7 +150,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "iva",
@@ -165,7 +165,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "retencion",
@@ -180,7 +180,7 @@ const gridOptions = {
             }
         },
         {
-            width: 100,
+            width: 110,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "noGravado",
@@ -195,7 +195,7 @@ const gridOptions = {
             }
         },
         {
-            width: 90,
+            width: 120,
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             field: "importe",
@@ -271,7 +271,6 @@ const get_purchaseDocuments = (tkn, data) => {
     .then( resp => resp.json() )
     .then( resp => {
         // console.log( resp )
-
         // Clear Filtros
         gridOptions.api.setFilterModel(null)
         // Clear Grilla
