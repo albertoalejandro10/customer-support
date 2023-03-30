@@ -61,7 +61,7 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 130,
             headerName: "Saldo Período",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
@@ -73,7 +73,7 @@ const gridOptions = {
             }
         },
         {
-            width: 120,
+            width: 130,
             headerName: "Saldo Final",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
@@ -135,7 +135,7 @@ function calculatePinnedBottomData (target) {
 }
 
 const get_accountsPayableBalance = (tkn, data) => {
-    gridOptions.api.showLoadingOverlay()
+    gridOptions.api?.showLoadingOverlay()
     const url_getAccountsPayableBalance = process.env.Solu_externo + '/reportes/proveedores/get_saldo_cuentas_por_pagar'
     fetch( url_getAccountsPayableBalance , {
         method: 'POST',
@@ -199,7 +199,6 @@ $form.addEventListener('submit', event => {
         estado
     }
     window.top.SCP = data
-    // console.log(window.top.SCP)
     // console.table( data )
     get_accountsPayableBalance( tkn, data )
 })

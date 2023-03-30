@@ -41,8 +41,8 @@ const gridOptions = {
             }
         },
         {
-            width: 110,
-            headerName: 'Contabilizado',
+            width: 90,
+            headerName: 'F. Contab.',
             field: "fechaContable",
             tooltipField: 'fechaContable',
             sortable: true,
@@ -112,22 +112,11 @@ const gridOptions = {
             }
         },
         {
-            width: 60,
+            width: 72,
+            headerName: "Nro Int.",
             field: "numeroInterno",
             tooltipField: 'numeroInterno',
-            headerName: "Nro Int.",
             cellClass: "cell-vertical-align-center",
-            cellRenderer: function(params) {
-                if (String(params.value) == "null")
-                    return ""
-                else
-                    return params.value
-            }
-        },
-        { 
-            width: 90,
-            field: "ejercicio",
-            tooltipField: 'ejercicio',
             cellRenderer: function(params) {
                 if (String(params.value) == "null")
                     return ""
