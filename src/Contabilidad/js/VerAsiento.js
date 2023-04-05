@@ -186,6 +186,7 @@ const printTotal = lineas => {
 const printCheckTable = ({bcoNom, ptoVta, vencimiento, importe, numero, recibido, estado}) => {
     const row = document.createElement('tr')
     const row_data_1 = document.createElement('td')
+    row_data_1.classList.add('text-nowrap')
     row_data_1.textContent = bcoNom
     const row_data_2 = document.createElement('td')
     row_data_2.textContent = numero

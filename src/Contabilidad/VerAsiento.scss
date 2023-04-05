@@ -25,26 +25,6 @@ p {
     margin-bottom: 0px;
 }
 
-h1,
-h2 {
-    font-weight: bolder;
-    font-size: 1.4rem;
-    color: var(--bs-blue-dark);
-}
-
-h1 {
-    letter-spacing: 1.4px;
-}
-
-h2 {
-    letter-spacing: 0.8px;
-}
-
-.real-blue {
-    color: var(--bs-blue-dark);
-    font-weight: 500;
-}
-
 .big-box {
     width: 74%;
     min-width: 640px;
@@ -83,7 +63,8 @@ table td {
     text-align: center;
 }
 
-.table-seat thead th {
+.table-seat thead th
+.table-sales thead th {
     border-bottom: 0;
 }
 
@@ -102,14 +83,18 @@ table td {
     color: var(--bs-secondary);
 }
 
+.table-seat th {
+    padding: 0.45rem;    
+}
+
 .table-seat td {
     color: var(--bs-blue-dark);
-    border: 0;
-    border-bottom: 0.4px solid #dcdee0;
+    padding: 0.45rem;
 }
 
 .table-activities th,
 .table-activities td {
+    padding: 0.45rem;
     color: var(--bs-blue-dark);
     border: 0;
     border-bottom: .4px solid #dcdee0;
@@ -139,7 +124,7 @@ table td {
     border: 0;
     border-bottom: .4px solid #dcdee0;
     &:first-child {
-        width: 8%;
+        width: 14%;
     }
     &:nth-child(2) {
         width: 6%;
@@ -151,7 +136,7 @@ table td {
         width: 6%;
     }
     &:nth-child(5) {
-        width: 56%;
+        width: 50%;
     }
     &:nth-child(6) {
         width: 8%;
@@ -160,6 +145,12 @@ table td {
     &:last-child {
         width: 8%;
         text-align: right;
+    }
+}
+
+.table-docs td {
+    &:nth-child(5) {
+        font-weight: 500;
     }
 }
 
@@ -215,6 +206,10 @@ table td {
     }
 }
 
+.table thead th {
+    border-bottom: 0;
+}
+
 #tbody-sales > tr:last-child td {
     text-align: right;
     font-weight: 500;
@@ -264,7 +259,6 @@ table td {
 .table-sales tr:last-child td,
 .table-purchases tr:last-child td,
 .table-related tr:last-child td {
-    border-bottom: 0;
     font-weight: 500;
 }
 
