@@ -35,7 +35,7 @@ const gridOptions = {
             tooltipField: 'asiento',
             cellRenderer: function(params) {
                 if (params.value) {
-                    return `<a href='${format_token(params.data.linkAsiento)}' target="_self"> ${params.value} </a>`
+                    return '<a href="" onclick="window.open(\'' + format_token(params.data.linkAsiento) + '\', \'newwindow\', \'width=1200,height=800\');return false;" target="_blank">'+ params.value +'</a>'
                 }
             }
         },

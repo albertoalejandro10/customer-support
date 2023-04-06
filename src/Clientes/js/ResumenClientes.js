@@ -291,7 +291,7 @@ $form.addEventListener('submit', event => {
         incluirProformas,
         incluirRemitos
     }
-    // console.table( data )
+    // console.log( data )
     get_accountSummary( tkn, data )
 })
 
@@ -375,7 +375,7 @@ const APIRequest = async () => {
 }
 APIRequest()
 
-// Boton Enviar Mail
+// Boton enviar Mail
 document.getElementById('send-mail').addEventListener('click', () => {
     const data = get_dataToAPI()
     const url_sendMail = process.env.Solu_externo + '/reportes/clientes/enviar_mail_resumen_cta_cliente'
@@ -433,9 +433,9 @@ const get_dataToAPI = () => {
     const codigoCliente = document.getElementById('customer').value
     const cobrador = document.getElementById('debt-collector').value
     const moneda = document.getElementById('coin').value
-    const soloMovimientos  = document.getElementById('only-movements').value    === 'on' ? 1 : 0
-    const incluirProformas = document.getElementById('include-proformas').value === 'on' ? 1 : 0
-    const incluirRemitos   = document.getElementById('include-notes').value     === 'on' ? 1 : 0
+    const soloMovimientos  = document.getElementById('only-movements').checked    === true ? 1 : 0
+    const incluirProformas = document.getElementById('include-proformas').checked === true ? 1 : 0
+    const incluirRemitos   = document.getElementById('include-notes').checked     === true ? 1 : 0
 
     const data = {
         unidadNegocio,
@@ -450,6 +450,6 @@ const get_dataToAPI = () => {
         incluirProformas,
         incluirRemitos
     }
-    // console.log(data);
+    // console.log(data)
     return data
 }
