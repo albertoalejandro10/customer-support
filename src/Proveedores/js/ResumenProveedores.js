@@ -254,7 +254,7 @@ const get_supplierSummary = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-      console.log( resp )
+      // console.log( resp )
       let saldo = 0
       resp.map( resp => {
           const { importeDebe, importeHaber } = resp
