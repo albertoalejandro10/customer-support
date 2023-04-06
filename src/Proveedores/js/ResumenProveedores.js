@@ -171,8 +171,8 @@ const gridOptions = {
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
             headerName: "Saldo",
-            field: "importe",
-            tooltipField: 'importe',
+            field: "saldo",
+            tooltipField: 'saldo',
             sortable: true,
             filter: true,
             cellRenderer: function(params) {
@@ -213,7 +213,7 @@ function generatePinnedBottomData () {
 function calculatePinnedBottomData(target) {
     //console.log(target)
     //* list of columns fo aggregation
-    let columnsWithAggregation = ['importeDebe', 'importeHaber', 'importe']
+    let columnsWithAggregation = ['importeDebe', 'importeHaber']
     columnsWithAggregation.forEach(element => {
         //console.log('element', element)
         gridOptions.api.forEachNodeAfterFilter((rowNode) => {                  
@@ -225,6 +225,16 @@ function calculatePinnedBottomData(target) {
         } else {
           target[element] = '0.00'
         }
+    })
+    let columnsWithAggregationBalance = ['saldo']
+    columnsWithAggregationBalance.forEach(element => {
+        // console.log('element', element)
+        gridOptions.api.forEachNodeAfterFilter((rowNode) => {
+            if (rowNode.data[element]) {
+                target[element] = Number(rowNode.data[element].toFixed(2))
+            }
+            target[element] = rowNode.data.saldo || '0.00'
+        })
     })
     //console.log(target)
     return target
@@ -244,7 +254,14 @@ const get_supplierSummary = (tkn, data) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-      // console.log( resp )
+      console.log( resp )
+      let saldo = 0
+      resp.map( resp => {
+          const { importeDebe, importeHaber } = resp
+          saldo += importeDebe - importeHaber
+          resp.saldo = saldo
+          return resp
+      })
       // Clear Filtros
       gridOptions.api.setFilterModel(null)
       // Clear Grilla

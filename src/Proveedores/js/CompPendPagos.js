@@ -88,7 +88,7 @@ const gridOptions = {
         },
         {
             flex: 1,
-            minWidth: 100,
+            minWidth: 140,
             field: "nombre",
             tooltipField: 'nombre',
             sortable: true,
@@ -102,7 +102,7 @@ const gridOptions = {
         },
         { 
             flex: 1,
-            minWidth: 120,
+            minWidth: 180,
             field: "observacion",
             tooltipField: 'observacion',
             headerName: "Observaciones",

@@ -32,7 +32,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 100,
+            width: 110,
             headerName: 'CUIT',
             field: "cuit",
             tooltipField: 'cuit',
@@ -73,7 +73,7 @@ const gridOptions = {
             }
         },
         {
-            width: 130,
+            width: 140,
             headerName: "Saldo Final",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',

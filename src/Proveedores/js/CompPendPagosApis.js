@@ -164,7 +164,7 @@ const get_accountsPayableBalance = tkn => {
 const tkn = getParameter('tkn')
 let name = getParameter('nombre')
 const codigoProveedor = getParameter('codProveedor')
-const unidadNegocioId = getParameter('unidadNegocioId')
+const unidadNegocioId = getParameter('unidadNegocio')
 const estadoURL = getParameter('estado')
 
 if ( tkn ) {
