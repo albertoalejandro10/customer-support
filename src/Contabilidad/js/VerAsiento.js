@@ -143,9 +143,9 @@ const printLine = ({cuenta, nombre, detalle, importe, debe}) => {
     const row_data_3 = document.createElement('td')
     row_data_3.textContent = detalle
     const row_data_4 = document.createElement('td')
-    row_data_4.textContent = debe === 0 ? format_number(importe) : ''
+    row_data_4.textContent = debe === 1 ? format_number(importe) : ''
     const row_data_5 = document.createElement('td')
-    row_data_5.textContent = debe === 1 ? format_number(importe) : ''
+    row_data_5.textContent = debe === 0 ? format_number(importe) : ''
     row.appendChild(row_data_1)
     row.appendChild(row_data_2)
     row.appendChild(row_data_3)
@@ -157,11 +157,11 @@ const printLine = ({cuenta, nombre, detalle, importe, debe}) => {
 // * Print total check
 const printTotal = lineas => {
     // console.log(lineas)
-    const importeTotalDebe = lineas.filter(linea => linea.debe === 0)
+    const importeTotalDebe = lineas.filter(linea => linea.debe === 1)
                                    .map(x => x.importe)
                                    .reduce((a, b) => a + b, 0)
 
-    const importeTotalHaber = lineas.filter(linea => linea.debe === 1)
+    const importeTotalHaber = lineas.filter(linea => linea.debe === 0)
                                     .map(x => x.importe )
                                     .reduce((a, b) => a + b, 0)
                           

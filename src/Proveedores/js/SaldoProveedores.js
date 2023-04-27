@@ -187,7 +187,7 @@ $form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const unidadNegocio = Number(formData.get('business'))
+    const unidadNegocioId = Number(formData.get('business'))
     const fechaDesde = formData.get('periodStart').split('-').reverse().join('/')
     const fechaHasta = formData.get('periodEnd').split('-').reverse().join('/')
     const estado = formData.get('status')
@@ -195,7 +195,7 @@ $form.addEventListener('submit', event => {
     const data = {
         fechaDesde,
         fechaHasta,
-        unidadNegocio,
+        unidadNegocioId,
         estado
     }
     window.top.SCP = data

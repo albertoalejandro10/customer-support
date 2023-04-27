@@ -45,7 +45,6 @@ const post_getDiaryBook = (tkn, data) => {
         addAssets(debeAsset, haberAsset)
 
         document.getElementById('btn_print').disabled = false
-        document.getElementById('btn_print_1024').disabled = false
         document.getElementById('api-error').classList.add('d-none')
         document.getElementById('not-movements').classList.add('d-none')
         removeLoader()
@@ -54,7 +53,6 @@ const post_getDiaryBook = (tkn, data) => {
         // console.log( err )
         document.getElementById('api-error').classList.remove('d-none')
         document.getElementById('btn_print').disabled = true
-        document.getElementById('btn_print_1024').disabled = true
         Array.from(loader).forEach(element => {
             // console.log(element.tagName)
             element.classList.remove('d-none')
@@ -76,19 +74,23 @@ const createsTableBodies = count => {
 }
 
 const addData = (count, element) => {
-    const {asiento, linkAsiento, fecha, linea} = element
-    addSeats(count, asiento, linkAsiento, fecha)
+    const {id, asiento, linkAsiento, fecha, linea} = element
+    addSeats(count, id, asiento, linkAsiento, fecha)
     for (const e of linea) {
         // console.log(`Cuenta (${count}): `,e)
         addInfo(count, e)
     }
 }
 
-const addSeats = (count, asiento, linkAsiento, fecha) => {
+const addSeats = (count, id, asiento, linkAsiento, fecha) => {
     const row = document.createElement('tr')
     const row_data_1 = document.createElement('td')
     row_data_1.classList.add('first-td')
-    row_data_1.innerHTML = `<a href='${format_token(linkAsiento)}' target="_blank" rel="noopener noreferrer">${asiento.trim()}</a>`
+    if (Number(id)) {
+        row_data_1.innerHTML = '<a href="" onclick="window.open(\'' + format_token(linkAsiento) + '\', \'newwindow\', \'width=1200,height=800\');return false;" target="_blank">'+ asiento +'</a>'
+    } else {
+        row_data_1.textContent = asiento
+    }
     const row_data_2 = document.createElement('td')
     row_data_2.classList.add('first-td')
     row_data_2.textContent = fecha
@@ -189,13 +191,12 @@ $form.addEventListener('submit', event => {
         fechaHasta,
         agrupaMes
     }
-    // console.log( JSON.stringify(data) )
+    // console.log(data)
     post_getDiaryBook( tkn, data )
 })
 
 // Boton Imprimir
 document.getElementById("btn_print").onclick = () => redirectPrint()
-document.getElementById("btn_print_1024").onclick = () => redirectPrint()
 const redirectPrint = () => {
     const unidadNegocioId = Number(document.getElementById('business').value)
     const fechaDesde = (document.getElementById('periodStart').value).split('-').reverse().join('/')

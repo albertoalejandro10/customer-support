@@ -30,7 +30,7 @@ const gridOptions = {
 
     columnDefs: [
         {
-            width: 112,
+            width: 120,
             headerName: "Fecha Asiento",
             field: "fechaC",
             tooltipField: 'fechaC',
