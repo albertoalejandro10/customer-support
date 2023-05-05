@@ -73,7 +73,7 @@ const gridOptions = {
             }
         },
         {
-            width: 140,
+            width: 150,
             headerName: "Saldo Final",
             headerClass: "ag-right-aligned-header",
             cellClass: 'cell-vertical-align-text-right',
@@ -148,11 +148,11 @@ const get_accountsPayableBalance = (tkn, data) => {
     .then( accounts => accounts.json() )
     .then( accounts => {
         // console.log(accounts)
-        const { unidadNegocio, estado } = data
+        const { unidadNegocioId, estado } = data
         accounts.map( account => {
             account.pendiente = Number(account.pendiente)
             account.total = Number(account.total)
-            account.unidadNegocioId = unidadNegocio
+            account.unidadNegocioId = unidadNegocioId
             account.estado = estado
         })
 
@@ -199,7 +199,7 @@ $form.addEventListener('submit', event => {
         estado
     }
     window.top.SCP = data
-    // console.table( data )
+    // console.log( window.top.SCP )
     get_accountsPayableBalance( tkn, data )
 })
 
@@ -207,9 +207,9 @@ $form.addEventListener('submit', event => {
 const existsSCP = async () => {
     const scp = new Promise(() => {
         setTimeout(() => {
-            const { estado, fechaDesde, fechaHasta, unidadNegocio } = window.top.SCP
-            // console.log(estado, fechaDesde, fechaHasta, unidadNegocio)
-            document.getElementById('business').value = unidadNegocio
+            const { estado, fechaDesde, fechaHasta, unidadNegocioId } = window.top.SCP
+            // console.log(estado, fechaDesde, fechaHasta, unidadNegocioId)
+            document.getElementById('business').value = unidadNegocioId
             document.getElementById('periodStart').value = fechaDesde.split('/').reverse().join('-')
             document.getElementById('periodEnd').value = fechaHasta.split('/').reverse().join('-')
             document.getElementById('status-payable').value = estado

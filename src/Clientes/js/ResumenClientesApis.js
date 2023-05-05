@@ -1,5 +1,5 @@
 import { getParameter } from "../../jsgen/Helper"
-import { get_coins, get_startMonth, get_branchOffices, get_debtCollector } from "../../jsgen/Apis-Helper"
+import { get_coins, get_startMonth, get_branchOffices } from "../../jsgen/Apis-Helper"
 
 const get_customers = tkn => {
     //get config para el combo de clientes
@@ -166,6 +166,40 @@ const get_status = tkn => {
     })
 }
 
+// Listado de Cobrador
+const get_debtCollector = tkn => {
+    const url_getDebtCollector = process.env.Solu_externo + '/listados/get_cobradores'
+    fetch( url_getDebtCollector, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${tkn}`
+        }
+    })
+    .then( resp => resp.json() )
+    .then( resp => {
+        const debtCollector = resp
+        for (const element of debtCollector) {
+            const { id, nombre } = element  
+            // console.log( id, nombre ) 
+            
+            const select = document.querySelector('#debt-collector')
+            let option = document.createElement("option")
+            option.setAttribute("data-tokens", nombre)
+            option.value = id
+            option.textContent = nombre
+            
+            select.appendChild( option )
+            if ( cobrador ) {
+                select.value = cobrador
+            }
+        }
+    })
+    .catch( err => {
+        console.log( err )
+    })
+}
+
 // Ejecutar
 const tkn = getParameter('tkn')
 let name = getParameter('nombre')
@@ -173,6 +207,7 @@ const clientCode = getParameter('codigoCliente')
 const cuit = getParameter('cuit')
 const unidadNegocio = getParameter('unidadNegocio')
 const estadoURL = getParameter('estado')
+const cobrador = getParameter('cobrador')
 
 if ( tkn ) {
     // Informacion del periodo desde-hasta

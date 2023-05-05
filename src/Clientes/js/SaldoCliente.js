@@ -54,7 +54,7 @@ const gridOptions = {
                     if (params.value == 'Saldo Inicial')
                         return params.value
                     else
-                        return `<a href='${process.env.VarURL}/Clientes/ResumenClientes.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoCliente=${(params.data.codigoCliente).trim()}&cuit=${(params.data.cuit).trim()}&unidadNegocio=${params.data.unidadNegocio}&estado=${params.data.estado}&tkn=${getParameter('tkn')}' target="_self"> ${params.value} </a>`
+                        return `<a href='${process.env.VarURL}/Clientes/ResumenClientes.html?nombre=${(params.data.nombre).trim().replaceAll(' ', '+')}&codigoCliente=${(params.data.codigoCliente).trim()}&cuit=${(params.data.cuit).trim()}&unidadNegocio=${params.data.unidadNegocio}&estado=${params.data.estado}&cobrador=${params.data.cobrador}&tkn=${getParameter('tkn')}' target="_self"> ${params.value} </a>`
             }
         },
         {
@@ -265,10 +265,11 @@ const get_AccountsBalance = (tkn, data) => {
     .then( resp => resp.json() )
     .then( ({ linea }) => {
         // console.log(linea)
-        const { unidadNegocio, estado } = data
+        const { unidadNegocio, estado, cobrador } = data
         linea.map(element => {            
             element.unidadNegocio = unidadNegocio
             element.estado = estado
+            element.cobrador = cobrador
         })
         
         // Clear Filtros
