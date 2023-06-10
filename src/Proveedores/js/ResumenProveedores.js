@@ -332,7 +332,7 @@ const APIRequest = async () => {
                 const fechaHasta = new Date().toLocaleDateString('en-GB')
             
                 const info = {
-                  unidadNegocioId,
+                  unidadNegocioId: Number(unidadNegocioId),
                   fechaDesde: fechaDesde.fecha,
                   fechaHasta,
                   cuentaEstado: estado,

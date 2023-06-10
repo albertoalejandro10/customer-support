@@ -91,12 +91,12 @@ const devOrProductionListProducts = () => {
   })  
 }
 
-const pathnameProducts_Develop = '/serviciosclientes/servicioclientesedit.html'
-const pathnameProducts_Production = '/serviciosclientes/servicioclientesedit'
-if ( pathname === pathnameProducts_Develop ) {
+//const pathnameProducts_Develop = '/serviciosclientes/servicioclientesedit.html'
+//const pathnameProducts_Production = '/serviciosclientes/servicioclientesedit'
+//if ( pathname === pathnameProducts_Develop ) {
   devOrProductionListProducts()
-}
+//}
 
-if ( pathname === pathnameProducts_Production ) {
-  devOrProductionListProducts()
-}
+//if ( pathname === pathnameProducts_Production ) {
+//  devOrProductionListProducts()
+//}
