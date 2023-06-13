@@ -1,5 +1,4 @@
 import { getParameter } from "../../jsgen/Helper"
-// import { get_startMonth } from "../../jsgen/Apis-Helper"
 
 // Listado envios
 const get_customerTypes = tkn => {

@@ -7,6 +7,10 @@
 }
 @import "../../scss/main";
 
+.col-4 .d-flex {
+    align-items: center;
+}
+
 label {
     margin-bottom: 0px;
     margin-right: 4px;

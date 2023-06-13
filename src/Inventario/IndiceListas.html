@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./IndiceListas.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container-fluid">
+        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Archivo de Índices</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/ListasIndli.asp " target="_self">[Versión anterior]</a>
+            </div>
+            <div class="col-12 d-flex justify-content-end align-items-end">
+              <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+              <button id="form" type="button" class="btn btn-success"><i class="fa-solid fa-circle-arrow-right"></i>Formulario</button>
+            </div>
+          </div>
+          <!-- Form - Middle -->
+          <div class="row p-2 mt-2 rounded form-middle text-secondary">
+            <div class="col-12">
+              <div class="container-fluid">
+                <h6 class="mt-1 font-weight-bolder">Índices</h6>
+                <div id="loader" class="loadingx d-none"></div>
+                <!-- <p id="not-movements" class="text-danger text-center font-weight-bold d-none mb-0">No hay movimientos</p> -->
+                <div class="mt-1 row">
+                  <div class="col-sm">
+                    <table id="full-table" class="table-borderless rounded text-secondary">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Índice</th>
+                          <th>Editar/Insertar/Eliminar</th>
+                        </tr>
+                      </thead>
+                      <tbody id="full-tbody">
+                        <!-- Body table -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/IndiceListas.js"></script>
+  <script src="../jsgen/footer-form.js"></script>  
+</html>
