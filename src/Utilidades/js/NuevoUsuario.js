@@ -1,5 +1,5 @@
-import { capitalize } from "lodash";
-import { getParameter } from "../../jsgen/Helper";
+import { capitalize } from "lodash"
+import { getParameter } from "../../jsgen/Helper"
 
 const get_activeCompanies = tkn => {
   const url_getActiveCompanies = 'https://apisdesa.solucioneserp.net/Soluciones/utilidades/empresas/activas'
@@ -12,10 +12,8 @@ const get_activeCompanies = tkn => {
   })
   .then( companies => companies.json())
   .then( ({empresasActivas: companies}) => {
-    // console.log(companies[0].cdbase)
     get_usersGroup(companies[0].cdbase)
     for (const {cdbase: nameCompany} of companies) {
-      // console.log(nameCompany)
       const select = document.querySelector('#activeCompanies')
       let option = document.createElement("option")
       option.setAttribute("data-tokens", nameCompany)
@@ -52,9 +50,16 @@ const get_usersGroup = target => {
   })
   .then(usersGroup => usersGroup.json())
   .then(({grupoUsuarios: usersGroup}) => {
+    const select = document.querySelector('#usersGroup')
+    while ( select.options.length > 0 ) {
+      select.removeChild(select.options[0])
+    }
+    if ( !usersGroup ) {
+      alert('Esta empresa no tiene grupo de usuarios, no puedes ingresar un nuevo usuario.')
+      return
+    }
     for (const userGroup of usersGroup) {
       const {id, nombre} = userGroup
-      const select = document.querySelector('#usersGroup')
       let option = document.createElement("option")
       option.setAttribute("data-tokens", nombre)
       option.value = id
@@ -65,7 +70,7 @@ const get_usersGroup = target => {
   .catch(error => console.error(error))
 }
 
-// Method post - grabar servicioid
+// Method post - grabar nuevoUsuario
 const $form = document.querySelector('#form')
 $form.addEventListener('submit', event => {
   event.preventDefault()

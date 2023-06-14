@@ -7,52 +7,48 @@
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   </head>
   <body>
-    <div class="wrapper">
-      <div class="container-fluid">
-        <div class="mt-2 pt-1 pr-5 pl-5 rounded col-12">
-          <form id="form">
-            <!-- Form - Top -->
-            <div class="row p-2 mb-2 rounded form-top">
-              <div class="col-12 d-flex justify-content-between">
-                <h4 class="mb-0">Nuevo usuario</h4>
-                <button id="addNewUser" type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp; Grabar</button>
-              </div>
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="big-box">
+        <form id="form">
+          <!-- Form - Top -->
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-12 d-flex justify-content-between">
+              <h4 class="mb-0">Nuevo usuario</h4>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp; Grabar</button>
+            </div>
+          </div>
+          <!-- Form - Middle higher -->
+          <div class="row p-2 mt-2 rounded align-items-center form-middle">
+            <div class="col-lg-5 col-xl-3">
+              <label for="activeCompanies" class="text-nowrap">Empresa activa:</label>
+            </div>
+            
+            <div class="col-lg-7 col-xl-9">
+              <select name="activeCompanies" id="activeCompanies" class="form-control"></select>
+            </div>
+          </div>
+          <!-- Form - Middle lower -->
+          <div class="row p-2 mt-2 rounded align-items-center form-middle">
+            <!-- Grupo de usuarios -->
+            <div class="col-lg-5 col-xl-3 mb-1">
+              <label for="usersGroup" class="text-nowrap">Grupo de usuarios:</label>
             </div>
 
-            <!-- Form - Middle higher -->
-            <div class="row p-2 mt-2 rounded align-items-center form-middle">
-              <div class="col-4 col-lg-3 col-xl-2">
-                <label for="activeCompanies">Empresa activa:</label>
-              </div>
-              
-              <div class="col-8 col-lg-9 col-xl-10">
-                <select name="activeCompanies" id="activeCompanies" class="form-control"></select>
-              </div>
+            <div class="col-lg-7 col-xl-9 mb-1">
+              <select id="usersGroup" name="usersGroup" class="form-control" required></select>
+            </div>
+            <!-- Nombre del nuevo usuario -->
+            <div class="col-lg-5 col-xl-3">
+              <label for="userName" class="text-nowrap">Nombre del nuevo usuario:</label>
             </div>
 
-            <!-- Form - Middle lower -->
-            <div class="row p-2 mt-2 rounded align-items-center form-middle">
-              <!-- Grupo de usuarios -->
-              <div class="col-4 col-lg-3 col-xl-2 mb-1">
-                <label for="usersGroup">Grupo de usuarios:</label>
-              </div>
-
-              <div class="col-8 col-lg-9 col-xl-10 mb-1">
-                <select id="usersGroup" name="usersGroup" class="form-control" required></select>
-              </div>
-              <!-- Nombre del nuevo usuario -->
-              <div class="col-4 col-lg-3 col-xl-2">
-                <label for="userName">Nombre del nuevo usuario:</label>
-              </div>
-
-              <div class="col-8 col-lg-9 col-xl-10">
-                <input type="text" id="userName" name="userName" class="form-control" required>
-              </div>
+            <div class="col-lg-7 col-xl-9">
+              <input type="text" id="userName" name="userName" class="form-control" required>
             </div>
-          </form>
-          <!-- Footer form -->
-          <div id="form-lower" class="row p-2 mt-2 rounded form-bottom"></div>
-        </div>
+          </div>
+        </form>
+        <!-- Footer form -->
+        <div id="form-lower" class="row p-2 mt-2 rounded form-bottom"></div>
       </div>
     </div>
   </body>

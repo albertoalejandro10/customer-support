@@ -15,3 +15,13 @@ label {
 .btn {
     width: 100px;
 }
+
+.container {
+    min-height: 100vh;
+}
+
+.big-box {
+    width: 64%;
+    padding: $spacer * .25 $spacer * 3 0 $spacer * 3;
+    border-radius: $spacer * .25;
+}
