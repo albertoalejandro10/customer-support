@@ -66,7 +66,7 @@ input[type="checkbox"] {
   }
   &:last-child {
     width: 20%;
-    text-align: center;
+    text-align: right;
   }
 }
 
@@ -82,4 +82,10 @@ input[type="checkbox"] {
 
 #full-table tr:hover {
   background-color: #E8F4FE;
+}
+
+.table-button {
+  min-width: 4ch;
+  padding: 0.25em 0.75em;
+  margin-left: 4px;
 }

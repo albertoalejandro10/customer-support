@@ -55,7 +55,7 @@ const get_usersGroup = target => {
       select.removeChild(select.options[0])
     }
     if ( !usersGroup ) {
-      alert('Esta empresa no tiene grupo de usuarios, no puedes ingresar un nuevo usuario.')
+      alert('Esta empresa no tiene grupo de usuarios, no podras ingresar un nuevo usuario.')
       return
     }
     for (const userGroup of usersGroup) {
