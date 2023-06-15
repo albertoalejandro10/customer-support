@@ -15,7 +15,7 @@ const printIndexesOnTable = (id, nombre, index) => {
     type: 'button',
     id,
     name: nombre.trim(),
-    innerHTML: '<i class="fa-solid fa-plus mx-0 mx-0"></i>',
+    innerHTML: '<i class="fa-solid fa-plus mx-0"></i>',
     className: 'btn btn-primary table-button'
   })
   buttonInsert.setAttribute('option', insertOption)
@@ -26,7 +26,7 @@ const printIndexesOnTable = (id, nombre, index) => {
     type: 'button',
     id,
     name: nombre.trim(),
-    innerHTML: '<i class="fa-solid fa-pen-to-square mx-0 mx-0"></i>',
+    innerHTML: '<i class="fa-solid fa-pen-to-square mx-0"></i>',
     className: 'btn btn-success table-button'
   })
   buttonEdit.setAttribute('index', index)
@@ -54,6 +54,32 @@ const printIndexesOnTable = (id, nombre, index) => {
   document.getElementById('full-tbody').appendChild(row)
 }
 
+const get_indexes = tkn => {
+  fetch(process.env.NewSolu_externo + '/inventario/formularios/get_indices', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    }
+  })
+  .then(indexes => indexes.json())
+  .then(({indices: indexes}) => {
+    // console.log(indexes)
+    // Eliminar elementos de la tabla
+    const tableHeaderRowCount = 1
+    const table = document.getElementById('full-table')
+    while (table.rows.length > tableHeaderRowCount) {
+      table.deleteRow(tableHeaderRowCount)
+    }
+    
+    for (const {id, nombre: name, indice: index} of indexes) {
+      printIndexesOnTable(id, name, index)
+    }
+    get_tableButtons()
+  })
+  .catch( error => console.log(error))
+}
+
 // Declare a global variable to store the fetched data
 let fetchedData;
 
@@ -65,7 +91,7 @@ let fetchedData;
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${tkn}`
     }
-  });
+  })
   const data = await response.json();
   fetchedData = data;
 
@@ -73,37 +99,10 @@ let fetchedData;
   console.log(fetchedData);
 })();
 
-// const get_indexes = tkn => {
-//   fetch(process.env.NewSolu_externo + '/inventario/formularios/get_indices', {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${tkn}`
-//     }
-//   })
-//   .then(indexes => indexes.json())
-//   .then(({indices: indexes}) => {
-//     // console.log(indexes)
-//     // Eliminar elementos de la tabla
-//     const tableHeaderRowCount = 1
-//     const table = document.getElementById('full-table')
-//     const rowCount = table.rows.length
-//     for (let i = tableHeaderRowCount; i < rowCount; i++) {
-//       table.deleteRow(tableHeaderRowCount)
-//     }
-    
-//     for (const {id, nombre: name, indice: index} of indexes) {
-//       printIndexesOnTable(id, name, index)
-//     }
-//     get_tableButtons()
-//   })
-//   .catch( error => console.log(error))
-// }
-
 const tkn = getParameter('tkn')
-// if ( tkn ) {
-//   get_indexes( tkn )
-// }
+if ( tkn ) {
+  get_indexes( tkn )
+}
 
 // Boton actualizar
 document.getElementById('update').addEventListener('click', (event) => {
