@@ -63,6 +63,7 @@ async function fetchData() {
 }
 
 const firstCallToApi = () => {
+  document.getElementById('loader').classList.remove('d-none')
   fetchData().then((fetchedData) => {
     const {indices: indexes} = fetchedData
     const tableHeaderRowCount = 1
@@ -75,6 +76,7 @@ const firstCallToApi = () => {
       printIndexesOnTable(id, name, index)
     }
     get_tableButtons()
+    document.getElementById('loader').classList.add('d-none')
   })
 }
 
