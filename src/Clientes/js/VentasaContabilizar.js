@@ -45,15 +45,15 @@ const post_getPendingSales = (data, tkn) => {
             printElementTables(element)
             const { debe, neto, iva, noGravado, total } = element
             if ( debe ) {
-                arrCredits[0].neto += neto
-                arrCredits[1].iva += iva
-                arrCredits[2].noGravado += noGravado
-                arrCredits[3].total += total
-            } else {
                 arrDebits[0].neto += neto
                 arrDebits[1].iva += iva
                 arrDebits[2].noGravado += noGravado
                 arrDebits[3].total += total
+            } else {
+                arrCredits[0].neto += neto
+                arrCredits[1].iva += iva
+                arrCredits[2].noGravado += noGravado
+                arrCredits[3].total += total
             }
         }
         printElementInfoTables(arrDebits, arrCredits)
@@ -179,7 +179,7 @@ document.getElementById("update").addEventListener("click", () => {
 
 // *Ejecutar boton cargar
 document.getElementById("record").addEventListener("click", () => {
-    location.href = process.env.Solu_externo_ar + '/net/webform/compvta.aspx'
+    location.href = 'https://www.solucioneserp.com.ar/gestionw/ventasfo.asp'
 })
 
 // *Boton contabilizar
