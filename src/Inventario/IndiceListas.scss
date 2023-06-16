@@ -7,7 +7,7 @@
 }
 @import "../../scss/main";
 
-.col-4 .d-flex {
+.col-3 .d-flex {
   align-items: center;
 }
 
@@ -88,4 +88,8 @@ input[type="checkbox"] {
   min-width: 4ch;
   padding: 0.25em 0.75em;
   margin-left: 4px;
+}
+
+.btn-warning:hover {
+  color: white;
 }
