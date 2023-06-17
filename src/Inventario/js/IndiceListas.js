@@ -1,21 +1,5 @@
 import { getParameter } from "../../jsgen/Helper"
 
-const editOption = 1
-const deleteOption = 2
-const createEditButton = (id, nombre, index) => {
-  const buttonEdit = Object.assign(document.createElement('button'), {
-    title: 'Editar índice',
-    type: 'button',
-    id: `edit-${id}`,
-    name: nombre.trim(),
-    innerHTML: '<i class="fa-solid fa-pen-to-square mx-0"></i>',
-    className: 'btn btn-warning table-button'
-  })
-  buttonEdit.setAttribute('option', editOption)
-  buttonEdit.setAttribute('index', index)
-  return buttonEdit
-}
-
 const createDeleteButton = (id, nombre, index) => {
   const buttonDelete = Object.assign(document.createElement('button'), {
     title: 'Eliminar índice',
@@ -25,23 +9,24 @@ const createDeleteButton = (id, nombre, index) => {
     innerHTML: '<i class="fa-solid fa-minus mx-0"></i>',
     className: 'btn btn-danger table-button'
   })
-  buttonDelete.setAttribute('option', deleteOption)
   buttonDelete.setAttribute('index', index)
   return buttonDelete
 }
 
+// Imprimir indices en la tabla
 const printIndexesOnTable = (id, nombre, index) => {
   const row = document.createElement('tr')
+  row.id = id
   const row_data_1 = document.createElement('td')
   row_data_1.textContent = nombre
+  row_data_1.setAttribute('contenteditable', 'true')
   const row_data_2 = document.createElement('td')
   row_data_2.innerHTML = index
+  row_data_2.setAttribute('contenteditable', 'true')
 
-  const buttonEdit = createEditButton(id, nombre, index)
   const buttonDelete = createDeleteButton(id, nombre, index)
   
   const row_data_3 = document.createElement('td')
-  row_data_3.appendChild(buttonEdit)
   row_data_3.appendChild(buttonDelete)
   
   row.appendChild(row_data_1)
@@ -62,12 +47,12 @@ async function fetchData() {
   return data
 }
 
+const table = document.getElementById('full-table')
 const firstCallToApi = () => {
   document.getElementById('loader').classList.remove('d-none')
   fetchData().then((fetchedData) => {
     const {indices: indexes} = fetchedData
     const tableHeaderRowCount = 1
-    const table = document.getElementById('full-table')
     while (table.rows.length > tableHeaderRowCount) {
       table.deleteRow(tableHeaderRowCount)
     }
@@ -75,7 +60,8 @@ const firstCallToApi = () => {
     for (const {id, nombre: name, indice: index} of indexes) {
       printIndexesOnTable(id, name, index)
     }
-    get_tableButtons()
+    get_deleteButton()
+    editIndex()
     document.getElementById('loader').classList.add('d-none')
   })
 }
@@ -93,21 +79,18 @@ document.getElementById('update').addEventListener('click', event => {
   })
 })
 
-const get_tableButtons = () => {
+const get_deleteButton = () => {
   const buttons = document.querySelectorAll('#full-table button')
   for (const button of buttons) {
     button.addEventListener("click", event => {
       event.preventDefault()
-      if ( confirm('¿Estás seguro de que quieres hacer esto?') ) {
+      const name = event.currentTarget.getAttribute('name')
+      const index = event.currentTarget.getAttribute('index')
+      if ( confirm(`Seguro deseas eliminar el índice: ${name} - ${index} ?`) ) {
         let id = event.currentTarget.getAttribute('id')
         id = id.split('-')
         id = Number(id[id.length - 1])
-        if ( Number(event.currentTarget.getAttribute('option')) === editOption) {
-          editIndex(id)
-        }
-        if ( Number(event.currentTarget.getAttribute('option')) === deleteOption) {
-          deleteIndex(id)
-        }
+        deleteIndex(id)
       } else {
         return
       }
@@ -115,67 +98,191 @@ const get_tableButtons = () => {
   }
 }
 
-const form = document.getElementById('form')
-form.addEventListener('submit', event => {
+// Añadir indice
+document.getElementById('addIndex').addEventListener('click', () => {
+  const newRow = table.insertRow(-1)
+  const firstCell = newRow.insertCell(0)
+  const secondCell = newRow.insertCell(1)
+  const thirdCell = newRow.insertCell(2)
+
+  // Crea los elementos input y el botón
+  const name = document.createElement('input')
+  name.type = 'text'
+  name.id = 'getName'
+  name.classList.add('form-control')
+  const index = document.createElement('input')
+  index.type = 'text'
+  index.pattern = '[0-9.,]+'
+  index.id = 'getIndex'
+  index.classList.add('form-control')
+  const saveIndexButton = document.createElement('button')
+  saveIndexButton.id = 'saveIndexButton'
+  saveIndexButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i>Guardar'
+  saveIndexButton.classList.add('btn')
+  saveIndexButton.classList.add('btn-success')
+
+  // Agrega los elementos a las celdas
+  firstCell.appendChild(name)
+  secondCell.appendChild(index)
+  thirdCell.appendChild(saveIndexButton)
+  document.getElementById('getIndex').addEventListener('keypress', event => {
+    formatIndex(event)
+  })
+  saveIndex()
+})
+
+// Permitir numeros, comas y puntos.
+const formatIndex = event => {
+  const key = event.key
+  if (!key.match(/^[0-9.,]+$/)) {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const name = formData.get('name')
-    const index = Number(formData.get('index'))
+  }
+}
+
+const isValidName = name => {
+  // Comprueba si el valor es nulo, tiene una longitud de 0 o solo contiene espacios en blanco
+  if (name == null || name.length === 0 || /^\s+$/.test(name)) {
+    alert('[ERROR] Porfavor, el campo nombre no puede estar vacío.')
+    return false
+  }
+  return true
+}
+
+const isValidIndex = index => {
+  // Comprueba que el indice no este vacio y solo contenga numeros, punto o coma.
+  if (!index || !index.match(/^(\d+(?:[.,]\d{1,})?)$/)) {
+    alert('[ERROR] Por favor, el campo índice no puede estar vacío y solo puede contener números, un punto o una coma.')
+    return false
+  }
+  return true
+}
+
+// Validación y llamada a postApi.
+const saveIndex = () => {
+  document.getElementById('saveIndexButton').addEventListener('click', () => {
+    const name = document.getElementById('getName').value
+    let isValid = isValidName(name)
+    if ( isValid === false ) { return }
+    const index = document.getElementById('getIndex').value
+    isValid = isValidIndex(index)
+    if ( isValid === false ) { return }
+
     const data = {
       id: 0,
       nombre: name,
-      indice: index
+      indice: parseFloat(index.replace(',', '.'))
     }
     fetchData().then((fetchedData) => {
-      const {indices: indexes} = fetchedData
+      const { indices: indexes } = fetchedData
       indexes.push(data)
       const newJson = {
         indices: indexes
       }
+      // console.log(newJson)
       postApi(newJson, tkn)
     })
-})
-
-const editIndex = id => {
-  const button = document.getElementById(`edit-${id}`)
-  const row = button.parentNode.parentNode
-  const newRow = row.cloneNode(true)
-  newRow.classList.add('bg-light')
-  // Modifica la fila clonada
-  newRow.cells[0].innerHTML = '<input type="text" class="form-control" value="' + row.cells[0].innerHTML + '">'
-  newRow.cells[1].innerHTML = '<input type="number" class="form-control" value="' + row.cells[1].innerHTML + '">'
-
-  // Inserta la fila clonada debajo de la fila original
-  row.parentNode.insertBefore(newRow, row.nextSibling)
-
-  // Agrega un botón de guardar cambios
-  newRow.cells[2].innerHTML = '<button class="btn btn-success" id="saveEditChanges"><i class="fa-solid fa-floppy-disk"></i>Guardar</button>'
-
-  document.getElementById('saveEditChanges').addEventListener('click', event => {
-    saveEditChanges(id, event.target)
   })
 }
 
-const saveEditChanges = (id, button) => {
-  const row = button.parentNode.parentNode // Obtiene la fila en la que se encuentra el botón
-  fetchData().then((fetchedData) => {
-    const { indices: indexes } = fetchedData
-    const index = indexes.findIndex(obj => {
-      return obj.id === id
-    })
+const editIndex = () => {
+  // Obtén todas las row de la tabla
+  const rows = document.getElementsByTagName('tr')
+  let originalValue = ''
+  let editingCell = null
 
-    if (index !== -1) {
-      indexes[index].nombre = row.cells[0].querySelector('input').value
-      indexes[index].indice = Number(row.cells[1].querySelector('input').value)
+  function enableEditing(event) {
+    const row = event.target.parentElement
+    const cells = row.getElementsByTagName('td')
+
+    for ( const [index, cell] of Array.from(cells).entries()) {
+      // Verifica si la celda no es la ultima en la fila
+      if ( index !== cells.length - 1 ) {
+        cell.contentEditable = 'true'
+      }
     }
-    const newJson = {
-      indices: indexes
+  }
+
+  function saveOriginalValue(event) {
+    originalValue = event.target.textContent
+    editingCell = event.target
+  }
+
+  function restoreOriginalValue() {
+    if (editingCell) {
+      editingCell.textContent = originalValue
+      editingCell.contentEditable = 'false'
+      editingCell = null
     }
-    postApi(newJson, tkn)
-  })
-  // Elimina la fila clonada
-  row.parentNode.removeChild(row)
+  }
+
+  function handleClickOutside(event) {
+    if (!event.target.closest('table')) {
+      restoreOriginalValue()
+    }
+  }
+
+  // Función para manejar el evento de presionar la tecla Enter
+  function sendData(event) {
+    const cell = event.target
+    
+    // Verificar si se presionó la tecla Enter
+    if (event.key === 'Enter') {
+      // Cancelar el comportamiento predeterminado (agregar una nueva línea)
+      event.preventDefault()
+      
+      // Enviar los datos modificados a la API
+      const row = cell.parentElement
+      const modifiedData = Array.from(row.getElementsByTagName('td')).map(td => td.textContent)
+      const [nombre, indice] = modifiedData
+      let isValid = isValidName(nombre)
+      if ( isValid === false ) { return }
+      isValid = isValidIndex(indice)
+      if ( isValid === false ) { return }
+
+
+      fetchData().then((fetchedData) => {
+        const { indices: indexes } = fetchedData
+        const index = indexes.findIndex(obj => {
+          return obj.id === Number(row.id)
+        })
+    
+        if (index !== -1) {
+          indexes[index].nombre = nombre
+          indexes[index].indice = parseFloat(indice.replace(',', '.'))
+        }
+        const newJson = {
+          indices: indexes
+        }
+        // console.log(newJson)
+        postApi(newJson, tkn)
+      })
+      
+      cell.contentEditable = 'false'
+      editingCell = null
+    }
+  }
+
+  for (let row of rows) {
+    row.addEventListener('dblclick', enableEditing)
+    
+    const cells = row.getElementsByTagName('td')
+    for (const [index, cell] of Array.from(cells).entries()) {
+      // Verifica si la celda no es la ultima en la fila
+      if ( index !== cells.length -1 ) {
+        cell.addEventListener('keydown', sendData)
+        cell.addEventListener('focus', saveOriginalValue)
+      }
+      // Agregar el controlador de eventos de formatIndex a la segunda celda de cada fila
+      if ( index === 1 ) {
+        cell.addEventListener('keypress', event => {
+          formatIndex(event)
+        })
+      }
+    }
+  }
+  document.addEventListener('mousedown', handleClickOutside)
 }
+
 
 const deleteIndex = id => {
   fetchData().then((fetchedData) => {

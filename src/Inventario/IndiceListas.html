@@ -10,44 +10,26 @@
     <div class="wrapper">
       <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
         <!-- Form - Higher -->
-        <form id="form">
-          <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-6 mb-2">
-              <h4 class="mb-0">Archivo de Índices</h4>
-            </div>
-            <div class="col-6 mb-2 text-right">
-              <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/ListasIndli.asp " target="_self">[Versión anterior]</a>
-            </div>
-  
-            <div class="col-3 col-lg-3">
-              <div class="d-flex">
-                <label for="name">Nombre:</label>
-                <input type="text" name="name" id="name" class="form-control">
-              </div>
-            </div>
-            <div class="col-3 col-lg-3">
-              <div class="d-flex">
-                <label for="index">Índice:</label>
-                <input type="number" name="index" id="index" class="form-control">
-              </div>
-            </div>
-            <div class="col-3 col-lg-2">
-              <div class="d-flex">
-                <button id="form" type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i>Añadir índice</button>
-              </div>
-            </div>
-  
-            <div class="col-3 col-lg-4 d-flex justify-content-end align-items-end">
-              <button id="update" type="submit" class="btn btn-primary ml-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
-            </div>
+        <div class="row p-2 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Archivo de Índices</h4>
           </div>
-        </form>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/ListasIndli.asp " target="_self">[Versión anterior]</a>
+          </div>
+
+          <div class="col-12 d-flex justify-content-end align-items-end">
+            <button id="update" type="submit" class="btn btn-primary ml-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+          </div>
+        </div>
         <!-- Form - Middle -->
         <div class="row p-2 mt-2 rounded form-middle text-secondary">
           <div class="col-12">
-            <h6 class="mt-1 font-weight-bolder">Índices</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="mb-0 font-weight-bolder">Índices</h6>
+              <button id="addIndex" type="submit" class="btn btn-success"><i class="fa-solid fa-plus"></i>Añadir índice</button>
+            </div>
             <div id="loader" class="loadingx d-none"></div>
-            <!-- <p id="not-movements" class="text-danger text-center font-weight-bold d-none mb-0">No hay movimientos</p> -->
             <div class="mt-1 row">
               <div class="col-sm">
                 <table id="full-table" class="table-borderless rounded text-secondary">
