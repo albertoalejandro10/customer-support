@@ -1,4 +1,18 @@
-import { getParameter, format_number } from "../../jsgen/Helper"
+const getParameter = parameterName => {
+    const parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
+
+const format_number = importeNeto => {
+    const  style = {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        useGrouping: true
+    }
+    const formatter = new Intl.NumberFormat("de-DE", style)
+    const importe = formatter.format(importeNeto)
+    return importe
+}
 
 // *Conseguir ventas por contabilizar
 const post_getPendingSales = (data, tkn) => {

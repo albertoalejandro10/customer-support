@@ -1,8 +1,12 @@
 import { capitalize } from "lodash"
-import { getParameter } from "../../jsgen/Helper"
+
+const getParameter = parameterName => {
+  const parameters = new URLSearchParams( window.location.search )
+  return parameters.get( parameterName )
+}
 
 const get_activeCompanies = tkn => {
-  const url_getActiveCompanies = 'https://apisdesa.solucioneserp.net/Soluciones/utilidades/empresas/activas'
+  const url_getActiveCompanies = process.env.Solu_externo + '/utilidades/empresas/activas'
   fetch( url_getActiveCompanies, {
     method: 'GET',
     headers: {
@@ -40,7 +44,7 @@ const get_usersGroup = target => {
   const data = {
     'cdbase': target
   }
-  fetch(`https://apisdesa.solucioneserp.net/Soluciones/utilidades/grupousuarios`, {
+  fetch(process.env.Solu_externo + `/utilidades/grupousuarios`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -85,7 +89,7 @@ $form.addEventListener('submit', event => {
     cdbase
   }
   // console.table( data )
-  fetch( process.env.NewSolu_externo + '/utilidades/usuario/agregar' , {
+  fetch( process.env.Solu_externo + '/utilidades/usuario/agregar' , {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

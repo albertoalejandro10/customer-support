@@ -1,4 +1,7 @@
-import { getParameter } from "../../jsgen/Helper"
+const getParameter = parameterName => {
+  const parameters = new URLSearchParams( window.location.search )
+  return parameters.get( parameterName )
+}
 
 const createDeleteButton = (id, nombre, index) => {
   const buttonDelete = Object.assign(document.createElement('button'), {
@@ -36,7 +39,7 @@ const printIndexesOnTable = (id, nombre, index) => {
 }
 
 async function fetchData() {
-  const response = await fetch(process.env.NewSolu_externo + '/inventario/formularios/get_indices', {
+  const response = await fetch(process.env.Solu_externo + '/inventario/formularios/get_indices', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -297,7 +300,7 @@ const deleteIndex = id => {
 
 const postApi = async(data, tkn) => {
   try {
-    const response = await fetch(process.env.NewSolu_externo + '/inventario/formularios/guardar', {
+    const response = await fetch(process.env.Solu_externo + '/inventario/formularios/guardar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
