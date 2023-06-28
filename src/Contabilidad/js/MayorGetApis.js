@@ -1,65 +1,49 @@
 import { getParameter } from "../../jsgen/Helper"
 import { get_businessUnits, get_coins, get_startMonth, get_costCenter } from "../../jsgen/Apis-Helper"
 
-const get_AccountPlan = tkn => {
-    // Variable cantidad de caracteres
-    let cant_character_to_search = 3
-    let combo_configs = {
+const get_accountsPlan = tkn => {
+    const combo_configs = {
+        allowClear: true,
+        minimumInputLength: 3,
         language: {
-            noResults: function() {    
-                return "No hay resultado"
-            },
-            searching: function() {
-                return "Buscando.."
-            },
-            inputTooShort: function() {
-                return "Ingrese 3 caracteres o mas para buscar"
-            }
+            noResults: () => "No hay resultado",
+            searching: () => "Buscando..",
+            inputTooShort: () => "Ingrese 3 caracteres o más para buscar"
         },
         placeholder: 'Buscar cuenta',
         ajax: {
             delay: 500,
-            url: 'https://www.solucioneserp.net/listados/get_plan_cuenta',
+            url: process.env.Solu_externo + '/listados/get_plan_cuenta',
             headers: {'Authorization' : 'Bearer ' + tkn},
             type: 'POST',
-            dataType:'json',
+            dataType: 'json',
             body: JSON.stringify({
                 "tipo": 1,
                 "alfa": 1,
                 "todos": 1
             }),
-            data: function (params) {
-                if (params.term == null){
-                    return JSON.stringify('{filtro:""}')
-                } else {
-                    return {filtro: params.term}
-                }
+            data: (params) => ({ search: params.term || '', type: 'public' }),
+            processResults: (accounts, params) => {
+                const searchTerm = params.term && params.term.toLowerCase()
+                const results = accounts.map(({ codigo, nombre }) => ({
+                    id: codigo,
+                    text: nombre
+                })).filter(result => searchTerm ? result.text.toLowerCase().includes(searchTerm) : true)
+                results.unshift({ id: 'TODAS_ID', text: 'TODAS' })
+                return {results}
             },
-            processResults: function (accounts) {
-                console.log(accounts)
-                const arr_t = []
-                for ( const account of accounts ) {
-                    // Desestructuracion del objeto account
-                    const { codigo, nombre } = account
-                    arr_t.push({ id: codigo, text: nombre + ' - ' + codigo})
+            templateResult: (result) => {
+                if (result.id === 'TODAS_ID') {
+                    return $('<span style="font-weight:bold;">TODAS</span>')
                 }
-                return {
-                    //data.items
-                    results: arr_t
-                }
+                return result.text
             }
         }
     }
 
-    if ( cant_character_to_search > 0 ) {  
-        combo_configs.minimumInputLength = cant_character_to_search
-    }
-
     $("#account").select2(combo_configs)
-
-    $("#account").on('select2:open', function (e) {
-        $(".select2-search__field")[0].focus()
-    })
+        .on('select2:open', () => $(".select2-search__field")[0].focus())
+        .on("select2-clearing", () => { $(this).val(null).trigger("change") })
 }
 
 // Ejecutar
@@ -74,5 +58,5 @@ if ( tkn ) {
     // Analisis de cuenta
     get_costCenter( tkn )
     // Listado de cuentas
-    get_AccountPlan(tkn)
+    get_accountsPlan(tkn)
 }

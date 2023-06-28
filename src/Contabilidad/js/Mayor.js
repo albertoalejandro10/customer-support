@@ -279,7 +279,7 @@ $form.addEventListener('submit', event => {
     const analisisCuentaId = Number(formData.get('cost-center'))
     const monedaId = Number(formData.get('coin'))
     const nroRef = Number(formData.get('ref-number')) === 0 ? '' : Number(formData.get('ref-number'))
-    const cuentaCod = formData.get('account')
+    const cuentaCod = formData.get('account') === 'TODAS_ID' ? '' : formData.get('account')
 
     const data = {
         unidadNegocioId,
@@ -291,7 +291,7 @@ $form.addEventListener('submit', event => {
         nroRef,
         monedaId
     }
-    // console.table( data )
+    console.log( data )
     const tkn = getParameter('tkn')
     get_mayorAccount( tkn, data )
 })

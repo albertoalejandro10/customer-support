@@ -8,7 +8,7 @@ const get_suppliers = tkn => {
         language: {
             noResults: () => "No hay resultado",
             searching: () => "Buscando..",
-            inputTooShort: () => "Ingrese 3 caracteres o mas para buscar"
+            inputTooShort: () => "Ingrese 3 caracteres o más para buscar"
         },
         placeholder: 'Buscar proveedor',
         ajax: {

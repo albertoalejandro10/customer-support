@@ -238,8 +238,7 @@ const calculateDifferenceBetweenCreditAndDebit = () => {
 
 // Boton para grabar
 const post_recordButton = (tkn, data) => {
-    console.log(data);
-    const url_recordButton = process.env.NewSolu_externo + '/proveedores/formularios/asignacion_comprobantes/actualizar'
+    const url_recordButton = process.env.Solu_externo + '/proveedores/formularios/asignacion_comprobantes/actualizar'
     fetch( url_recordButton , {
         method: 'POST',
         body: JSON.stringify(data),
