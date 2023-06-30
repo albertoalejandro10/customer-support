@@ -8,111 +8,109 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="container-fluid">
-        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
-          <!-- Form - Higher -->
-          <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-6 mb-2">
-              <h4 class="mb-0">Ventas pendientes de contabilizar</h4>
-            </div>
-            <div class="col-6 mb-2 text-right">
-              <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/compvtas.asp" target="_self">[Versión anterior]</a>
-            </div>
-            
-            <div class="col-12">
-              <form id="form">
-                <div class="row">
-                  
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="business">U. de Negocio:</label>
-                      <select class="form-control" name="business" id="business">
-                        <!-- Options Unit Business -->
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="seat-date">Fecha Asiento:</label>
-                      <input class="form-control" type="date" name="seat-date" id="seat-date" required>
-                    </div>
-                  </div>
-
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="seat-type">Tipo Asiento:</label>
-                      <select class="form-control" name="seat-type" id="seat-type">
-                    </div>
-                  </div>
-  
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label for="detail">Detalle:</label>
-                      <input class="form-control" type="text" name="detail" id="detail">
-                    </div>
-  
-                    <div class="d-flex justify-content-end">
-                      <button id="assess" type="submit" class="btn btn-info text-white"><i class="fa-solid fa-clipboard"></i> Contabilizar</button>
-                      <button id="update" type="button" class="btn btn-primary text-white mx-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                      <button id="record" type="button" class="btn btn-success text-white"><i class="fa-solid fa-check"></i> Cargar</button>
-                    </div>
-                  </div>
-                </div>
-                <p id="not-codClient" class="text-danger text-center font-weight-bold d-none my-0">No tenemos codigo de cliente</p>
-              </form>
-            </div>
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row p-2 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Ventas pendientes de contabilizar</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/compvtas.asp" target="_self">[Versión anterior]</a>
           </div>
           
-          <!-- Form - Middle -->
-          <div class="row p-2 mt-2 rounded form-middle text-secondary">
-            <div class="col">
-              <div class="container-fluid">
-                <div id="loader" class="loadingx"></div>
-                <p id="not-sales" class="text-danger text-center font-weight-bold d-none">No hay ventas pendientes para contabilizar</p>
-                <div class="row mb-2">
-                  <div class="col-sm">
-                    <table id="sales-table" class="table-borderless rounded text-secondary">
-                      <thead>
-                        <tr>
-                          <th>&nbsp;</th>
-                          <th>Fecha</th>
-                          <th>Comprobante</th>
-                          <th>Proveedor</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody id="sales-tbody">
-                        <!-- Body table -->
-                      </tbody>
-                    </table>
+          <div class="col-12">
+            <form id="form">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="business">U. de Negocio:</label>
+                    <select class="form-control" name="business" id="business">
+                      <!-- Options Unit Business -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="seat-date">Fecha Asiento:</label>
+                    <input class="form-control" type="date" name="seat-date" id="seat-date" required>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="seat-type">Tipo Asiento:</label>
+                    <select class="form-control" name="seat-type" id="seat-type">
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="d-flex mb-1">
+                    <label for="detail">Detalle:</label>
+                    <input class="form-control" type="text" name="detail" id="detail">
                   </div>
                 </div>
                 
-                <div class="row">
-                  <div class="col-sm">
-                    <table id="info-table" class="table-borderless rounded text-secondary">
-                      <thead>
-                        <tr>
-                          <th>&nbsp;</th>
-                          <th>Neto</th>
-                          <th>IVA</th>
-                          <th>No Gravado</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody id="info-tbody">
-                        <!-- body table -->
-                      </tbody>
-                    </table>
+                <div class="col-12">
+                  <div class="d-flex justify-content-end">
+                    <button id="assess" type="submit" class="btn btn-info text-white"><i class="fa-solid fa-clipboard"></i> Contabilizar</button>
+                    <button id="update" type="button" class="btn btn-primary text-white mx-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                    <button id="record" type="button" class="btn btn-success text-white"><i class="fa-solid fa-check"></i> Cargar</button>
                   </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <div class="container-fluid">
+              <div id="loader" class="loadingx"></div>
+              <p id="not-sales" class="text-danger text-center font-weight-bold d-none">No hay ventas pendientes para contabilizar</p>
+              <div class="row mb-2">
+                <div class="col-sm">
+                  <table id="sales-table" class="table-borderless rounded text-secondary">
+                    <thead>
+                      <tr>
+                        <th>&nbsp;</th>
+                        <th>Fecha</th>
+                        <th>Comprobante</th>
+                        <th>Proveedor</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="sales-tbody">
+                      <!-- Body table -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-sm">
+                  <table id="info-table" class="table-borderless rounded text-secondary">
+                    <thead>
+                      <tr>
+                        <th>&nbsp;</th>
+                        <th>Neto</th>
+                        <th>IVA</th>
+                        <th>No Gravado</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="info-tbody">
+                      <!-- body table -->
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-          <!-- Form - Lower -->
-          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
-          </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
         </div>
       </div>
     </div>

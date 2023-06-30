@@ -1,5 +1,9 @@
-import { getParameter } from "../../jsgen/Helper"
 import { get_startPeriod } from "../../jsgen/Apis-Helper"
+
+const getParameter = parameterName => {
+    const parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
 
 const get_suppliers = tkn => {
     const combo_configs = {

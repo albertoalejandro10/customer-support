@@ -1,5 +1,9 @@
-import { getParameter } from "../../jsgen/Helper"
 import { get_businessUnitsWithoutAll, get_seatTypeWithoutAll } from "../../jsgen/Apis-Helper"
+
+const getParameter = parameterName => {
+    const parameters = new URLSearchParams( window.location.search )
+    return parameters.get( parameterName )
+}
 
 // Ejecutar
 const tkn = getParameter('tkn')

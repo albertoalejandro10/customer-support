@@ -2,6 +2,11 @@ import { getParameter } from "../../jsgen/Helper"
 import { get_businessUnits, get_coins, get_startMonth, get_costCenter } from "../../jsgen/Apis-Helper"
 
 const get_accountsPlan = tkn => {
+    const data = {
+        "tipo": 1,
+        "alfa": 1,
+        "todos": 1
+    }
     const combo_configs = {
         allowClear: true,
         minimumInputLength: 3,
@@ -17,22 +22,27 @@ const get_accountsPlan = tkn => {
             headers: {'Authorization' : 'Bearer ' + tkn},
             type: 'POST',
             dataType: 'json',
-            body: JSON.stringify({
-                "tipo": 1,
-                "alfa": 1,
-                "todos": 1
-            }),
-            data: (params) => ({ search: params.term || '', type: 'public' }),
+            body: JSON.stringify(data),
+            data: params => ({ search: params.term || ''}),
             processResults: (accounts, params) => {
                 const searchTerm = params.term && params.term.toLowerCase()
-                const results = accounts.map(({ codigo, nombre }) => ({
+                let results = accounts.map(({ codigo, nombre }) => ({
                     id: codigo,
                     text: nombre
                 })).filter(result => searchTerm ? result.text.toLowerCase().includes(searchTerm) : true)
+            
+                // Si no hay resultados, devolver todo el array
+                if (results.length === 0) {
+                    results = accounts.map(({ codigo, nombre }) => ({
+                        id: codigo,
+                        text: nombre
+                    }))
+                }
+            
                 results.unshift({ id: 'TODAS_ID', text: 'TODAS' })
                 return {results}
             },
-            templateResult: (result) => {
+            templateResult: result => {
                 if (result.id === 'TODAS_ID') {
                     return $('<span style="font-weight:bold;">TODAS</span>')
                 }

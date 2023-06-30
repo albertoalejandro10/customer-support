@@ -46,30 +46,17 @@ export const restarImporteTotal = importe => {
     return importeTotal
 }
 
-// Formatear Numero 1,000.00
-export const format_number = importeNeto => {
-    const  style = {
+export const format_number = importeNeto => 
+    new Intl.NumberFormat("de-DE", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
         useGrouping: true
-    }
-    const formatter = new Intl.NumberFormat("de-DE", style)
-    const importe = formatter.format(importeNeto)
-    return importe
-}
+    }).format(importeNeto)
 
 export const format_token = all_link => {
-    // console.log( 'Enlace sin formatear:', all_link )
-    if ( all_link === undefined ) return ''
-    if ( all_link.includes('&tkn=tokenext') ) {
-        // console.log('Yes, we have it')
-        const token = getParameter('tkn')
-        const new_link = all_link.replace('tokenext', token)
-        // console.log( 'Enlace formateado:', new_link )
-        return new_link
-    } else {
-        return all_link
-    }
+    return all_link && all_link.includes('&tkn=tokenext') 
+        ? all_link.replace('tokenext', getParameter('tkn')) 
+        : all_link || '';
 }
 
 // Formatear numero 1,000.00 to 1000,00

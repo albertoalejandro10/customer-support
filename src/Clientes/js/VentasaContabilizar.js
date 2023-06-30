@@ -3,24 +3,20 @@ const getParameter = parameterName => {
     return parameters.get( parameterName )
 }
 
-const format_number = importeNeto => {
-    const  style = {
+const format_number = importeNeto => 
+    new Intl.NumberFormat("de-DE", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
         useGrouping: true
-    }
-    const formatter = new Intl.NumberFormat("de-DE", style)
-    const importe = formatter.format(importeNeto)
-    return importe
-}
+    }).format(importeNeto)
 
 // *Conseguir ventas por contabilizar
-const post_getPendingSales = (data, tkn) => {
+const post_getPendingSales = tkn => {
     document.getElementById('loader').classList.remove('d-none')
     const url_getPendingSales = process.env.Solu_externo + '/formularios/clientes/get_ventas_pendientes_contabilizar'
     fetch( url_getPendingSales , {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify({}),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${tkn}`
@@ -28,22 +24,10 @@ const post_getPendingSales = (data, tkn) => {
     })
     .then( resp => resp.json() )
     .then( resp => {
-        // Eliminar tablas previas
-        const tableHeaderRowCount = 1
-        const table = document.getElementById('sales-table')
-        const rowCount = table.rows.length
-        for (let i = tableHeaderRowCount; i < rowCount; i++) {
-            table.deleteRow(tableHeaderRowCount)
-        }
+        clearTable('sales-table')
+        clearTable('info-table')
 
-        const tableHeaderRowCountInfo = 1
-        const tableInfo = document.getElementById('info-table')
-        const rowCountInfo = tableInfo.rows.length
-        for (let i = tableHeaderRowCountInfo; i < rowCountInfo; i++) {
-            tableInfo.deleteRow(tableHeaderRowCountInfo)
-        }
-
-        if ( ! resp.length ) {
+        if ( !resp.length ) {
             document.getElementById('not-sales').classList.remove('d-none')
             return
         }
@@ -74,10 +58,22 @@ const post_getPendingSales = (data, tkn) => {
         document.getElementById('loader').classList.add('d-none')
     })
     .catch( err => {
-        console.log( err )
-        document.getElementById('loader').classList.add('d-none')
-        document.getElementById('not-sales').classList.remove('d-none')
+        handleError( err )
     })
+}
+
+const handleError = err => {
+    console.log( err )
+    document.getElementById('loader').classList.add('d-none')
+    document.getElementById('not-sales').classList.remove('d-none')
+}
+
+const clearTable = tableId => {
+    let table = document.getElementById(tableId)
+    let rowCount = table.rows.length
+    while (--rowCount) {
+        table.deleteRow(rowCount)
+    }
 }
 
 // *Imprimir datos en la primera tabla
@@ -99,7 +95,7 @@ const printElementTables = ({id, fecha, comprobante, nombre, total}) => {
 
     const row_data_5 = document.createElement('td')
     row_data_5.id = `tr-${id}`
-    row_data_5.textContent = `${format_number(total)}`
+    row_data_5.textContent = format_number(total)
     
     row.appendChild(row_data_1)
     row.appendChild(row_data_2)
@@ -156,12 +152,9 @@ const printElementInfoTables = ( arrDebits, arrCredits ) => {
     document.getElementById('info-table').appendChild(rowCredits)
 }
 
-const codCliente = getParameter('codCliente')
 const tkn = getParameter('tkn')
-if ( codCliente && tkn ) {
-    post_getPendingSales({codCliente}, tkn)
-} else {
-    document.getElementById('not-codClient').classList.remove('d-none')
+if ( tkn ) {
+    post_getPendingSales( tkn )
 }
 
 // *Boton para grabar
@@ -176,10 +169,10 @@ const post_recordedAssess = (tkn, data) => {
         }
     })
     .then( resp => resp.json() )
-    .then( ({ resultado, mensaje}) => {
+    .then(({ resultado, mensaje}) => {
         // console.log(resultado, mensaje)
-        alert(`${resultado} - ${mensaje}`)
-        post_getPendingSales({codCliente}, tkn)
+        alert(`Resultado: ${resultado} \nMensaje: ${mensaje}`)
+        post_getPendingSales(tkn)
     })
     .catch( err => {
         console.log( err )
@@ -188,7 +181,7 @@ const post_recordedAssess = (tkn, data) => {
 
 // *Ejecutar boton actualizar
 document.getElementById("update").addEventListener("click", () => {
-    post_getPendingSales({codCliente}, tkn)
+    post_getPendingSales(tkn)
 })
 
 // *Ejecutar boton cargar

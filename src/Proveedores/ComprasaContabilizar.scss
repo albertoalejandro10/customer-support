@@ -72,6 +72,17 @@ table td input[type="checkbox"] {
     }
 }
 
+@media screen and (max-width: 1260px) {
+    #purchases-table th {
+        &:nth-child(4) {
+            width: 20%;
+        }
+        &:nth-child(5) {
+            width: 40%;
+        }
+    }
+}
+
 #info-table th {
     font-size: 12px;
     padding: 0.5rem 0.375rem;
