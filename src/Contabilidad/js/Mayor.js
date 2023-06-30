@@ -267,8 +267,8 @@ const calculateBottomRows = () => {
 }
 
 // Boton actualizar
-const $form = document.getElementById('form')
-$form.addEventListener('submit', event => {
+const form = document.getElementById('form')
+form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
@@ -291,7 +291,7 @@ $form.addEventListener('submit', event => {
         nroRef,
         monedaId
     }
-    console.log( data )
+    // console.log( data )
     const tkn = getParameter('tkn')
     get_mayorAccount( tkn, data )
 })
