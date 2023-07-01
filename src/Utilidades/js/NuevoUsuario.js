@@ -75,8 +75,8 @@ const get_usersGroup = target => {
 }
 
 // Method post - grabar nuevoUsuario
-const $form = document.querySelector('#form')
-$form.addEventListener('submit', event => {
+const form = document.querySelector('#form')
+form.addEventListener('submit', event => {
   event.preventDefault()
   const formData = new FormData(event.currentTarget)
   const usuario_name = formData.get('userName').toLocaleLowerCase()

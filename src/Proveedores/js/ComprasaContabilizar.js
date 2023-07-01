@@ -196,8 +196,8 @@ document.getElementById("record").addEventListener("click", () => {
 })
 
 // *Boton contabilizar
-const $form = document.getElementById('form')
-$form.addEventListener('submit', event => {
+const form = document.getElementById('form')
+form.addEventListener('submit', event => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
