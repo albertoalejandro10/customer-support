@@ -44,10 +44,7 @@ const notices = tkn => {
     })
 }
 
-const printTable = aviso => {
-  // Desestructuracion del objeto element
-  const {id, nombre} = aviso
-  
+const printTable = ({id, nombre}) => {
   // Imprimir datos en la tabla
   const row = document.createElement('tr')
 

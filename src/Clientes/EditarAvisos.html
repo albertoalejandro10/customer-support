@@ -13,12 +13,11 @@
           <form id="form">
             <!-- Form - Top -->
             <div class="row p-2 mb-2 rounded form-top">
-              <div class="col-6">
-                <h4 class="mb-0">Edición avisos</h4>
+              <div class="col-6 d-flex">
+                <button class="previous-site btn text-secondary p-0 position-relative" id="backToList" onclick="history.back()"><i class="fa-solid fa-arrow-left position-absolute return"></i></button> <h4 class="mb-0">Edición avisos</h4>
               </div>
               <div class="col-6 text-right">
                 <button id="save" type="submit" class="btn btn-primary text-white"><i class="fas fa-save"></i> Grabar</button>
-                <button id="backtolist" type="button" class="btn btn-success text-white"><i class="fas fa-list-alt"></i> Lista</button>
                 <button id="delete" type="button" class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> Eliminar</button>
               </div>
             </div>
@@ -124,6 +123,7 @@
                         </div>
                         <div class="h-50 my-auto">
                           <span class="text-nowrap text"><u id="available-variable">Variables disponibles</u></span><br>
+                          #Codigo# <br>
                           #Saldo# <br>
                           #Nombre# <br>
                           #CUIT# <br>
@@ -143,7 +143,9 @@
                   </div>
                   <div class="col-10 col-xl-11">
                     <select class="form-control" name="attach" id="attach">
-                      <!-- Options attach -->
+                      <option value="N">Ninguno</option>
+                      <option value="F">Factura</option>
+                      <option value="C">Cupón</option>
                     </select>
                   </div>
 

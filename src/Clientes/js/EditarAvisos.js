@@ -132,7 +132,7 @@ let id = getParameter('id')
 const tkn = getParameter('tkn')
 if (!id) document.getElementById('delete').disabled = true
 
-const notices = (id, tkn) => {
+const notices = (avisoId, tkn) => {
     const url_getNotices = process.env.Solu_externo + '/maestros/clientes/get_avisoId'
     fetch( url_getNotices , {
         method: 'POST',
@@ -141,12 +141,12 @@ const notices = (id, tkn) => {
             'Authorization': `Bearer ${tkn}`
         },
         body: JSON.stringify({
-            "avisoId": id
+            avisoId,
         })
     })
     .then( notices => notices.json() )
     .then( ({avisoDatos, resultado}) => {
-        const { aviso, titulo, mensaje, tipoEnvioId, condicionId, valor, grupoClienteId, tipoClienteId } = avisoDatos
+        const { aviso, titulo, mensaje, tipoEnvioId, condicionId, valor, grupoClienteId, tipoClienteId, adjunto } = avisoDatos
         if ( resultado === 'ok' ) {
             const name = document.getElementById('name')
             name.value = aviso
@@ -157,10 +157,12 @@ const notices = (id, tkn) => {
             document.getElementById('value-x').value = valor
             document.getElementById('customer-group').value = grupoClienteId
             document.getElementById('customer-types').value = tipoClienteId
+            document.getElementById('attach').value = adjunto
             editor.setData(mensaje)
         }
     })
 }
+
 if ( id ) {
     notices(id, tkn)
 }
@@ -192,7 +194,7 @@ deleteNotice.onclick = () => {
     })
 }
 
-const backToList = document.getElementById('backtolist')
+const backToList = document.getElementById('backToList')
 backToList.onclick = () => {
     location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
 }
@@ -210,6 +212,7 @@ $form.addEventListener('submit', event => {
     const tipoClienteId = Number(formData.get('customer-types'))
     const condicionId = Number(formData.get('condition'))
     const valor = Number(formData.get('value-x'))
+    const adjunto = formData.get('attach')
     const mensaje = editor.getData()
 
     if ( ! id ) id = 0
@@ -223,7 +226,8 @@ $form.addEventListener('submit', event => {
             grupoClienteId,
             tipoClienteId,
             condicionId,
-            valor
+            valor,
+            adjunto
         },
         accion: "ADD"
     }

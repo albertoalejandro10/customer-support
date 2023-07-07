@@ -14,12 +14,28 @@
 label {
     margin-bottom: 0px;
     margin-right: 4px;
-    &[for="value-x"] {
-        margin-right: 32px;
-    }
     &[for="condition"] {
         margin-right: 25px;
     }
+    &[for="attachment"] {
+        margin-right: 38px;
+    }
+    &[for="customer"] {
+        margin-right: 10px;
+    }
+    &[for="value-x"] {
+        margin-right: 38px;
+    }
+    &[for="customer-type"] {
+        margin-right: 10px;
+    }
+    &[for="liquidation-number"] {
+        margin-right: 18px;
+    }
+    &[for="seat-number"] {
+        margin-right: 44px;
+    }
+
 }
 
 table {
