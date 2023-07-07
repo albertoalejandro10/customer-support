@@ -196,7 +196,9 @@ deleteNotice.onclick = () => {
 
 const backToList = document.getElementById('backToList')
 backToList.onclick = () => {
-    location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
+    if (confirm("Selecciona una opción!\n Perderas los cambios realizados hasta ahora.") === true) {
+        location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
+    }
 }
 
 // Grabar aviso
