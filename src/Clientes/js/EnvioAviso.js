@@ -229,3 +229,12 @@ const sendNotice = data => {
     alert(`${resultado} - ${mensaje}`)
   })
 }
+
+const ids = ['liquidation-number', 'receipt-number', 'seat-number'];
+ids.forEach(id => {
+  document.getElementById(id).onkeydown = event => {
+    if (event.key === '-') {
+      event.preventDefault()
+    }
+  }
+})
