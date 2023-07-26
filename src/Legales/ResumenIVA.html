@@ -22,101 +22,95 @@
   <body>
     <form id="form">
       <div class="wrapper">
-        <div class="container-fluid">
-          <div class="container px-5 rounded col-12">
-            <!-- Form - Higher -->
-            <div class="row px-2 py-1 mb-1 rounded form-top">
-              <div class="col-6 mb-1">
-                <h4 class="mb-0">Resumen libro IVA</h4>
-              </div>
-              <div class="col-6 mb-1 text-right">
-                <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ResLibIVA.aspx" target="_self">[Versión anterior]</a>
-              </div>
-
-              <div class="col-12">
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="business">U. de Negocio:</label>
-                      <select id="business" name="business" class="form-control">
-                        <!-- Deposito -->
-                      </select>
-                    </div>
-
-                    <div class="d-flex">
-                      <label class="text-nowrap" for="sale-point">Punto de Venta:</label>
-                      <input class="form-control" type="text" name="sale-point" id="sale-point" placeholder="0000" minlength="4" maxlength="4" />
-                      <label class="text-nowrap" for="activity-iva">IVA por actividad:</label>
-                      <input type="checkbox" name="activity-iva" id="activity-iva">
-                    </div>
-                  </div>
-
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label for="periodStart">Periodo:</label>
-                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
-                    </div>
-                    <div class="d-flex">
-                      <label for="provinces">Provincia:</label>
-                      <select id="provinces" name="provinces" class="form-control">
-                        <!-- Provincia -->
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="col-sm d-none d-xl-block">
-                    <div class="d-none d-flex mb-1">
-                      <label for="subsidiary">Sucursal:</label>
-                      <select id="subsidiary" name="subsidiary" class="form-control">
-                        <!-- Sucursal -->
-                      </select>
-                    </div>
-                    
-                  </div>
-  
-                  <div class="col-sm d-xl-flex align-items-xl-end justify-content-xl-end">
-                    <!-- <div class="d-flex mb-1">
-                      <label for="origins">Origen:</label>
-                      <select id="origins" name="origins" class="form-control">
-                      </select>
-                    </div> -->
-                    <div class="d-flex d-xl-none mb-1">
-                      <label for="subsidiary-minor">Sucursal:</label>
-                      <select id="subsidiary-minor" name="subsidiary" class="form-control">
-                        <!-- Sucursal -->
-                      </select>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+        <div class="container px-5 rounded col-12">
+          <!-- Form - Higher -->
+          <div class="row px-2 py-1 mb-1 rounded form-top">
+            <div class="col-6 mb-1">
+              <h4 class="mb-0">Resumen libro IVA</h4>
             </div>
-            
-            <!-- Form - Middle -->
-            <div class="row px-2 py-1 mt-1 rounded form-middle text-secondary">
-              <div class="col-12">
-                <h6 class="mt-1 font-weight-bolder text-center">Libro IVA - Ventas</h6>
-                <div class="container-fluid">
-                  <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
-                </div>
-              </div>
-              <div class="col-12">
-                <h6 class="mt-1 font-weight-bolder text-center">Libro IVA - Compras</h6>
-                <div class="container-fluid">
-                  <div id="myGrid-purchased" style="width:100%;" class="ag-theme-alpine"></div>
-                </div>
-              </div>
-              <div class="col-12">
-                <h6 id="total" class="mt-2 font-weight-bolder text-center"></h6>
-              </div>
+            <div class="col-6 mb-1 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ResLibIVA.aspx" target="_self">[Versión anterior]</a>
             </div>
 
-            <!-- Form - Lower -->
-            <div id="form-lower" class="row p-2 mt-1 mb-1 rounded form-bottom"></div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-sm">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="business">U. de Negocio:</label>
+                    <select id="business" name="business" class="form-control">
+                      <!-- Deposito -->
+                    </select>
+                  </div>
+
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="sale-point">Punto de Venta:</label>
+                    <input class="form-control" type="text" name="sale-point" id="sale-point" placeholder="0000" minlength="4" maxlength="4" />
+                    <label class="text-nowrap" for="activity-iva">IVA por actividad:</label>
+                    <input type="checkbox" name="activity-iva" id="activity-iva">
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <div class="d-flex mb-1">
+                    <label for="periodStart">Periodo:</label>
+                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                  </div>
+                  <div class="d-flex">
+                    <label for="provinces">Provincia:</label>
+                    <select id="provinces" name="provinces" class="form-control">
+                      <!-- Provincia -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm d-none d-xl-block">
+                  <div class="d-none d-flex mb-1">
+                    <label for="subsidiary">Sucursal:</label>
+                    <select id="subsidiary" name="subsidiary" class="form-control">
+                      <!-- Sucursal -->
+                    </select>
+                  </div>
+                  
+                </div>
+
+                <div class="col-sm d-xl-flex align-items-xl-end justify-content-xl-end">
+                  <!-- <div class="d-flex mb-1">
+                    <label for="origins">Origen:</label>
+                    <select id="origins" name="origins" class="form-control">
+                    </select>
+                  </div> -->
+                  <div class="d-flex d-xl-none mb-1">
+                    <label for="subsidiary-minor">Sucursal:</label>
+                    <select id="subsidiary-minor" name="subsidiary" class="form-control">
+                      <!-- Sucursal -->
+                    </select>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button id="update" type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
+          
+          <!-- Form - Middle -->
+          <div class="row px-2 py-1 mt-1 rounded form-middle text-secondary">
+            <div class="col-12">
+              <h6 class="mt-1 font-weight-bolder text-center">Libro IVA - Ventas</h6>
+              <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
+            </div>
+            <div class="col-12">
+              <h6 class="mt-1 font-weight-bolder text-center">Libro IVA - Compras</h6>
+              <div id="myGrid-purchased" style="width:100%;" class="ag-theme-alpine"></div>
+            </div>
+            <div class="col-12">
+              <h6 id="total" class="mt-2 font-weight-bolder text-center"></h6>
+            </div>
+          </div>
+
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-1 mb-1 rounded form-bottom"></div>
         </div>
       </div>
     </form>

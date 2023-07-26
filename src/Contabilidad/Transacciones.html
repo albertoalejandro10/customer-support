@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./Transacciones.scss">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row p-2 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Cierre de periodos por serie</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/gestionw/cierreperiodo.asp" target="_self">[Versión anterior]</a>
+          </div>
+          <div class="col-12">
+            <form id="form">
+              <div class="row align-items-center">
+                <div class="col-4">
+                  <h6 class="text-secondary" id="exercise"></h6>
+                </div>
+                <div class="col-8">
+                  <div class="d-flex justify-content-end">
+                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                    <button id="record" type="button" class="btn btn-success"><i class="fa-solid fa-check"></i>Grabar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <h6>Movimientos</h6>
+            <table id="full-table" class="table-borderless rounded text-secondary">
+              <div class="d-none loadingx" id="loader"></div>
+              <thead>
+                <tr>
+                  <th>Período</th>
+                  <th>Banco</th>
+                  <th>C.Costos</th>
+                  <th>Caja</th>
+                  <th>Cheq.Rechaz</th>
+                  <th>Cheques</th>
+                  <th>CtasxCobrar</th>
+                  <th>CtasxPagar</th>
+                  <th>Empleados</th>
+                  <th class="text-nowrap">IVA Compra</th>
+                  <th class="text-nowrap">IVA Venta</th>
+                  <th class="text-nowrap">Sin relación</th>
+                  <th>Tarjeta</th>
+                  <th>Todos</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-table">
+                <!-- content -->
+              </tbody>
+            </table>
+            <!-- <p id="not-movements" class="mt-4 text-danger font-weight-bold text-center d-none">No hay movimientos</p> -->
+          </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/Transacciones.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>

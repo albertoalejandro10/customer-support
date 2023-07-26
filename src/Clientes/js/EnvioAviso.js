@@ -230,7 +230,7 @@ const sendNotice = data => {
   })
 }
 
-const ids = ['liquidation-number', 'receipt-number', 'seat-number'];
+const ids = ['liquidation-number', 'receipt-number', 'seat-number']
 ids.forEach(id => {
   document.getElementById(id).onkeydown = event => {
     if (event.key === '-') {
