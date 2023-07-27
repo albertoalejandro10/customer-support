@@ -18,6 +18,7 @@ const get_accountPlan = tkn => {
   .then( accountsPlan => {
     // console.log(accountsPlan)
     for (const {codigo, nombre} of accountsPlan) {
+      if ( codigo === '' ) continue
       const select = document.querySelector('#result-account')
       let option = document.createElement("option")
       option.setAttribute("data-tokens", codigo)
