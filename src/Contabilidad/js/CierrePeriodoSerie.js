@@ -110,29 +110,36 @@ document.getElementById('record').addEventListener('click', event => {
     ejercicio_id,
     periodos
   }
-  // console.log(data);
+  // console.log(data)
   post_dataToApi(data)
 })
 
 const get_periodsToApi = () => {
-  const checkedCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked:not([id])'))
-  const periods = checkedCheckboxes.map(checkbox => {
+  const allCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:not([id])'))
+  const periods = allCheckboxes.map(checkbox => {
+    let cierre = 0
+    if (checkbox.checked) {
+      cierre = 1
+    }
     return {
       item: Number(checkbox.getAttribute('item')),
       configuracion: [
         {
           tabla_rel_id: Number(checkbox.getAttribute('tabla_rel_id')),
-          cierre: Number(checkbox.getAttribute('cierre'))
+          cierre
         }
       ]
     }
   })
-  const accumulateConfig = (acc, {item, configuracion}) => {
-    acc[item] = acc[item] || {item, configuracion: []}
-    acc[item].configuracion.push(...configuracion)
-    return acc
+
+  let map = new Map()
+  for (let period of periods) {
+    if (!map.has(period.item)) {
+      map.set(period.item, { item: period.item, configuracion: [] })
+    }
+    map.get(period.item).configuracion = map.get(period.item).configuracion.concat(period.configuracion)
   }
-  const uniqueArr = Object.values(periods.reduce(accumulateConfig, {}))
+  let uniqueArr = Array.from(map.values())
   return uniqueArr
 }
 
@@ -157,13 +164,13 @@ const post_dataToApi = data => {
 }
 
 const get_checkboxesWithIds = () => {
-  const checkboxesWithId = Array.from(document.querySelectorAll('input[type="checkbox"][id]'));
+  const checkboxesWithId = Array.from(document.querySelectorAll('input[type="checkbox"][id]'))
   checkboxesWithId.forEach(checkbox => {
     checkbox.addEventListener('click', event => {
       const rowItem = event.currentTarget.getAttribute('item')
       const checkboxesSameItem = Array.from(document.querySelectorAll(`input[type="checkbox"][item="${rowItem}"]:not([id])`))
       checkboxesSameItem.forEach(checkboxItem => {
-        checkboxItem.checked = event.currentTarget.checked;
+        checkboxItem.checked = event.currentTarget.checked
       })
     })
   })
