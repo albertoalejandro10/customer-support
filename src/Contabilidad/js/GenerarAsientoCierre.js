@@ -49,17 +49,8 @@ const post_generateClosure = data => {
   .then( resp => resp.json())
   .then( ({nro, descripcion}) => {
     alert(`Número: ${nro} \nDescripción: ${descripcion}`)
-    switch(nro) {
-      case -1:
-      case 4073:
-        generateButton.classList.add('d-none')
-        cancelButton.classList.remove('d-none')
-        break
-      case 1:
-        generateButton.classList.remove('d-none')
-        cancelButton.classList.add('d-none')
-        break
-    }
+    generateButton.classList.toggle('d-none', nro !== 1)
+    cancelButton.classList.toggle('d-none', nro === 1)
   })
   .catch( err => {
       console.log( err )
