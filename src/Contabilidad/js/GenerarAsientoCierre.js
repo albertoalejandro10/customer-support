@@ -40,12 +40,12 @@ if ( tkn ) {
 const post_generateClosure = data => {
   const url_postGenerateClouse = process.env.Solu_externo + '/contabilidad/asiento/generar_anular_cierre'
   fetch( url_postGenerateClouse , {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${tkn}`
-      },
-      body: JSON.stringify(data)
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    },
+    body: JSON.stringify(data)
   })
   .then( resp => resp.json())
   .then( ({nro, descripcion}) => {
@@ -61,7 +61,7 @@ const post_generateClosure = data => {
 const form = document.getElementById('form')
 const handleButtonClick = (event, generarcierre) => {
   if (!form.reportValidity()) {
-    return;
+    return
   }
   event.preventDefault()
   const formData = new FormData(form)
