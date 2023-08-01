@@ -1,5 +1,21 @@
 import { getParameter } from "../../jsgen/Helper"
 
+// const get_exerciseState = tkn => {
+//   fetch(process.env.Solu_externo + '/contabilidad/asiento/estado', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${tkn}`
+//     },
+//   })
+//   .then( state => state.json())
+//   .then( state => {
+//     console.log(state)
+    // document.getElementById('cancel-closure').classList.remove('d-none')
+    // document.getElementById('generate-closure').classList.add('d-none')
+//   })
+// }
+
 // Listado plan de cuentas
 const get_accountPlan = tkn => {
   const url_getAccountPlan = process.env.Solu_externo + '/listados/get_plan_cuenta'
@@ -35,6 +51,7 @@ const get_accountPlan = tkn => {
 const tkn = getParameter('tkn')
 if ( tkn ) {
   get_accountPlan( tkn )
+  get_exerciseState( tkn )
 }
 
 const post_generateClosure = data => {

@@ -14,42 +14,77 @@ const get_userInfo = tkn => {
   .then( user => user.json())
   .then( ({id_cliente: id_usuario, ejercicioNombre, ejercicioInicio, ejercicioCierre}) => {
     document.getElementById('exercise').innerHTML = `${ejercicioNombre} - <span>${ejercicioInicio} a ${ejercicioCierre}</span>`
-    get_tableInfo({id_usuario: 31})
+    get_data({id_usuario: 31})
   })
 }
 
 const tkn = getParameter('tkn')
 get_userInfo( tkn )
 
-const get_tableInfo = id => {
-  fetch(process.env.Solu_externo + '/contabilidad/cierreperiodo/listar_periodos', {
-    method: 'POST',
+// Extraer la configuración de las opciones de fetch
+const fetchOptions = (method, body = null) => {
+  const options = {
+    method,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${tkn}`
-    },
-    body: JSON.stringify(id),
-  })
-  .then( info => info.json())
-  .then( info => {
+    }
+  }
+  if (body) options.body = JSON.stringify(body)
+  return options
+}
+
+const get_data = async id => {
+  try {
+    const responses = await Promise.all([
+      fetch(process.env.Solu_externo + '/contabilidad/cierreperiodo/listar_periodos', fetchOptions('POST', id)),
+      fetch(process.env.Solu_externo + '/contabilidad/cierreperiodo/listar_relaciones', fetchOptions('GET'))
+    ])
+
+    const data = await Promise.all(responses.map(response => {
+      if (!response.ok) throw new Error(`API request failed with status ${response.status}`)
+      return response.json()
+    }))
+
+    const [{ejercicio_id, periodos}, {relaciones: relations}] = data
+
+    const objRelations = relations.reduce((obj, item) => {
+      obj[item.id] = item
+      return obj
+    }, {})
+
+    const result = periodos.map( item => {
+      return {
+        nombre: objRelations[item.tabla_rel_id].nombre,
+        periodo: item.periodo,
+        tabla_rel_id: objRelations[item.tabla_rel_id].id,
+        cierre: item.cierre
+      }
+    })
+
     const table = document.getElementById('full-table')
     let rowCount = table.rows.length
     while (--rowCount) {
       table.deleteRow(rowCount)
     }
-    reestructuring_object(info)
-  })
+
+    reestructuring_object(ejercicio_id, result)
+  } catch (error) {
+    // Si hay un error, lo capturamos aquí
+    console.error(error)
+  }
 }
 
-const reestructuring_object = ({ejercicio_id: exercise_id, periodos: periods}) => {
+const reestructuring_object = (exercise_id, results) => {
   ejercicio_id = exercise_id
   // console.log(ejercicio_id)
   let groupedByPeriod = {}
-  groupedByPeriod = periods.reduce((acc, curr) => {
+  groupedByPeriod = results.reduce((acc, curr) => {
     if (!acc[curr.periodo]) {
       acc[curr.periodo] = []
     }
     acc[curr.periodo].push({
+      nombre: curr.nombre,
       tabla_rel_id: curr.tabla_rel_id,
       cierre: curr.cierre
     })
@@ -60,11 +95,16 @@ const reestructuring_object = ({ejercicio_id: exercise_id, periodos: periods}) =
     periodo,
     opciones
   }))
+  finalObject.forEach(item => {
+    item.opciones.sort((a, b) => a.nombre.localeCompare(b.nombre))
+  })
+  // console.log(finalObject)
   print_tableInfo(finalObject)
 }
 
 const print_tableInfo = periods => {
   for (let [index, {periodo: period, opciones: options}] of periods.entries()) {
+
     let year = (String(period)).substring(0, 4)
     let month = (String(period)).substring(4) - 1
     const date = format_date(new Date(year, month))
@@ -135,7 +175,7 @@ const get_periodsToApi = () => {
   let map = new Map()
   for (let period of periods) {
     if (!map.has(period.item)) {
-      map.set(period.item, { item: period.item, configuracion: [] })
+      map.set(period.item, { item: period.item, configuracion: []})
     }
     map.get(period.item).configuracion = map.get(period.item).configuracion.concat(period.configuracion)
   }
