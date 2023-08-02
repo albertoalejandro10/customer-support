@@ -3,45 +3,48 @@ import { getParameter } from "../../jsgen/Helper"
 const loader = document.getElementsByClassName('loadingx')
 // Fetch para imprimir datos del servicio
 const notices = tkn => {
-    const url_getNotices = process.env.Solu_externo + '/maestros/clientes/get_avisos'
-    fetch( url_getNotices, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tkn}`
-        }
-    })
-    .then( notices => notices.json() )
-    .then( notices => {
-      const {avisos} = notices
-        // console.log( Linea )
-        if ( avisos.length === 0 ) {
-            document.getElementById('no-notices').classList.remove('d-none')
-        } else {
-            document.getElementById('no-notices').classList.add('d-none')
-        }
-        // Eliminar tablas previas
-        const tableHeaderRowCount = 1
-        const table = document.getElementById('full-table')
-        const rowCount = table.rows.length
-        for (let i = tableHeaderRowCount; i < rowCount; i++) {
-          table.deleteRow(tableHeaderRowCount)
-        }
+  loader[0].classList.remove('d-none')
+  const url_getNotices = process.env.Solu_externo + '/maestros/clientes/get_avisos'
+  fetch( url_getNotices, {
+      method: 'GET',
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tkn}`
+    }
+  })
+  .then( notices => {
+    if (notices.ok) {
+      return notices.json()
+    } else {
+      throw new Error(notices.status)
+    }
+  })
+  .then( ({avisos}) => {
+    // console.log( avisos )
+    if ( avisos.length === 0 ) {
+      document.getElementById('no-notices').classList.remove('d-none')
+    } else {
+      document.getElementById('no-notices').classList.add('d-none')
+    }
 
-        for (const aviso of avisos) {
-          printTable(aviso)
-        }
+    // Eliminar tablas previas
+    const table = document.getElementById('full-table')
+    let rowCount = table.rows.length
+    while (--rowCount) {
+      table.deleteRow(rowCount)
+    }
 
-        Array.from(loader).forEach(element => {
-          // console.log(element.tagName)
-          element.classList.add('d-none')
-        })
-    })
-    .catch( err => {
-        console.log('Error: ', err)
-        loader[0].classList.add('d-none')
-        document.getElementById('no-notices').classList.add('d-none')
-    })
+    for (const aviso of avisos) {
+      printTable(aviso)
+    }
+
+    loader[0].classList.add('d-none')
+  })
+  .catch( err => {
+    console.log('Error: ', err)
+    loader[0].classList.add('d-none')
+    document.getElementById('no-notices').classList.add('d-none')
+  })
 }
 
 const printTable = ({id, nombre}) => {
@@ -81,9 +84,14 @@ const printTable = ({id, nombre}) => {
 }
 
 const tkn = getParameter('tkn')
-notices(tkn)
+if ( tkn ) {
+  notices( tkn )
+}
 
-const newNotice = document.getElementById('newNotice')
-newNotice.onclick = () => {
-    location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EditarAvisos.html?tkn=${tkn}`
+document.getElementById('update').onclick = () => {
+  notices( tkn )
+}
+
+document.getElementById('newNotice').onclick = () => {
+  location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EditarAvisos.html?tkn=${tkn}`
 }

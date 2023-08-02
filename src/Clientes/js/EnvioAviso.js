@@ -1,3 +1,5 @@
+// Permitir Async/Await en el proyecto
+import 'regenerator-runtime/runtime'
 import { getParameter } from "../../jsgen/Helper"
 
 const backToList = document.getElementById('backToList')
