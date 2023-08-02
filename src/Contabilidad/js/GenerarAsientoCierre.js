@@ -1,5 +1,6 @@
 import { getParameter } from "../../jsgen/Helper"
 
+// Function to get exercise state
 const get_exerciseState = async tkn => {
   try {
     let response = await fetch(process.env.Solu_externo + '/contabilidad/asiento/estado', {
@@ -9,17 +10,17 @@ const get_exerciseState = async tkn => {
         'Authorization': `Bearer ${tkn}`
       },
     })
-    let state = await response.json()
-    return state.cerrado
+    let {cerrado} = await response.json()
+    return cerrado
   } catch (error) {
     console.error(error.message)
   }
 }
 
-// Listado plan de cuentas
-const get_accountPlan = async tkn => {
+// Function to get accounts plan
+const get_accountsPlan = async tkn => {
   try {
-    let response = await fetch(process.env.Solu_externo + '/listados/get_plan_cuenta', {
+    const response = await fetch(process.env.Solu_externo + '/listados/get_plan_cuenta', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,39 +28,49 @@ const get_accountPlan = async tkn => {
       },
       body: JSON.stringify({
         "tipo": 1,
-        "alfa": 1
+        "alfa": 1,
+        "todos": 1
       })
     })
-    let accountPlan = await response.json()
-    return accountPlan
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`)
+    }
+    return await response.json()
   } catch (error) {
-    console.error(error.message)
+    console.error(`Could not get accounts: ${error}`)
   }
 }
 
 const tkn = getParameter('tkn')
 if ( tkn ) {
-  Promise.all([get_exerciseState(tkn), get_accountPlan(tkn)])
-    .then(([cerrado, accountsPlan]) => {
-      if (cerrado) {
+  Promise.all([get_exerciseState(tkn), get_accountsPlan(tkn)])
+    .then(([state, accounts]) => {
+      if (state) {
         document.getElementById('cancel-closure').classList.remove('d-none')
         document.getElementById('generate-closure').classList.add('d-none')
       }
-      for (const {codigo, nombre} of accountsPlan) {
-        if (codigo === '') continue
-        const select = document.querySelector('#result-account')
-        let option = document.createElement("option")
-        option.setAttribute("data-tokens", codigo)
-        option.value = codigo
-        option.textContent = nombre
-        select.appendChild(option)
+      const data = accounts.map(({ codigo, nombre }) => ({
+        id: codigo,
+        text: nombre
+      }))
+
+      const combo_configs = {
+        allowClear: true,
+        language: {
+          noResults: () => "No se encontraron resultados",
+        },
+        placeholder: 'Buscar cuenta',
+        data,
       }
-      get_searchText()
+      $("#result-account").select2(combo_configs)
+        .on('select2:open', () => $(".select2-search__field")[0].focus())
+        .on("select2-clearing", () => { $(this).val(null).trigger("change") })
     })
-    .catch(err => {
-      console.log(err)
+    .catch(error => {
+      console.error(`Could not update account select: ${error}`)
     })
 }
+
 
 const post_generateClosure = data => {
   const url_postGenerateClouse = process.env.Solu_externo + '/contabilidad/asiento/generar_anular_cierre'
@@ -78,7 +89,7 @@ const post_generateClosure = data => {
     cancelButton.classList.toggle('d-none', nro === 1)
   })
   .catch( err => {
-      console.log( err )
+    console.log( err )
   })
 }
 
@@ -108,27 +119,27 @@ cancelButton.addEventListener('click', event => {
   handleButtonClick(event, false)
 })
 
-const get_searchText = () => {
-  // Obtén los elementos del DOM
-  const searchInput = document.getElementById('search-user')
-  const select = document.getElementById('result-account')
-  // Guarda las opciones originales del select
-  const originalOptions = Array.from(select.options)
-  // Agrega el event listener al input de búsqueda
-  searchInput.addEventListener('input', event => {
-    const searchTerm = event.currentTarget.value.toLowerCase()
-    // Filtra las opciones
-    const filteredOptions = originalOptions.filter(option => {
-      const optionText = option.text.toLowerCase()
-      return optionText.includes(searchTerm)
-    })
+// const get_searchText = () => {
+//   // Obtén los elementos del DOM
+//   const searchInput = document.getElementById('search-user')
+//   const select = document.getElementById('result-account')
+//   // Guarda las opciones originales del select
+//   const originalOptions = Array.from(select.options)
+//   // Agrega el event listener al input de búsqueda
+//   searchInput.addEventListener('input', event => {
+//     const searchTerm = event.currentTarget.value.toLowerCase()
+//     // Filtra las opciones
+//     const filteredOptions = originalOptions.filter(option => {
+//       const optionText = option.text.toLowerCase()
+//       return optionText.includes(searchTerm)
+//     })
   
-    // Limpia el select
-    select.innerHTML = ''
+//     // Limpia el select
+//     select.innerHTML = ''
   
-    // Agrega las opciones filtradas al select
-    for (const option of filteredOptions) {
-      select.appendChild(option)
-    }
-  })
-}
+//     // Agrega las opciones filtradas al select
+//     for (const option of filteredOptions) {
+//       select.appendChild(option)
+//     }
+//   })
+// }

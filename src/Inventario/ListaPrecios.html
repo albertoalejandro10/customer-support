@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="./listaprecios.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
     $(window).unbind("resize")
     $(window).resize(function () {
@@ -21,82 +19,78 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="container-fluid" style="height: 100%;">
-        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
-          <!-- Form - Higher -->
-          <form id="form">
-            <div class="row p-2 mb-2 rounded form-top">
-              <div class="col-6 mb-2">
-                <h4 class="mb-0">Lista de precios</h4>
-              </div>
-              <div class="col-6 mb-2 text-right">
-                <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/LisPrecios.aspx" target="_self">[Versión anterior]</a>
-              </div>
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <form id="form">
+          <div class="row p-2 mb-2 rounded form-top">
+            <div class="col-6 mb-2">
+              <h4 class="mb-0">Lista de precios</h4>
+            </div>
+            <div class="col-6 mb-2 text-right">
+              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/LisPrecios.aspx" target="_self">[Versión anterior]</a>
+            </div>
 
-              <div class="col-12">
-                <div class="row justify-content-between justify-content-xl-start">
-                  <div class="col-sm-2 col-xl-2">
-                    <div class="d-flex align-items-center">
-                      <label for="entry">Rubro:</label>
-                      <select class="form-control" name="entry" id="entry">
-                        <!-- Options Rubro -->
-                      </select>
-                    </div>                
-                  </div>
-  
-                  <div class="col-sm-2 col-xl-2">
-                    <div class="d-flex align-items-center">
-                      <label for="sale-line">Línea:</label>
-                      <select class="form-control" name="sale-line" id="sale-line">
-                        <!-- Options linea -->
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="col-sm-2 col-xl-2">
-                    <div class="d-flex align-items-center">
-                      <label for="list">Lista:</label>
-                      <select class="form-control" name="list" id="list">
-                        <!-- Options lista -->
-                      </select>
-                    </div>
-                  </div>
+            <div class="col-12">
+              <div class="row justify-content-between justify-content-xl-start">
+                <div class="col-sm-2 col-xl-2">
+                  <div class="d-flex align-items-center">
+                    <label for="entry">Rubro:</label>
+                    <select class="form-control" name="entry" id="entry">
+                      <!-- Options Rubro -->
+                    </select>
+                  </div>                
+                </div>
 
-                  <div class="col-sm-4 col-xl-3">
-                    <div class="d-flex align-items-center">
-                      <input type="checkbox" name="check" id="check">
-                      <label class="text-nowrap" for="to-date">Modificado desde:</label>
-                      <input class="form-control" type="date" name="to-date" id="to-date" disabled>
-                    </div>
-                  </div>
-
-                  <div class="d-none d-xl-block col-xl-3">
-                    <div class="d-flex justify-content-end">
-                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                    </div>
+                <div class="col-sm-2 col-xl-2">
+                  <div class="d-flex align-items-center">
+                    <label for="sale-line">Línea:</label>
+                    <select class="form-control" name="sale-line" id="sale-line">
+                      <!-- Options linea -->
+                    </select>
                   </div>
                 </div>
-                <div class="d-flex justify-content-end mt-2 d-xl-none">
-                  <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                  <button id="btn_export_1024" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+
+                <div class="col-sm-2 col-xl-2">
+                  <div class="d-flex align-items-center">
+                    <label for="list">Lista:</label>
+                    <select class="form-control" name="list" id="list">
+                      <!-- Options lista -->
+                    </select>
+                  </div>
                 </div>
+
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex align-items-center">
+                    <input type="checkbox" name="check" id="check">
+                    <label class="text-nowrap" for="to-date">Modificado desde:</label>
+                    <input class="form-control" type="date" name="to-date" id="to-date" disabled>
+                  </div>
+                </div>
+
+                <div class="d-none d-xl-block col-xl-3">
+                  <div class="d-flex justify-content-end">
+                    <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                    <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-2 d-xl-none">
+                <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                <button id="btn_export_1024" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
               </div>
             </div>
-            
-              <!-- Form - Middle -->
-              <div class="row p-2 mt-2 rounded form-middle text-secondary">
-              <div class="col">
-                <h6 class="mt-2 font-weight-bolder">Precios</h6>
-                <div class="container-fluid">
-                  <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
-                </div>
-              </div>
+          </div>
+          
+            <!-- Form - Middle -->
+            <div class="row p-2 mt-2 rounded form-middle text-secondary">
+            <div class="col">
+              <h6 class="mt-2 font-weight-bolder">Precios</h6>
+              <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
             </div>
-            <!-- Form - Lower -->
-            <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
-          </form>
-        </div>
+          </div>
+          <!-- Form - Lower -->
+          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
+        </form>
       </div>
     </div>
   </body>
