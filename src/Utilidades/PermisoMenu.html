@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="./PermisosMenu.scss">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row p-2 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Editar permisos menu SolucionesERP</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/PermisosMenu.aspx" target="_self">[Versión anterior]</a>
+          </div>
+
+          <div class="col-12">
+            <form id="form">
+              <div class="row">
+
+                <div class="col-sm">                 
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="grupo-usuarios">Grupo de usuarios</label>
+                    <select class="form-control" name="grupo-usuarios" id="grupo-usuarios">
+                      <!-- Options Units Usuarios -->
+                    </select>
+                  </div>   
+                </div>
+
+                <div class="col-sm">                 
+                  <div class="d-flex mb-1" id="container-permisos">
+                    <label for="account">Grupos</label>
+                    <select class="form-control" name="account" id="id-pestañas">
+                      <!-- Options grupos -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <div class="d-flex mb-1" id="container-pestañas">
+                    <label for="account">Permisos</label>
+                    <select class="form-control" name="account" id="id-permisos" >
+                      <!-- Options permisos -->
+                      <option value="0"> TODOS </option>
+                      <option value="1"> Habilitados </option>
+                      <option value="-1"> No habilitados </option>
+                    </select>
+                  </div>                 
+                </div>
+
+              </div>
+
+              <div class="row">
+
+                  <div class="col-4 d-flex">
+                      <div class="d-flex flex-fill border mt-2  align-items-center bg-white rounded">
+                          <i class="fa-sharp fa-solid fa-magnifying-glass fa-md pl-2"></i>
+                          <input type="text" name="" id="search-permiso" class="form-control border-0 rounded" placeholder="Bucar permiso">
+                      </div>
+                      <div class="ml-1 border d-flex mt-2 align-items-center rounded bg-light pointer ">
+                          <i class="fa-sharp fa-solid fa-delete-left fa-lg pl-1 text-secondary" id="reset"></i>
+                      </div>     
+                  </div>
+
+                  <div class="col-4 d-flex justify-content-center align-items-end"> </div>
+
+                  <div class="col-4 d-flex justify-content-end">
+                      <div class="d-flex mt-2">
+                          <button id="actualizar-permisos-menu" type="button" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                          <button id="guardar-permisos-menu" type="button" class="btn btn-success"><i class="fa-solid fa-check"></i> Guardar</button>
+                      </div>
+                  </div>
+
+                </div>      
+
+            </form>
+          </div>
+        </div>
+
+        
+        <!-- Form - Middle -->
+        <div id="loader" class="loadingx d-none"></div>
+        <div class="row border-0 p-4 mt-2 rounded border form-middle text-title" id="bg-container">
+
+          <div class="w-100 text-center text-danger d-none" id="search-false-permisos"><span> No se encontraron resultados </span></div>
+          <div class="container col-12 rounded" id="objetos-menu-grid"> </div>
+
+        </div>
+          
+      
+        <!-- Form - Lower -->
+        <!-- <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"> </div> -->
+      </div>
+    </div>
+  </body>
+  <script src="js/PermisosMenu.js"></script>
+
+</html>

@@ -18,9 +18,8 @@ formLower.innerHTML =
 </div>
 `
 
-const get_userFooter = tkn => {
-  const url_getUser = process.env.Solu_externo + '/session/login_sid'
-  fetch( url_getUser , {
+window.get_userFooter = tkn => {
+  fetch( process.env.Solu_externo + '/session/login_sid' , {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

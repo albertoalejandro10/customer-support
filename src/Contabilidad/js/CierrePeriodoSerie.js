@@ -13,7 +13,7 @@ const get_userInfo = tkn => {
   })
   .then( user => user.json())
   .then( ({id_cliente: id_usuario, ejercicioNombre, ejercicioInicio, ejercicioCierre}) => {
-    console.log(ejercicioNombre, ejercicioInicio, ejercicioCierre);
+    // console.log(ejercicioNombre, ejercicioInicio, ejercicioCierre)
     document.getElementById('exercise').innerHTML = `${ejercicioNombre} - <span>${ejercicioInicio} a ${ejercicioCierre}</span>`
     get_data({id_usuario: 31})
   })
