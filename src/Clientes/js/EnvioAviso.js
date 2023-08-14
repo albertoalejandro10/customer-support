@@ -20,10 +20,12 @@ const get_customers = async (tkn, data) => {
       },
       body: JSON.stringify(data)
     })
-    const {resultado: result, clientes, maximoClientes} = await response.json()
+    const { resultado: result, clientes, maximoClientes } = await response.json()
     customers = clientes
     maximumCustomers = maximoClientes
+
     if (result !== 'ok') return
+
     document.getElementById('send-mail').disabled = false
     topCheckbox.disabled = false
     document.querySelectorAll("#full-table input[type='checkbox']").forEach(checkbox => {
@@ -35,7 +37,11 @@ const get_customers = async (tkn, data) => {
     while(table.rows.length > 1) {
       table.deleteRow(1)
     }
+
+    linea = []
     customers.forEach(customer => printCustomersOnTable(customer))
+    getAllCheckboxes()
+
     if (customers.length > maximumCustomers) {
       const checkboxes = document.querySelectorAll("#full-table input[type='checkbox']")
       checkboxes.forEach((checkbox, index) => {
@@ -44,19 +50,25 @@ const get_customers = async (tkn, data) => {
         }
       })
     }
-    linea = []
-    getAllCheckboxes()
+
     const titleCustomers = document.getElementById('title-customers')
     titleCustomers.classList.remove('d-none')
-    titleCustomers.innerHTML = `Se encontraron ${customers.length} clientes/Seleccionados <span id='selected-count'>0</span>`
+    titleCustomers.innerHTML = `Se encontraron ${customers.length} clientes/Seleccionados <span id='selected-count'>${linea.length}</span>`
+
   } catch (err) {
     console.error(err)
   }
 }
 
-const printCustomersOnTable = ({id, nombre}) => {
+const printCustomersOnTable = ({ id, nombre, selected, comprobanteId }) => {
   const row = document.createElement('tr')
-  row.innerHTML = `<td>${nombre}</td><td><input type="checkbox" name='checkbox-${id}' id='${id}'></td>`
+  if (selected === 1) {
+    linea.push({
+      'clienteId': id,
+      'comprobanteId': comprobanteId
+    })
+  }
+  row.innerHTML = `<td>${nombre}</td><td><input type="checkbox" comprobanteid='${comprobanteId}' name='checkbox-${id}' id='${id}' ${selected == 1 ? "checked" : ""}></td>`
   document.getElementById('full-tbody').appendChild(row)
 }
 
@@ -76,7 +88,10 @@ const checkAll = targets => {
   targets.forEach(target => {
     target.checked = true
     target.disabled = true
-    linea.push(Number(target.id))
+    linea.push({
+      'clienteId': Number(target.id),
+      'comprobanteId': Number(target.getAttribute('comprobanteid'))
+    })
   })
   document.getElementById('selected-count').textContent = linea.length
 }
@@ -85,7 +100,7 @@ const uncheckAll = targets => {
   targets.forEach(target => {
     target.checked = false
     target.disabled = false
-    linea = linea.filter(id => id !== Number(target.id))
+    linea = linea.filter(({clienteId}) => clienteId !== Number(target.id))
   })
   document.getElementById('selected-count').textContent = linea.length
 }
@@ -99,10 +114,13 @@ const getAllCheckboxes = () => {
         const isAllCheckboxesChecked = checkboxes.filter(checkbox => checkbox.checked === true)
         topCheckbox.disabled = true
         if (isAllCheckboxesChecked.length === 0) {topCheckbox.disabled = false}
-        if(event.target.checked) {
-          linea.push(Number(event.target.id))
+        if (event.target.checked) {
+          linea.push({
+            'clienteId': Number(event.target.id),
+            'comprobanteId': Number(event.target.getAttribute('comprobanteid'))
+          })
         } else {
-          linea = linea.filter(id => id !== Number(event.target.id))
+          linea = linea.filter(({clienteId}) => clienteId !== Number(event.target.id))
         }
         document.getElementById('selected-count').textContent = linea.length
       })

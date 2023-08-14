@@ -2,9 +2,11 @@
 @import "../../scss/loader";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
 :root {
     --font-family-sans-serif: "Poppins", sans-serif;
 }
+
 @import "../../scss/main";
 
 .col-4 .d-flex {
@@ -14,24 +16,31 @@
 label {
     margin-bottom: 0px;
     margin-right: 4px;
+
     &[for="condition"] {
         margin-right: 25px;
     }
+
     &[for="attachment"] {
         margin-right: 38px;
     }
+
     &[for="customer"] {
         margin-right: 10px;
     }
+
     &[for="value-x"] {
-        margin-right: 38px;
+        margin-right: 39px;
     }
+
     &[for="customer-type"] {
-        margin-right: 10px;
+        margin-right: 11px;
     }
+
     &[for="liquidation-number"] {
         margin-right: 18px;
     }
+
     &[for="seat-number"] {
         margin-right: 44px;
     }
@@ -83,9 +92,11 @@ input[type="checkbox"] {
 #full-table th {
     font-size: 12px;
     padding: 0.5rem 0.375rem;
+
     &:first-child {
         width: 96%;
     }
+
     &:last-child {
         width: 4%;
         text-align: center;
@@ -97,6 +108,7 @@ input[type="checkbox"] {
     color: var(--bs-blue-dark);
     border-bottom: 0.4px solid #D5D5D5;
     padding: 0.1rem 0.375rem;
+
     &:last-child {
         text-align: right;
     }
