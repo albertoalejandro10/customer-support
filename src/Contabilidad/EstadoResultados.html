@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./EstadoResultados.scss">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row p-2 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Estado de resultados</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/estadoresultado.aspx" target="_self">[Versión anterior]</a>
+          </div>
+          
+          <div class="col-12">
+            <form id="form">
+              <div class="row">
+                <div class="col-sm-3 col-xl-3">
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="business">U. de Negocio:</label>
+                    <select class="form-control" name="business" id="business">
+                      <!-- Options Unit Business -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-5 col-xl-3">
+                  <div class="d-flex">
+                    <label for="periodStart">Periodo:</label>
+                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                  </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="cost-center">Análisis de cuenta:</label>
+                    <select class="form-control" id="cost-center" name="cost-center" >
+                      <!-- Options center -->
+                    </select>
+                  </div>
+
+                </div>
+                <div class="col-sm-12 col-xl-3 mt-1 mt-xl-0">
+                  <div class="d-flex justify-content-end">
+                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                    <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-print"></i>Imprimir</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <div class="row">
+              <div class="col-sm">
+                <h6 class="text-center">Ingresos</h6>
+                <table id="income-table" class="table-borderless rounded text-secondary">
+                  <div class="d-none loadingx"></div>
+                  <thead>
+                    <tr>
+                      <th>Cuenta</th>
+                      <th>Período Ant.</th>
+                      <th>Período</th>
+                    </tr>
+                  </thead>
+                  <tbody id="income-tbody">
+                    <!-- Body table -->
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="col-sm">
+                <h6 class="text-center">Egresos</h6>
+                <table id="expenses-table" class="table-borderless rounded text-secondary">
+                  <div class="d-none loadingx"></div>
+                  <thead>
+                    <tr>
+                      <th>Cuenta</th>
+                      <th>Período Ant.</th>
+                      <th>Período</th>
+                    </tr>
+                  </thead>
+                  <tbody id="expenses-tbody">
+                    <!-- Body table -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div class="col-sm">
+                <div class="d-none loading">
+                  <table class="table-borderless rounded text-secondary">
+                    <tfoot>
+                      <tr>
+                        <td>Ingresos</td>
+                        <td id="total-previous-income"></td>
+                        <td id="total-income"></td>
+                      </tr>
+                      <tr class="font-weight-bold">
+                        <td>Saldo</td>
+                        <td id="total-previous-difference"></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-none loading">
+                  <table class="table-borderless rounded text-secondary">
+                    <tfoot>
+                      <tr>
+                        <td>Egresos</td>
+                        <td id="total-previous-expenses"></td>
+                        <td id="total-expenses"></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <p id="empty-data" class="mt-4 font-weight-bold text-center d-none">No hay resultados</p>
+            </div>
+          </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/EstadoResultadosApis.js"></script>
+  <script src="js/EstadoResultados.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>

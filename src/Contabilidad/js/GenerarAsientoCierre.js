@@ -10,7 +10,7 @@ const get_exerciseState = async tkn => {
         'Authorization': `Bearer ${tkn}`
       },
     })
-    let {cerrado} = await response.json()
+    let { cerrado } = await response.json()
     return cerrado
   } catch (error) {
     console.error(error.message)
@@ -45,10 +45,11 @@ const tkn = getParameter('tkn')
 if ( tkn ) {
   Promise.all([get_exerciseState(tkn), get_accountsPlan(tkn)])
     .then(([state, accounts]) => {
-      if (state) {
-        document.getElementById('cancel-closure').classList.remove('d-none')
-        document.getElementById('generate-closure').classList.add('d-none')
-      }
+      const cancelClosureElement = document.getElementById('cancel-closure')
+      const generateClosureElement = document.getElementById('generate-closure')
+      state ? cancelClosureElement.classList.remove('d-none') : cancelClosureElement.classList.add('d-none')
+      state ? generateClosureElement.classList.add('d-none') : generateClosureElement.classList.remove('d-none')
+
       const data = accounts.map(({ codigo, nombre }) => ({
         id: codigo,
         text: nombre
@@ -71,10 +72,9 @@ if ( tkn ) {
     })
 }
 
-
 const post_generateClosure = data => {
-  const url_postGenerateClouse = process.env.Solu_externo + '/contabilidad/asiento/generar_anular_cierre'
-  fetch( url_postGenerateClouse , {
+  const url_postGenerateClosure = process.env.Solu_externo + '/contabilidad/asiento/generar_anular_cierre'
+  fetch( url_postGenerateClosure , {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -82,9 +82,10 @@ const post_generateClosure = data => {
     },
     body: JSON.stringify(data)
   })
-  .then( resp => resp.json())
+  .then( closure => closure.json())
   .then( ({nro, descripcion}) => {
     alert(`Número: ${nro} \nDescripción: ${descripcion}`)
+    if (nro === -1) return
     generateButton.classList.toggle('d-none', nro !== 1)
     cancelButton.classList.toggle('d-none', nro === 1)
   })
