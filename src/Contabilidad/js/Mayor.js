@@ -15,7 +15,7 @@ const gridOptions = {
 		editable: false,
 		resizable: true,  
 		suppressNavigable: true, 
-		//minWidth: 100,
+		//minWidth: 100,            
 	},
 	// No rows and grid loader
 	overlayLoadingTemplate:
@@ -92,9 +92,9 @@ const gridOptions = {
 			filter: true,
 			cellRenderer: function(params) {
 				if (String(params.value) == "null") {
-					return "Totales del Período"
+						return "Totales del Período"
 				} else {
-					return params.value
+						return params.value
 				}
 			}
 		},
@@ -206,15 +206,13 @@ const get_mayorAccount = data => {
 		},
 		body: JSON.stringify(data)
 	})
-	.then( accounts => accounts.json() )
-	.then(accounts => {
-		console.log(accounts)
-
+	.then( resp => resp.json() )
+	.then(resp => {
 		let saldo = 0
-		accounts.map( account => {
-			const { debe, haber } = account
+		resp.map( resp => {
+			const { debe, haber } = resp
 			saldo += debe - haber
-			account.saldo = saldo
+			resp.saldo = saldo
 		})
 
 		// Clear Filtros
@@ -222,7 +220,7 @@ const get_mayorAccount = data => {
 		// Clear Grilla
 		gridOptions.api.setRowData([])
 		gridOptions.api.applyTransaction({
-			add: accounts
+			add: resp
 		})
 
 		gridOptions.api.setPinnedBottomRowData(calculateBottomRows())
@@ -230,7 +228,7 @@ const get_mayorAccount = data => {
 
 		document.getElementById('btn_print').disabled = false
 		
-		if ( Object.keys( accounts ).length === 0 ) {
+		if ( Object.keys( resp ).length === 0 ) {
 			// console.log( 'Is empty')
 			gridOptions.api.setPinnedBottomRowData([])
 			gridOptions.api.showNoRowsOverlay()
@@ -293,7 +291,7 @@ form.addEventListener('submit', event => {
 		nroRef,
 		monedaId
 	}
-	console.log( data )
+	// console.log( data )
 	get_mayorAccount( data )
 })
 
@@ -308,9 +306,8 @@ const get_dataFromURL = () => {
 		acc[property] = value
 		return acc
 	}, {})
-	// console.log(data)
 	const { dfecha, hfecha, ccosto, analisiscta, cuenta } = data
-	// console.log(dfecha, hfecha, ccosto, analisiscta, cuenta)
+
 	document.getElementById('business').value = ccosto
 	document.getElementById('cost-center').value = analisiscta
 	document.getElementById('periodStart').value = dfecha.split('/').reverse().join('-')
