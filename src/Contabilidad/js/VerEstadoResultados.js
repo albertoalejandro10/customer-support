@@ -158,10 +158,16 @@ const printFooter = (table, balance) => {
 	table.appendChild(row)
 }
 
-document.getElementById('print').onclick = () => {
-	const printContents = document.getElementById('printableArea').innerHTML
-	const originalContents = document.body.innerHTML
-	document.body.innerHTML = printContents
-	window.print()
-	document.body.innerHTML = originalContents
-}
+document.getElementById('print').addEventListener('click', () => {
+  try {
+    const printContents = document.querySelector('#printableArea').outerHTML
+    const originalContents = document.body.innerHTML
+    document.body.innerHTML = printContents
+    window.print()
+    setTimeout(function() {
+      document.body.innerHTML = originalContents
+    }, 100) // Add a delay of 100 milliseconds before restoring the original content
+  } catch (error) {
+    console.error('An error occurred while printing:', error)
+  }
+})

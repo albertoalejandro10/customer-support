@@ -17,6 +17,7 @@ body {
 
 #print {
   position: fixed;
+  z-index: 99;
   top: 5%;
   right: 2%;
   border-radius: 4px;
