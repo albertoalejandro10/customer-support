@@ -1,4 +1,4 @@
-import { getParameter, format_number } from "../../jsgen/Helper"
+import { getParameter, format_number, format_token } from "../../jsgen/Helper"
 
 const get_userData = () => {
 	const url_getUserData = process.env.Solu_externo + '/session/login_sid'
@@ -134,7 +134,7 @@ const printTable = (table, data) => {
 				row_data_1.classList.add('font-weight-bold')
 				row_data_2.classList.add('font-weight-bold')
 			} else {
-				anchor.setAttribute('href', linkMayorCuentas)
+				anchor.setAttribute('href', format_token(linkMayorCuentas))
 				anchor.textContent = nombre
 				row_data_1.textContent = ''
 				row_data_1.appendChild(anchor)

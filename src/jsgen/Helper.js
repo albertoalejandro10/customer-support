@@ -54,8 +54,8 @@ export const format_number = importeNeto =>
     }).format(importeNeto)
 
 export const format_token = all_link => {
-    return all_link && all_link.includes('&tkn=tokenext') 
-        ? all_link.replace('tokenext', getParameter('tkn')) 
+    return all_link && all_link.includes('tkn=tokenext') 
+        ? all_link.replace('tokenext', getParameter('tkn'))
         : all_link || '';
 }
 
