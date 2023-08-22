@@ -115,26 +115,46 @@ const printTable = (table, data) => {
 }
 
 const printFooter = (income, expenses) => {
-	let differencePreviousBalance = 0
-	const previousBalanceIncome = income[0].saldo_anterior
-	const totalBalanceIncome = income[0].saldo_total
-
-	const previousBalanceExpenses = expenses[0].saldo_anterior
-	const totalBalanceExpenses = expenses[0].saldo_total
-
-	if ( previousBalanceIncome >= previousBalanceExpenses ) {
-		differencePreviousBalance = previousBalanceIncome - previousBalanceExpenses
-	} else {
-		differencePreviousBalance = previousBalanceExpenses - previousBalanceIncome
+	if (!income || !income[0] || !expenses || !expenses[0]) {
+		throw new Error('Invalid input')
 	}
 
-	document.getElementById('total-previous-income').textContent   = format_number(previousBalanceIncome)
-	document.getElementById('total-previous-expenses').textContent = format_number(previousBalanceExpenses)
+	// Update DOM
+	const updateDOM = (id, value, isTotal) => {
+		if (isTotal) {
+			return document.getElementById(id).textContent = value !== 0 ? format_number(value) : ''
+		}
+		return document.getElementById(id).textContent = format_number(value)
+	}
 
-	document.getElementById('total-income').textContent   = format_number(totalBalanceIncome)
-	document.getElementById('total-expenses').textContent = format_number(totalBalanceExpenses)
+	const previousBalanceIncome = Number(income[0].saldo_anterior)
+	const totalBalanceIncome = Number(income[0].saldo_total)
+	const previousBalanceExpenses = Number(expenses[0].saldo_anterior)
+	const totalBalanceExpenses = Number(expenses[0].saldo_total)
 
-	document.getElementById('total-previous-difference').textContent = format_number(differencePreviousBalance)
+	updateDOM('total-previous-income', previousBalanceIncome, false)
+	updateDOM('total-previous-expenses', previousBalanceExpenses, false)
+	updateDOM('total-income', totalBalanceIncome, false)
+	updateDOM('total-expenses', totalBalanceExpenses, false)
+
+	// Calculate differences
+	let previousDifference = 0
+	if (previousBalanceIncome >= previousBalanceExpenses) {
+		previousDifference = previousBalanceIncome - previousBalanceExpenses
+		updateDOM('total-income-previous-difference', previousDifference, true)
+	} else if (previousBalanceIncome < previousBalanceExpenses) {
+		previousDifference = previousBalanceIncome - previousBalanceExpenses
+		updateDOM('total-expenses-previous-difference', previousDifference, true)
+	}
+
+	let totalDifference = 0
+	if (totalBalanceIncome >= totalBalanceExpenses) {
+		totalDifference = totalBalanceIncome - totalBalanceExpenses
+		updateDOM('total-income-difference', totalDifference, true)
+	} else if (totalBalanceIncome < totalBalanceExpenses) {
+		totalDifference = totalBalanceIncome - totalBalanceExpenses
+		updateDOM('total-expenses-difference', totalDifference, true)
+	}
 }
 
 const loadingx = document.querySelectorAll('.loadingx')

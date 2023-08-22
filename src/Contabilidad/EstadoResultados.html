@@ -21,7 +21,7 @@
           <div class="col-12">
             <form id="form">
               <div class="row">
-                <div class="col-sm-3 col-xl-3">
+                <div class="col-sm-3 col-xxl-3">
                   <div class="d-flex">
                     <label class="text-nowrap" for="business">U. de Negocio:</label>
                     <select class="form-control" name="business" id="business">
@@ -30,14 +30,14 @@
                   </div>
                 </div>
 
-                <div class="col-sm-5 col-xl-3">
+                <div class="col-sm-5 col-xxl-3">
                   <div class="d-flex">
                     <label for="periodStart">Periodo:</label>
                     <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
                   </div>
                 </div>
 
-                <div class="col-sm-4 col-xl-3">
+                <div class="col-sm-4 col-xxl-3">
                   <div class="d-flex">
                     <label class="text-nowrap" for="cost-center">Análisis de cuenta:</label>
                     <select class="form-control" id="cost-center" name="cost-center" >
@@ -46,7 +46,7 @@
                   </div>
 
                 </div>
-                <div class="col-sm-12 col-xl-3 mt-1 mt-xl-0">
+                <div class="col-sm-12 col-xxl-3 mt-1 mt-xl-0">
                   <div class="d-flex justify-content-end">
                     <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
                     <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-print"></i>Imprimir</button>
@@ -108,8 +108,8 @@
                       </tr>
                       <tr class="font-weight-bold">
                         <td>Saldo</td>
-                        <td id="total-previous-difference"></td>
-                        <td>&nbsp;</td>
+                        <td id="total-income-previous-difference"></td>
+                        <td id="total-income-difference">&nbsp;</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -123,6 +123,11 @@
                         <td>Egresos</td>
                         <td id="total-previous-expenses"></td>
                         <td id="total-expenses"></td>
+                      </tr>
+                      <tr class="font-weight-bold">
+                        <td>&nbsp;</td>
+                        <td id="total-expenses-previous-difference"></td>
+                        <td id="total-expenses-difference"></td>
                       </tr>
                     </tfoot>
                   </table>
