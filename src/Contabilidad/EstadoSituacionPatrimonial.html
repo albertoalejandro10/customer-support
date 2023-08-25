@@ -61,21 +61,29 @@
         <div class="row p-2 mt-2 rounded form-middle text-secondary">
           <div class="col">
             <div class="row">
-              <div class="col-sm">
-                <h6 class="text-center">Activos</h6>
-                <table id="income-table" class="table-borderless rounded text-secondary">
+              <div class="col">
+                <table id="active-table" class="table-borderless rounded text-secondary">
                   <div class="d-none loadingx"></div>
-                  <tbody id="income-tbody">
+                  <thead>
+                    <tr>
+                      <th colspan="2" class="text-center">Activos</th>
+                    </tr>
+                  </thead>
+                  <tbody id="active-tbody">
                     <!-- Body table -->
                   </tbody>
                 </table>
               </div>
 
-              <div class="col-sm">
-                <h6 class="text-center">Pasivos</h6>
-                <table id="expenses-table" class="table-borderless rounded text-secondary">
+              <div class="col">
+                <table id="passive-table" class="table-borderless rounded text-secondary">
                   <div class="d-none loadingx"></div>
-                  <tbody id="expenses-tbody">
+                  <thead>
+                    <tr>
+                      <th colspan="2" class="text-center">Pasivos</th>
+                    </tr>
+                  </thead>
+                  <tbody id="passive-tbody">
                     <!-- Body table -->
                   </tbody>
                 </table>
@@ -83,44 +91,40 @@
             </div>
 
             <div class="row mt-1">
-              <div class="col-sm">
+              <div class="col">
                 <div class="d-none loading">
-                  <table class="table-borderless rounded text-secondary">
-                    <tfoot>
+                  <table id="active-tfoot" class="table-borderless rounded text-secondary">
+                    <tfoot class="font-weight-bold">
                       <tr>
-                        <td>Ingresos</td>
-                        <td id="total-previous-income"></td>
-                        <td id="total-income"></td>
+                        <td>Activos</td>
+                        <td id="total-active"></td>
                       </tr>
-                      <tr class="font-weight-bold">
+                      <tr>
                         <td>Saldo</td>
-                        <td id="total-income-previous-difference"></td>
-                        <td id="total-income-difference">&nbsp;</td>
+                        <td id="total-active-difference">&nbsp;</td>
                       </tr>
                     </tfoot>
                   </table>
                 </div>
               </div>
-              <div class="col-sm">
+              <div class="col">
                 <div class="d-none loading">
-                  <table class="table-borderless rounded text-secondary">
-                    <tfoot>
+                  <table id="passive-tfoot" class="table-borderless rounded text-secondary">
+                    <tfoot class="font-weight-bold">
                       <tr>
-                        <td>Egresos</td>
-                        <td id="total-previous-expenses"></td>
-                        <td id="total-expenses"></td>
+                        <td>Pasivos</td>
+                        <td id="total-passive"></td>
                       </tr>
-                      <tr class="font-weight-bold">
+                      <tr>
                         <td>&nbsp;</td>
-                        <td id="total-expenses-previous-difference"></td>
-                        <td id="total-expenses-difference"></td>
+                        <td id="total-passive-difference"></td>
                       </tr>
                     </tfoot>
                   </table>
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col">
               <p id="empty-data" class="mt-4 font-weight-bold text-center d-none">No hay resultados</p>
             </div>
           </div>

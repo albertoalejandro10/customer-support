@@ -85,17 +85,21 @@ table td {
   }
 }
 
-#income-table tbody>tr,
-#expenses-table tbody>tr {
+#active-table tbody>tr,
+#active-tfoot tfoot>tr,
+#passive-table tbody>tr,
+#passive-tfoot tfoot>tr {
   border-bottom: .1px solid #EEEEE4;
 }
 
-#income-table tbody>tr:hover,
-#expenses-table tbody>tr:hover {
+#active-table tbody>tr:hover,
+#passive-table tbody>tr:hover {
   background-color: #E8F4FE;
 }
 
-#income-table tbody>tr:last-child,
-#expenses-table tbody>tr:last-child {
+#active-table tbody>tr:last-child,
+#active-tfoot tfoot>tr:last-child,
+#passive-table tbody>tr:last-child,
+#passive-tfoot tfoot>tr:last-child {
   border-bottom: .4px solid #BABFC7;
 }

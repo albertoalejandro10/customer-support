@@ -86,7 +86,9 @@ table td {
 }
 
 #income-table tbody>tr,
-#expenses-table tbody>tr {
+#income-tfoot tfoot>tr,
+#expenses-table tbody>tr,
+#expenses-tfoot tfoot>tr {
   border-bottom: .1px solid #EEEEE4;
 }
 
@@ -96,6 +98,8 @@ table td {
 }
 
 #income-table tbody>tr:last-child,
-#expenses-table tbody>tr:last-child {
+#income-tfoot tfoot>tr:last-child,
+#expenses-table tbody>tr:last-child,
+#expenses-tfoot tfoot>tr:last-child {
   border-bottom: .4px solid #BABFC7;
 }

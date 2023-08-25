@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">    
+    <link rel="stylesheet" href="./VerEstadoSituacionPatrimonial.scss">
+    <style type="text/css" media="print">
+    @page {
+      size: auto;
+      margin: 0; 
+    }
+    </style>
+  </head>
+  <body class="m-0 vh-100 row justify-content-center align-items-center">
+    <button type="button" id="print" class="btn btn-dark"><i class="fa-solid fa-print"></i> Imprimir</button>
+    <div class="wrapper">
+      <div class="container rounded col-12" id="printableArea">
+        <div class="row shadow px-2 py-4 big-box mx-auto">
+          <div class="col-12 my-2">
+            <div class="row box justify-content-between">
+              <div class="p-2 text-left">
+                <h2 class="h4 tracking-tight real-blue">Estado de situación patrimonial</h2>
+                <div class="row">
+                  <div class="col-4">
+                    <p>Período:</p>
+                  </div>
+                  <div class="col-8">
+                    <strong><p id="date" class="real-blue text-nowrap"></p></strong>
+                  </div>
+                  <div class="col-4">
+                    <p>Unidad de negocio:</p>
+                  </div>
+                  <div class="col-8">
+                    <strong><p id="business" class="real-blue text-nowrap"></p></strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2 text-right">
+                <h1 id="name-company"></h1>
+                <div class="row">
+                  <div class="col-4">
+                    <p>CUIT:</p>
+                  </div>
+                  <div class="col-8">
+                    <strong><p id="cuit-company" class="real-blue text-nowrap"></p></strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 my-4">
+            <div class="row box">
+              <table id="table-assets" class="table table-assets">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="2">Activos</th>
+                  </tr>
+                </thead>
+                <tbody id="assets-tbody">
+                  <!-- Table options -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-12 my-4">
+            <div class="row box">
+              <table id="table-passive" class="table table-passive">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="2">Egresos</th>
+                  </tr>
+                </thead>
+                <tbody id="passive-tbody">
+                  <!-- Table options -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-12 mt-4">
+            <div class="row box">
+              <table id="total-balance" class="table table-balance">
+                <tbody>
+                  <tr class="font-weight-bold">
+                    <td>Saldo</td>
+                    <td id="balance"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/VerEstadoSituacionPatrimonial.js"></script>
+</html>

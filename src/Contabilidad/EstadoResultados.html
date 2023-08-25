@@ -99,14 +99,14 @@
             <div class="row mt-1">
               <div class="col-sm">
                 <div class="d-none loading">
-                  <table class="table-borderless rounded text-secondary">
-                    <tfoot>
+                  <table id="income-tfoot" class="table-borderless rounded text-secondary">
+                    <tfoot class="font-weight-bold">
                       <tr>
                         <td>Ingresos</td>
                         <td id="total-previous-income"></td>
                         <td id="total-income"></td>
                       </tr>
-                      <tr class="font-weight-bold">
+                      <tr>
                         <td>Saldo</td>
                         <td id="total-income-previous-difference"></td>
                         <td id="total-income-difference">&nbsp;</td>
@@ -117,14 +117,14 @@
               </div>
               <div class="col-sm">
                 <div class="d-none loading">
-                  <table class="table-borderless rounded text-secondary">
-                    <tfoot>
+                  <table id="expenses-tfoot" class="table-borderless rounded text-secondary">
+                    <tfoot class="font-weight-bold">
                       <tr>
                         <td>Egresos</td>
                         <td id="total-previous-expenses"></td>
                         <td id="total-expenses"></td>
                       </tr>
-                      <tr class="font-weight-bold">
+                      <tr>
                         <td>&nbsp;</td>
                         <td id="total-expenses-previous-difference"></td>
                         <td id="total-expenses-difference"></td>
