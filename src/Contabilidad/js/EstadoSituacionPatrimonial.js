@@ -66,6 +66,7 @@ const printTable = (table, data) => {
 
 	// Iterate over each object in data array
 	for (const { codigo, nombre, saldo, linkMayorCuentas } of data) {
+		let cleanedURL = linkMayorCuentas.replace(/\s+/g, '')
 		const row = document.createElement('tr')
 
 		// Create 'td' elements and append to 'tr'
@@ -86,7 +87,7 @@ const printTable = (table, data) => {
 			row_data_1.classList.add('pl-5')
 			row_data_2.classList.add('font-weight-bold')
 		} else {
-			anchor.setAttribute('href', format_token(linkMayorCuentas))
+			anchor.setAttribute('href', format_token(cleanedURL))
 			anchor.textContent = nombre
 			row_data_1.textContent = ''
 			row_data_1.appendChild(anchor)
@@ -98,8 +99,6 @@ const printTable = (table, data) => {
 }
 
 const printFooter = (active, passive) => {
-	console.log(active)
-	console.log(passive)
 	if (!active || !active[0] || !passive || !passive[0]) {
 		throw new Error('Invalid input')
 	}

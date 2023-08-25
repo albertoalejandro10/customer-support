@@ -320,6 +320,7 @@ const get_dataFromURL = () => {
 		analisisCuentaId: analisiscta,
 		cuentaCod: cuenta,
 	}
+	// console.log(sendData)
 	get_mayorAccount( sendData )
 }
 
