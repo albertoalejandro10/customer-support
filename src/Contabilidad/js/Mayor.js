@@ -251,17 +251,12 @@ const calculateBottomRows = () => {
 	}
 
 	const pinnedBottomData = generatePinnedBottomData()
+	pinnedBottomData.debe = pinnedBottomData.debe === null ? '0' : pinnedBottomData.debe
+	pinnedBottomData.haber = pinnedBottomData.haber === null ? '0' : pinnedBottomData.haber
 
 	lastObject.saldo = pinnedBottomData.saldo
-	lastObject.debe = Number(pinnedBottomData.debe)
-	lastObject.haber = Number(pinnedBottomData.haber)
-
 	pinnedBottomData.saldo = Number(pinnedBottomData.debe) - Number(pinnedBottomData.haber)
-	pinnedBottomData.debe = null
-	pinnedBottomData.haber = null
-
 	totalBottomRows.push(pinnedBottomData, lastObject)
-	// console.log( totalBottomRows )
 	return totalBottomRows
 }
 

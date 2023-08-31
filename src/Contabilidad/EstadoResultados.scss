@@ -103,3 +103,9 @@ table td {
 #expenses-tfoot tfoot>tr:last-child {
   border-bottom: .4px solid #BABFC7;
 }
+
+#income-tfoot tfoot>tr:last-child td,
+#expenses-tfoot tfoot>tr:last-child td {
+  font-weight: 800;
+  padding: 0.25rem 0.375rem;
+}
