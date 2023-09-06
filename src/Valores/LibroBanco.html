@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./Valores.scss">
+    <link rel="stylesheet" href="./LibroBanco.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -23,10 +23,10 @@
         <!-- Form - Higher -->
         <div class="row px-2 py-1 mb-2 rounded form-top">
           <div class="col-6 mb-2">
-            <h4 class="mb-0">Valores</h4>
+            <h4 class="mb-0">Libro banco</h4>
           </div>
           <div class="col-6 mb-2 text-right">
-            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/Valores.aspx" target="_self">[Versión anterior]</a>
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/libbanli.aspx " target="_self">[Versión anterior]</a>
           </div>
           <div class="col-12">
             <form id="form">
@@ -40,9 +40,9 @@
                   </div>
 
                   <div class="d-flex">
-                    <label for="status">Estado:</label>
-                    <select id="status" name="status" class="form-control">
-                      <!-- U. de Negocio -->
+                    <label for="account">Cuenta:</label>
+                    <select id="account" name="account" class="form-control">
+                      <!-- Options cuenta -->
                     </select>
                   </div>
 
@@ -50,13 +50,7 @@
                 <div class="col-sm-8">
                   <div class="d-flex mb-1">
                     <label for="periodStart">Período:</label>
-                    <select class="form-control mr-2" name="period-type" id="period-type"></select>
                     <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
-                  </div>
-
-                  <div class="d-flex">
-                    <label for="order">Orden:</label>
-                    <select class="form-control" name="order" id="order"></select>
                   </div>
                 </div>
               </div>
@@ -74,43 +68,33 @@
                   </div>
                 </div>
 
-                <div class="col-sm-4 col-xl-3">
+                <div class="col-sm-3 col-xl-3">
                   <div class="d-flex mb-1">
-                    <label for="value">Valor:</label>
-                    <select class="form-control" name="value" id="value"></select>
+                    <label for="operation">Operación:</label>
+                    <select class="form-control" name="operation" id="operation"></select>
                   </div>
                   
                   <div class="d-flex">
-                    <label class="text-nowrap" for="det-value">Det. Valor:</label>
-                    <select class="form-control" name="det-value" id="det-value"></select>
+                    <label for="detail">Detalle:</label>
+                    <input class="form-control" type="text" name="detail" id="detail">
                   </div>
                 </div>
 
-                <div class="col-sm-5 col-xl-3">
+                <div class="col-sm-6 col-xl-7">
                   <div class="d-flex mb-1">
-                    <label for="delivery">Entrega:</label>
-                    <input class="form-control" type="text" name="delivery" id="delivery">
+                    <label for="status">Estado:</label>
+                    <select class="form-control" name="status" id="status">
+                      <!-- Options status -->
+                      <option value="2">Todos</option>
+                      <option value="1">Conciliado</option>
+                      <option value="0">No conciliado</option>
+                    </select>
                   </div>
-
-                  <div class="d-flex mb-1">
-                    <label for="cuit">CUIT:</label>
-                    <input class="form-control" type="text" name="cuit" id="cuit">
-                  </div>
-                </div>
-
-                <div class="d-none mb-1 d-xl-flex col-xl-4 justify-content-end align-items-end">
                   <div class="d-flex justify-content-end">
-                    <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                    <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                    <button id="btn_print" type="button" class="btn btn-dark text-white ml-2" disabled><i class="fa-solid fa-print"></i> Imprimir</button>
+                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+                    <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-print"></i> Imprimir</button>
                   </div>
                 </div>
-              </div>
-
-              <div class="d-flex d-xl-none justify-content-end buttons-responsive">
-                <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                <button id="btn_export_1024" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                <button id="btn_print_1024" type="button" class="btn btn-dark text-white ml-2" disabled><i class="fa-solid fa-print"></i> Imprimir</button>
               </div>
             </form>
           </div>
@@ -127,8 +111,8 @@
       </div>
     </div>
   </body>
-  <script src="./js/Valores.js"></script>
-  <script src="./js/ValoresGetApis.js"></script>
+  <script src="./js/LibroBancoApis.js"></script>
+  <script src="./js/LibroBanco.js"></script>
   <script src="../jsgen/footer-form.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet"

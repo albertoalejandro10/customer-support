@@ -1,0 +1,67 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+:root {
+  --font-family-sans-serif: "Poppins", sans-serif;
+}
+
+@import "../../scss/main";
+
+hr {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+label {
+  margin-bottom: 0px;
+  margin-right: 4px;
+
+  &[for="account"] {
+    margin-right: 48px;
+  }
+
+  &[for="net"] {
+    margin-right: 6px;
+  }
+
+  &[for="value"] {
+    margin-right: 32px;
+  }
+
+  &[for="detail"] {
+    margin-right: 25px;
+  }
+}
+
+input[type="date"] {
+  width: 20%;
+  min-width: 120px;
+}
+
+#number,
+#net {
+  width: 120px;
+  text-align: right;
+}
+
+#status {
+  width: 120px;
+}
+
+/* Using SCSS variables to store breakpoints */
+$breakpoint-large-screen: 1100px;
+
+@media (max-width: $breakpoint-large-screen) {
+  .buttons-responsive {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+  }
+}
+
+.col-sm-8 .d-flex,
+.col-sm-5 .d-flex,
+.col-xl-4 .d-flex {
+  align-items: center;
+}
