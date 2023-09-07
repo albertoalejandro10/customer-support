@@ -204,12 +204,9 @@ const get_listDetails = data => {
 	})
 }
 
-const tkn = getParameter('tkn')
-// Boton actualizar
-form.addEventListener('submit', event => {
-	event.preventDefault()
-	const formData = new FormData(event.currentTarget)
-	const data = {
+const extractFormData = form => {
+	const formData = new FormData(form)
+	return {
 		unidad_negocio: Number(formData.get('business')),
 		dfecha: formData.get('periodStart').split('-').reverse().join('/'),
 		hfecha: formData.get('periodEnd').split('-').reverse().join('/'),
@@ -220,9 +217,30 @@ form.addEventListener('submit', event => {
 		importe: Number(formData.get('net').replaceAll('.', '').replace(',', '.')),
 		detalle: formData.get('detail')
 	}
+}
+
+// Boton actualizar
+const tkn = getParameter('tkn')
+const form = document.getElementById('form')
+form.addEventListener('submit', event => {
+	event.preventDefault()
+	const data = extractFormData(event.currentTarget)
 	// console.log(data)
 	get_listDetails( data )
 })
+
+// Botón Imprimir
+const print = document.getElementById('print')
+print.onclick = () => {
+	const data = extractFormData(form)
+
+	let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Valores/VerLibroBanco.html?'
+	for (const property in data) {
+		returnURL += `${property}=${data[property]}&`
+	}
+	const fullURL = returnURL + 'tkn=' + tkn
+	setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0,width=1060,height=800'), 1000)
+}
 
 const numberElement = document.getElementById('number')
 numberElement.addEventListener('keyup', () => {

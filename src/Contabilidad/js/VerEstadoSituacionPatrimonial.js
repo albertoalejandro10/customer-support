@@ -71,7 +71,7 @@ const printHeader = idBusiness => {
 		const result = business.filter(x => x.id === Number(idBusiness))
 		if ( result?.length ) {
 			const [{nombre}] = result
-			document.getElementById('business').innerHTML = `<strong class="real-blue">${nombre}</strong>`
+			document.getElementById('business').textContent = nombre
 		}
 	})
 }
