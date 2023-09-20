@@ -117,3 +117,21 @@ input[type="checkbox"] {
 #full-table tr:hover {
     background-color: #E8F4FE;
 }
+
+
+//Estilos ISMA
+
+/* Personaliza el ancho del modal */
+.modal-custom {
+    max-width: 90vw; /* Define el ancho máximo del modal en relación al ancho de la ventana */
+}
+
+/* Cambiar el color de fondo al hacer hover en las filas de la tabla */
+.table-hover tbody tr:hover {
+    background-color: #c8dfec74; /* Cambia a tu color preferido */
+}
+
+/* Cambiar el cursor a una mano en elementos con clase "cursor-pointer" */
+.cursor-pointer {
+    cursor: pointer;
+}

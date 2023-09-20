@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./EnvioAviso.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </head>
   <body>
+
+
+    <!-- POPUP -->
+    <!-- Modal -->
+    <div class="modal fade" id="estadoEnvios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" aria-labelledby="estadoEnviosLabel" >
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-custom">
+        <div class="modal-content"> <!-- style="background-color: #EFEFEF;"> -->
+          <div id="loader-estado-envio" class="loadingx d-none"></div>
+          <div class="modal-header">
+            <h5 class="modal-title text-secondary" id="title-estado-envio"></h5>
+            <button type="button" class="btn btn-ligth d-none" data-bs-dismiss="modal" aria-label="Close" id="close-estado-envio">❌</button>
+          </div>
+          <div class="modal-body">
+            <!-- <div id="loader-estado-envio" class="loadingx"></div> -->
+            <div class="border border-2 p-4 rounded mb-3" style="background-color: #EFEFEF;"> 
+              <table id="credit-table" class="border rounded text-secondary text-center table-hover">
+                <div class="d-none loadingx"></div>
+                <thead>
+                  <tr class="border">
+                    <th class="py-2">Estado</th>
+                    <th>Asunto</th>
+                    <th>Fecha creación</th>
+                    <th>Usuario</th>
+                    <th>Enviados</th>
+                    <th>Con error</th>
+                    <th>Por enviar</th>
+                    <th>Ultimo envío</th>
+                    <th>Cancelar</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-estado-envio" class="text-dark ">
+                  <!-- Body table -->
+                </tbody>
+              </table>
+            </div>
+            <h6 class="text-secondary" id="nota-estado-envio"> </h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success d-none" data-bs-dismiss="modal" id="continue-estado-envio" >Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--FIN POPUP-->
+
+    <div id="loader" class="loadingx d-none"></div>
     <div class="wrapper">
       <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
         <!-- Form - Higher -->
@@ -38,6 +85,7 @@
                         <option value="N">Ninguno</option>
                         <option value="F">Factura</option>
                         <option value="C">Cupón</option>
+                        <option value="P">Proforma</option>
                       </select>
                     </div>
                     <div class="d-flex">
@@ -95,13 +143,12 @@
               <h6 class="font-weight-bolder mb-0 text-left">Clientes</h6>
               <p id="title-customers" class="font-weight-bolder mb-0 h6 d-none"></p>
             </div>
-            <div id="loader" class="loadingx d-none"></div>
             <div class="mt-1 row">
               <div class="col-sm">
                 <table id="full-table" class="table-borderless rounded text-secondary">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
+                      <th> <span id="maximum-customers"> Nombre </span> </th>
                       <th><input class="align-middle" type="checkbox" name="checkAllCheckboxes" id="checkAllCheckboxes" disabled></th>
                     </tr>
                   </thead>
@@ -121,4 +168,5 @@
   <script src="./js/EnvioAvisoApis.js"></script>
   <script src="./js/EnvioAviso.js"></script>
   <script src="../jsgen/footer-form.js"></script>  
+
 </html>

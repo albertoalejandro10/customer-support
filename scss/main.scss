@@ -1,21 +1,19 @@
 * {
     font-size: 14px;
 }
-
-body,
-html {
+    
+body, html {
     height: 100%;
 }
 
 .fa-arrow-left.return {
     left: -16px;
     top: 8px;
-}
+} 
 
 .ag-floating-bottom {
     overflow-y: hidden !important;
 }
-
 .ag-header-cell-text {
     font-size: 12px !important;
 }
@@ -40,11 +38,11 @@ html {
     font-size: 12px !important;
 }
 
-.ag-cell span {
+.ag-cell span {        
     font-size: 12px !important;
 }
 
-.ag-cell span b {
+.ag-cell span b {    
     font-size: 12px !important;
 }
 
@@ -56,7 +54,7 @@ html {
 .cell-vertical-align-center {
     justify-content: center;
 }
-
+  
 .cell-vertical-align-text-right {
     display: flex !important;
     flex-direction: row-reverse;
@@ -78,7 +76,6 @@ html {
 .col-sm-2 .d-flex,
 .col-sm-3 .d-flex,
 .col-sm-4 .d-flex,
-.col-sm-5 .d-flex,
 .col-sm-6 .d-flex {
     align-items: center;
 }
@@ -134,12 +131,10 @@ input[type="checkbox"] {
         background-color: #efefef;
         border: 0.5px solid #d5d5d5;
     }
-
     &.form-middle {
         background-color: #e1e1e1;
         border: 0.5px solid #b7b7b7;
     }
-
     &.form-bottom {
         background-color: #efefef;
         border: 0.5px solid #d5d5d5;

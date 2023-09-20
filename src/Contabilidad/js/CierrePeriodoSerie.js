@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime"
 import { getParameter } from "../../jsgen/Helper"
 
 const loader = document.getElementById('loader')

@@ -2,15 +2,17 @@ $primary: #60C1DD;
 $success: #5BB862;
 
 // Sizes
-$sizes: (
-  ) !default;
-$sizes: map-merge((25: 25%,
-      35: 35%,
-      50: 50%,
-      75: 75%,
-      100: 100%,
-      auto: auto),
-    $sizes
+$sizes: () !default;
+$sizes: map-merge(
+  (
+    25: 25%,
+    35: 35%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto
+  ),
+  $sizes
 );
 
 // Grid Breakpoints
@@ -36,19 +38,20 @@ $container-max-widths: (
 
 // Spacers
 $spacer: 1rem !default;
-$spacers: (
-  ) !default;
-$spacers: map-merge((0: 0,
-      1: ($spacer * .25),
-      2: ($spacer * .5),
-      3: $spacer,
-      4: ($spacer * 1.5),
-      5: ($spacer * 3),
-      6: ($spacer * 4.5),
-      7: ($spacer * 6),
-      8: ($spacer * 7.5),
-    ),
-    $spacers
+$spacers: () !default;
+$spacers: map-merge(
+  (
+    0: 0,
+    1: ($spacer * .25),
+    2: ($spacer * .5),
+    3: $spacer,
+    4: ($spacer * 1.5),
+    5: ($spacer * 3),
+    6: ($spacer * 4.5),
+    7: ($spacer * 6),
+    8: ($spacer * 7.5),
+  ),
+  $spacers
 );
 
 :root {

@@ -1,3 +1,5 @@
+import "regenerator-runtime/runtime"
+
 const getParameter = parameterName => {
   const parameters = new URLSearchParams( window.location.search )
   return parameters.get( parameterName )

@@ -70,7 +70,7 @@ const gridOptions = {
         },
         {
             width: 120,
-            field: "Vencimiento",
+            field: "vencimiento",
             sortable: true,
             filter: true,
             filter: 'agDateColumnFilter',
