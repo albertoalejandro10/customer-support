@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./LibroBanco.scss">
+    <link rel="stylesheet" href="./ResumenBancario.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -12,7 +12,7 @@
       if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
       else
-        $("#myGrid").height(parseInt($(window).height()) - 295)
+        $("#myGrid").height(parseInt($(window).height()) - 260)
       //$(".grid").width('100%')
     })
   </script>
@@ -23,10 +23,10 @@
         <!-- Form - Higher -->
         <div class="row px-2 py-1 mb-2 rounded form-top">
           <div class="col-6 mb-2">
-            <h4 class="mb-0">Libro banco</h4>
+            <h4 class="mb-0">Resumen bancario</h4>
           </div>
           <div class="col-6 mb-2 text-right">
-            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/libbanli.aspx" target="_self">[Versión anterior]</a>
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ResBancario.aspx" target="_self">[Versión anterior]</a>
           </div>
           <div class="col-12">
             <form id="form">
@@ -56,43 +56,25 @@
               </div>
               <hr>
               <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="reconciled">No conciliados:</label>
+                    <select class="form-control" name="reconciled" id="reconciled"></select>
+                  </div>
+                </div>
+
                 <div class="col-sm-3 col-xl-2">
-                  <div class="d-flex mb-1">
-                    <label for="number">Número:</label>
-                    <input class="form-control" type="text" name="number" id="number">
-                  </div>
-
                   <div class="d-flex">
-                    <label for="net">Importe:</label>
-                    <input class="form-control" type="text" name="net" id="net" data-type="currency" placeholder="0.00">
+                    <label class="text-nowrap" for="number-reconciled">Nº de conciliación:</label>
+                    <input class="form-control text-right" type="number" name="number-reconciled" id="number-reconciled" placeholder="0">
                   </div>
                 </div>
-
-                <div class="col-sm-3 col-xl-3">
-                  <div class="d-flex mb-1">
-                    <label for="operation">Operación:</label>
-                    <select class="form-control" name="operation" id="operation"></select>
-                  </div>
-                  
-                  <div class="d-flex">
-                    <label for="detail">Detalle:</label>
-                    <input class="form-control" type="text" name="detail" id="detail">
-                  </div>
-                </div>
-
-                <div class="col-sm-6 col-xl-7">
-                  <div class="d-flex mb-1">
-                    <label for="status">Estado:</label>
-                    <select class="form-control" name="status" id="status">
-                      <!-- Options status -->
-                      <option value="2">Todos</option>
-                      <option value="1">Conciliado</option>
-                      <option value="0">No conciliado</option>
-                    </select>
-                  </div>
+                
+                <div class="col-sm-5 col-xl-7">
                   <div class="d-flex justify-content-end">
-                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                    <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-print"></i> Imprimir</button>
+                    <button id="update" type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                    <button id="delete" type="button" class="btn btn-danger mx-1"><i class="fa-solid fa-trash"></i>Eliminar</button>
+                    <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-print"></i>Imprimir</button>
                   </div>
                 </div>
               </div>
@@ -111,8 +93,8 @@
       </div>
     </div>
   </body>
-  <script src="./js/LibroBancoApis.js"></script>
-  <script src="./js/LibroBanco.js"></script>
+  <script src="./js/ResumenBancarioApis.js"></script>
+  <script src="./js/ResumenBancario.js"></script>
   <script src="../jsgen/footer-form.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
   <link rel="stylesheet"

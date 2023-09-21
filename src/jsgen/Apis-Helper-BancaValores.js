@@ -128,3 +128,19 @@ export const get_operationsLibroBanco = async tkn => {
 		select.appendChild( option )
 	}
 }
+
+// Conseguir select get conciliados (Formulario ResumenBancario)
+export const get_reconciledResumenBancario = async tkn => {
+	const url_getReconciled = process.env.Solu_externo + '/bancosyvalores/resumenbancario/get_conciliados'
+  const {conciliados} = await fetchData(url_getReconciled, tkn)
+
+	for (const { id_conciliado, nombre } of conciliados) {
+		// console.log(id_conciliado, nombre)
+		const select = document.querySelector('#reconciled')
+		let option = document.createElement("option")
+		option.setAttribute("data-tokens", nombre)
+		option.value = id_conciliado
+		option.textContent = nombre
+		select.appendChild( option )
+	}
+}

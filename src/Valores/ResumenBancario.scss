@@ -1,0 +1,42 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+:root {
+  --font-family-sans-serif: "Poppins", sans-serif;
+}
+
+@import "../../scss/main";
+
+hr {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+label {
+  margin-bottom: 0px;
+  margin-right: 4px;
+
+  &[for="account"] {
+    margin-right: 48px;
+  }
+}
+
+input[type="date"] {
+  width: 20%;
+  min-width: 120px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.col-sm-8 .d-flex {
+  align-items: center;
+}
