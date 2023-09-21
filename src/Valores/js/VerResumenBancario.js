@@ -120,7 +120,6 @@ const printTable = data => {
 		throw new Error('Data is not defined or empty')
 	}
   const finalSaldo = data[data.length - 1].saldo
-  console.log(data)
 	data.forEach(({ fecha, operacion, numero, detalle, Importe, saldo, consiliado }) => {
     // console.log(fecha, fecha, operacion, numero, detalle, Importe, saldo, consiliado)
     const row = document.createElement('tr')
