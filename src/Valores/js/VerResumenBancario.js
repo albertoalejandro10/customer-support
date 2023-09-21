@@ -140,7 +140,7 @@ const printTable = data => {
 	row.classList.add('font-weight-bold')
 	const row_empty_data = createAndAppendTd(row, '')
 	row_empty_data.colSpan = 3
-	const row_total = createAndAppendTd(row, 'Totales')
+	const row_total = createAndAppendTd(row, 'Saldo final')
 	row_total.colSpan = 2
 	createAndAppendTd(row, format_number(finalSaldo))
 	createAndAppendTd(row, '')

@@ -182,17 +182,20 @@ const get_listReconciled = data => {
 		
 		gridOptions.api.hideOverlay()
 		document.getElementById('print').disabled = false
+		document.getElementById('delete').disabled = false
 		
 		if ( Object.keys( registros ).length === 0 ) {
 			// console.log( 'Is empty')
 			gridOptions.api.setPinnedBottomRowData([])
 			gridOptions.api.showNoRowsOverlay()
 			document.getElementById('print').disabled = true
+			document.getElementById('delete').disabled = true
 		}
 	})
 	.catch( err => {
 		console.log( err )
 		document.getElementById('print').disabled = true
+		document.getElementById('delete').disabled = true
 	})
 }
 
