@@ -109,8 +109,12 @@ const modalTextWrongNumber = document.getElementById('modal-wrong-number')
 const saveEditConciliation = id => {
 	const editButton = document.getElementById('saveConciliation')
 	editButton.onclick = () => {
+		modalTextWrongDate.classList.add('d-none')
+		modalTextWrongNumber.classList.add('d-none')
+		
 		const fecha = document.getElementById('modal-fecha').textContent
 		const numero = document.getElementById('modal-numero').textContent
+
 		if (!isValidDate(fecha)) {
 			modalTextWrongDate.classList.remove('d-none')
 			return
@@ -120,6 +124,7 @@ const saveEditConciliation = id => {
 			modalTextWrongNumber.classList.remove('d-none')
 			return
 		}
+
 		const data = { id, fecha, numero }
 		editFetchAPI(data)
 	}
