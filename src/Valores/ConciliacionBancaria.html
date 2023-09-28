@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./ConciliacionBancaria.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row px-2 py-1 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Conciliación bancaria</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/menuribbon.aspx?empresa=test&usuario=Test" target="_self">[Versión anterior]</a>
+          </div>
+          <div class="col-12">
+            <form id="form">
+              <div class="row">
+                <div class="col-sm-5 col-xl-4">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="business">U. de Negocio:</label>
+                    <select id="business" name="business" class="form-control">
+                      <!-- U. de Negocio -->
+                    </select>
+                  </div>
+
+                  <div class="d-flex">
+                    <label for="account">Cuenta:</label>
+                    <select id="account" name="account" class="form-control">
+                      <!-- Options cuenta -->
+                    </select>
+                  </div>
+
+                </div>
+                <div class="col-sm-7 col-xl-8">
+                  <div class="d-flex mb-1">
+                    <label for="date">Fecha:</label>
+                    <input class="form-control mr-1" type="date" name="date" id="date"><input type="checkbox" name="to-date" id="to-date"><label class="ml-1" for="to-date">Hasta fecha</label>
+                  </div>
+                  <div class="d-flex">
+                    <label for="order">Orden:</label>
+                    <select id="order" name="order" class="form-control">
+                      <!-- Options orden -->
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3 col-xl-2">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="countable-balance">Saldo contable:</label>
+                    <input class="form-control text-right" type="text" name="countable-balance" id="countable-balance" data-type="currency" placeholder="0,00" disabled>
+                  </div>
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="reconciled-to">Conciliado al:</label>
+                    <input class="form-control text-right" type="text" name="reconciled-to" id="reconciled-to" data-type="currency" placeholder="0,00" disabled>
+                  </div>
+                </div>
+
+                <div class="col-sm-3 col-xl-2">
+                  <div class="d-flex mb-1">
+                    <label class="text-nowrap" for="unreconciled-movement">Mov. No Conc:</label>
+                    <input class="form-control text-right" type="text" name="unreconciled-movement" id="unreconciled-movement" data-type="currency" placeholder="0,00" disabled>
+                  </div>
+                </div>
+
+                <div class="col-sm-3 col-xl-2">
+                  <div class="d-flex mb-1">
+                    <label for="difference">Diferencia:</label>
+                    <input class="form-control text-right" type="text" name="difference" id="difference" data-type="currency" placeholder="0,00" disabled>
+                  </div>
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="final-balance">Saldo final:</label>
+                    <input class="form-control text-right" type="text" name="final-balance" id="final-balance" data-type="currency" placeholder="0,00" disabled>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 mt-1 col-xl-6 mt-xl-0 d-flex justify-content-end align-items-end">
+                  <button id="update" type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                  <button id="download-excel" type="button" class="btn btn-success mr-1 d-none"><i class="fa-solid fa-file-excel"></i>Importar Extracto Bancario</button>
+                  <button id="delete-last" type="button" class="btn btn-danger mr-1 d-none"><i class="fa-solid fa-trash"></i>Eliminar Ult. Conciliación</button>
+                  <button id="clean" type="button" class="btn btn-secondary text-white mr-1 d-none"><i class="fa-solid fa-eraser"></i>Limpiar</button>
+                  <button id="confirm" type="button" class="btn btn-primary d-none"><i class="fa-solid fa-check"></i>Confirmar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <h6 class="mt-1 font-weight-bolder">Movimientos no conciliados</h6>
+            <div id="loader" class="loadingx d-none"></div>
+            <p id="no-movements" class="text-danger text-center font-weight-bold d-none mb-0">No hay movimientos</p>
+            <div style="overflow-x: auto;">
+              <table id="movements-table" class="table-borderless rounded text-secondary">
+                <thead>
+                  <tr>
+                    <th colspan="4">Registro ERP</th>
+                    <th colspan="4">Extracto Banco</th>
+                    <th>Saldo INICIAL</th>
+                    <th id="initialBalance">$ 0,00</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                  <tr>
+                    <th>Fecha Pres.</th>
+                    <th>Operación</th>
+                    <th>Número</th>
+                    <th>Detalle</th>
+                    <th>Fecha</th>
+                    <th>Operación</th>
+                    <th>Número</th>
+                    <th>Detalle</th>
+                    <th>Cuenta</th>
+                    <th>Importe</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="movements-tbody">
+                  <!-- Body table -->
+                </tbody>
+                <tfoot id="movements-tfoot" class="font-weight-bold">
+                  <!-- Foot table -->
+                </tfoot>
+              </table>
+            </div>
+            <p class="text-center font-weight-bold text-danger mt-4 d-none" id="not-movements">No existen resultados</p>
+          </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom"></div>
+      </div>
+
+      <!-- Modal para Excel -->
+      <div id="excelModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4>Importar Excel</h4>
+            <button type="button" class="btn btn-danger" id="closeExcelModal"><i class="fa-solid fa-x mr-0"></i></button>
+          </div>
+          <div class="modal-body">
+            <label for="formFile" class="form-label">Busque el archivo excel a importar:</label>
+            <input class="form-control" type="file" id="formFile" accept=".csv">
+          </div>
+          <div class="modal-footer justify-content-end">
+            <button type="button" class="btn btn-primary" id="processExcel"><i class="fa-solid fa-check"></i>Procesar Excel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para editar-->
+      <div id="editModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Modificar movimiento</h4>
+            <button type="button" class="btn btn-danger" id="closeEditModal"><i class="fa-solid fa-x mr-0"></i></button>
+          </div>
+          <div class="modal-body">
+            <table id="modal-table">
+              <thead>
+                <tr>
+                  <th>Asiento</th>
+                  <th>Fecha</th>
+                  <th>Presentación</th>
+                  <th>Operación</th>
+                  <th>Número</th>
+                  <th>Detalle</th>
+                  <th>Importe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Body table -->
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <h6 class="text-danger">Nota: Solo puede editar la fecha de presentación y el número.</h6>
+              <p class="text-danger font-weight-bold" id="modal-wrong-date">La fecha ingresada no es válida</p>
+              <p class="text-danger font-weight-bold" id="modal-wrong-number">El número ingresado no es válido</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="saveConciliation"><i class="fa-solid fa-check"></i>Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/ConciliacionBancariaApis.js"></script>
+  <script src="./js/ConciliacionBancaria.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+</html>

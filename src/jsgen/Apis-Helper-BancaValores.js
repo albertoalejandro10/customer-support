@@ -144,3 +144,51 @@ export const get_reconciledResumenBancario = async tkn => {
 		select.appendChild( option )
 	}
 }
+
+// Conseguir unidad de negocios (Formulario ConciliacionBancaria)
+export const get_businessUnitsBankReconciliation = async tkn => {
+	const url_getBusinessUnits = process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/get_concil_unid_negocio'
+	const business = await fetchData(url_getBusinessUnits, tkn)
+
+	for (const { id, nombre } of business) {
+		// console.log(id, nombre)
+		const select = document.querySelector('#business')
+		let option = document.createElement("option")
+		option.setAttribute("data-tokens", nombre)
+		option.value = id
+		option.textContent = nombre
+		select.appendChild( option )
+	}
+}
+
+// Conseguir listado de cuentas (Formulario ConciliacionBancaria)
+export const get_bankAccountsBankReconciliation = async tkn => {
+	const url_getBankAccounts = process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/get_cuentas_bancos'
+	const accounts = await fetchData(url_getBankAccounts, tkn)
+
+	for (const { codigo, nombre } of accounts) {
+		// console.log(codigo, nombre)
+		const select = document.querySelector('#account')
+		let option = document.createElement("option")
+		option.setAttribute("data-tokens", nombre)
+		option.value = codigo
+		option.textContent = nombre
+		select.appendChild( option )
+	}
+}
+
+// Conseguir listado de orden (Formulario ConciliacionBancaria)
+export const get_orderBankReconciliation = async tkn => {
+	const url_getOrders = process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/get_Orden'
+	const orders = await fetchData(url_getOrders, tkn)
+
+	for (const { codigo, nombre } of orders) {
+		// console.log(codigo, nombre)
+		const select = document.querySelector('#order')
+		let option = document.createElement("option")
+		option.setAttribute("data-tokens", nombre)
+		option.value = codigo
+		option.textContent = nombre
+		select.appendChild( option )
+	}
+}
