@@ -42,6 +42,7 @@ input[type="date"],
 }
 
 table {
+  text-wrap: nowrap;
   width: 100%;
   background: #FFFFFF;
   border: solid 1px;
@@ -127,7 +128,7 @@ table td input[type="checkbox"] {
     width: 112px;
   }
   &:nth-child(10) {
-    width: 80px;
+    width: 100px;
     text-align: right;
   }
   &:last-child {
@@ -149,10 +150,23 @@ table td input[type="checkbox"] {
   margin-right: 0px;
   padding: 0 6px;
   background: url("../../assets/images/unchecked.svg") no-repeat center left;
+  cursor: pointer;
 }
 
 input[type=checkbox]:checked + .label {
   background-image: url("../../assets/images/check.svg");
+}
+
+.grayCheckbox .label {
+  background:  url("../../assets/images/circle.svg") no-repeat center left;
+}
+
+.grayCheckbox [type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/unchecked.svg");
+}
+
+.warningCheckbox [type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/circle.svg");
 }
 
 .modal {
@@ -214,7 +228,8 @@ input[type=checkbox]:checked + .label {
       background-color: #5BB862;
     }
     &:nth-child(4) {
-      width: 90px;
+      width: 110px;
+      text-wrap: nowrap;
     }
     &:nth-child(5) {
       width: 56px;

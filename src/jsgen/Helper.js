@@ -60,10 +60,10 @@ export const format_token = all_link => {
 }
 
 // Formatear numero 1,000.00 to 1000,00
-export const reverseFormatNumber = (val, locale) => {
+export const reverseFormatNumber = (value, locale) => {
 	const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '')
 	const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '')
-	let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '')
+	let reversedVal = value.replace(new RegExp('\\' + group, 'g'), '')
 	reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.')
 	return Number.isNaN(reversedVal) ? 0 : reversedVal
 }
@@ -130,7 +130,7 @@ export const format_currency = (input, blur) => {
 	input[0].setSelectionRange(caret_pos, caret_pos)
 }
 
-// Valida que la cadena de texto sea una fecha válida en formato "MM/DD/YYYY"
+// Valida que la cadena de texto sea una fecha válida en formato "DD/MM/YYYY"
 export const isValidDate = date => {
 	// Primero verifica el patrón
 	if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(date)) {
@@ -139,8 +139,8 @@ export const isValidDate = date => {
 
 	// Separa la fecha en partes enteras
 	const parts = date.split('/')
-	const day = parseInt(parts[1], 10)
-	const month = parseInt(parts[0], 10)
+	const day = parseInt(parts[0], 10)
+	const month = parseInt(parts[1], 10)
 	const year = parseInt(parts[2], 10)
 
 	// Verifica los rangos de mes y year
