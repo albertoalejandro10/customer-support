@@ -39,7 +39,7 @@
                 <div class="col-sm-7 col-xl-8">
                   <div class="d-flex mb-1">
                     <label for="date">Fecha:</label>
-                    <input class="form-control mr-1" type="date" name="date" id="date"><input type="checkbox" name="to-date" id="to-date"><label class="ml-1" for="to-date">Hasta fecha</label>
+                    <input class="form-control mr-1" type="date" name="date" id="date">
                   </div>
                   <div class="d-flex">
                     <label for="order">Orden:</label>
@@ -51,13 +51,13 @@
               </div>
               <hr>
               <div class="row">
-                <div class="col-sm-3 col-xl-2">
+                <div id="to-expand" class="col-sm-3 col-xl-2">
                   <div class="d-flex mb-1">
-                    <label class="text-nowrap" for="countable-balance">Saldo contable:</label>
+                    <label id="expand-input-balance" class="text-nowrap" for="countable-balance">Saldo contable:</label>
                     <input class="form-control text-right" type="text" name="countable-balance" id="countable-balance" data-type="currency" placeholder="0,00" disabled>
                   </div>
                   <div class="d-flex">
-                    <label class="text-nowrap" for="reconciled-to">Conciliado al:</label>
+                    <label class="text-nowrap" id="reconciled-to-text" for="reconciled-to">Conciliado al:</label>
                     <input class="form-control text-right" type="text" name="reconciled-to" id="reconciled-to" data-type="currency" placeholder="0,00" disabled>
                   </div>
                 </div>
@@ -80,7 +80,7 @@
                   </div>
                 </div>
                 
-                <div class="col-sm-12 mt-1 col-xl-6 mt-xl-0 d-flex justify-content-end align-items-end">
+                <div id="expand-buttons" class="col-sm-12 mt-1 col-xl-6 mt-xl-0 d-flex justify-content-end align-items-end">
                   <button id="update" type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate"></i>Actualizar</button>
                   <button id="download-excel" type="button" class="btn btn-success mr-1 d-none"><i class="fa-solid fa-file-excel"></i>Importar Extracto Bancario</button>
                   <button id="delete-last" type="button" class="btn btn-danger mr-1 d-none"><i class="fa-solid fa-trash"></i>Eliminar Ult. Conciliación</button>

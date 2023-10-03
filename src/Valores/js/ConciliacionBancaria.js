@@ -37,7 +37,7 @@ const post_getLastConciliation = data => {
 		.then(([{ cuenta, mensaje, pendientes, resultado, saldos }, { numero }]) => {
 			if (resultado !== 'ok') return
 			if (pendientes.length === 0) document.getElementById('not-movements').classList.remove('d-none')
-			updateHigherForm(cuenta, saldos)
+			updateHigherForm(cuenta, saldos, numero)
 			arrTable = [...pendientes]
 
 			clearTable(table, 2)
@@ -71,7 +71,7 @@ const inputReconciledTo = document.getElementById('reconciled-to')
 const inputFinalBalance = document.getElementById('final-balance')
 
 // Actualizar los campos del higher form.
-const updateHigherForm = (cuenta, saldos) => {
+const updateHigherForm = (cuenta, saldos, numero) => {
 	inputCountableBalance.value = format_number(saldos.contable)
 	inputUnreconciledMovement.value = format_number(saldos.noConciliado)
 	inputDifference.value = format_number(cuenta.diferencia)
@@ -79,6 +79,23 @@ const updateHigherForm = (cuenta, saldos) => {
 	inputFinalBalance.value = format_number(saldos.total)
 
 	document.getElementById('update').classList.add('d-none')
+	const date = (cuenta.fechaUlt.slice(0, 10)).split('-').reverse().join('/')
+	const reconciledToText = document.getElementById('reconciled-to-text')
+	reconciledToText.textContent = `Conciliado al ${date} (Nro ${numero}):`
+
+	const toExpandFirstDiv = document.getElementById('to-expand')
+  toExpandFirstDiv.classList.remove('col-sm-3', 'col-xl-2')
+	toExpandFirstDiv.classList.add('col-sm-5')
+	toExpandFirstDiv.classList.add('col-xl-3')
+
+	const toExpandButtons = document.getElementById('expand-buttons')
+	toExpandButtons.classList.remove('col-xl-6')
+	toExpandButtons.classList.add('col-xl-12')
+
+	const toExpandBalance = document.getElementById('expand-input-balance')
+	toExpandBalance.style.marginRight = '114px'
+	reconciledToText.style.marginRight = '4px'
+	
 	const buttons = document.querySelectorAll('button[type="button"]')
 	buttons.forEach(button => {
 		button.classList.remove('d-none')
@@ -285,7 +302,6 @@ const printExcelTable = data => {
 	let finalExcelBalance = 0
 	let count = 0
 	data.forEach(({ check, cuenta_codigo, cuenta_nombre, detalle_eb, detalle_erp, fecha_eb, fecha_erp, id_erp, importe, numero_eb, numero_erp, operacion_eb, operacion_erp }) => {
-		console.log(id_erp);
 		const row = document.createElement('tr')
 		const checkedAttribute = check ? 'checked' : ''
 		const checkedDisabled = check ? 'disabled' : ''
@@ -476,7 +492,7 @@ const confirmConciliation = () => {
 		  saldoInicial,
 		  "unidadNegocioId": unidadNegocioIdConfirm
 		}
-		// console.log(data)
+		// console.log(JSON.stringify(data))
 	
 		if (window.confirm('¿Estás seguro de que deseas confirmar la conciliación?')) {
 			fetch( process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/conciliacion_grabar' , {
@@ -500,7 +516,7 @@ const confirmConciliation = () => {
 
 // Conseguir los checkbox
 const getCheckboxes = () => {
-  return Array.from(document.querySelectorAll('input[type="checkbox"]')).slice(1)
+  return Array.from(document.querySelectorAll('input[type="checkbox"]'))
 }
 
 // Manejador de eventos.
