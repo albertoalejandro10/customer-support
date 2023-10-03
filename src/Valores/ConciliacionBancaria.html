@@ -19,35 +19,42 @@
           </div>
           <div class="col-12">
             <form id="form">
-              <div class="row">
-                <div class="col-sm-5 col-xl-4">
-                  <div class="d-flex mb-1">
+              <div class="row align-items-center">
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex">
                     <label class="text-nowrap" for="business">U. de Negocio:</label>
                     <select id="business" name="business" class="form-control">
                       <!-- U. de Negocio -->
                     </select>
                   </div>
+                </div>
 
+                <div class="col-sm-5 col-xl-3">
                   <div class="d-flex">
                     <label for="account">Cuenta:</label>
                     <select id="account" name="account" class="form-control">
                       <!-- Options cuenta -->
                     </select>
                   </div>
-
                 </div>
-                <div class="col-sm-7 col-xl-8">
-                  <div class="d-flex mb-1">
-                    <label for="date">Fecha:</label>
-                    <input class="form-control mr-1" type="date" name="date" id="date">
-                  </div>
+
+
+                <div class="col-sm-3 col-xl-2">
                   <div class="d-flex">
-                    <label for="order">Orden:</label>
+                    <label for="date">Fecha:</label>
+                    <input class="form-control" type="date" name="date" id="date">
+                  </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-2">
+                  <div class="d-flex">
+                    <label for="order" style="margin-right: 54px;" class="mr-xl-2">Orden:</label>
                     <select id="order" name="order" class="form-control">
                       <!-- Options orden -->
                     </select>
                   </div>
                 </div>
+
               </div>
               <hr>
               <div class="row">
@@ -80,12 +87,13 @@
                   </div>
                 </div>
                 
-                <div id="expand-buttons" class="col-sm-12 mt-1 col-xl-6 mt-xl-0 d-flex justify-content-end align-items-end">
+                <div id="expand-buttons" class="col-sm-12 mt-1 col-xl-6 d-flex justify-content-end align-items-end">
                   <button id="update" type="submit" class="btn btn-primary"><i class="fa-solid fa-rotate"></i>Actualizar</button>
-                  <button id="download-excel" type="button" class="btn btn-success mr-1 d-none"><i class="fa-solid fa-file-excel"></i>Importar Extracto Bancario</button>
+                  <button id="import-excel" type="button" class="btn btn-dark mr-1 d-none"><i class="fa-solid fa-file-import"></i>Importar Extracto Bancario</button>
+                  <button id="download-excel" type="button" class="btn btn-success mr-1 d-none"><i class="fa-solid fa-file-arrow-down"></i>Descargar Excel</button>
                   <button id="delete-last" type="button" class="btn btn-danger mr-1 d-none"><i class="fa-solid fa-trash"></i>Eliminar Ult. Conciliación</button>
                   <button id="clean" type="button" class="btn btn-secondary text-white mr-1 d-none"><i class="fa-solid fa-eraser"></i>Limpiar</button>
-                  <button id="confirm" type="button" class="btn btn-primary text-white d-none" disabled><i class="fa-solid fa-check"></i>Confirmar</button>
+                  <button id="confirm" type="button" class="btn btn-primary text-white d-none"><i class="fa-solid fa-check"></i>Confirmar</button>
                 </div>
               </div>
             </form>

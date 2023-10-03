@@ -54,6 +54,8 @@ const post_getLastConciliation = data => {
 		})
 		.finally(() => {
 			loader.classList.add('d-none')
+			assignCheckboxEventListeners([updateHigherInput])
+			confirmConciliation()
 		})
 }
 
@@ -72,11 +74,19 @@ const inputFinalBalance = document.getElementById('final-balance')
 
 // Actualizar los campos del higher form.
 const updateHigherForm = (cuenta, saldos, numero) => {
-	inputCountableBalance.value = format_number(saldos.contable)
-	inputUnreconciledMovement.value = format_number(saldos.noConciliado)
-	inputDifference.value = format_number(cuenta.diferencia)
-	inputReconciledTo.value = format_number(cuenta.debe)
-	inputFinalBalance.value = format_number(saldos.total)
+	if (numero === 0) {
+		inputCountableBalance.value = ''
+		inputUnreconciledMovement.value = ''
+		inputDifference.value = ''
+		inputReconciledTo.value = ''
+		inputFinalBalance.value = ''		
+	} else {
+		inputCountableBalance.value = format_number(saldos.contable)
+		inputUnreconciledMovement.value = format_number(saldos.noConciliado)
+		inputDifference.value = format_number(cuenta.diferencia)
+		inputReconciledTo.value = format_number(cuenta.debe)
+		inputFinalBalance.value = format_number(saldos.total)
+	}
 
 	document.getElementById('update').classList.add('d-none')
 	const date = (cuenta.fechaUlt.slice(0, 10)).split('-').reverse().join('/')
@@ -109,7 +119,7 @@ const printTable = data => {
 		const row = document.createElement('tr')
 		let checkedAttribute = check ? 'checked' : ''
 		const importeCell = createCell(format_number(importe))
-		importeCell.id = id
+		importeCell.id = 'import-' + id
 
     row.append(
       createCell(`<a href="javascript:void(0);" link-id=${id}>${fecha}<a/>`, true),
@@ -234,7 +244,7 @@ form.addEventListener('submit', event => {
 const initialBalance = document.getElementById('initialBalance')
 const excelModal = document.getElementById('excelModal')
 const confirm = document.getElementById('confirm')
-document.getElementById('download-excel').addEventListener('click', () => {
+document.getElementById('import-excel').addEventListener('click', () => {
 	excelModal.style.display = 'block'
 
 	// Manejar el archivo .csv ingresado por el usuario. (Solo prueba aun no esta funcionando, lo dejare por el momento.)
@@ -276,7 +286,6 @@ document.getElementById('download-excel').addEventListener('click', () => {
 	}
 
 	document.getElementById('processExcel').onclick = () => {
-		confirm.disabled = false
 		fetch(process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/importar_Excel', {
 			method: 'POST',
 			body: JSON.stringify(data),
@@ -291,8 +300,9 @@ document.getElementById('download-excel').addEventListener('click', () => {
 			clearTable(table, 2)
 			initialBalance.textContent = format_number(saldoInicial)
 			printExcelTable(movimientos)
-			assignCheckboxEventListeners()
-			confirmConciliation()
+			assignCheckboxEventListeners([toggleClasses, calculateFinalBalance, changeAttribute])
+			confirm.disabled = true
+			// confirmExcelConciliation()
 		})
 	}
 })
@@ -446,13 +456,15 @@ document.getElementById('delete-last').addEventListener('click', () => {
 		.then(({ resultado, mensaje }) => {
 			if (resultado !== 'ok') return
 			alert(`Resultado: ${resultado} \nMensaje: ${mensaje}`)
-			location.reload()
+			const infoData = extractFormData(form)
+			post_getLastConciliation(infoData)
 		})
 	}
 })
 
 // Boton limpiar
 document.getElementById('clean').addEventListener('click', () => {
+	confirm.disabled = false
 	inputCountableBalance.value = ''
 	inputUnreconciledMovement.value = ''
 	inputDifference.value = ''
@@ -470,31 +482,28 @@ document.getElementById('clean').addEventListener('click', () => {
 
 // Boton confirmar
 const confirmConciliation = () => {
-	document.getElementById('confirm').addEventListener('click', () => {
-		const importeConcil = parseFloat(reverseFormatNumber(document.getElementById('finalBalance').textContent.slice(2), 'de-DE'))
-		const saldoInicial = parseFloat(reverseFormatNumber(document.getElementById('initialBalance').textContent.slice(2), 'de-DE'))
-
-		const checkboxes = getCheckboxes()
-		const registros = checkboxes.filter(registro => {
-			if (registro.getAttribute('registro') === 'true') {
-				return true
-			}
-			return false
-		}).map(registro => registro.id)
-		// console.log(registros)
-
-		const data = {
-			"fecha": fechaConfirm,
-		  registros,
-		  "ultimoNro": ultNroConciliation,
-		  "cuenta": nroCuenta,
-		  importeConcil,
-		  saldoInicial,
-		  "unidadNegocioId": unidadNegocioIdConfirm
-		}
-		// console.log(JSON.stringify(data))
-	
+	confirm.addEventListener('click', () => {
 		if (window.confirm('¿Estás seguro de que deseas confirmar la conciliación?')) {
+			const importeConcil = reverseFormatNumber(inputFinalBalance.value, 'de-DE')
+			const saldoInicial = reverseFormatNumber(inputReconciledTo.value, 'de-DE')
+			const checkboxes = getCheckboxes()
+			const registros = checkboxes.filter(registro => {
+				if (registro.checked === true) {
+					return true
+				}
+				return false
+			}).map(registro => registro.id)
+
+			const data = {
+				"fecha": fechaConfirm,
+				registros,
+				"ultimoNro": ultNroConciliation,
+				"cuenta": nroCuenta,
+				importeConcil,
+				saldoInicial: saldoInicial === '' ? 0 : saldoInicial,
+				"unidadNegocioId": unidadNegocioIdConfirm
+			}
+	
 			fetch( process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/conciliacion_grabar' , {
 				method: 'POST',
 				body: JSON.stringify(data),
@@ -505,7 +514,7 @@ const confirmConciliation = () => {
 			})
 			.then(confirm => confirm.json())
 			.then(({ resultado, mensaje }) => {
-				// if (resultado !== 'ok') return
+				if (resultado !== 'ok') return
 				alert(`Resultado: ${resultado} \nMensaje: ${mensaje}`)
 				const infoData = extractFormData(form)
 				post_getLastConciliation(infoData)
@@ -519,11 +528,12 @@ const getCheckboxes = () => {
   return Array.from(document.querySelectorAll('input[type="checkbox"]'))
 }
 
-// Manejador de eventos.
+// Manejador de eventos
 const handleCheckboxClick = (checkbox, callback) => {
   checkbox.addEventListener('click', event => {
     const id = event.target.id
-    callback(id)
+    const checked = event.target.checked
+    callback(id, checked)
   })
 }
 
@@ -531,7 +541,7 @@ const handleCheckboxClick = (checkbox, callback) => {
 const toggleClasses = id => {
   const trImport = document.getElementById(`import-${id}`)
   trImport.classList.toggle('bg-warning')
-	trImport.classList.toggle('bg-secondary')
+  trImport.classList.toggle('bg-secondary')
 }
 
 // Calcular saldo final
@@ -545,16 +555,25 @@ const calculateFinalBalance = () => {
 
 // Cambiar atributo, false o true.
 const changeAttribute = id => {
-	const checkbox = document.getElementById(id)
-  checkbox.setAttribute('registro', checkbox.getAttribute('registro') === 'true' ? false : true)
+  const checkbox = document.getElementById(id)
+  checkbox.registro = !checkbox.registro
 }
 
-// Iniciador.
-const assignCheckboxEventListeners = () => {
+let finalCash = 0.00
+const updateHigherInput = (id, isChecked) => {
+	if (isChecked) {
+		finalCash += parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-De'))
+	} else {
+		finalCash -= parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-De'))
+	}
+	inputFinalBalance.value = format_number(finalCash)
+}
+
+const assignCheckboxEventListeners = (callbacks) => {
   const checkboxes = getCheckboxes()
   checkboxes.forEach(checkbox => {
-    handleCheckboxClick(checkbox, toggleClasses)
-    handleCheckboxClick(checkbox, calculateFinalBalance)
-    handleCheckboxClick(checkbox, changeAttribute)
+    callbacks.forEach(callback => {
+      handleCheckboxClick(checkbox, callback)
+    })
   })
 }

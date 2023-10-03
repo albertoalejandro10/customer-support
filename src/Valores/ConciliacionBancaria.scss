@@ -24,21 +24,12 @@ label {
   &[for="date"] {
     margin-right: 7px;
   }
-  &[for="account"] {
-    margin-right: 48px;
-  }
   &[for="reconciled-to"] {
     margin-right: 17px;
   }
   &[for="difference"] {
     margin-right: 6px;
   }
-}
-
-input[type="date"],
-#order {
-  width: 24%;
-  min-width: 140px;
 }
 
 table {
