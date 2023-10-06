@@ -140,24 +140,28 @@ table td input[type="checkbox"] {
   display: inline-block;
   margin-right: 0px;
   padding: 0 6px;
-  background: url("../../assets/images/unchecked.svg") no-repeat center left;
+  background: url("../../assets/images/check-warning.svg") no-repeat center left;
   cursor: pointer;
 }
 
 input[type=checkbox]:checked + .label {
-  background-image: url("../../assets/images/check.svg");
+  background-image: url("../../assets/images/check-success.svg");
 }
 
 .grayCheckbox .label {
-  background:  url("../../assets/images/circle.svg") no-repeat center left;
+  background:  url("../../assets/images/unchecked.svg") no-repeat center left;
 }
 
 .grayCheckbox [type=checkbox]:checked + .label {
-  background-image: url("../../assets/images/unchecked.svg");
+  background-image: url("../../assets/images/check-warning.svg");
+}
+
+.grayCheckbox.firstStage [type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/check-success.svg");
 }
 
 .warningCheckbox [type=checkbox]:checked + .label {
-  background-image: url("../../assets/images/circle.svg");
+  background-image: url("../../assets/images/unchecked.svg");
 }
 
 .modal {
