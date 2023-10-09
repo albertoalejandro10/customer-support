@@ -10,6 +10,7 @@ let fechaConfirm = ''
 let unidadNegocioIdConfirm = 0
 let ultNroConciliation = 0
 let nroCuenta = 0
+let initialBalanceValue = 0
 
 // Fetch a la API, mostrar loader, ocultar loader y generar tabla principal con los datos de la API.
 const post_getLastConciliation = data => {
@@ -43,6 +44,7 @@ const post_getLastConciliation = data => {
 			clearTable(table, 2)
 			printTable(pendientes, cuenta.debe)
 
+			initialBalanceValue = cuenta.debe
 			fechaConfirm = data.fecha
 			nroCuenta = data.cuenta
 			unidadNegocioIdConfirm = data.unidadNegocioId
@@ -302,11 +304,11 @@ document.getElementById('import-excel').addEventListener('click', () => {
 		.then(({ movimientos, saldoInicial }) => {
 			hideExcelModal()
 			clearTable(table, 2)
-			inputFinalBalance.value = format_number(saldoInicial)
-			initialBalance.textContent = format_number(saldoInicial)
-			printExcelTable(movimientos, saldoInicial)
-			assignCheckboxEventListeners([updateHigherInputAndLastRowTable, changeAttribute])
-			addConfirmListener(movimientos, saldoInicial)
+			inputFinalBalance.value = format_number(initialBalanceValue)
+			initialBalance.textContent = '$ ' + format_number(initialBalanceValue)
+			printExcelTable(movimientos, initialBalanceValue)
+			assignCheckboxEventListeners([updateHigherInputAndLastRowTable, changeAttribute, toggleClassesColorImport])
+			addConfirmListener(movimientos, initialBalanceValue)
 		})
 	}
 })
@@ -326,12 +328,14 @@ const printExcelTable = (data, saldoInicial) => {
 
 		if (detalle_eb === null) {
 			checkboxCell.classList.add('grayCheckbox')
+			importeCell.classList.add('text-secondary')
 		} else if (detalle_erp === null) {
 			checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${true} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)
 			checkboxCell.classList.add('warningCheckbox')
-		} else {
-			// importeCell.classList.add('bg-success')
 		}
+		// else {
+		// 	importeCell.classList.add('bg-success')
+		// }
 
     row.append(
       createCell(fecha_erp),
@@ -353,12 +357,15 @@ const printExcelTable = (data, saldoInicial) => {
 	const row = document.createElement('tr')
 	const emptyCell = createCell()
 	emptyCell.colSpan = 8
+	const finalBalanceText = createCell('Saldo FINAL')
+	finalBalanceText.classList.add('py-1')
 	const finalBalanceElement = createCell('$ ' + format_number(saldoInicial))
 	finalBalanceElement.classList.add('text-right')
 	finalBalanceElement.id = 'finalBalance'
+	finalBalanceElement.classList.add('py-1')
 	row.append(
 		emptyCell,
-		createCell('Saldo FINAL'),
+		finalBalanceText,
 		finalBalanceElement,
 	)
 	tfootTable.appendChild(row)
@@ -503,7 +510,6 @@ const handleConfirmClick = (movimientos, saldoInicialExcel) => {
 			data.movimientos = movimientos
 			data.registros = []
 		}
-		// console.log(data)
 
 		fetch( process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/conciliacion_grabar' , {
 			method: 'POST',
@@ -524,11 +530,11 @@ const handleConfirmClick = (movimientos, saldoInicialExcel) => {
 }
 
 let handleConfirmClickBound
-const addConfirmListener = (movimientos, saldoInicial) => {
+const addConfirmListener = (movimientos, initialBalanceValue) => {
 	if (handleConfirmClickBound) {
 		confirm.removeEventListener('click', handleConfirmClickBound)
 	}
-	handleConfirmClickBound = handleConfirmClick.bind(null, movimientos, saldoInicial)
+	handleConfirmClickBound = handleConfirmClick.bind(null, movimientos, initialBalanceValue)
 	confirm.addEventListener('click', handleConfirmClickBound)
 }
 
@@ -555,6 +561,11 @@ const toggleClassesImport = id => {
 	trImport.classList.toggle('font-weight-bold')
 }
 
+const toggleClassesColorImport = id => {
+	const trImport = document.getElementById(`import-${id}`)
+	trImport.classList.toggle('text-secondary')
+}
+
 // Cambiar atributo, false o true.
 const changeAttribute = id => {
   const checkbox = document.getElementById(id)
@@ -562,14 +573,14 @@ const changeAttribute = id => {
 }
 
 // Sirve para calcular y actualizar el input saldo final y la ultima fila de la tabla.
-const updateHigherInputAndLastRowTable = (id, isChecked, initialValue) => {
+const updateHigherInputAndLastRowTable = (id, isChecked, initialBalanceValue) => {
 	if (isChecked) {
-		initialValue += parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-DE'))
+		initialBalanceValue += parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-DE'))
 	} else {
-		initialValue -= parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-DE'))
+		initialBalanceValue -= parseFloat(reverseFormatNumber(document.getElementById(`import-${id}`).textContent, 'de-DE'))
 	}
-	inputFinalBalance.value = format_number(initialValue)
-	document.getElementById('finalBalance').textContent = '$ ' + format_number(initialValue)
+	inputFinalBalance.value = format_number(initialBalanceValue)
+	document.getElementById('finalBalance').textContent = '$ ' + format_number(initialBalanceValue)
 }
 
 // Iniciador
