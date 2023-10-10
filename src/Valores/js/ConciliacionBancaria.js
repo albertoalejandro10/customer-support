@@ -332,10 +332,9 @@ const printExcelTable = (data, saldoInicial) => {
 		} else if (detalle_erp === null) {
 			checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${true} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)
 			checkboxCell.classList.add('warningCheckbox')
+		} else {
+			checkboxCell.classList.add('double-check')
 		}
-		// else {
-		// 	importeCell.classList.add('bg-success')
-		// }
 
     row.append(
       createCell(fecha_erp),
@@ -358,11 +357,11 @@ const printExcelTable = (data, saldoInicial) => {
 	const emptyCell = createCell()
 	emptyCell.colSpan = 8
 	const finalBalanceText = createCell('Saldo FINAL')
-	finalBalanceText.classList.add('py-1')
+	finalBalanceText.classList.add('py-2')
 	const finalBalanceElement = createCell('$ ' + format_number(saldoInicial))
 	finalBalanceElement.classList.add('text-right')
 	finalBalanceElement.id = 'finalBalance'
-	finalBalanceElement.classList.add('py-1')
+	finalBalanceElement.classList.add('py-2')
 	row.append(
 		emptyCell,
 		finalBalanceText,
