@@ -148,8 +148,8 @@ input[type=checkbox]:checked + .label {
   background-image: url("../../assets/images/check-success.svg");
 }
 
-.double-check input[type=checkbox]:checked + .label {
-  background-image: url("../../assets/images/check-double-fill.svg");
+.grayCheckbox.firstStage [type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/check-success.svg");
 }
 
 .grayCheckbox .label {
@@ -160,12 +160,24 @@ input[type=checkbox]:checked + .label {
   background-image: url("../../assets/images/check-warning.svg");
 }
 
-.grayCheckbox.firstStage [type=checkbox]:checked + .label {
+.warningCheckbox [type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/unchecked.svg");
+}
+
+.warningCheckbox [type=checkbox] + .label {
+  background-image: url("../../assets/images/unchecked.svg");
+}
+
+.warningCheckbox.changeGreen [type=checkbox] + .label {
+  background-image: url("../../assets/images/unchecked.svg");
+}
+
+.warningCheckbox.changeGreen [type=checkbox]:checked + .label {
   background-image: url("../../assets/images/check-success.svg");
 }
 
-.warningCheckbox [type=checkbox]:checked + .label {
-  background-image: url("../../assets/images/unchecked.svg");
+.doubleCheck input[type=checkbox]:checked + .label {
+  background-image: url("../../assets/images/check-double-fill.svg");
 }
 
 .modal {

@@ -145,13 +145,16 @@ const printTable = (data, debe) => {
 	const row = document.createElement('tr')
 	const emptyCell = createCell()
 	emptyCell.colSpan = 8
+	const finalBalanceText = createCell('Saldo FINAL')
+	finalBalanceText.classList.add('py-2')
 	const finalBalanceElement = createCell('$ ' + format_number(debe))
 	finalBalanceElement.classList.add('text-right')
 	finalBalanceElement.id = 'finalBalance'
+	finalBalanceElement.classList.add('py-2')
 	row.append(
 		emptyCell,
-		createCell('Saldo FINAL'),
-		finalBalanceElement,
+		finalBalanceText,
+		finalBalanceElement
 	)
 	tfootTable.appendChild(row)
 	getAnchorsAndEditSeat()
@@ -307,8 +310,8 @@ document.getElementById('import-excel').addEventListener('click', () => {
 			inputFinalBalance.value = format_number(initialBalanceValue)
 			initialBalance.textContent = '$ ' + format_number(initialBalanceValue)
 			printExcelTable(movimientos, initialBalanceValue)
-			assignCheckboxEventListeners([updateHigherInputAndLastRowTable, changeAttribute, toggleClassesColorImport])
 			addConfirmListener(movimientos, initialBalanceValue)
+			assignCheckboxEventListeners([changeAttribute, toggleClassesColorImport, updateHigherInputAndLastRowExcelTable])
 		})
 	}
 })
@@ -318,22 +321,30 @@ const printExcelTable = (data, saldoInicial) => {
 	let count = 0
 	data.forEach(({ check, cuenta_codigo, cuenta_nombre, detalle_eb, detalle_erp, fecha_eb, fecha_erp, id_erp, importe, numero_eb, numero_erp, operacion_eb, operacion_erp }) => {
 		const row = document.createElement('tr')
+
 		const checkedAttribute = check ? 'checked' : ''
 		const checkedDisabled = check ? 'disabled' : ''
 
 		let checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${false} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)		
+
 		const importeCell = createCell(format_number(importe))
 		importeCell.id = 'import-' + count
 		importeCell.classList.add('font-weight-bold')
-
+		
 		if (detalle_eb === null) {
 			checkboxCell.classList.add('grayCheckbox')
-			importeCell.classList.add('text-secondary')
+			if (!check) {
+				importeCell.classList.add('text-secondary')
+			}
 		} else if (detalle_erp === null) {
 			checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${true} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)
 			checkboxCell.classList.add('warningCheckbox')
+			checkboxCell.classList.add('changeGreen')
+			if (!check) {
+				importeCell.classList.add('text-secondary')
+			}
 		} else {
-			checkboxCell.classList.add('double-check')
+			checkboxCell.classList.add('doubleCheck')
 		}
 
     row.append(
@@ -353,12 +364,18 @@ const printExcelTable = (data, saldoInicial) => {
 		count++
 	})
 
+	let initBalance = 0
+	let tds = document.querySelectorAll('td:not(.text-secondary)[id]')
+	tds.forEach(td => {
+		initBalance += parseFloat(reverseFormatNumber(td.textContent, 'de-DE'))
+	})
+
 	const row = document.createElement('tr')
 	const emptyCell = createCell()
 	emptyCell.colSpan = 8
 	const finalBalanceText = createCell('Saldo FINAL')
 	finalBalanceText.classList.add('py-2')
-	const finalBalanceElement = createCell('$ ' + format_number(saldoInicial))
+	const finalBalanceElement = createCell('$ ' + format_number(initBalance + saldoInicial))
 	finalBalanceElement.classList.add('text-right')
 	finalBalanceElement.id = 'finalBalance'
 	finalBalanceElement.classList.add('py-2')
@@ -580,6 +597,21 @@ const updateHigherInputAndLastRowTable = (id, isChecked, initialBalanceValue) =>
 	}
 	inputFinalBalance.value = format_number(initialBalanceValue)
 	document.getElementById('finalBalance').textContent = '$ ' + format_number(initialBalanceValue)
+}
+
+// Sirve para calcular y actualizar el input saldo final y la ultima fila de la tabla.
+const updateHigherInputAndLastRowExcelTable = (id, isChecked, initialBalanceValue) => {
+	const initialBalance = document.getElementById('initialBalance').textContent.slice(2)
+	let tds = Array.from(document.querySelectorAll('td:not(.text-secondary)[id]'))
+	tds.pop()
+	let calculateBalance = 0
+	tds.forEach(td => {
+		calculateBalance += parseFloat(reverseFormatNumber(td.textContent, 'de-DE'))
+	})
+	calculateBalance = calculateBalance + parseFloat(reverseFormatNumber(initialBalance, 'de-DE'))
+
+	inputFinalBalance.value = format_number( calculateBalance )
+	document.getElementById('finalBalance').textContent = '$ ' + format_number( calculateBalance )
 }
 
 // Iniciador
