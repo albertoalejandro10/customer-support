@@ -120,13 +120,19 @@ const printTable = (data, debe) => {
   data.forEach(({asiento, asientoId, bcoDetalle, bcoFecha, bcoNombre, bcoNumero, check, cuenta, debe, detalle, fecha, id, importe, linkAsiento, nombre, numero, semaforo, vencimiento}) => {
 		const row = document.createElement('tr')
 		const checkedAttribute = check ? 'checked' : ''
-		const checkboxCell = createCell(`<label><input type="checkbox" name='checkbox-${id}' id='${id}' ${checkedAttribute}><span class="label">&nbsp;</span></label>`, true)	
+		const checkboxCell = createCell(`<label><input type="checkbox" name='checkbox-${id}' id='${id}' ${checkedAttribute}><span class="label">&nbsp;</span></label>`, true)
 		checkboxCell.classList.add('firstStage')
 		checkboxCell.classList.add('grayCheckbox')
-		const importeCell = createCell(format_number(importe))
+		let importeCell
+		if (debe !== true) {
+			importeCell = createCell(format_number(importe))
+		} else {
+			importeCell = createCell(format_number(importe * -1))
+		}
 		importeCell.id = 'import-' + id
 		importeCell.classList.add('text-secondary')
 
+		
     row.append(
       createCell(`<a href="javascript:void(0);" link-id=${id}>${fecha}<a/>`, true),
       createCell(nombre),
@@ -337,12 +343,9 @@ const printExcelTable = (data, saldoInicial) => {
 				importeCell.classList.add('text-secondary')
 			}
 		} else if (detalle_erp === null) {
-			checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${true} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)
+			checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${true} checked ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)
 			checkboxCell.classList.add('warningCheckbox')
 			checkboxCell.classList.add('changeGreen')
-			if (!check) {
-				importeCell.classList.add('text-secondary')
-			}
 		} else {
 			checkboxCell.classList.add('doubleCheck')
 		}
