@@ -124,14 +124,13 @@ const printTable = (data, debe) => {
 		checkboxCell.classList.add('firstStage')
 		checkboxCell.classList.add('grayCheckbox')
 		let importeCell
-		if (debe !== true) {
+		if (debe === true) {
 			importeCell = createCell(format_number(importe))
 		} else {
 			importeCell = createCell(format_number(importe * -1))
 		}
 		importeCell.id = 'import-' + id
 		importeCell.classList.add('text-secondary')
-
 		
     row.append(
       createCell(`<a href="javascript:void(0);" link-id=${id}>${fecha}<a/>`, true),
