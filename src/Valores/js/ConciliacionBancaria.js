@@ -50,6 +50,7 @@ const post_getLastConciliation = data => {
 			unidadNegocioIdConfirm = data.unidadNegocioId
 			ultNroConciliation = numero
 			initialBalance.textContent = '$ ' + format_number(cuenta.debe)
+			toggleDisabled(true)
 		})
 		.catch( err => {
 			console.log( err )
@@ -60,6 +61,13 @@ const post_getLastConciliation = data => {
 			assignCheckboxEventListeners([updateHigherInputAndLastRowTable, toggleClassesImport])
 			addConfirmListener()
 		})
+}
+
+const toggleDisabled = bool => {
+	document.getElementById('business').disabled = bool
+	document.getElementById('account').disabled = bool
+	document.getElementById('date').disabled = bool
+	document.getElementById('order').disabled = bool
 }
 
 // Limpiar tablas.
@@ -116,7 +124,9 @@ const updateHigherForm = (cuenta, saldos, numero) => {
 }
 
 // Generar tabla principal del formulario.
+const thDate = document.getElementById('th-date')
 const printTable = (data, debe) => {
+	thDate.textContent = 'Fecha Pres.'
   data.forEach(({asiento, asientoId, bcoDetalle, bcoFecha, bcoNombre, bcoNumero, check, cuenta, debe, detalle, fecha, id, importe, linkAsiento, nombre, numero, semaforo, vencimiento}) => {
 		const row = document.createElement('tr')
 		const checkedAttribute = check ? 'checked' : ''
@@ -262,36 +272,49 @@ document.getElementById('import-excel').addEventListener('click', () => {
 	excelModal.style.display = 'block'
 
 	// Manejar el archivo .csv ingresado por el usuario. (Solo prueba aun no esta funcionando, lo dejare por el momento.)
+	const buttonExcel = document.getElementById('processExcel')
 	const inputFile = document.getElementById('formFile')
 	inputFile.addEventListener('change', event => {
-		const file = event.target.files[0]
-		const reader = new FileReader()
-	
-		reader.onload = event => {
-			let csvData = event.target.result
-			console.log(csvData)
-		}
-	
-		reader.readAsText(file)
+    const file = event.target.files[0]
+    const fileName = file.name
+    const fileExtension = fileName.split('.').pop().toLowerCase()
 
-		// reader.onload = event => {
-		// 	let csvData = event.target.result
-		// 	let lines = csvData.split('\n')
-		// 	let headers = lines[0].split(',')
-		
-		// 	let csvArray = lines.slice(1).map(line => {
-		// 		let values = line.split(',')
-		
-		// 		let row = {}
-		// 		headers.forEach((header, index) => {
-		// 			row[header] = values[index]
-		// 		})
-		
-		// 		return row
-		// 	})
-		
-		// 	console.log(csvArray)
-		// }
+    // Verificar si la extensión es csv
+    if (fileExtension !== 'csv') {
+			// Mostrar un mensaje de error
+			alert('Por favor, sube un archivo .csv')
+			// Limpiar el input
+			inputFile.value = ''
+		} else {
+			// Aquí puedes habilitar tu botón
+			buttonExcel.disabled = false
+			// console.log(file)
+			
+			const reader = new FileReader()
+			reader.onload = event => {
+				let csvData = event.target.result
+				// console.log(csvData)
+			}
+			reader.readAsText(file)
+			// reader.onload = event => {
+			// 	let csvData = event.target.result
+			// 	let lines = csvData.split('\n')
+			// 	let headers = lines[0].split(',')
+			
+			// 	let csvArray = lines.slice(1).map(line => {
+			// 		let values = line.split(',')
+			
+			// 		let row = {}
+			// 		headers.forEach((header, index) => {
+			// 			row[header] = values[index]
+			// 		})
+			
+			// 		return row
+			// 	})
+			
+			// 	console.log(csvArray)
+			// }
+		}
 	})
 
 	const data = {
@@ -299,7 +322,7 @@ document.getElementById('import-excel').addEventListener('click', () => {
 		fileExcel: ''
 	}
 
-	document.getElementById('processExcel').onclick = () => {
+	buttonExcel.onclick = () => {
 		fetch(process.env.Solu_externo + '/bancosyvalores/conciliacion_bancaria/importar_Excel', {
 			method: 'POST',
 			body: JSON.stringify(data),
@@ -318,18 +341,26 @@ document.getElementById('import-excel').addEventListener('click', () => {
 			addConfirmListener(movimientos, initialBalanceValue)
 			assignCheckboxEventListeners([changeAttribute, toggleClassesColorImport, updateHigherInputAndLastRowExcelTable])
 		})
+		.finally(() => {
+			inputFile.value = ''
+			buttonExcel.disabled = true
+		})
 	}
 })
 
 // Generar tabla principal del formulario cuando el usuario cliquea desde Importar extracto bancario. Es muy similar a la otra pero trae otras variables e imprime mas valores.
 const printExcelTable = (data, saldoInicial) => {
 	let count = 0
+	thDate.textContent = 'F. Pres'
 	data.forEach(({ check, cuenta_codigo, cuenta_nombre, detalle_eb, detalle_erp, fecha_eb, fecha_erp, id_erp, importe, numero_eb, numero_erp, operacion_eb, operacion_erp }) => {
 		const row = document.createElement('tr')
 
 		const checkedAttribute = check ? 'checked' : ''
 		const checkedDisabled = check ? 'disabled' : ''
 
+		const fechaERP = createCell(fecha_erp)
+		fechaERP.style.textAlign = 'left'
+		fechaERP.style.width = '60px'
 		let checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${false} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)		
 
 		const importeCell = createCell(format_number(importe))
@@ -350,7 +381,7 @@ const printExcelTable = (data, saldoInicial) => {
 		}
 
     row.append(
-      createCell(fecha_erp),
+      fechaERP,
       createCell(operacion_erp),
       createCell(numero_erp),
       createCell(detalle_erp),
@@ -503,6 +534,7 @@ document.getElementById('clean').addEventListener('click', () => {
 		button.classList.add('d-none')
 	})
 	clearTable(table, 2)
+	toggleDisabled(false)
 })
 
 // Handler para el confirm button
