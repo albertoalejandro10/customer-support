@@ -361,6 +361,10 @@ const printExcelTable = (data, saldoInicial) => {
 		const fechaERP = createCell(fecha_erp)
 		fechaERP.style.textAlign = 'left'
 		fechaERP.style.width = '60px'
+
+		const cuentaNombre = createCell(cuenta_nombre)
+		cuentaNombre.style.width = 'auto'
+		cuentaNombre.style.minWidth = '160px'
 		let checkboxCell = createCell(`<label><input type='checkbox' name='checkbox-${count}' id='${count}' registro=${false} ${checkedAttribute} ${checkedDisabled}><span class='label'>&nbsp;</span></label>`, true)		
 
 		const importeCell = createCell(format_number(importe))
@@ -389,7 +393,7 @@ const printExcelTable = (data, saldoInicial) => {
       createCell(operacion_eb),
       createCell(numero_eb),
       createCell(detalle_eb),
-			createCell(cuenta_nombre),
+			cuentaNombre,
 			importeCell,
       checkboxCell
 		)
