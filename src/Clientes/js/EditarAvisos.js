@@ -158,7 +158,24 @@ const notices = (avisoId, tkn) => {
             document.getElementById('customer-group').value = grupoClienteId
             document.getElementById('customer-types').value = tipoClienteId
             document.getElementById('attach').value = adjunto
-            editor.setData(mensaje)
+
+            //Bloque el input de tipo envio para que solo sea de lectura
+            document.getElementById('shipping-type').setAttribute("disabled","true")
+
+            //Y si es tipo WSP el texto es de solo lectura
+            if(getParameter('tipoEnvioId') == 2){
+                //WhatsApp
+                document.querySelector("#area-email").classList.add("d-none")
+                document.querySelector("#area-wsp").classList.remove("d-none")
+                document.querySelector("#wsp-msg").value = mensaje
+                document.querySelector("#wsp-msg").setAttribute("disabled","true")
+                document.querySelector("#matter").setAttribute("disabled","true")
+                document.querySelector("#attach").setAttribute("disabled","true")
+            }else{
+                editor.setData(mensaje)
+            }
+            
+
         }
     })
 }
@@ -196,9 +213,18 @@ deleteNotice.onclick = () => {
 
 const backToList = document.getElementById('backToList')
 backToList.onclick = () => {
-    if (confirm("Selecciona una opción!\n Perderas los cambios realizados hasta ahora.") === true) {
+
+    if(cambios_en_el_form==false){
+        //No hubieron cambios => redirigo directamente
         location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
+    }else{
+
+        if (confirm("Tienes cambios no guardados. ¿ Desea regresar ?") === true) {
+            location.href = window.location.protocol + '//' + window.location.host + process.env.VarURL + `/Clientes/EnvioAvisos.html?tkn=${tkn}`
+        }
+
     }
+
 }
 
 // Grabar aviso
@@ -215,8 +241,15 @@ $form.addEventListener('submit', event => {
     const condicionId = Number(formData.get('condition'))
     const valor = Number(formData.get('value-x'))
     const adjunto = formData.get('attach')
-    const mensaje = editor.getData()
 
+    //Aca iría el WSP o EMAIL
+    let mensaje;
+    if(document.querySelector("#shipping-type").value == 1){
+        mensaje = editor.getData()
+    }else{
+        mensaje = document.querySelector("#wsp-msg").value
+    }
+    
     if ( ! id ) id = 0
     const data = {
         avisoId: id,
@@ -257,3 +290,16 @@ const addNotice = data => {
         console.log( err )
     })   
 }
+
+
+
+
+//DESARROLLO ISMA - Cambios en el formulario
+const formulario = document.querySelector("#form")
+let cambios_en_el_form = false;
+
+//Evento
+formulario.addEventListener('input', function () {
+    // Se ha detectado un cambio en el formulario
+    cambios_en_el_form = true;
+});

@@ -191,6 +191,7 @@ const post_getDeposits = (tkn, data) => {
     // Mostrar loader
     gridOptions.api.showLoadingOverlay()
     const url_getDeposits = process.env.Solu_externo + '/inventario/reportes/get_inventario'
+    //const url_getDeposits = localhost... '/inventario/reportes/get_inventario'
     fetch( url_getDeposits , {
         method: 'POST',
         headers: {

@@ -18,7 +18,7 @@
           <div id="loader-estado-envio" class="loadingx d-none"></div>
           <div class="modal-header">
             <h5 class="modal-title text-secondary" id="title-estado-envio"></h5>
-            <button type="button" class="btn btn-ligth d-none" data-bs-dismiss="modal" aria-label="Close" id="close-estado-envio">❌</button>
+            <button type="button" class="btn btn-ligth" data-bs-dismiss="modal" aria-label="Close" id="close-estado-envio">❌</button>
           </div>
           <div class="modal-body">
             <!-- <div id="loader-estado-envio" class="loadingx"></div> -->
@@ -46,7 +46,7 @@
             <h6 class="text-secondary" id="nota-estado-envio"> </h6>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success d-none" data-bs-dismiss="modal" id="continue-estado-envio" >Continuar</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="continue-estado-envio" >Continuar</button>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
           <div class="row p-2 mb-2 rounded form-top">
             <div class="col-12 d-flex mb-2">
               <button type="button" class="previous-site btn text-secondary p-0 position-relative" id="backToList"><i class="fa-solid fa-arrow-left position-absolute return"></i></button>
-              <h4 class="mb-0">Envío de aviso <small class="font-weight-bolder" id="title-name"></small></h4>
+              <h4 class="mb-0" id="title-name"><!-- <small class="" id="title-name"></small> --></h4>
             </div>
           
             <div class="col-12">
@@ -88,30 +88,30 @@
                         <option value="P">Proforma</option>
                       </select>
                     </div>
-                    <div class="d-flex">
-                      <label for="customer">Cliente/CUIT:</label>
-                      <input type="text" class="form-control" name="customer" id="customer">
-                    </div>
                   </div>
   
                   <div class="col-4">
                     <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="value-x">Valor X:</label>
+                      <label class="text-nowrap pr-1" for="value-x">Valor X:</label>
                       <input type="number" class="form-control text-right" name="value-x" id="value-x" value="0" required>
                     </div>
                     <div class="d-flex mb-1">
-                      <label class="text-nowrap" for="customer-type">Tipo cliente:</label>
+                      <label class="text-nowrap pr-1" for="customer-type">Tipo cliente:</label>
                       <select class="form-control" name="customer-type" id="customer-type" required>
                         <!-- customer type -->
                       </select>
                     </div>
                     <div class="d-flex">
+                      <label class="text-nowrap" for="customer"> Cliente/CUIT:</label>
+                      <input type="text" class="form-control" name="customer" id="customer">
+                    </div>
+                    <!-- <div class="d-flex">
                       <label class="text-nowrap" for="sent-status">Estado envío:</label>
                       <select class="form-control" name="sent-status" id="sent-status" required>
                         <option value="1">Enviado</option>
                         <option value="0">No enviado</option>
                       </select>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="col-4">
@@ -128,8 +128,9 @@
                       <input type="number" class="form-control text-right" name="seat-number" id="seat-number" min="0">
                     </div>
                     <div class="d-flex justify-content-end">
+                      <button id="view-envios" type="button" class="btn btn-secondary mr-1" data-bs-toggle="modal" data-bs-target="#estadoEnvios" ><i class="fa-solid fa-eye"></i>Ver envios</button>
                       <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
-                      <button id="send-mail" type="button" class="btn btn-success" disabled><i class="fa-solid fa-envelope"></i>Enviar mail</button>
+                      <button id="send-mail" type="button" class="btn btn-success" disabled><i class="fa fa-paper-plane" aria-hidden="true"></i>Enviar</button>
                     </div>
                   </div>
                 </div>

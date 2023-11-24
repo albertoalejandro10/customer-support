@@ -1,0 +1,47 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import "../../node_modules/bootstrap/scss/bootstrap";
+:root {
+    --font-family-sans-serif: "Poppins", sans-serif;
+}
+@import "../../scss/main";
+
+label {
+    margin-bottom: 0px;
+    &[for="business"] {
+        margin-right: 21px;
+    }
+    &[for="status"] {
+        margin-right: 68px;
+    }
+    &[for="with-expiration"] {
+        margin-right: 4px;
+    }
+    &[for="periodStart"] {
+        margin-right: 19px;
+    }
+    &[for="coin"] {
+        margin-right: 70px;
+    }
+    &[for="supplier"] {
+        margin-right: 4px;
+    }
+    &[for="expiration"] {
+        margin-right: 8px;
+    }
+}
+
+
+.cursor-normal{
+    cursor: default;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.cursor-pointer:hover{
+    background-color: antiquewhite;
+    border-radius: 4px;
+}

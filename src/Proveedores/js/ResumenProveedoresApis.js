@@ -63,7 +63,7 @@ const get_suppliers = tkn => {
                     for ( const element of suppliers ) {
                         // Desestructuracion del objeto element
                         const { id, codigo, nombre, cuit } = element
-                        arr_t.push({ id: cuit, text: nombre + ' - ' + cuit })
+                        arr_t.push({ id: codigo, text: nombre + ' - ' + cuit })
                     }
                     return {
                         //data.items

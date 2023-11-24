@@ -1,5 +1,11 @@
 import { getParameter } from "../../jsgen/Helper"
 
+// Obtén la cadena de consulta de la URL actual
+//const queryString = window.location.search;
+// Crea un objeto URLSearchParams con la cadena de consulta
+//const parametrosGet = new URLSearchParams(queryString);
+
+
 // Listado envios
 const get_shippings = tkn => {
   const url_getShippings = process.env.Solu_externo + '/maestros/clientes/get_tipos_Envio'
@@ -13,16 +19,43 @@ const get_shippings = tkn => {
   .then( shippings => shippings.json() )
   .then( ({tiposEnvio}) => {
     const shippings = tiposEnvio
-    for (const shipping of shippings) {
-      const { id, nombre } = shipping
-      // console.log(id, nombre)
-      const select = document.querySelector('#shipping-type')
+    //console.log(shippings)
+    const select = document.querySelector('#shipping-type')
+
+    //Verifica si es nueva plantilla o si es para editar
+    //if(parametrosGet.has('tipoEnvioId')){
+      /* let tipoEnvioId = parametrosGet.get('tipoEnvioId')
       let option = document.createElement("option")
-      option.setAttribute("data-tokens", nombre)
-      option.value = id
-      option.textContent = nombre
+      option.setAttribute("data-tokens", 'E-mail')
+      option.value = tipoEnvioId
+      option.textContent = shippings[parseInt(tipoEnvioId)-1].nombre
       select.appendChild( option )
-    }
+      select.setAttribute('disabled','true') */
+    //}else{ 
+      //Todas las opciones de Envio    
+      for (const shipping of shippings) {
+        const { id, nombre } = shipping
+        // console.log(id, nombre)
+        let option = document.createElement("option")
+        option.setAttribute("data-tokens", nombre)
+        option.value = id
+        option.textContent = nombre
+        select.appendChild( option )
+      }
+      
+    //}
+    //******************************************** */
+    //Agregado forsozamente el tipo de Envío WSP
+    //Luego habria que borrarlo
+    /* const select = document.querySelector('#shipping-type')
+    let option = document.createElement("option")
+    option.setAttribute("data-tokens", 'WhatsApp')
+    option.value = 2
+    option.textContent = "WhatsApp"
+    select.appendChild( option ) */
+    //****************************************************** */
+
+
   })
   .catch( err => {
     console.log( err )
@@ -124,3 +157,20 @@ if ( tkn ) {
   get_customerGroup(tkn)
   get_customerTypes(tkn)
 }
+
+
+
+//EVENTOS - Desarrollo Isma
+const tipo_envio = document.querySelector("#shipping-type")
+tipo_envio.addEventListener("change", ()=>{
+  if(tipo_envio.value == 1){
+    //Email
+    document.querySelector("#area-email").classList.remove("d-none")
+    document.querySelector("#area-wsp").classList.add("d-none")
+  }else{
+    //WhatsApp
+    document.querySelector("#area-wsp").classList.remove("d-none")
+    document.querySelector("#area-email").classList.add("d-none")
+  }
+
+})

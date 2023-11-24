@@ -4,8 +4,6 @@ import { getParameter } from "../../jsgen/Helper"
 window.onload = function() {
   var miModal = new bootstrap.Modal(document.getElementById('estadoEnvios'));
   miModal.show();
-  //Mostramos spinner
-  document.querySelector("#loader-estado-envio").classList.remove("d-none")
 };
 
 //variable que indica el top de envios completados que devolvera
@@ -101,11 +99,10 @@ const get_customerGroup = tkn => {
 const tkn = getParameter('tkn')
 if ( tkn ) {
 
-  
   //Desarrollo ISMA
   getEstadoEnvio(tkn)
-
-
+  
+  
   //PARTE DEL ALBERTO
   get_customerTypes(tkn)
   get_conditions(tkn)
@@ -118,6 +115,10 @@ if ( tkn ) {
 
 //Obtiene estado de los envios
 function getEstadoEnvio(tkn){
+
+  //Mostramos spinner
+  document.querySelector("#loader-estado-envio").classList.remove("d-none")
+
   //Consumo api
   let url = process.env.Solu_externo + '/formularios/clientes/get_estados_envios'
   fetch( url, {
@@ -130,16 +131,15 @@ function getEstadoEnvio(tkn){
   })
   .then( response => response.json() )
   .then( data => {
-    // console.log(data)
+    //console.log(data)
     insertTitle(data.mensaje)
     insertNota(data.nota)
     createTable(data.envios,data.pendientes)
-  
+    
     //Ocultamos spinner
     document.querySelector("#loader-estado-envio").classList.add("d-none")
+    
   })
-  
-
   .catch( err => {
     console.log( err )
   })
@@ -229,10 +229,10 @@ function createTable(array, pendientes){
 
 
   //Evalua si hay procesos en ejecucion
-  if(parseInt(pendientes)==0){
+  /* if(parseInt(pendientes)==0){
     document.querySelector("#continue-estado-envio").classList.remove("d-none")
     document.querySelector("#close-estado-envio").classList.remove("d-none")
-  }
+  } */
 }
 
 //Cancela envio de correo
@@ -279,7 +279,6 @@ function cancelEnvio(id){
 }
 
 function formatearDate(fechaOriginal){
-  // console.log(fechaOriginal)
   // Dividir la fecha y hora original en partes
   let partes = fechaOriginal.split(' ');
 
@@ -297,3 +296,16 @@ function formatearDate(fechaOriginal){
 
   return fechaFormateada;
 }
+
+
+
+//EVENTOS
+let view = document.querySelector("#view-envios")
+view.addEventListener("click", function(){
+  const tkn = getParameter('tkn')
+  if ( tkn ) {
+    getEstadoEnvio(tkn)
+
+  }
+}); 
+  
