@@ -4,8 +4,8 @@ import { get_deposits, get_voucherType, get_products, get_startMonth } from "../
 // Ejecutar
 const tkn = getParameter('tkn')
 if ( tkn ) {
-    get_deposits( tkn )
-    get_voucherType( tkn )
-    get_products( tkn )
-    get_startMonth( tkn )
+	get_deposits( tkn )
+	get_voucherType( tkn )
+	get_products( tkn )
+	get_startMonth( tkn )
 }

@@ -1,27 +1,27 @@
 @import "../../scss/custom-variables";
 @import "../../scss/loader";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import "../../node_modules/bootstrap/scss/bootstrap";
-:root {
-    --font-family-sans-serif: "Poppins", sans-serif;
-}
+// :root {
+// 	--font-family-sans-serif: "Poppins", sans-serif;
+// }
 @import "../../scss/main";
 
 label {
-    margin-bottom: 0px;
-    margin-right: 4px;
+	margin-bottom: 0px;
+	margin-right: 4px;
 }
 
 #check {
-    margin-right: 4px;
+	margin-right: 4px;
 }
 
 select {
-    min-width: 100px;
-    max-width: 240px;
+	min-width: 100px;
+	max-width: 240px;
 }
 
 input[type="date"] {
-    min-width: 140px;
-    max-width: 240px;
+	min-width: 140px;
+	max-width: 240px;
 }

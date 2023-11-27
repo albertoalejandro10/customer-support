@@ -14,80 +14,76 @@
       if ((parseInt($(window).height()) - 300) < 200)
         $("#myGrid").height(100)
       else
-        $("#myGrid").height(parseInt($(window).height()) - 260)
+        $("#myGrid").height(parseInt($(window).height()) - 250)
       //$(".grid").width('100%')
     })
     </script>
   </head>
   <body>
     <div class="wrapper">
-      <div class="container-fluid" style="height: 100%;">
-        <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
-          <!-- Form - Higher -->
-          <div class="row p-2 mb-2 rounded form-top">
-            <div class="col-6 mb-2">
-              <h4 class="mb-0">Movimiento de productos</h4>
-            </div>
-            <div class="col-6 mb-2 text-right">
-              <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovProducto.aspx" target="_self">[Versión anterior]</a>
-            </div>
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row px-2 py-1 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Movimiento de productos</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovProducto.aspx" target="_self">[Versión anterior]</a>
+          </div>
 
-            <div class="col-12">
-              <form id="form">
-                <div class="row">
-  
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label for="deposit">Deposito:</label>
-                      <select id="deposit" name="deposit" class="form-control">
-                        <!-- Deposito -->
-                      </select>
-                    </div>
+          <div class="col-12">
+            <form id="form">
+              <div class="row">
 
-                    <div class="d-flex">
-                      <label for="customers">Producto:</label>
-                      <select class="cmb_productos" name="producto" style="width:100%;">
-                      </select>
-                    </div>
+                <div class="col-sm">
+                  <div class="d-flex mb-1">
+                    <label for="deposit">Deposito:</label>
+                    <select id="deposit" name="deposit" class="form-control">
+                      <!-- Deposito -->
+                    </select>
                   </div>
-  
-                  <div class="col-sm">
-                    <div class="d-flex mb-1">
-                      <label for="periodStart">Periodo:</label>
-                      <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
-                    </div>
 
-                    <div class="d-flex">
-                      <label class="text-nowrap" for="voucher-type">Tipo Comprob:</label>
-                      <select id="voucher-type" name="voucher-type" class="form-control">
-                        <!-- Options voucher-type -->
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="col-sm d-flex align-items-end justify-content-end">
-                    <div class="d-flex">
-                      <button id="update" type="submit" class="btn btn-primary text-white mr-1"><i class="fa-solid fa-rotate"></i> Actualizar</button>
-                      <button id="btn_export" type="button" class="btn btn-success text-white ml-1"><i class="fa-solid fa-download"></i> Exportar</button>
-                    </div>
+                  <div class="d-flex">
+                    <label for="products">Producto:</label>
+                    <select class="cmb_productos" name="producto" id="products" style="width:100%;">
+                    </select>
                   </div>
                 </div>
-              </form>
-            </div>
-          </div>
-          
-          <!-- Form - Middle -->
-          <div class="row p-2 mt-2 rounded form-middle text-secondary">
-            <div class="col">
-              <h6 class="mt-2 font-weight-bolder">Movimientos</h6>
-              <div class="container-fluid">
-                <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
+
+                <div class="col-sm">
+                  <div class="d-flex mb-1">
+                    <label for="periodStart">Periodo:</label>
+                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                  </div>
+
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="voucher-type">Tipo Comprob:</label>
+                    <select id="voucher-type" name="voucher-type" class="form-control">
+                      <!-- Options voucher-type -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm d-flex align-items-end justify-content-end">
+                  <div class="d-flex">
+                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                    <button id="btn_export" type="button" class="btn btn-success"><i class="fa-solid fa-download"></i>Exportar</button>
+                  </div>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
-          <!-- Form - Lower -->
-          <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <h6 class="mt-2 font-weight-bolder">Movimientos</h6>
+            <div id="myGrid" style="width:100%;" class="ag-theme-alpine"></div>
           </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
         </div>
       </div>
     </div>
