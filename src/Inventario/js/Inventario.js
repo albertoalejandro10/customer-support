@@ -244,7 +244,7 @@ form.addEventListener('submit', event => {
 		fecha
 	}
 
-	console.log( data )
+	// console.log( data )
 	const tkn = getParameter('tkn')
 	post_getStock( tkn, data )
 })
