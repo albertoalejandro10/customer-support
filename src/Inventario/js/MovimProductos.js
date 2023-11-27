@@ -139,7 +139,7 @@ const gridOptions = {
 				}
 			},
 			{
-				width: 120,
+				width: 110,
 				field: "deposito",
 				tooltipField: 'deposito',
 				headerClass: "ag-right-aligned-header",
