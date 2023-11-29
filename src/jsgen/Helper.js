@@ -162,3 +162,21 @@ export const isValidDate = date => {
 export const isNumber = num => {
 	return !isNaN(num)
 }
+
+// Helper para crear celdas.
+export const createCell = (text = '', html = false) => {
+	const cell = document.createElement('td')
+	if (html) {
+		cell.innerHTML = text
+	} else {
+		cell.textContent = text
+	}
+	return cell
+}
+
+// Limpiar tablas.
+export const clearTable = (table, length) => {
+	while (table.rows.length > length) {
+		table.deleteRow(length)
+	}
+}

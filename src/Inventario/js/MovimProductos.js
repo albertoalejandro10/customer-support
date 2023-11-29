@@ -200,44 +200,43 @@ function calculatePinnedBottomData (target){
 }
 
 const get_productMovements = (tkn, data) => {
-    // Mostrar Loader
-    gridOptions.api.showLoadingOverlay()
-    const url_getProductMovements = process.env.Solu_externo + '/inventario/reportes/get_movimiento_productos'
-    fetch( url_getProductMovements , {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${tkn}`
-			},
-			body: JSON.stringify(data)
-    })
-    .then( products => products.json() )
-		.then( products => {
-			// Clear Filtros
-			gridOptions.api.setFilterModel(null)
-			// Clear Grilla
-			gridOptions.api.setRowData([])
+	// Mostrar Loader
+	gridOptions.api.showLoadingOverlay()
+	const url_getProductMovements = process.env.Solu_externo + '/inventario/reportes/get_movimiento_productos'
+	fetch( url_getProductMovements , {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${tkn}`
+		},
+		body: JSON.stringify(data)
+	})
+	.then( products => products.json() )
+	.then( products => {
+		// Clear Filtros
+		gridOptions.api.setFilterModel(null)
+		// Clear Grilla
+		gridOptions.api.setRowData([])
+		gridOptions.api.setPinnedBottomRowData([])
+
+		gridOptions.api.applyTransaction({
+			add: products
+		})
+
+		let pinnedBottomData = generatePinnedBottomData()
+		const diffBetweenInputAndOutput = Number(pinnedBottomData.entrada) - Number(pinnedBottomData.salida)
+		pinnedBottomData.precioF = String(diffBetweenInputAndOutput)
+		gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
+		
+		if ( products.length === 0 ) {
+			// console.log( 'Is empty')
 			gridOptions.api.setPinnedBottomRowData([])
-
-			gridOptions.api.applyTransaction({
-				add: products
-			})
-
-			let pinnedBottomData = generatePinnedBottomData()
-			console.log(pinnedBottomData)
-			const diffBetweenInputAndOutput = Number(pinnedBottomData.entrada) - Number(pinnedBottomData.salida)
-			pinnedBottomData.precioF = String(diffBetweenInputAndOutput)
-			gridOptions.api.setPinnedBottomRowData([pinnedBottomData])
-			
-			if ( products.length === 0 ) {
-				// console.log( 'Is empty')
-				gridOptions.api.setPinnedBottomRowData([])
-				gridOptions.api.showNoRowsOverlay()
-			}
-    })
-    .catch( err => {
-			console.log( err )
-    })
+			gridOptions.api.showNoRowsOverlay()
+		}
+	})
+	.catch( err => {
+		console.log( err )
+	})
 }
 
 const form = document.getElementById('form')

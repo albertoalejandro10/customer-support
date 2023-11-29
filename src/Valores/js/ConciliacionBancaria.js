@@ -1,4 +1,4 @@
-import { format_number, getParameter, isNumber, isValidDate, reverseFormatNumber } from "../../jsgen/Helper"
+import { format_number, getParameter, isNumber, isValidDate, reverseFormatNumber, createCell } from "../../jsgen/Helper"
 
 let arrTable = []
 const loader = document.getElementById('loader')
@@ -218,17 +218,6 @@ const editFetchAPI = data => {
 		hideEditModal()
 		post_getLastConciliation(data)
 	})
-}
-
-// Helper para crear celdas.
-const createCell = (text = '', html = false) => {
-	const cell = document.createElement('td')
-	if (html) {
-		cell.innerHTML = text
-	} else {
-		cell.textContent = text
-	}
-	return cell
 }
 
 // Mostrar modal edit.

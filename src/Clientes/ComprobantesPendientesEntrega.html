@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./ComprobantesPendientesEntrega.scss">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+    $(window).unbind("resize")
+    $(window).resize(function () {
+      if ((parseInt($(window).height()) - 300) < 200)
+        $("#myGrid").height(100)
+      else
+        $("#myGrid").height(parseInt($(window).height()) - 250)
+      //$(".grid").width('100%')
+    })
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container mt-2 pt-1 pr-5 pl-5 rounded col-12">
+        <!-- Form - Higher -->
+        <div class="row px-2 py-1 mb-2 rounded form-top">
+          <div class="col-6 mb-2">
+            <h4 class="mb-0">Comprobantes Pendientes de Entrega</h4>
+          </div>
+          <div class="col-6 mb-2 text-right">
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/MovProducto.aspx" target="_self">[Versión anterior]</a>
+          </div>
+
+          <div class="col-12">
+            <p id="text-title-form" class="text-secondary font-weight-bold mb-1"></p>
+            <form id="form">
+              <div class="row">
+
+                <div class="col-sm-3 col-xl-3">
+                  <div class="d-flex">
+                    <label for="customers">Cliente:</label>
+                    <select class="customers" name="customers" id="customers" style="width: 100%;">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex">
+                    <label for="products">Producto:</label>
+                    <select class="products" name="products" id="products" style="width: 100%;">
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-5 col-xl-3">
+                  <div class="d-flex">
+                    <label for="periodStart">Periodo:</label>
+                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                  </div>
+                </div>
+
+                <div class="col-sm-12 mt-1 col-xl-3 mt-xl-0 d-flex align-items-end justify-content-end">
+                  <div class="d-flex">
+                    <button id="update" type="submit" class="btn btn-primary mr-1"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                    <button id="print" type="button" class="btn btn-dark" disabled><i class="fa-solid fa-download"></i>Imprimir</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Form - Middle -->
+        <div class="row p-2 mt-2 rounded form-middle text-secondary">
+          <div class="col">
+            <div id="loader" class="loadingx d-none"></div>
+            <p id="not-voucher" class="text-danger text-center font-weight-bold d-none">No hay compras pendientes para contabilizar</p>
+            <table id="voucher-table" class="table-borderless rounded text-secondary">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Comprobante</th>
+                  <th>Cliente</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Entregado</th>
+                  <th>Facturado</th>
+                </tr>
+              </thead>
+              <tbody id="voucher-tbody">
+                <!-- Body table -->
+              </tbody>
+            </table>
+            <h6 id="no-vouchers" class="text-danger text-center font-weight-bold mt-3 d-none">No hay comprobantes pendientes</h6>
+          </div>
+        </div>
+        <!-- Form - Lower -->
+        <div id="form-lower" class="row p-2 mt-2 mb-2 rounded form-bottom">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/ComprobantesPendientesEntregaApis.js"></script>
+  <script src="./js/ComprobantesPendientesEntrega.js"></script>
+  <script src="../jsgen/footer-form.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css"/>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"/>
+</html>
