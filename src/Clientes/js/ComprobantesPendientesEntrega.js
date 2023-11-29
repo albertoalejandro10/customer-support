@@ -2,53 +2,61 @@ import { getParameter, createCell, clearTable, format_number } from "../../jsgen
 
 const textTitleForm = document.getElementById('text-title-form')
 const op = Number(getParameter('op'))
-if (op === 1) {
-	textTitleForm.textContent = 'Facturas pendiente de Entrega'
-} else if ( op === 2) {
-	textTitleForm.textContent = 'Remitos pendientes de Facturar'
+const textMap = {
+	1: 'Facturas Pendiente de Entrega',
+	2: 'Remitos Pendientes de Facturar',
+	// puedes agregar más opciones aquí en el futuro
 }
+textTitleForm.textContent = textMap[op]
 
 const tkn = getParameter('tkn')
 const loader = document.getElementById('loader')
 const table = document.getElementById('voucher-table')
 const noVouchers = document.getElementById('no-vouchers')
-const post_getMovements = data => {
-	loader.classList.remove('d-none')
-	fetch( process.env.Solu_externo + '/reportes/clientes/get_comprobantes_pendientes_entrega' , {
-		method: 'POST',
-		body: JSON.stringify(data),
-		headers: {
-			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${tkn}`
-		}
-	})
-	.then( vouchers => vouchers.json() )
-	.then(({ comprobantes: vouchers }) => {
-		if (vouchers.length === 0) {
-			printButton.disabled = true
-			noVouchers.classList.remove('d-none')
-			return
-		}
-		noVouchers.classList.add('d-none')
-		printButton.disabled = false
 
-		clearTable(table, 1)
+const post_getMovements = async (data) => {
+  try {
+    loader.classList.remove('d-none')
+    const response = await fetch(process.env.Solu_externo + '/reportes/clientes/get_comprobantes_pendientes_entrega', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tkn}`
+      }
+    })
 
-		let groupById = vouchers.reduce((r, a) => {
-			r[a.id] = [...r[a.id] || [], a]
-			return r
-		}, {})
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
 
-		printTable(groupById)
-	})
-	.catch( err => {
-		console.log(err)
-		loader.classList.remove('d-none')
-	})
-	.finally(() => {
-		loader.classList.add('d-none')
-	})
+    const { comprobantes: vouchers } = await response.json()
+
+    if (vouchers.length === 0) {
+      printButton.disabled = true
+      noVouchers.classList.remove('d-none')
+      return
+    }
+
+    noVouchers.classList.add('d-none')
+    printButton.disabled = false
+
+    clearTable(table, 1)
+
+    let groupById = vouchers.reduce((r, a) => {
+      r[a.id] = [...r[a.id] || [], a]
+      return r
+    }, {})
+
+    printTable(groupById)
+  } catch (err) {
+    console.log(err)
+    loader.classList.remove('d-none')
+  } finally {
+    loader.classList.add('d-none')
+  }
 }
+
 
 const printTable = vouchers => {
 	const voucherTbody = document.getElementById('voucher-tbody')
@@ -142,7 +150,7 @@ form.addEventListener('submit', event => {
 	// Consigo la data.
 	const data = extractFormData(event.currentTarget)
 
-	console.log( data )
+	// console.log( data )
 	post_getMovements( data )
 })
 
@@ -168,6 +176,6 @@ const extractFormData = form => {
 		producto: formData.get('products') === null ? '' : formData.get('products'),
 		dfecha: formData.get('periodStart').split('-').reverse().join('/'),
 		hfecha: formData.get('periodEnd').split('-').reverse().join('/'),
-		desc_prod: formData.get('products')
+		desc_prod: formData.get('products') === null ? '' : formData.get('products'),
 	}
 }

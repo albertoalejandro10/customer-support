@@ -44,7 +44,7 @@ const get_dataFromURL = async () => {
 		acc[property] = value
 		return acc
 	}, {})
-	document.getElementById('view-title').textContent = data.tipo === 'FAC' ? 'Facturas pendiente de Entrega' : 'Remitos pendientes de Facturar'
+	document.getElementById('view-title').textContent = data.tipo === 'FAC' ? 'Facturas Pendiente de Entrega' : 'Remitos Pendientes de Facturar'
 	document.getElementById('date').textContent = `${data.dfecha} - ${data.hfecha}`
 	await post_getMovements(data)
 }
