@@ -28,10 +28,10 @@ const post_getMovements = async (data) => {
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const { comprobantes: vouchers } = await response.json()
-
+		}
+		
+		const { comprobantes: vouchers } = await response.json()
+    clearTable(table, 1)
     if (vouchers.length === 0) {
       printButton.disabled = true
       noVouchers.classList.remove('d-none')
@@ -41,7 +41,7 @@ const post_getMovements = async (data) => {
     noVouchers.classList.add('d-none')
     printButton.disabled = false
 
-    clearTable(table, 1)
+
 
     let groupById = vouchers.reduce((r, a) => {
       r[a.id] = [...r[a.id] || [], a]
@@ -71,33 +71,47 @@ const printTable = vouchers => {
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
 
+				const customerCell = createCell(cliente)
+				const productCell = createCell(producto)
+
+				const priceCell = createCell(format_number(precio))
+				const deliveredCell = createCell(format_number(entregado))
+				const invoicedCell = createCell(format_number(facturado))
+				
 				// Si es el primer elemento, agregar id y comprobante con rowspan
 				if (index === 0) {
 					const dateCell = createCell(fecha)
 					dateCell.classList.add('no-hover-table')
 					dateCell.setAttribute('rowspan', value.length)
+					dateCell.style.borderBottom = '0.8px solid #808080'
 					row.appendChild(dateCell)
-
+					
 					const comprobanteCell = createCell(comprobante)
 					comprobanteCell.classList.add('no-hover-table')
 					comprobanteCell.setAttribute('rowspan', value.length)
 					comprobanteCell.style.borderRight = '0.4px solid #D5D5D5'
+					comprobanteCell.style.borderBottom = '0.8px solid #808080'
 					row.appendChild(comprobanteCell)
 				}
+				
+				if (index === value.length - 1) {
+					customerCell.style.borderBottom = '0.8px solid #808080'
+					productCell.style.borderBottom = '0.8px solid #808080'
+					priceCell.style.borderBottom = '0.8px solid #808080'
+					deliveredCell.style.borderBottom = '0.8px solid #808080'
+					invoicedCell.style.borderBottom = '0.8px solid #808080'
+				}
 
-				const price = createCell(format_number(precio))
-				price.classList.add('text-right')
-				const delivered = createCell(format_number(entregado))
-				delivered.classList.add('text-right')
-				const invoiced = createCell(format_number(facturado))
-				invoiced.classList.add('text-right')
+				priceCell.classList.add('text-right')
+				deliveredCell.classList.add('text-right')
+				invoicedCell.classList.add('text-right')
 
 				row.append(
-					createCell(cliente),
-					createCell(producto),
-					price,
-					delivered,
-					invoiced
+					customerCell,
+					productCell,
+					priceCell,
+					deliveredCell,
+					invoicedCell
 				)
 				voucherTbody.appendChild(row)
 			})
@@ -170,12 +184,13 @@ printButton.onclick = () => {
 // Function para obtener los datos del formulario.
 const extractFormData = form => {
 	const formData = new FormData(form)
+	const selectedProduct = $("#products").select2('data')[0];
 	return {
 		tipo: op === 1 ? 'FAC' : 'REM',
-		cliente: formData.get('customers') === null ? '' : formData.get('customers'),
-		producto: formData.get('products') === null ? '' : formData.get('products'),
+		cliente: formData.get('customers') === null ? '0' : formData.get('customers'),
+		producto: formData.get('products') === null && ' ' ? '' : formData.get('products'),
 		dfecha: formData.get('periodStart').split('-').reverse().join('/'),
 		hfecha: formData.get('periodEnd').split('-').reverse().join('/'),
-		desc_prod: formData.get('products') === null ? '' : formData.get('products'),
+    desc_prod: selectedProduct ? selectedProduct.desc_prod : '',
 	}
 }

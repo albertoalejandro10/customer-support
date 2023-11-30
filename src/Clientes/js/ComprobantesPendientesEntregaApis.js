@@ -15,6 +15,10 @@ const get_customers = tkn => {
 			dataType: 'json',
 			data: (params) => ({ search: params.term || '', type: 'public' }),
 			processResults: (data, params) => {
+				data.unshift({
+					codCliente: '0',
+					nombre: 'Todos'
+				})
 				const searchTerm = params.term && params.term.toLowerCase()
 				const results = searchTerm 
 					? data.map(({ codCliente, cuit, nombre, id }) => ({
@@ -51,21 +55,28 @@ const get_products = tkn => {
 			delay: 500,
 			url: process.env.Solu_externo + '/listados/get_productos_filtro',
 			headers: {'Authorization' : 'Bearer ' + tkn},
-			type: 'POST', // Change this to 'POST'
+			type: 'POST',
 			dataType: 'json',
-			data: JSON.stringify({ // Add this line
+			data: JSON.stringify({
 				"filtro": ""
-			}), // Add this line
+			}),
 			processResults: (data, params) => {
+				data.unshift({
+					codigo: ' ',
+					detalle: 'Todos',
+					unidad: ''
+				})
 				const searchTerm = params.term && params.term.toLowerCase()
 				const results = searchTerm 
 					? data.map(({ codigo, detalle, unidad }) => ({
 						id: codigo,
-						text: detalle + ' - ' + codigo + ' - ' + unidad
+						text: detalle,
+						desc_prod: detalle
 					})).filter(result => result.text.toLowerCase().includes(searchTerm))
 					: data.map(({ codigo, detalle, unidad }) => ({
 						id: codigo,
-						text: detalle + ' - ' + codigo + ' - ' + unidad
+						text: detalle,
+						desc_prod: detalle
 					}))
 				
 				return { results }
