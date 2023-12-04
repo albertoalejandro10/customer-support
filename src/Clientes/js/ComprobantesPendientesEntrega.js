@@ -41,12 +41,10 @@ const post_getMovements = async (data) => {
     noVouchers.classList.add('d-none')
     printButton.disabled = false
 
-
-
     let groupById = vouchers.reduce((r, a) => {
       r[a.id] = [...r[a.id] || [], a]
       return r
-    }, {})
+		}, {})
 
     printTable(groupById)
   } catch (err) {
@@ -57,7 +55,6 @@ const post_getMovements = async (data) => {
   }
 }
 
-
 const printTable = vouchers => {
 	const voucherTbody = document.getElementById('voucher-tbody')
 
@@ -67,39 +64,49 @@ const printTable = vouchers => {
 	Object.entries(vouchers).forEach(([id, value]) => {
 		if (value.length > 1) {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
+				if (op === 1) {
+					[entregado, facturado] = [facturado, entregado]
+				}
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
-
-				const customerCell = createCell(cliente)
-				const productCell = createCell(producto)
-
-				const priceCell = createCell(format_number(precio))
-				const deliveredCell = createCell(format_number(entregado))
-				const invoicedCell = createCell(format_number(facturado))
 				
 				// Si es el primer elemento, agregar id y comprobante con rowspan
 				if (index === 0) {
 					const dateCell = createCell(fecha)
 					dateCell.classList.add('no-hover-table')
 					dateCell.setAttribute('rowspan', value.length)
-					dateCell.style.borderBottom = '0.8px solid #808080'
+					dateCell.style.verticalAlign = 'top'
+					dateCell.style.borderBottom = '0.4px solid #808080'
 					row.appendChild(dateCell)
 					
 					const comprobanteCell = createCell(comprobante)
 					comprobanteCell.classList.add('no-hover-table')
 					comprobanteCell.setAttribute('rowspan', value.length)
-					comprobanteCell.style.borderRight = '0.4px solid #D5D5D5'
-					comprobanteCell.style.borderBottom = '0.8px solid #808080'
+					comprobanteCell.style.verticalAlign = 'top'
+					comprobanteCell.style.borderBottom = '0.4px solid #808080'
 					row.appendChild(comprobanteCell)
+					
+					const customerCell = createCell(cliente)
+					customerCell.classList.add('no-hover-table')
+					customerCell.setAttribute('rowspan', value.length)
+					customerCell.style.verticalAlign = 'top'
+					customerCell.style.borderRight = '0.4px solid #D5D5D5'
+					customerCell.style.borderBottom = '0.4px solid #808080'
+					row.appendChild(customerCell)
 				}
+
+				const productCell = createCell(producto)
 				
+				const priceCell = createCell(format_number(precio))
+				const deliveredCell = createCell(format_number(entregado))
+				const invoicedCell = createCell(format_number(facturado))
+
 				if (index === value.length - 1) {
-					customerCell.style.borderBottom = '0.8px solid #808080'
-					productCell.style.borderBottom = '0.8px solid #808080'
-					priceCell.style.borderBottom = '0.8px solid #808080'
-					deliveredCell.style.borderBottom = '0.8px solid #808080'
-					invoicedCell.style.borderBottom = '0.8px solid #808080'
+					productCell.style.borderBottom = '0.4px solid #808080'
+					priceCell.style.borderBottom = '0.4px solid #808080'
+					deliveredCell.style.borderBottom = '0.4px solid #808080'
+					invoicedCell.style.borderBottom = '0.4px solid #808080'
 				}
 
 				priceCell.classList.add('text-right')
@@ -107,7 +114,6 @@ const printTable = vouchers => {
 				invoicedCell.classList.add('text-right')
 
 				row.append(
-					customerCell,
 					productCell,
 					priceCell,
 					deliveredCell,
@@ -117,10 +123,13 @@ const printTable = vouchers => {
 			})
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
+				if (op === 1) {
+					[entregado, facturado] = [facturado, entregado]
+				}
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
-				row.append(
+				const cells = [
 					createCell(fecha),
 					createCell(comprobante),
 					createCell(cliente),
@@ -128,9 +137,13 @@ const printTable = vouchers => {
 					createCell(format_number(precio)),
 					createCell(format_number(entregado)),
 					createCell(format_number(facturado)),
-				)
+				]
+				cells.forEach(cell => {
+					cell.style.borderBottom = '0.4px solid #808080'
+				})
+				row.append(...cells)
 				voucherTbody.appendChild(row)
-			})
+		 })
 		}
 	})
 
