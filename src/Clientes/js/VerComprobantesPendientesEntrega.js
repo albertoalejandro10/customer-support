@@ -2,6 +2,13 @@ import { getParameter, format_number, createCell } from "../../jsgen/Helper"
 
 const op = getParameter('tipo') === 'FAC' ? 1 : 2
 
+//Mueve los valores de la tabla
+if (op === 1) {
+	let table = document.querySelector("#voucher-table")
+	table.rows[1].cells[6].textContent = "Entregado"
+	table.rows[1].cells[5].textContent = "Facturado"
+}
+
 const get_userData = async () => {
 	try {
 		const response = await fetch(process.env.Solu_externo + '/session/login_sid', {
@@ -67,9 +74,9 @@ const printTable = vouchers => {
 	Object.entries(vouchers).forEach(([id, value]) => {
 		if (value.length > 1) {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				if (op === 1) {
+				/* if (op === 1) {
 					[entregado, facturado] = [facturado, entregado]
-				}
+				} */
 
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
@@ -119,9 +126,9 @@ const printTable = vouchers => {
 			})
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				if (op === 1) {
+				/* if (op === 1) {
 					[entregado, facturado] = [facturado, entregado]
-				}
+				} */
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')

@@ -142,8 +142,8 @@ const gridOptions = {
 				width: 110,
 				field: "deposito",
 				tooltipField: 'deposito',
-				headerClass: "ag-right-aligned-header",
-				cellClass: 'cell-vertical-align-text-right',
+				//headerClass: "ag-right-aligned-header",
+				//cellClass: 'cell-vertical-align-text-right',
 				sortable: true,
 				filter: true,
 				cellRenderer: function(params) {

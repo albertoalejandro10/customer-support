@@ -372,15 +372,17 @@ function insertToSoluciones() {
             }else{
 
                 switch(element.resultado){
-                    case -1: element.resultado = `<span class="text-danger"> No se proceso el archivo, existen comprobantes no encontrados </span>`
+                    case -1: element.resultado = `<span class="text-danger"> Existen comprobantes no encontrados </span>`
                         break;
                     case -2: element.resultado = `<span class="text-danger"> Comprobante con error comunicarse con soporte </span>`
                         break;
-                    case -3: element.resultado = `<span class="text-danger"> No se proceso el archivo, existen ingresos para generar NCR parciales y no tiene cargado el producto </span>`
+                    case -3: element.resultado = `<span class="text-danger"> Existen ingresos para generar NCR parciales y no tiene cargado el producto </span>`
                         break;
-                    case -4: element.resultado = `<span class="text-danger"> No se proceso el archivo, existen ingresos para generar NCR parciales y no tiene cargado el producto o el codigo de producto usado no existe </span>`
+                    case -4: element.resultado = `<span class="text-danger"> Existen ingresos para generar NCR parciales y no tiene cargado el producto o el codigo de producto usado no existe </span>`
                         break;
-                    case -5: element.resultado = `<span class="text-danger"> No se proceso el archivo, existen ingresos para generar NCR con importe mayor al total del comprobante </span>`
+                    case -5: element.resultado = `<span class="text-danger"> Existen ingresos para generar NCR con importe mayor al total del comprobante </span>`
+                        break;
+                    case -6: element.resultado = `<span class="text-danger"> Factura con pendiente distinto del total </span>`
                         break;
                 }
               

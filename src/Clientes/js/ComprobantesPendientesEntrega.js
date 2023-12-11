@@ -9,6 +9,14 @@ const textMap = {
 }
 textTitleForm.textContent = textMap[op]
 
+//Mueve los valores de la tabla
+if (op === 1) {
+	let table = document.querySelector("#voucher-table")
+	table.rows[0].cells[6].textContent = "Entregado"
+	table.rows[0].cells[5].textContent = "Facturado"
+}
+
+
 const tkn = getParameter('tkn')
 const loader = document.getElementById('loader')
 const table = document.getElementById('voucher-table')
@@ -64,9 +72,11 @@ const printTable = vouchers => {
 	Object.entries(vouchers).forEach(([id, value]) => {
 		if (value.length > 1) {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				if (op === 1) {
-					[entregado, facturado] = [facturado, entregado]
-				}
+				/* if (op === 1) {
+					let table = document.querySelector("#voucher-table")
+					table.rows[0].cells[6].textContent = "Entregado"
+					table.rows[0].cells[5].textContent = "Facturado"
+				} */
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
@@ -123,9 +133,11 @@ const printTable = vouchers => {
 			})
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				if (op === 1) {
-					[entregado, facturado] = [facturado, entregado]
-				}
+				/* if (op === 1) {
+					let table = document.querySelector("#voucher-table")
+					table.rows[0].cells[6].textContent = "Entregado"
+					table.rows[0].cells[5].textContent = "Facturado"
+				} */
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
