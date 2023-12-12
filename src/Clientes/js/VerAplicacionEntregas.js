@@ -56,6 +56,9 @@ const get_dataFromURL = async () => {
 	}, {})
 	document.getElementById('view-title').textContent = data.tipo === 'FAC' ? 'Detalle de Aplicación de Facturas' : data.tipo === 'PED' ? 'Detalle de Aplicación de Pedidos' : 'Detalle de Aplicación de Remitos'
 	document.getElementById('date').textContent = `${data.dfecha} - ${data.hfecha}`
+	data.agrupa = parseInt(data.agrupa, 10)
+	data.pendiente = parseInt(data.pendiente, 10)
+	// console.log(data)
 	await post_getMovements(data)
 }
 
@@ -132,7 +135,7 @@ const printTable = vouchers => {
 			voucherTbody.appendChild(createSubTotalRow(subtotalDelivered, subtotalInvoiced))
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				
+
 				subtotalDelivered += entregado
 				subtotalInvoiced += facturado
 
