@@ -1,20 +1,19 @@
-import { getParameter, createCell, clearTable, format_number } from "../../jsgen/Helper"
+import { getParameter, createCell, clearTable, format_number, numbersOnly } from "../../jsgen/Helper"
 
 const textTitleForm = document.getElementById('text-title-form')
 const op = Number(getParameter('op'))
 const textMap = {
-	1: 'Facturas Pendiente de Entrega',
-	2: 'Remitos Pendientes de Facturar',
-	3: 'Pedidos Pendientes de Entrega'
-	// puedes agregar más opciones aquí en el futuro
+	1: 'Detalle de Aplicación de Facturas',
+	2: 'Detalle de Aplicación de Remitos',
+	3: 'Detalle de Aplicación de Pedidos'
 }
 textTitleForm.textContent = textMap[op]
 
 //Mueve los valores de la tabla
 if (op === 1 || op === 3) {
 	let table = document.querySelector("#voucher-table")
-	table.rows[0].cells[6].textContent = "Entregado"
-	table.rows[0].cells[5].textContent = "Facturado"
+	table.rows[0].cells[6].textContent = "Ud. Entregado"
+	table.rows[0].cells[5].textContent = "Ud. Facturado"
 }
 
 const tkn = getParameter('tkn')
@@ -25,7 +24,7 @@ const noVouchers = document.getElementById('no-vouchers')
 const post_getMovements = async (data) => {
   try {
     loader.classList.remove('d-none')
-    const response = await fetch(process.env.Solu_externo + '/reportes/clientes/get_comprobantes_pendientes_entrega', {
+    const response = await fetch(process.env.Solu_externo + '/reportes/clientes/comprobantes-aplicacion-de-entrega', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -38,7 +37,8 @@ const post_getMovements = async (data) => {
       throw new Error(`HTTP error! status: ${response.status}`)
 		}
 		
-		const { comprobantes: vouchers } = await response.json()
+    const { comprobantes: vouchers } = await response.json()
+    console.log(vouchers)
     clearTable(table, 1)
     if (vouchers.length === 0) {
       printButton.disabled = true
@@ -71,12 +71,8 @@ const printTable = vouchers => {
 
 	Object.entries(vouchers).forEach(([id, value]) => {
 		if (value.length > 1) {
-			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				/* if (op === 1) {
-					let table = document.querySelector("#voucher-table")
-					table.rows[0].cells[6].textContent = "Entregado"
-					table.rows[0].cells[5].textContent = "Facturado"
-				} */
+      value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
+        
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
@@ -133,11 +129,6 @@ const printTable = vouchers => {
 			})
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				/* if (op === 1) {
-					let table = document.querySelector("#voucher-table")
-					table.rows[0].cells[6].textContent = "Entregado"
-					table.rows[0].cells[5].textContent = "Facturado"
-				} */
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')
@@ -160,7 +151,7 @@ const printTable = vouchers => {
 	})
 
 	const row = document.createElement('tr')
-	const finalBalanceText = createCell('Totales')
+	const finalBalanceText = createCell('Subtotal')
 	finalBalanceText.classList.add('py-2')
 	finalBalanceText.classList.add('font-weight-bold')
 	const emptyCell = createCell()
@@ -189,7 +180,7 @@ form.addEventListener('submit', event => {
 	// Consigo la data.
 	const data = extractFormData(event.currentTarget)
 
-	// console.log( data )
+	console.log( data )
 	post_getMovements( data )
 })
 
@@ -198,10 +189,11 @@ const printButton = document.getElementById('print')
 printButton.onclick = () => {
 	const data = extractFormData(form)
 
-	let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Clientes/VerComprobantesPendientesEntrega.html?'
+	let returnURL = window.location.protocol + '//' + window.location.host + process.env.VarURL + '/Clientes/VerAplicacionEntregas.html?'
 	for (const property in data) {
 		returnURL += `${property}=${data[property]}&`
 	}
+	
 	const fullURL = returnURL + 'tkn=' + tkn
 	setTimeout(() => window.open(fullURL, '_blank', 'toolbar=0,location=0,menubar=0,width=1260,height=800'), 1000)
 }
@@ -212,10 +204,18 @@ const extractFormData = form => {
 	const selectedProduct = $("#products").select2('data')[0]
 	return {
 		tipo: op === 1 ? 'FAC' : op === 3 ? 'PED' : 'REM',
-		cliente: formData.get('customers') === null ? '0' : formData.get('customers'),
-		producto: formData.get('products') === null && ' ' ? '' : formData.get('products'),
 		dfecha: formData.get('periodStart').split('-').reverse().join('/'),
 		hfecha: formData.get('periodEnd').split('-').reverse().join('/'),
+    cliente: formData.get('customers') === null ? '0' : formData.get('customers'),
+    agrupa: formData.get('group') === null ? 0 : 1,
+    pendiente: formData.get('pending-payment') === null ? 0 : 1,
     desc_prod: selectedProduct ? selectedProduct.desc_prod : '',
+    producto: formData.get('products') === null ? '' : formData.get('products'),
+    numero: formData.get('voucher-number') === null ? '' : formData.get('voucher-number')
 	}
 }
+
+voucherNumber = document.getElementById('voucher-number')
+voucherNumber.addEventListener('keyup', () => {
+	voucherNumber.value = numbersOnly(voucherNumber.value)
+})

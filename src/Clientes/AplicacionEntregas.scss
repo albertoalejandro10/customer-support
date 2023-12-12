@@ -1,0 +1,87 @@
+@import "../../scss/custom-variables";
+@import "../../scss/loader";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../scss/main";
+
+label {
+	margin-bottom: 0px;
+	margin-right: 4px;
+  &[for="customers"] {
+    margin-right: 18px;
+  }
+  &[for="periodStart"] {
+    margin-right: 16px;
+  }
+}
+
+table {
+	width: 100%;
+	background: #FFFFFF;
+	border: solid 1px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-color: #babfc7;
+}
+
+table thead {
+	font-weight: 700;
+	color: var(--bs-blue-dark);
+	background: #F8F8F8;
+	border-bottom: solid 1px;
+	border-bottom-color: #babfc7;
+}
+
+#voucher-table th {
+	font-size: 12px;
+	padding: 0.5rem 0.375rem;
+	&:nth-child(1) {
+		width: 78px;
+	}
+	&:nth-child(2) {
+		width: 140px;
+	}
+	&:nth-child(3) {
+		width: 250px;
+	}
+	&:nth-child(4) {
+		width: auto;
+	}
+	&:nth-child(5) {
+		width: 80px;
+		text-align: right;
+	}
+	&:nth-child(6) {
+		width: 80px;
+		text-align: right;
+	}
+	&:nth-child(7) {
+		width: 80px;
+		text-align: right;
+	}
+}
+
+#voucher-table td {
+	font-size: 12px;
+	color: var(--bs-blue-dark);
+	border-bottom: 0.4px solid #D5D5D5;
+	padding: 0.1rem 0.375rem;
+	&:nth-child(5) {
+		text-align: right;
+	}
+	&:nth-child(6) {
+		text-align: right;
+	}
+	&:nth-child(7) {
+		text-align: right;
+	}
+}
+
+#voucher-tbody > tr:hover > td:not(.no-hover-table) {
+	background-color: #E8F4FE;
+}

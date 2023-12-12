@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./ComprobantesPendientesEntrega.scss">
+    <link rel="stylesheet" href="./AplicacionEntregas.scss">
     <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -18,33 +18,45 @@
             <h4 id="text-title-form" class="mb-0"></h4>
           </div>
           <div class="col-6 mb-2 text-right">
-            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/PeProVta.aspx?Tipo=REM" target="_self">[Versión anterior]</a>
+            <a class="previous-site" href="https://www.solucioneserp.com.ar/net/webform/ApProVta.aspx" target="_self">[Versión anterior]</a>
           </div>
 
           <div class="col-12">
             <form id="form">
               <div class="row">
 
-                <div class="col-sm-3 col-xl-3">
-                  <div class="d-flex">
+                <div class="col-sm-4 col-xl-3">
+                  <div class="d-flex mb-1">
                     <label for="customers">Cliente:</label>
-                    <select class="customers" name="customers" id="customers" style="width: 100%;">
+                    <select name="customers" id="customers" style="width: 100%;">
                     </select>
                   </div>
-                </div>
 
-                <div class="col-sm-4 col-xl-3">
                   <div class="d-flex">
                     <label for="products">Producto:</label>
-                    <select class="products" name="products" id="products" style="width: 100%;">
+                    <select name="products" id="products" style="width: 100%;">
                     </select>
+                  </div>
+                  
+                </div>
+
+                <div class="col-sm-5 col-xl-4">
+                  <div class="d-flex mb-1">
+                    <label for="periodStart">Período:</label>
+                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                  </div>
+                  <div class="d-flex">
+                    <label class="text-nowrap" for="voucher-number">Nº Comp.:</label>
+                    <input class="form-control text-right" type="text" name="voucher-number" id="voucher-number">
                   </div>
                 </div>
 
-                <div class="col-sm-5 col-xl-3">
-                  <div class="d-flex">
-                    <label for="periodStart">Periodo:</label>
-                    <input class="form-control" type="date" name="periodStart" id="periodStart">-<input class="form-control" type="date" name="periodEnd" id="periodEnd">
+                <div class="col-sm-3 col-xl-2">
+                  <div class="d-flex mb-1">
+                    <label for="group">Agrupar:</label>
+                    <input class="mr-sm-2" type="checkbox" name="group" id="group">
+                    <label for="pending-payment">Pendientes:</label>
+                    <input class="mr-sm-2" type="checkbox" name="pending-payment" id="pending-payment">
                   </div>
                 </div>
 
@@ -72,8 +84,8 @@
                   <th>Cliente</th>
                   <th>Producto</th>
                   <th>Precio</th>
-                  <th>Entregado</th>
-                  <th>Facturado</th>
+                  <th class="text-nowrap">Ud. Entregado</th>
+                  <th class="text-nowrap">Ud. Facturado</th>
                 </tr>
               </thead>
               <tbody id="voucher-tbody">
@@ -89,7 +101,7 @@
       </div>
     </div>
   </body>
-  <script src="./js/ComprobantesPendientesEntregaApis.js"></script>
-  <script src="./js/ComprobantesPendientesEntrega.js"></script>
+  <script src="./js/AplicacionEntregasApis.js"></script>
+  <script src="./js/AplicacionEntregas.js"></script>
   <script src="../jsgen/footer-form.js"></script>
 </html>

@@ -6,8 +6,8 @@ const op = getOpParameter === 'FAC' ? 1 : getOpParameter === 'PED' ? 3 : 2
 // Mueve los valores de la tabla
 if (op === 1 || op === 3) {
 	let table = document.querySelector("#voucher-table")
-	table.rows[1].cells[6].textContent = "ENTREGADO"
-	table.rows[1].cells[5].textContent = "FACTURADO"
+	table.rows[1].cells[6].textContent = "UD. ENTREGADO"
+	table.rows[1].cells[5].textContent = "UD. FACTURADO"
 }
 
 const get_userData = async () => {
@@ -27,10 +27,9 @@ const get_userData = async () => {
 	}
 }
 
-const post_getMovements = async (data) => {
-	console.log(data)
+const post_getMovements = async data => {
 	try {
-		const response = await fetch(process.env.Solu_externo + '/reportes/clientes/get_comprobantes_pendientes_entrega', {
+		const response = await fetch(process.env.Solu_externo + '/reportes/clientes/comprobantes-aplicacion-de-entrega', {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
@@ -55,7 +54,7 @@ const get_dataFromURL = async () => {
 		acc[property] = value
 		return acc
 	}, {})
-	document.getElementById('view-title').textContent = data.tipo === 'FAC' ? 'Facturas Pendiente de Entrega' : data.tipo === 'PED' ? 'Pedidos Pendientes de Entrega' : 'Remitos Pendientes de Facturar'
+	document.getElementById('view-title').textContent = data.tipo === 'FAC' ? 'Detalle de Aplicación de Facturas' : data.tipo === 'PED' ? 'Detalle de Aplicación de Pedidos' : 'Detalle de Aplicación de Remitos'
 	document.getElementById('date').textContent = `${data.dfecha} - ${data.hfecha}`
 	await post_getMovements(data)
 }
@@ -76,9 +75,6 @@ const printTable = vouchers => {
 	Object.entries(vouchers).forEach(([id, value]) => {
 		if (value.length > 1) {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				/* if (op === 1) {
-					[entregado, facturado] = [facturado, entregado]
-				} */
 
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
@@ -128,9 +124,6 @@ const printTable = vouchers => {
 			})
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				/* if (op === 1) {
-					[entregado, facturado] = [facturado, entregado]
-				} */
 				calculateDelivered += entregado
 				calculateInvoiced += facturado
 				const row = document.createElement('tr')

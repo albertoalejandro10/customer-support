@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.min.css">    
+    <link rel="stylesheet" href="./VerAplicacionEntregas.scss">
+    <style type="text/css" media="print">
+    @page {
+      size: auto;
+      margin: 0; 
+    }
+    </style>
+  </head>
+  <body class="m-0 vh-100 row justify-content-center align-items-center">
+    <button type="button" id="print" class="btn btn-dark"><i class="fa-solid fa-print"></i> Imprimir</button>
+    <div class="wrapper">
+      <div class="container rounded col-12" id="printableArea">
+        <div class="row shadow px-2 py-4 big-box mx-auto">
+          <div class="col-12 my-2">
+            <div class="row box justify-content-between">
+              <div class="p-2 text-left">
+                <h2 id="view-title" class="h4 tracking-tight real-blue"></h2>
+                <div class="row">
+                  <div class="col-4">
+                    <p>Período:</p>
+                  </div>
+                  <div class="col-8">
+                    <strong><p id="date" class="real-blue text-nowrap"></p></strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2 text-right">
+                <h1 id="name-company"></h1>
+                <div class="row">
+                  <div class="col-4">
+                    <p>CUIT:</p>
+                  </div>
+                  <div class="col-8">
+                    <strong><p id="cuit-company" class="real-blue text-nowrap"></p></strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 my-4">
+            <div class="row box">
+              <table id="voucher-table" class="table voucher-table">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="7" class="text-center">Comprobantes</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">COMPROBANTE</th>
+                    <th scope="col">CLIENTE</th>
+                    <th scope="col">PRODUCTO</th>
+                    <th scope="col" class="text-right">PRECIO</th>
+                    <th scope="col" class="text-nowrap text-right">UD. ENTREGADO</th>
+                    <th scope="col" class="text-nowrap text-right">UD. FACTURADO</th>
+                  </tr>
+                </thead>
+                  <tr>
+                <tbody id="voucher-tbody">
+                  <!-- Content table -->
+                </tbody>
+                <tfoot class="font-weight-bold" id="voucher-tfoot">
+                  <!-- Foot balance -->
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>TOTALES</td>
+                    <td colspan="3">&nbsp;</td>
+                    <td id="balanceDelivered" class="text-right"></td>
+                    <td id="balanceInvoiced" class="text-right"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/VerAplicacionEntregas.js"></script>
+</html>
