@@ -66,15 +66,21 @@ const post_getMovements = async (data) => {
 const printTable = vouchers => {
 	const voucherTbody = document.getElementById('voucher-tbody')
 
-	let calculateDelivered = 0
-	let calculateInvoiced = 0
+	let totalDelivered = 0
+	let totalInvoiced = 0
 
 	Object.entries(vouchers).forEach(([id, value]) => {
+		let subtotalDelivered = 0
+		let subtotalInvoiced = 0
 		if (value.length > 1) {
       value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
         
-				calculateDelivered += entregado
-				calculateInvoiced += facturado
+				totalDelivered += entregado
+				totalInvoiced += facturado
+
+				subtotalDelivered += entregado
+				subtotalInvoiced += facturado
+
 				const row = document.createElement('tr')
 				
 				// Si es el primer elemento, agregar id y comprobante con rowspan
@@ -127,10 +133,18 @@ const printTable = vouchers => {
 				)
 				voucherTbody.appendChild(row)
 			})
+
+			voucherTbody.appendChild(createSubTotalRow(subtotalDelivered, subtotalInvoiced))
+			
 		} else {
+			let subtotalDelivered = 0
+			let subtotalInvoiced = 0
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				calculateDelivered += entregado
-				calculateInvoiced += facturado
+				subtotalDelivered += entregado
+				subtotalInvoiced += facturado
+
+				totalDelivered += entregado
+				totalInvoiced += facturado
 				const row = document.createElement('tr')
 				const cells = [
 					createCell(fecha),
@@ -146,21 +160,22 @@ const printTable = vouchers => {
 				})
 				row.append(...cells)
 				voucherTbody.appendChild(row)
-		 })
+			})
+			voucherTbody.appendChild(createSubTotalRow(subtotalDelivered, subtotalInvoiced))
 		}
 	})
 
 	const row = document.createElement('tr')
-	const finalBalanceText = createCell('Subtotal')
+	const finalBalanceText = createCell('TOTALES')
 	finalBalanceText.classList.add('py-2')
 	finalBalanceText.classList.add('font-weight-bold')
 	const emptyCell = createCell()
 	emptyCell.colSpan = 3
-	const finalBalanceDelivered = createCell(format_number(calculateDelivered))
+	const finalBalanceDelivered = createCell(format_number(totalDelivered))
 	finalBalanceDelivered.classList.add('py-2')
 	finalBalanceDelivered.classList.add('text-right')
 	finalBalanceDelivered.classList.add('font-weight-bold')
-	const finalBalanceInvoiced = createCell(format_number(calculateInvoiced))
+	const finalBalanceInvoiced = createCell(format_number(totalInvoiced))
 	finalBalanceInvoiced.classList.add('py-2')
 	finalBalanceInvoiced.classList.add('text-right')
 	finalBalanceInvoiced.classList.add('font-weight-bold')
@@ -172,6 +187,32 @@ const printTable = vouchers => {
 		finalBalanceInvoiced
 	)
 	voucherTbody.appendChild(row)
+}
+
+const createSubTotalRow = (delivered, invoiced) => {
+	const row = document.createElement('tr')
+	const subTotalText = createCell('Subtotal')
+	subTotalText.classList.add('font-weight-bold')
+	const emptyCell = createCell()
+	emptyCell.colSpan = 3
+	const subTotalDelivered = createCell(format_number(delivered))
+	subTotalDelivered.classList.add('text-right')
+	subTotalDelivered.classList.add('font-weight-bold')
+	const subTotalInvoiced = createCell(format_number(invoiced))
+	subTotalInvoiced.classList.add('text-right')
+	subTotalInvoiced.classList.add('font-weight-bold')
+	const cells = [
+		createCell(),
+		subTotalText,
+		emptyCell,
+		subTotalDelivered,
+		subTotalInvoiced
+	]
+	cells.forEach(cell => {
+		cell.style.borderBottom = '0.4px solid #808080'
+	})
+	row.append(...cells)
+	return row
 }
 
 const form = document.getElementById('form')

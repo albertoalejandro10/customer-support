@@ -69,15 +69,22 @@ if (tkn) {
 const printTable = vouchers => {
 	const voucherTbody = document.getElementById('voucher-tbody')
 
-	let calculateDelivered = 0
-	let calculateInvoiced = 0
+	let totalDelivered = 0
+	let totalInvoiced = 0
 
 	Object.entries(vouchers).forEach(([id, value]) => {
+		let subtotalDelivered = 0
+		let subtotalInvoiced = 0
 		if (value.length > 1) {
+			let subtotalDelivered = 0
+			let subtotalInvoiced = 0
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
 
-				calculateDelivered += entregado
-				calculateInvoiced += facturado
+				totalDelivered += entregado
+				totalInvoiced += facturado
+
+				subtotalDelivered += entregado
+				subtotalInvoiced += facturado
 				const row = document.createElement('tr')
 
 				// Si es el primer elemento, agregar id y comprobante con rowspan
@@ -122,10 +129,15 @@ const printTable = vouchers => {
 				)
 				voucherTbody.appendChild(row)
 			})
+			voucherTbody.appendChild(createSubTotalRow(subtotalDelivered, subtotalInvoiced))
 		} else {
 			value.forEach(({ cliente, comp_orig, comprobante, entregado, facturado, fecha, id, importe, observ, precio, producto }, index) => {
-				calculateDelivered += entregado
-				calculateInvoiced += facturado
+				
+				subtotalDelivered += entregado
+				subtotalInvoiced += facturado
+
+				totalDelivered += entregado
+				totalInvoiced += facturado
 				const row = document.createElement('tr')
 				const cells = [
 					createCell(fecha),
@@ -142,10 +154,37 @@ const printTable = vouchers => {
 				row.append(...cells)
 				voucherTbody.appendChild(row)
 			})
+			voucherTbody.appendChild(createSubTotalRow(subtotalDelivered, subtotalInvoiced))
 		}
 	})
-	document.getElementById('balanceDelivered').textContent = format_number(calculateDelivered)
-	document.getElementById('balanceInvoiced').textContent = format_number(calculateInvoiced)
+	document.getElementById('balanceDelivered').textContent = format_number(totalDelivered)
+	document.getElementById('balanceInvoiced').textContent = format_number(totalInvoiced)
+}
+
+const createSubTotalRow = (delivered, invoiced) => {
+	const row = document.createElement('tr')
+	const subTotalText = createCell('Subtotal')
+	subTotalText.classList.add('font-weight-bold')
+	const emptyCell = createCell()
+	emptyCell.colSpan = 3
+	const subTotalDelivered = createCell(format_number(delivered))
+	subTotalDelivered.classList.add('text-right')
+	subTotalDelivered.classList.add('font-weight-bold')
+	const subTotalInvoiced = createCell(format_number(invoiced))
+	subTotalInvoiced.classList.add('text-right')
+	subTotalInvoiced.classList.add('font-weight-bold')
+	const cells = [
+		createCell(),
+		subTotalText,
+		emptyCell,
+		subTotalDelivered,
+		subTotalInvoiced
+	]
+	cells.forEach(cell => {
+		cell.style.borderBottom = '0.4px solid #808080'
+	})
+	row.append(...cells)
+	return row
 }
 
 document.getElementById('print').addEventListener('click', () => {
